@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #pragma once
@@ -49,7 +49,8 @@ public:
 	void SetSelectedExampleCodeData(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
 
 private:
-	void MyDisplay_5_2();
+	void Code_5_2();
+	void Code_5_4();
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

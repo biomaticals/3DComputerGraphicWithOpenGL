@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #include "ResourceManager.h"
@@ -244,5 +244,61 @@ const std::string ResourceManager::FindTitleContext(unsigned int InPart, unsigne
 	}
 
 	return Found;
+}
+#pragma endregion
+
+#pragma region Input & Description
+bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::string& OutInputContext, std::string& OutDescriptionContext)
+{
+	std::string InputAndDescriptionPath = InputAndDescriptionPathBase + std::format("_Part{}", InPart) + ".txt";
+
+	std::ifstream ContextStream(InputAndDescriptionPath, std::ios::in);
+	if (!ContextStream)
+	{
+		std::cerr << std::format("failed to open {}\n", InputAndDescriptionPath);
+		return {};
+	}
+
+	std::string Line{};
+	std::string Target = std::format("Code {}-{}", InChapter, InCodeIndex);
+	std::string KeywordInput = "Input:";
+	std::string KeywordDescription = "Description:";
+	bool bFoundInput = false;
+	bool bFoundDescription = false;
+	while (std::getline(ContextStream, Line))
+	{
+		if (!bFoundInput)
+		{
+			if (auto Position = Line.find(KeywordInput); Position != std::string::npos)
+			{
+				OutInputContext = std::string(Line).substr(Position + KeywordInput.length());
+				bFoundInput = true;
+				continue;
+			}
+		}
+		else if (!bFoundDescription)
+		{
+			if (auto Position = Line.find(KeywordDescription); Position != std::string::npos)
+			{
+				OutDescriptionContext = std::string(Line).substr(Position + KeywordDescription.length());
+				bFoundDescription = true;
+				continue;
+			}
+		}
+		
+		if (bFoundInput && !bFoundDescription)
+		{
+			OutInputContext += "\n" + Line;
+		}
+		else if (bFoundInput && bFoundDescription)
+		{
+			OutDescriptionContext += "\n" + Line;
+		}
+		
+	}
+
+	ContextStream.close();
+
+	return !(OutInputContext.empty() && OutDescriptionContext.empty());
 }
 #pragma endregion

@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #pragma once
@@ -43,5 +43,13 @@ public:
 private:
 	FBook Book;
 	std::string TableOfContentsPath = "Resource\\TableOfContents.txt";
+#pragma endregion
+
+#pragma region Input & Description
+public:
+	bool FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::string& OutInputContext, std::string& OutDescriptionContext);
+
+private:
+	std::string InputAndDescriptionPathBase = "Resource\\InputAndDescription";
 #pragma endregion
 };

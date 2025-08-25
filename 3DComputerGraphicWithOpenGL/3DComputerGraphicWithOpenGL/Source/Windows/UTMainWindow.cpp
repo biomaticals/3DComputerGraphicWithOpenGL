@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https:github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https:github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #include "UTMainWindow.h"
@@ -126,7 +126,7 @@ ImGuiContext* UTMainWindow::GetGuiContext() const
 
 void UTMainWindow::DrawInputWindow()
 {
-
+	ImGui::Text(InputContext.data());
 }
 
 void UTMainWindow::DrawSelectorWindow()
@@ -165,6 +165,7 @@ void UTMainWindow::DrawSelectorWindow()
 							{
 								if (Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].IsValid() && ImGui::MenuItem(Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].Title.c_str()))
 								{
+									RESOURCE_MANAGER->FindInputAndDescriptionContext(i, j, k, l, InputContext, DescriptionContext);
 									OUTPUT_WINDOW->SetSelectedExampleCodeData(i, j, k, l);
 									glfwShowWindow(OUTPUT_WINDOW->GetGLFWWindow());
 								}
@@ -182,7 +183,7 @@ void UTMainWindow::DrawSelectorWindow()
 
 void UTMainWindow::DrawDescriptionWindow()
 {
-
+	ImGui::Text(DescriptionContext.data());
 }
 
 void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
@@ -227,9 +228,11 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 
 
 		ImGui::Text("To visit my technical blog, please follow this link.");
-		ImGui::Text("Unfortunately, the technical blog does not support English.");
+		ImGui::TextLinkOpenURL("https:biomaticals.notion.site/biomaticals");
 		ImGui::NewLine();
-		ImGui::TextLinkOpenURL("https:biomaticals.notion.site/GUI-1daed2b75184805fa19cfd4eb4be638f?pvs=4");
+		ImGui::Text("Unfortunately, the technical blog does not support English.");
+		ImGui::Text("But you're welcome to call the number below or email us.I’ll be glad to assist you in English.");
+		ImGui::NewLine();
 		ImGui::NewLine();
 		ImGui::Text("To contact, please use the phone number or email address below.");
 		ImGui::Text("Phone Number : +82 10 3902 8624 (Republic of Korea)");

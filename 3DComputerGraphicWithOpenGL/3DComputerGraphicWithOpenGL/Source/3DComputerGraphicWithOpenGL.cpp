@@ -34,6 +34,8 @@ int main(int, char**)
 	ImGui::SetCurrentContext(MAIN_WINDOW->GetGuiContext());
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui_ImplGlfw_InitForOpenGL(MAIN_WINDOW->GetGLFWWindow(), true);
+	glGetString(GL_VERSION);
+	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
 	if (OUTPUT_WINDOW->GetGLFWWindow())
 	{

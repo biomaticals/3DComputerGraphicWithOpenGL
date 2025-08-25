@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #include "UTOutputWindow.h"
@@ -75,9 +75,10 @@ void UTOutputWindow::Initialize()
 
 	DrawFunctions.clear();
 	DrawFunctions.resize(6);
-	DrawFunctions[5].resize(3);
+	DrawFunctions[5].resize(5);
 
-	DrawFunctions[5][2] = &UTOutputWindow::MyDisplay_5_2;
+	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
+	DrawFunctions[5][4] = &UTOutputWindow::Code_5_4;
 }
 
 void UTOutputWindow::RenderDrawData()
@@ -95,7 +96,7 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 	OutputExampleCodeData.Description = "";
 }
 
-void UTOutputWindow::MyDisplay_5_2()
+void UTOutputWindow::Code_5_2()
 {
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -109,4 +110,10 @@ void UTOutputWindow::MyDisplay_5_2()
 	glEnd();
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_5_4()
+{
+	
+
 }
