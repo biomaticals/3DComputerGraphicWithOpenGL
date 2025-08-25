@@ -10,6 +10,11 @@ UTMainWindow::UTMainWindow(const std::string& Title, int Width, int Height)
 	: UTWindow(Title, Width, Height)
 {
 	Initialize();
+
+	SelectedPart = 0;
+	SelectedChapter = 0;
+	SelectedSection = 0;
+	SelectedCode = 0;
 }
 
 UTMainWindow::~UTMainWindow()
@@ -30,7 +35,7 @@ void UTMainWindow::RenderUI()
 {
 	static bool no_titlebar = false;
 	static bool no_scrollbar = false;
-	static bool no_menu = false;
+	static bool no_menu = true;
 	static bool no_move = true;
 	static bool no_resize = true;
 	static bool no_collapse = true;
@@ -57,21 +62,21 @@ void UTMainWindow::RenderUI()
 	float InputWindowTitleBarSize = ImGui::GetFontSize() + ImGui::GetStyle().FramePadding.y * 2;
 	ImGui::SetNextWindowPos(ImVec2(MainViewport->WorkPos.x, MainViewport->WorkPos.y),ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->Size.y / 2.f), ImGuiCond_Always);
-	ImGui::Begin("InputWindow", &ShowInputWindow, CoreWindowFlags);
+	ImGui::Begin("Input", &ShowInputWindow, CoreWindowFlags);
 	InputWindow = ImGui::GetCurrentWindow();
 	DrawInputWindow();
 	ImGui::End();
 	
 	ImGui::SetNextWindowPos(ImVec2(MainViewport->WorkPos.x, MainViewport->Size.y / 2.f + InputWindowTitleBarSize), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->Size.y / 2.f - InputWindowTitleBarSize), ImGuiCond_Always);
-	ImGui::Begin("DescriptionWindow", &ShowDescriptionWindow, CoreWindowFlags);
+	ImGui::Begin("Description", &ShowDescriptionWindow, CoreWindowFlags);
 	DescriptionWindow = ImGui::GetCurrentWindow();
 	DrawDescriptionWindow();
 	ImGui::End();
 	
 	ImGui::SetNextWindowPos(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->WorkPos.y), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(4.f * MainViewport->Size.x / 10.f, MainViewport->Size.y), ImGuiCond_Always);
-	ImGui::Begin("SelectorWindow", &ShowSelectorWindow, CoreWindowFlags);
+	ImGui::Begin("Selector", &ShowSelectorWindow, CoreWindowFlags);
 	SelectorWindow = ImGui::GetCurrentWindow();
 	DrawSelectorWindow();
 	ImGui::End();
@@ -144,30 +149,46 @@ void UTMainWindow::DrawSelectorWindow()
 		}
 	}
 
-	for (int i = 0 ; i < Book.Parts.size(); i++)
+	for (unsigned int i = 0 ; i < Book.Parts.size(); i++)
 	{
 		if (Book.Parts[i].IsValid() && ImGui::CollapsingHeader(Book.Parts[i].Title.c_str()))
 		{
 			ImGui::Indent();
-			for (int j = 0 ; j < Book.Parts[i].Chapters.size() ; j++)
+			for (unsigned int j = 0 ; j < Book.Parts[i].Chapters.size() ; j++)
 			{
 				if (Book.Parts[i].Chapters[j].IsValid() && ImGui::CollapsingHeader(Book.Parts[i].Chapters[j].Title.c_str()))
 				{
 					ImGui::Indent();
-
-
-					for (int k = 0 ; k < Book.Parts[i].Chapters[j].Sections.size() ; k++)
+					for (unsigned int k = 0 ; k < Book.Parts[i].Chapters[j].Sections.size() ; k++)
 					{
 						if (Book.Parts[i].Chapters[j].Sections[k].IsValid() && ImGui::CollapsingHeader(Book.Parts[i].Chapters[j].Sections[k].Title.c_str()))
 						{
 							ImGui::Indent();
-							for (int l = 0 ; l <Book.Parts[i].Chapters[j].Sections[k].ExampleCodes.size() ; l++)
+							for (unsigned int l = 0 ; l <Book.Parts[i].Chapters[j].Sections[k].ExampleCodes.size() ; l++)
 							{
-								if (Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].IsValid() && ImGui::MenuItem(Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].Title.c_str()))
+								if (Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].IsValid())
 								{
-									RESOURCE_MANAGER->FindInputAndDescriptionContext(i, j, k, l, InputContext, DescriptionContext);
-									OUTPUT_WINDOW->SetSelectedExampleCodeData(i, j, k, l);
-									glfwShowWindow(OUTPUT_WINDOW->GetGLFWWindow());
+									bool IsSelected = false;
+									if (i == SelectedPart && j == SelectedChapter && k == SelectedSection && l == SelectedCode)
+									{
+										IsSelected = true;
+										double Time = ImGui::GetTime();
+										float Blink = sin(2.f * Time) * 0.5f + 1.f;
+										ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f * Blink, 0.2f, 0.2f, 1.0f));
+									}
+
+									if (ImGui::MenuItem(Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].Title.c_str()))
+									{
+										OnSelected(i, j, k, l);
+										RESOURCE_MANAGER->FindInputAndDescriptionContext(i, j, k, l, InputContext, DescriptionContext);
+										OUTPUT_WINDOW->SetSelectedExampleCodeData(i, j, k, l);
+										glfwShowWindow(OUTPUT_WINDOW->GetGLFWWindow());
+									}
+
+									if (IsSelected)
+									{
+										ImGui::PopStyleColor();
+									}
 								}
 							}
 							ImGui::Unindent();
@@ -251,4 +272,12 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 
 	ImGui::EndPopup();
 	ImGui::SetWindowFocus("Introduction");
+}
+
+void UTMainWindow::OnSelected(unsigned int Part, unsigned int Chapter, unsigned int Section, unsigned int Code)
+{
+	SelectedPart = Part;
+	SelectedChapter = Chapter;
+	SelectedSection = Section;
+	SelectedCode = Code;
 }

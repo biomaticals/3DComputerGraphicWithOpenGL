@@ -26,6 +26,7 @@ private:
 	void DrawDescriptionWindow();
 
 	void ShowIntroductionWindow(bool* bOpen);
+	void OnSelected(unsigned int Part, unsigned int Chapter, unsigned int Section, unsigned int Code);
 
 public:
 	bool ShowInputWindow = true;
@@ -43,6 +44,12 @@ private:
 	const ImGuiWindow* SelectorWindow = nullptr;
 
 	FBook Book;
+
+
+	unsigned int SelectedPart;
+	unsigned int SelectedChapter;
+	unsigned int SelectedSection;
+	unsigned int SelectedCode;
 
 	std::string InputContext;
 	std::string DescriptionContext;
