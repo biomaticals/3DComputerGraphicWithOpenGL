@@ -4,11 +4,22 @@
 
 Code 5-2
 Input:
-
-asdf
-
-
-
-
+void UTOutputWindow::Code_5_2()
+{
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.5f, -0.5f, 0.f);
+	glVertex3f(0.5f, -0.5, 0.f);
+	glVertex3f(0.5f, 0.5f, 0.f);
+	glVertex3f(-0.5f, 0.5f, 0.f);
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
 Description:
-asdfasdf
+glClear(GL_COLOR_BUFFER_BIT) function clears the color buffer (sets the background color). 
+glBegin(GL_POLYGON) and glEnd() functions define a polygon (in this case, a rectangle) by specifying its vertices using glVertex3f() function.
+glFlush() function forces execution of OpenGL commands in finite time.)

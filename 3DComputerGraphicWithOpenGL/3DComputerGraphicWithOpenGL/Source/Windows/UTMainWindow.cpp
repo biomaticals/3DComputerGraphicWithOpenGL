@@ -131,7 +131,9 @@ ImGuiContext* UTMainWindow::GetGuiContext() const
 
 void UTMainWindow::DrawInputWindow()
 {
+	ImGui::PushTextWrapPos();
 	ImGui::Text(InputContext.data());
+	ImGui::PopTextWrapPos();
 }
 
 void UTMainWindow::DrawSelectorWindow()
@@ -204,7 +206,9 @@ void UTMainWindow::DrawSelectorWindow()
 
 void UTMainWindow::DrawDescriptionWindow()
 {
+	ImGui::PushTextWrapPos();
 	ImGui::Text(DescriptionContext.data());
+	ImGui::PopTextWrapPos();
 }
 
 void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
