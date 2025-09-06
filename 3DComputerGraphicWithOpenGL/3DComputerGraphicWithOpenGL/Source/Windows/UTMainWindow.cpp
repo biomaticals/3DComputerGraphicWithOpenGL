@@ -62,21 +62,21 @@ void UTMainWindow::RenderUI()
 	float InputWindowTitleBarSize = ImGui::GetFontSize() + ImGui::GetStyle().FramePadding.y * 2;
 	ImGui::SetNextWindowPos(ImVec2(MainViewport->WorkPos.x, MainViewport->WorkPos.y),ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->Size.y / 2.f), ImGuiCond_Always);
-	ImGui::Begin("Input", &ShowInputWindow, CoreWindowFlags);
+	ImGui::Begin(WStringToUtf8(L"입력").c_str(), &ShowInputWindow, CoreWindowFlags);
 	InputWindow = ImGui::GetCurrentWindow();
 	DrawInputWindow();
 	ImGui::End();
 	
 	ImGui::SetNextWindowPos(ImVec2(MainViewport->WorkPos.x, MainViewport->Size.y / 2.f + InputWindowTitleBarSize), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->Size.y / 2.f - InputWindowTitleBarSize), ImGuiCond_Always);
-	ImGui::Begin("Description", &ShowDescriptionWindow, CoreWindowFlags);
+	ImGui::Begin(WStringToUtf8(L"설명").c_str(), &ShowDescriptionWindow, CoreWindowFlags);
 	DescriptionWindow = ImGui::GetCurrentWindow();
 	DrawDescriptionWindow();
 	ImGui::End();
 	
 	ImGui::SetNextWindowPos(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->WorkPos.y), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(4.f * MainViewport->Size.x / 10.f, MainViewport->Size.y), ImGuiCond_Always);
-	ImGui::Begin("Selector", &ShowSelectorWindow, CoreWindowFlags);
+	ImGui::Begin(WStringToUtf8(L"선택").c_str(), &ShowSelectorWindow, CoreWindowFlags);
 	SelectorWindow = ImGui::GetCurrentWindow();
 	DrawSelectorWindow();
 	ImGui::End();
@@ -89,7 +89,7 @@ void UTMainWindow::RenderUI()
 
 	if (ImGui::BeginMainMenuBar())
 	{
-		ImGui::MenuItem("Introduction", nullptr, &bShowIntroduction);
+		ImGui::MenuItem(WStringToUtf8(L"소개").c_str(), nullptr, &bShowIntroduction);
 		ImGui::EndMainMenuBar();
 	}
 
@@ -232,40 +232,39 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 	PopupFlags |= ImGuiPopupFlags_AnyPopupLevel;
 	PopupFlags |= ImGuiPopupFlags_MouseButtonLeft;
 
-	ImGui::OpenPopup("Introduction", PopupFlags);
-	if(ImGui::BeginPopupModal("Introduction", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	ImGui::OpenPopup(WStringToUtf8(L"Introduction").c_str(), PopupFlags);
+	if (ImGui::BeginPopupModal(WStringToUtf8(L"Introduction").c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::SeparatorText("3D CG With OpenGl by biomatic");
-		ImGui::Text("This project was initiated to learn and practice the OpenGL API.");
-		ImGui::Text("The content is adapted from a book \"3D Computer Graphics with OpenGL\".");
-		ImGui::Text("Through this program, you can view and run the code examples from each part and chapter.");
-		ImGui::Text("From \"Selector window\", choose part, chapter and title to proceed.");
-		ImGui::Text("And then, \"Main window\" shows the codes, \"Sub window\" outputs the results.");
+		ImGui::SeparatorText(WStringToUtf8(L"OpenGL로 배우는 3D 컴퓨터 그래픽 - biomatic").c_str());
+		ImGui::Text(WStringToUtf8(L"이 프로젝트는 OpenGL API를 학습하고 실습하기 위해 시작되었습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"내용은 \"3D Computer Graphics with OpenGL\"이라는 책을 기반으로 구성되어 있습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"이 프로그램을 통해 각 파트와 챕터의 코드 예제를 직접 확인하고 실행할 수 있습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"먼저 \"선택 창\"에서 파트, 챕터, 제목을 선택하세요.").c_str());
+		ImGui::Text(WStringToUtf8(L"그 후 \"메인 창\"'에 코드가 표시되고, \"서브 창\"에서 실행 결과가 출력됩니다.").c_str());
 		ImGui::NewLine();
-		ImGui::Text("To learn more about the book, please follow this link.");
-		ImGui::TextLinkOpenURL("https:www.hanbit.co.kr/store/books/look.php?p_code=B1779572378");
+		ImGui::Text(WStringToUtf8(L"책에 대해 더 알고 싶다면 아래 링크를 참고하세요.").c_str());
+		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://www.hanbit.co.kr/store/books/look.php?p_code=B1779572378").c_str());
 		ImGui::NewLine();
-		ImGui::Text("To access the open source for this program, please follow this link.");
-		ImGui::TextLinkOpenURL("https:github.com/biomaticals/3DComputerGraphicWithOpenGL");
+		ImGui::Text(WStringToUtf8(L"이 프로그램의 오픈소스는 아래 링크에서 확인할 수 있습니다.").c_str());
+		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://github.com/biomaticals/3DComputerGraphicWithOpenGL").c_str());
 		ImGui::NewLine();
-		ImGui::SeparatorText("biomatic");
-		ImGui::Text("I am a game client programmer from Korea with 4 years of experience.");
-		ImGui::NewLine();
-
-
-		ImGui::Text("To visit my technical blog, please follow this link.");
-		ImGui::TextLinkOpenURL("https:biomaticals.notion.site/biomaticals");
-		ImGui::NewLine();
-		ImGui::Text("Unfortunately, the technical blog does not support English.");
-		ImGui::Text("But you're welcome to call the number below or email us.I’ll be glad to assist you in English.");
-		ImGui::NewLine();
-		ImGui::NewLine();
-		ImGui::Text("To contact, please use the phone number or email address below.");
-		ImGui::Text("Phone Number : +82 10 3902 8624 (Republic of Korea)");
-		ImGui::Text("E-mail : biomaticals@naver.com");
+		ImGui::SeparatorText(WStringToUtf8(L"biomatic 소개").c_str());
+		ImGui::Text(WStringToUtf8(L"저는 대한민국에서 4년 경력의 게임 클라이언트 프로그래머입니다.").c_str());
 		ImGui::NewLine();
 
-		if (ImGui::Button("Close", ImVec2(-FLT_MIN, 0.f)))
+		ImGui::Text(WStringToUtf8(L"기술 블로그는 아래 링크에서 확인하실 수 있습니다.").c_str());
+		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://biomaticals.notion.site/biomaticals").c_str());
+		ImGui::NewLine();
+		ImGui::Text(WStringToUtf8(L"아쉽게도 블로그는 현재 영어를 지원하지 않습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"하지만 아래 전화번호나 이메일로 연락 주시면 영어로도 도움을 드릴 수 있습니다.").c_str());
+		ImGui::NewLine();
+		ImGui::NewLine();
+		ImGui::Text(WStringToUtf8(L"문의는 아래 연락처를 이용해주세요.").c_str());
+		ImGui::Text(WStringToUtf8(L"전화번호 : +82 10 3902 8624 (대한민국)").c_str());
+		ImGui::Text(WStringToUtf8(L"이메일 : biomaticals@naver.com").c_str());
+		ImGui::NewLine();
+
+		if (ImGui::Button(WStringToUtf8(L"닫기").c_str(), ImVec2(-FLT_MIN, 0.f)))
 		{
 			ImGui::CloseCurrentPopup();
 			*bOpen = false;
@@ -276,7 +275,7 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 	}
 
 	ImGui::EndPopup();
-	ImGui::SetWindowFocus("Introduction");
+	ImGui::SetWindowFocus(WStringToUtf8(L"Introduction").c_str());
 }
 
 void UTMainWindow::OnSelected(unsigned int Part, unsigned int Chapter, unsigned int Section, unsigned int Code)

@@ -57,7 +57,7 @@ private:
 	void Code_5_5_Start();
 	void Code_5_5();
 	void Code_5_5_End();
-	void Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
+	static void Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
 
 
 private:

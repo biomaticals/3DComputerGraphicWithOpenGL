@@ -3,6 +3,7 @@
 
 #include "UTOutputWindow.h"
 #include "Manager/ResourceManager.h"
+#include "Manager/WindowManager.h"
 #include "Common.h"
 
 FExampleCode::FExampleCode()
@@ -124,6 +125,11 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 
 	if (LastOutputExampleCodeData.IsValid() && LastOutputExampleCodeData.EndDrawFunction)
 		(this->*LastOutputExampleCodeData.EndDrawFunction)();
+
+	if(OutputExampleCodeData.IsValid() && OutputExampleCodeData.StartDrawFunction)
+		(this->*OutputExampleCodeData.StartDrawFunction)();
+
+	glfwSetWindowShouldClose(GetGLFWWindow(), GLFW_FALSE);
 }
 
 void UTOutputWindow::Code_5_2()
@@ -165,9 +171,8 @@ void UTOutputWindow::Code_5_4()
 
 void UTOutputWindow::Code_5_5_Start()
 {
-	glfwSetFramebufferSizeCallback(GetGLFWWindow(), GLFWframebuffersizefun());
+	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
 }
-
 
 void UTOutputWindow::Code_5_5()
 {
@@ -176,6 +181,10 @@ void UTOutputWindow::Code_5_5()
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
@@ -183,18 +192,21 @@ void UTOutputWindow::Code_5_5()
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
 	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
 }
 
 void UTOutputWindow::Code_5_5_End()
 {
-	glfwSwapBuffers(GetGLFWWindow());
+	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
 }
 
 void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
 {
+	int display_w, display_h;
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, NewWidth, NewHeight);
-	GLfloat WidthFactor = (GLfloat)NewWidth / (GLfloat)300.f;
-	GLfloat HeightFactor = (GLfloat)NewHeight / (GLfloat)300.f;
+	GLfloat WidthFactor = (GLfloat)NewWidth / (GLfloat)display_w;
+	GLfloat HeightFactor = (GLfloat)NewHeight / (GLfloat)display_h;
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f * WidthFactor, 1.f * WidthFactor, -1.f * HeightFactor, 1.f * HeightFactor, -1.f, 1.f);
