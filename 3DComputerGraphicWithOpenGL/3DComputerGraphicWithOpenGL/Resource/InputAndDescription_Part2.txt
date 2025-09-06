@@ -23,3 +23,40 @@ Description:
 glClear(GL_COLOR_BUFFER_BIT) function clears the color buffer (sets the background color). 
 glBegin(GL_POLYGON) and glEnd() functions define a polygon (in this case, a rectangle) by specifying its vertices using glVertex3f() function.
 glFlush() function forces execution of OpenGL commands in finite time.)
+
+Code 5-4
+Input:
+void UTOutputWindow::Code_5_4()
+{
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.f, 1.f, 1.f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.5f, -0.5f, 0.f);
+	glVertex3f(0.5f, -0.5, 0.f);
+	glVertex3f(0.5f, 0.5f, 0.f);
+	glVertex3f(-0.5f, 0.5f, 0.f);
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
+Description:
+glColor3f(1.f, 1.f, 1.f) function sets the current drawing color to white (RGB values of 1, 1, 1).
+
+glClearColor(0.f, 0.f, 0.f, 1.f) function sets the clear color to black (RGBA values of 0, 0, 0, 1).
+
+glMatrixMode(GL_PROJECTION) function sets the current matrix mode to projection, which is used for defining the viewing volume.
+
+GL_PROJECTION is a symbolic constant that specifies the projection matrix stack.
+GL_MODELVIEW is a symbolic constant that specifies the modelview matrix stack.
+GL_TEXTURE is a symbolic constant that specifies the texture matrix stack.
+glLoadIdentity() function resets the current matrix to the identity matrix.
+
+glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f) function defines a 2D orthographic projection matrix
+with the specified left, right, bottom, top, near, and far clipping planes.

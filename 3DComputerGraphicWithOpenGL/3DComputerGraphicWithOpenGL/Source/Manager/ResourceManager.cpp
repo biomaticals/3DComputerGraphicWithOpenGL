@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Windows/UTOutputWindow.h"
 #include "format"
+#include <regex>
 
 ResourceManager* ResourceManager::Instance = nullptr;
 
@@ -260,13 +261,23 @@ bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsign
 	}
 
 	std::string Line{};
-	std::string Target = std::format("Code {}-{}", InChapter, InCodeIndex);
+	std::string TargetCode = "Code " + std::format("{}-{}", InChapter, InCodeIndex);
 	std::string KeywordInput = "Input:";
 	std::string KeywordDescription = "Description:";
+	std::regex Delimeter(R"(Code \d+-\d+)");
+	bool bFoundTarget = false;
 	bool bFoundInput = false;
 	bool bFoundDescription = false;
 	while (std::getline(ContextStream, Line))
 	{
+		if (Line == TargetCode)
+		{
+			bFoundTarget = true;
+		}
+
+		if(!bFoundTarget)
+			continue;
+
 		if (!bFoundInput)
 		{
 			if (auto Position = Line.find(KeywordInput); Position != std::string::npos)
@@ -283,6 +294,13 @@ bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsign
 				OutDescriptionContext = std::string(Line).substr(Position + KeywordDescription.length());
 				bFoundDescription = true;
 				continue;
+			}
+		}
+		else if (bFoundInput && bFoundDescription)
+		{
+			if (std::regex_match(Line, Delimeter))
+			{
+				break;
 			}
 		}
 		

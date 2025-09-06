@@ -114,6 +114,21 @@ void UTOutputWindow::Code_5_2()
 
 void UTOutputWindow::Code_5_4()
 {
-	
-
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.f, 1.f, 1.f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.5f, -0.5f, 0.f);
+	glVertex3f(0.5f, -0.5, 0.f);
+	glVertex3f(0.5f, 0.5f, 0.f);
+	glVertex3f(-0.5f, 0.5f, 0.f);
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
 }
