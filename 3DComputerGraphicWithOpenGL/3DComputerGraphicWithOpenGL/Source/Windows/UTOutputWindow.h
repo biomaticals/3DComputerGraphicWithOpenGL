@@ -25,16 +25,17 @@ class UTOutputWindow;
 struct FExampleCode
 {
 	FExampleCode();
-	FExampleCode(const std::string& InTitle);
-	FExampleCode(const std::string& InTitle, void (UTOutputWindow::* InDrawFunction)(), const std::string& InDescription);
+	FExampleCode(const std::wstring& InTitle);
+	FExampleCode(const std::wstring& InTitle, void (UTOutputWindow::* InDrawFunction)(), void (UTOutputWindow::* InStartDrawFunction)(), void(UTOutputWindow::* InEndDrawFunction)());
 	FExampleCode(const FExampleCode& Other);
 	~FExampleCode();
 	const FExampleCode& operator=(const FExampleCode& Other);
 	bool IsValid() const;
 
-	std::string Title;
+	std::wstring Title;
 	void (UTOutputWindow::* DrawFunction)() = nullptr;
-	std::string Description;
+	void (UTOutputWindow::* StartDrawFunction)() = nullptr;
+	void (UTOutputWindow::* EndDrawFunction)() = nullptr;
 };
 
 class UTOutputWindow : public UTWindow
@@ -50,11 +51,23 @@ public:
 
 private:
 	void Code_5_2();
+
 	void Code_5_4();
+
+	void Code_5_5_Start();
+	void Code_5_5();
+	void Code_5_5_End();
+	void Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
+
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;
+
+	std::vector<std::vector<DrawFuncPtr>> StartDrawFunctions;
+	std::vector<std::vector<DrawFuncPtr>> EndDrawFunctions;
+
 public:
 	FExampleCode OutputExampleCodeData;
+	FExampleCode LastOutputExampleCodeData;
 };

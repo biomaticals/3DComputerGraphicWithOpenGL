@@ -38,18 +38,18 @@ public:
 	bool LoadTitleContext();
 	FBook GetBook() const;
 
-	const std::string FindTitleContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
+	const std::wstring FindTitleContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
 	
 private:
 	FBook Book;
-	std::string TableOfContentsPath = "Resource\\TableOfContents.txt";
+	std::wstring TableOfContentsPath = L"Resource\\TableOfContents.txt";
 #pragma endregion
 
 #pragma region Input & Description
 public:
-	bool FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::string& OutInputContext, std::string& OutDescriptionContext);
+	bool FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::wstring& OutInputContext, std::wstring& OutDescriptionContext);
 
 private:
-	std::string InputAndDescriptionPathBase = "Resource\\InputAndDescription";
+	std::wstring InputAndDescriptionPathBase = L"Resource\\InputAndDescription";
 #pragma endregion
 };

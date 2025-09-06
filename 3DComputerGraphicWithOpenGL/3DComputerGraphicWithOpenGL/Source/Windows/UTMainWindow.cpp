@@ -132,7 +132,8 @@ ImGuiContext* UTMainWindow::GetGuiContext() const
 void UTMainWindow::DrawInputWindow()
 {
 	ImGui::PushTextWrapPos();
-	ImGui::Text(InputContext.data());
+	// std::wstring → std::string 변환 후 출력
+	ImGui::Text("%s", WStringToUtf8(InputContext).c_str());
 	ImGui::PopTextWrapPos();
 }
 
@@ -153,17 +154,17 @@ void UTMainWindow::DrawSelectorWindow()
 
 	for (unsigned int i = 0 ; i < Book.Parts.size(); i++)
 	{
-		if (Book.Parts[i].IsValid() && ImGui::CollapsingHeader(Book.Parts[i].Title.c_str()))
+		if (Book.Parts[i].IsValid() && ImGui::CollapsingHeader(WStringToUtf8(Book.Parts[i].Title).c_str()))
 		{
 			ImGui::Indent();
 			for (unsigned int j = 0 ; j < Book.Parts[i].Chapters.size() ; j++)
 			{
-				if (Book.Parts[i].Chapters[j].IsValid() && ImGui::CollapsingHeader(Book.Parts[i].Chapters[j].Title.c_str()))
+				if (Book.Parts[i].Chapters[j].IsValid() && ImGui::CollapsingHeader(WStringToUtf8(Book.Parts[i].Chapters[j].Title).c_str()))
 				{
 					ImGui::Indent();
 					for (unsigned int k = 0 ; k < Book.Parts[i].Chapters[j].Sections.size() ; k++)
 					{
-						if (Book.Parts[i].Chapters[j].Sections[k].IsValid() && ImGui::CollapsingHeader(Book.Parts[i].Chapters[j].Sections[k].Title.c_str()))
+						if (Book.Parts[i].Chapters[j].Sections[k].IsValid() && ImGui::CollapsingHeader(WStringToUtf8(Book.Parts[i].Chapters[j].Sections[k].Title).c_str()))
 						{
 							ImGui::Indent();
 							for (unsigned int l = 0 ; l <Book.Parts[i].Chapters[j].Sections[k].ExampleCodes.size() ; l++)
@@ -179,12 +180,12 @@ void UTMainWindow::DrawSelectorWindow()
 										ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f * Blink, 0.2f, 0.2f, 1.0f));
 									}
 
-									if (ImGui::MenuItem(Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].Title.c_str()))
+									if (ImGui::MenuItem(WStringToUtf8(Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].Title).c_str(), nullptr, false, true))
 									{
-										OnSelected(i, j, k, l);
 										RESOURCE_MANAGER->FindInputAndDescriptionContext(i, j, k, l, InputContext, DescriptionContext);
 										OUTPUT_WINDOW->SetSelectedExampleCodeData(i, j, k, l);
 										glfwShowWindow(OUTPUT_WINDOW->GetGLFWWindow());
+										OnSelected(i, j, k, l);
 									}
 
 									if (IsSelected)
@@ -207,7 +208,7 @@ void UTMainWindow::DrawSelectorWindow()
 void UTMainWindow::DrawDescriptionWindow()
 {
 	ImGui::PushTextWrapPos();
-	ImGui::Text(DescriptionContext.data());
+	ImGui::Text("%s", WStringToUtf8(DescriptionContext).c_str());
 	ImGui::PopTextWrapPos();
 }
 

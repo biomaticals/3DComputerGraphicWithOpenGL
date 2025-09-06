@@ -58,7 +58,8 @@ bool ResourceManager::LoadTitleContext()
 {
 	Book.Parts.clear();
 
-	std::ifstream ContextStream(TableOfContentsPath, std::ios::in);
+	std::wifstream ContextStream(TableOfContentsPath, std::ios::in);
+	ContextStream.imbue(std::locale("en_US.UTF-8"));
 
 	unsigned int PartIndex = 0;
 	unsigned int ChapterIndex = 0;
@@ -66,24 +67,24 @@ bool ResourceManager::LoadTitleContext()
 	unsigned int CodeIndex = 0;
 	size_t StartPosition = 0;
 	size_t EndPosition = 0;
-	std::string NumberStr{};
-	std::string Line{};
-	std::string Prefix{};
-	std::string Delimeter{ ": " };
+	std::wstring NumberStr{};
+	std::wstring Line{};
+	std::wstring Prefix{};
+	std::wstring Delimeter{ L": " };
 	while (std::getline(ContextStream, Line))
 	{
 		if (PartIndex == 0)
 		{
-			Prefix = "Part ";
-			Delimeter = ": ";
+			Prefix = L"Part ";
+			Delimeter = L": ";
 			StartPosition = Line.find(Prefix);
-			if (StartPosition == std::string::npos)
+			if (StartPosition == std::wstring::npos)
 				continue;
-			std::string PartTitle = Line.substr(StartPosition);
+			std::wstring PartTitle = Line.substr(StartPosition);
 
 			StartPosition += Prefix.length();
 			EndPosition = Line.find(Delimeter, StartPosition);
-			if (EndPosition == std::string::npos)
+			if (EndPosition == std::wstring::npos)
 				break;
 			
 			NumberStr = Line.substr(StartPosition, EndPosition - StartPosition);
@@ -97,16 +98,16 @@ bool ResourceManager::LoadTitleContext()
 		}
 		else if (ChapterIndex == 0)
 		{
-			Prefix = "Chapter ";
-			Delimeter = ": ";
+			Prefix = L"Chapter ";
+			Delimeter = L": ";
 			StartPosition = Line.find(Prefix);
-			if (StartPosition == std::string::npos)
+			if (StartPosition == std::wstring::npos)
 				break;
-			std::string ChapterTitle = Line.substr(StartPosition);
+			std::wstring ChapterTitle = Line.substr(StartPosition);
 			
 			StartPosition += Prefix.length();
 			EndPosition = Line.find(Delimeter, StartPosition);
-			if (EndPosition == std::string::npos)
+			if (EndPosition == std::wstring::npos)
 				break;
 
 			NumberStr = Line.substr(StartPosition, EndPosition - StartPosition);
@@ -120,16 +121,16 @@ bool ResourceManager::LoadTitleContext()
 		}
 		else if (SectionIndex == 0)
 		{
-			Prefix = "Section ";
-			Delimeter = ": ";
+			Prefix = L"Section ";
+			Delimeter = L": ";
 			StartPosition = Line.find(Prefix);
-			if (StartPosition == std::string::npos)
+			if (StartPosition == std::wstring::npos)
 				break;
-			std::string SectionTitle = Line.substr(StartPosition);
+			std::wstring SectionTitle = Line.substr(StartPosition);
 
 			StartPosition += Prefix.length();
 			EndPosition = Line.find(Delimeter, StartPosition);
-			if (EndPosition == std::string::npos)
+			if (EndPosition == std::wstring::npos)
 				break;
 
 			NumberStr = Line.substr(StartPosition, EndPosition - StartPosition);
@@ -144,21 +145,21 @@ bool ResourceManager::LoadTitleContext()
 		}
 		else
 		{
-			Prefix = "Code ";
-			Delimeter = ": ";
+			Prefix = L"Code ";
+			Delimeter = L": ";
 			StartPosition = Line.find(Prefix);
-			if (StartPosition == std::string::npos)
+			if (StartPosition == std::wstring::npos)
 				break;
-			std::string CodeTitle = Line.substr(StartPosition);
+			std::wstring CodeTitle = Line.substr(StartPosition);
 
 			StartPosition += Prefix.length();
 			EndPosition = Line.find(Delimeter, StartPosition);
-			if (EndPosition == std::string::npos)
+			if (EndPosition == std::wstring::npos)
 				break;
 
-			std::string IntermediateStr = Line.substr(StartPosition, EndPosition - StartPosition);
-			StartPosition = Line.find("-");
-			if (StartPosition == std::string::npos)
+			std::wstring IntermediateStr = Line.substr(StartPosition, EndPosition - StartPosition);
+			StartPosition = Line.find(L"-");
+			if (StartPosition == std::wstring::npos)
 				break;
 
 			StartPosition += 1;
@@ -186,20 +187,21 @@ FBook ResourceManager::GetBook() const
 	return Book;
 }
 
-const std::string ResourceManager::FindTitleContext(unsigned int InPart, unsigned int InChapter,unsigned int InSection, unsigned int InCodeIndex)
+const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsigned int InChapter,unsigned int InSection, unsigned int InCodeIndex)
 {
-	std::ifstream _ContextStream(TableOfContentsPath, std::ios::in);
+	std::wifstream _ContextStream(TableOfContentsPath, std::ios::in);
+	_ContextStream.imbue(std::locale("en_US.UTF-8"));
 
-	std::string Line{};
-	std::string Found{};
-	std::string Keyword = std::format("Part {:02}", InPart);
+	std::wstring Line{};
+	std::wstring Found{};
+	std::wstring Keyword = std::format(L"Part {:02}", InPart);
 	if (InPart != 0)
 	{
 		while (std::getline(_ContextStream, Line))
 		{
-			if (auto Position = Line.find(Keyword); Position != std::string::npos)
+			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
-				Found = std::string(Line).substr(Position);
+				Found = std::wstring(Line).substr(Position);
 				break;
 			}
 		}
@@ -207,12 +209,12 @@ const std::string ResourceManager::FindTitleContext(unsigned int InPart, unsigne
 
 	if (InChapter != 0)
 	{
-		Keyword = std::format("Chapter {:02}", InChapter);
+		Keyword = std::format(L"Chapter {:02}", InChapter);
 		while (std::getline(_ContextStream, Line))
 		{
-			if (auto Position = Line.find(Keyword); Position != std::string::npos)
+			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
-				Found = std::string(Line).substr(Position);
+				Found = std::wstring(Line).substr(Position);
 				break;
 			}
 		}
@@ -220,12 +222,12 @@ const std::string ResourceManager::FindTitleContext(unsigned int InPart, unsigne
 
 	if (InSection != 0)
 	{
-		Keyword = std::format("Section {:02}", InSection);
+		Keyword = std::format(L"Section {:02}", InSection);
 		while (std::getline(_ContextStream, Line))
 		{
-			if (auto Position = Line.find(Keyword); Position != std::string::npos)
+			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
-				Found = std::string(Line).substr(Position);
+				Found = std::wstring(Line).substr(Position);
 				break;
 			}
 		}
@@ -233,12 +235,12 @@ const std::string ResourceManager::FindTitleContext(unsigned int InPart, unsigne
 
 	if (InCodeIndex != 0)
 	{
-		Keyword = std::format("Code {}-{}", InChapter, InCodeIndex);
+		Keyword = std::format(L"Code {}-{}", InChapter, InCodeIndex);
 		while (std::getline(_ContextStream, Line))
 		{
-			if (auto Position = Line.find(Keyword); Position != std::string::npos)
+			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
-				Found = std::string(Line).substr(Position);
+				Found = std::wstring(Line).substr(Position);
 				break;
 			}
 		}
@@ -249,22 +251,23 @@ const std::string ResourceManager::FindTitleContext(unsigned int InPart, unsigne
 #pragma endregion
 
 #pragma region Input & Description
-bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::string& OutInputContext, std::string& OutDescriptionContext)
+bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::wstring& OutInputContext, std::wstring& OutDescriptionContext)
 {
-	std::string InputAndDescriptionPath = InputAndDescriptionPathBase + std::format("_Part{}", InPart) + ".txt";
+	std::wstring InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
 
-	std::ifstream ContextStream(InputAndDescriptionPath, std::ios::in);
+	std::wifstream ContextStream(std::filesystem::path(InputAndDescriptionPath), std::ios::in);
+	ContextStream.imbue(std::locale("en_US.UTF-8"));
 	if (!ContextStream)
 	{
-		std::cerr << std::format("failed to open {}\n", InputAndDescriptionPath);
+		std::wcerr << std::format(L"failed to open {}\n", InputAndDescriptionPath);
 		return {};
 	}
 
-	std::string Line{};
-	std::string TargetCode = "Code " + std::format("{}-{}", InChapter, InCodeIndex);
-	std::string KeywordInput = "Input:";
-	std::string KeywordDescription = "Description:";
-	std::regex Delimeter(R"(Code \d+-\d+)");
+	std::wstring Line{};
+	std::wstring TargetCode = std::format(L"Code {}-{}", InChapter, InCodeIndex);
+	std::wstring KeywordInput = L"Input:";
+	std::wstring KeywordDescription = L"Description:";
+	std::wregex Delimeter(LR"(Code \d+-\d+)");
 	bool bFoundTarget = false;
 	bool bFoundInput = false;
 	bool bFoundDescription = false;
@@ -280,37 +283,37 @@ bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsign
 
 		if (!bFoundInput)
 		{
-			if (auto Position = Line.find(KeywordInput); Position != std::string::npos)
+			if (auto Position = Line.find(KeywordInput); Position != std::wstring::npos)
 			{
-				OutInputContext = std::string(Line).substr(Position + KeywordInput.length());
+				OutInputContext = std::wstring(Line).substr(Position + KeywordInput.length());
 				bFoundInput = true;
 				continue;
 			}
 		}
 		else if (!bFoundDescription)
 		{
-			if (auto Position = Line.find(KeywordDescription); Position != std::string::npos)
+			if (auto Position = Line.find(KeywordDescription); Position != std::wstring::npos)
 			{
-				OutDescriptionContext = std::string(Line).substr(Position + KeywordDescription.length());
+				OutDescriptionContext = std::wstring(Line).substr(Position + KeywordDescription.length());
 				bFoundDescription = true;
 				continue;
 			}
 		}
 		else if (bFoundInput && bFoundDescription)
 		{
-			if (std::regex_match(Line, Delimeter))
+			if (std::regex_match(std::wstring(Line.begin(), Line.end()), Delimeter))
 			{
 				break;
 			}
 		}
-		
+
 		if (bFoundInput && !bFoundDescription)
 		{
-			OutInputContext += "\n" + Line;
+			OutInputContext += L"\n" + Line;
 		}
 		else if (bFoundInput && bFoundDescription)
 		{
-			OutDescriptionContext += "\n" + Line;
+			OutDescriptionContext += L"\n" + Line;
 		}
 		
 	}

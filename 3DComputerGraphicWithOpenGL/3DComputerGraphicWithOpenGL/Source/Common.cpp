@@ -1,15 +1,15 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #include "Common.h"
 #include "Windows/UTOutputWindow.h"
 
 FSection::FSection()
-	: Title("")
+	: Title(L"")
 {
 }
 
-FSection::FSection(const std::string& InTitle)
+FSection::FSection(const std::wstring& InTitle)
 	: Title(InTitle)
 {
 }
@@ -30,11 +30,11 @@ bool FSection::IsValid() const
 }
 
 FChapter::FChapter()
-	: Title("")
+	: Title(L"")
 {
 }
 
-FChapter::FChapter(const std::string& InTitle)
+FChapter::FChapter(const std::wstring& InTitle)
 	: Title(InTitle)
 {
 }
@@ -55,11 +55,11 @@ bool FChapter::IsValid() const
 }
 
 FPart::FPart()
-	: Title("")
+	: Title(L"")
 {
 }
 
-FPart::FPart(const std::string& InTitle)
+FPart::FPart(const std::wstring& InTitle)
 	: Title(InTitle)
 {
 }
@@ -83,7 +83,7 @@ FBook::FBook()
 {
 }
 
-std::string ReadFileToString(const std::filesystem::path& FilePath)
+std::wstring ReadFileToString(const std::filesystem::path& FilePath)
 {
     std::ifstream Stream(FilePath, std::ios::in |std::ios::binary);
     if (!Stream)
@@ -92,20 +92,20 @@ std::string ReadFileToString(const std::filesystem::path& FilePath)
         return {};
     }
 
-    std::string Contents((std::istreambuf_iterator<char>(Stream)), std::istreambuf_iterator<char>());
+    std::wstring Contents((std::istreambuf_iterator<char>(Stream)), std::istreambuf_iterator<char>());
     return Contents;
 }
 
-std::string LeftTrim(const std::string& Str, size_t& OutOffset)
+std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset)
 {
-	size_t FirstNonSpace = Str.find_first_not_of(" \t\n\r");
+	size_t FirstNonSpace = Str.find_first_not_of(L" \t\n\r");
 	OutOffset = FirstNonSpace;
-	return (FirstNonSpace == std::string::npos) ? "" : Str.substr(FirstNonSpace);
+	return (FirstNonSpace == std::wstring::npos) ? std::wstring() : Str.substr(FirstNonSpace);
 }
 
-std::string RightTrim(const std::string& Str, size_t& OutOffset)
+std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset)
 {
-	size_t LastNonSpace = Str.find_last_not_of(" \t\n\r");
+	size_t LastNonSpace = Str.find_last_not_of(L" \t\n\r");
 	OutOffset = LastNonSpace;
-	return (LastNonSpace == std::string::npos) ? "" : Str.substr(0, LastNonSpace + 1);
+	return (LastNonSpace == std::wstring::npos) ? std::wstring() : Str.substr(0, LastNonSpace + 1);
 }

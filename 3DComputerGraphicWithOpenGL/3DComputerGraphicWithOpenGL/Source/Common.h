@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #pragma once
@@ -23,33 +23,33 @@ enum ETitleType
 struct FSection
 {
 	FSection();
-	FSection(const std::string& InTitle);
+	FSection(const std::wstring& InTitle);
     const FSection& operator=(const FSection& Other);
 	bool IsValid() const;
 
-	std::string Title;
+	std::wstring Title;
 	std::vector<FExampleCode> ExampleCodes;
 };
 
 struct FChapter
 {
 	FChapter();
-	FChapter(const std::string& InTitle);
+	FChapter(const std::wstring& InTitle);
 	const FChapter& operator=(const FChapter& Other);
 	bool IsValid() const;
 
-	std::string Title;
+	std::wstring Title;
 	std::vector<FSection> Sections;
 };
 
 struct FPart
 {
 	FPart();
-	FPart(const std::string& InTitle);
+	FPart(const std::wstring& InTitle);
 	const FPart& operator=(const FPart& Other);
 	bool IsValid() const;
 
-	std::string Title;
+	std::wstring Title;
 	std::vector<FChapter> Chapters;
 };
 
@@ -60,6 +60,6 @@ struct FBook
 	std::vector<FPart> Parts;
 };
 
-extern std::string ReadFileToString(const std::filesystem::path& FilePath);
-extern std::string LeftTrim(const std::string& Str, size_t& OutOffset);
-extern std::string RightTrim(const std::string& Str, size_t& OutOffset);
+extern std::wstring ReadFileToString(const std::filesystem::path& FilePath);
+extern std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
+extern std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);

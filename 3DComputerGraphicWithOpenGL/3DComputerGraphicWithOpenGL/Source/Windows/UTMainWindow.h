@@ -51,6 +51,6 @@ private:
 	unsigned int SelectedSection;
 	unsigned int SelectedCode;
 
-	std::string InputContext;
-	std::string DescriptionContext;
+	std::wstring InputContext;
+	std::wstring DescriptionContext;
 };
