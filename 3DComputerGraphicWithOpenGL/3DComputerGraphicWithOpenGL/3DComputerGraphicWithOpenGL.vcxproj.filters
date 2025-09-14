@@ -24,6 +24,9 @@
     <Filter Include="Source\CodeSamples">
       <UniqueIdentifier>{8715dac9-7037-43d2-ae1c-d63a9362439d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Windows\OuputCode">
+      <UniqueIdentifier>{450f1e1c-22c3-4631-b0a4-565bcf0675b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\3DComputerGraphicWithOpenGL.cpp">
@@ -67,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="Source\Common.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

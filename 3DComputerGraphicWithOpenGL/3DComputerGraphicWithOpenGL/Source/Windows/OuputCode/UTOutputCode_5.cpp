@@ -1,9 +1,9 @@
 ﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
+#include "Windows/UTOutputWindow.h"
+#include "Manager/WindowManager.h"
 
-Code 5-2
-Input:
 void UTOutputWindow::Code_5_2()
 {
 	int display_w, display_h;
@@ -19,15 +19,7 @@ void UTOutputWindow::Code_5_2()
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
-Description:
-glClear(GL_COLOR_BUFFER_BIT) 함수는 컬러 버퍼를 지워서(초기화해서) 배경색을 설정합니다.
 
-glBegin(GL_POLYGON)과 glEnd() 함수는 다각형(여기서는 사각형)을 정의하며, glVertex3f() 함수를 사용해 각 꼭짓점 좌표를 지정합니다.
-
-glFlush() 함수는 OpenGL 명령들이 유한한 시간 안에 실행되도록 강제로 처리합니다.
-
-Code 5-4
-Input:
 void UTOutputWindow::Code_5_4()
 {
 	int display_w, display_h;
@@ -48,25 +40,7 @@ void UTOutputWindow::Code_5_4()
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
-Description:
-glColor3f(1.f, 1.f, 1.f) 함수는 현재 그리기 색상을 흰색(RGB 값 1, 1, 1)으로 설정합니다.
 
-glClearColor(0.f, 0.f, 0.f, 1.f) 함수는 화면을 지울 때 사용할 배경색을 검정색(RGBA 값 0, 0, 0, 1)으로 설정합니다.
-
-glMatrixMode(GL_PROJECTION) 함수는 현재 행렬 모드를 투영 행렬 모드로 변경합니다. 이 모드는 화면에 보이는 공간(뷰잉 볼륨)을 정의할 때 사용됩니다.
-
-GL_PROJECTION은 투영 행렬 스택을 의미하는 상수입니다.
-
-GL_MODELVIEW는 모델뷰 행렬 스택을 의미하는 상수입니다.
-
-GL_TEXTURE는 텍스처 행렬 스택을 의미하는 상수입니다.
-
-glLoadIdentity() 함수는 현재 행렬을 단위 행렬로 초기화합니다.
-
-glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f) 함수는 왼쪽, 오른쪽, 아래, 위, 근평면, 원평면을 지정하여 2D 직교 투영 행렬을 정의합니다.
-
-Code 5-5
-Input:
 void UTOutputWindow::Code_5_5_Start()
 {
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
@@ -79,6 +53,10 @@ void UTOutputWindow::Code_5_5()
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
@@ -86,6 +64,7 @@ void UTOutputWindow::Code_5_5()
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
 	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
 }
 
 void UTOutputWindow::Code_5_5_End()
@@ -104,12 +83,3 @@ void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewH
 	glLoadIdentity();
 	glOrtho(-1.f * WidthFactor, 1.f * WidthFactor, -1.f * HeightFactor, 1.f * HeightFactor, -1.f, 1.f);
 }
-Description:
-glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape) 함수는 창의 크기가 변경될 때 호출되는 콜백 함수를 설정합니다. 여기서는 Code_5_5_Reshape 함수가 콜백으로 지정되어 있습니다.
-
-glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL) 함수는 이전에 설정된 프레임버퍼 크기 변경 콜백을 해제합니다.
-
-glViewport(0, 0, NewWidth, NewHeight) 함수는 새로운 창 크기에 맞게 뷰포트를 설정합니다.
-
-Code 5-6
-Input:
