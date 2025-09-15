@@ -104,6 +104,10 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[5][6] = &UTOutputWindow::Code_5_6_Start;
 	DrawFunctions[5][6] = &UTOutputWindow::Code_5_6;
 	EndDrawFunctions[5][6] = &UTOutputWindow::Code_5_6_End;
+
+	StartDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_Start;
+	DrawFunctions[5][7] = &UTOutputWindow::Code_5_7;
+	EndDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_End;
 }
 
 void UTOutputWindow::RenderDrawData()

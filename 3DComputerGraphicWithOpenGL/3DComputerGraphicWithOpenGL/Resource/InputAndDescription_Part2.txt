@@ -161,3 +161,6 @@ void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 }
 Description:
 GLFWkeyfun glfwSetKeyCallback(GLFWwindow* window, GLFWkeyfun cbfun) 함수는 키보드 입력 이벤트를 처리하기 위한 콜백 함수를 설정합니다. 여기서 cbfun은 키 이벤트가 발생할 때 호출될 함수의 포인터입니다.
+
+Code 5-7
+Input:

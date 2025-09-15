@@ -64,6 +64,16 @@ private:
 	void Code_5_6_End();
 	static void Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 
+	void Code_5_7_Start();
+	void Code_5_7();
+	void Code_5_7_End();
+	static void Code_5_7_MouseButton(GLFWwindow* Window, int button, int action, int mods);
+	static void Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
+	GLint TopLeftX_5_7 = -1;
+	GLint TopLeftY_5_7 = -1;
+	GLint BottomRightX_5_7 = 1;
+	GLint BottomRightY_5_7 = 1;
+
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;

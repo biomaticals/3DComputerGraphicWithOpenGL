@@ -175,7 +175,7 @@ void UTMainWindow::DrawSelectorWindow()
 									if (i == SelectedPart && j == SelectedChapter && k == SelectedSection && l == SelectedCode)
 									{
 										IsSelected = true;
-										double Time = ImGui::GetTime();
+										float Time = (float)ImGui::GetTime();
 										float Blink = sin(2.f * Time) * 0.5f + 1.f;
 										ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f * Blink, 0.2f, 0.2f, 1.0f));
 									}

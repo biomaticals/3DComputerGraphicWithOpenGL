@@ -1,0 +1,690 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>방정현</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(142, 58, 1, 0.141); }
+.select-value-color-orange { background-color: rgba(213, 96, 0, 0.188); }
+.select-value-color-yellow { background-color: rgba(209, 155, 0, 0.238); }
+.select-value-color-green { background-color: rgba(1, 104, 42, 0.145); }
+.select-value-color-blue { background-color: rgba(45, 149, 218, 0.236); }
+.select-value-color-purple { background-color: rgba(104, 1, 184, 0.125); }
+.select-value-color-pink { background-color: rgba(204, 1, 88, 0.137); }
+.select-value-color-red { background-color: rgba(228, 26, 0, 0.148); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="867f577b-494e-4ce9-8b65-91f9057edad6" class="page sans"><header><img class="page-cover-image" src="./images/uniqueturtle_title_banner.png" style="object-position:center 66.71000000000001%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="./images/bear.png"/></div><h1 class="page-title">방정현</h1><p class="page-description"></p></header><div class="page-body"><blockquote id="80866026-1ff8-446b-9ba3-a5362d1d02d7" class="">언리얼 엔진 게임 개발 테크 블로그</blockquote><hr id="b4e47b2a-5921-446c-8a28-b7a2be1b4bb6"/><div id="63d82c68-6a50-498d-80ad-f83be294da42" class="column-list"><div id="0e53f812-1ae9-4305-9c4e-0b25616e4963" style="width:25%" class="column"><div><p id="188ed2b7-5184-801c-a22c-d1500abb6f6e" class="block-color-gray_background">소개</p><figure id="867f577b-494e-4ce9-8b65-91f9057edad6" class="link-to-page"><a href="https://biomaticals.notion.site/biomaticals"><img class="icon" src="./images/bear.png"/>방정현</a></figure><figure id="e827059a-57fc-4a4a-9bdf-53fddb32f18f" class="link-to-page"><a href="https://biomaticals.notion.site/plan"><img class="icon" src="https://www.notion.so/icons/calendar-month_red.svg"/>계획</a></figure><p id="cf3d5782-a48c-458c-8a3b-f79c46671831" class="block-color-gray_background">컴퓨터 과학</p><figure id="179ed2b7-5184-80f5-bb4d-cbbe1b694604" class="link-to-page"><a href="https://biomaticals.notion.site/computerscience"><img class="icon" src="https://www.notion.so/icons/school_yellow.svg"/>컴퓨터 공학</a></figure><figure id="48da2f21-12b8-43ab-aa3c-bb1f56ca0cbd" class="link-to-page"><a href="https://biomaticals.notion.site/programminglanguage"><img class="icon" src="https://www.notion.so/icons/font_yellow.svg"/>프로그래밍 언어</a></figure><figure id="f6589608-16a2-4475-9345-e58e749383ec" class="link-to-page"><a href="https://biomaticals.notion.site/dictionary"><img class="icon" src="https://www.notion.so/icons/book-closed_yellow.svg"/>사전</a></figure><p id="43675342-45e1-4ff4-8dfa-8201c39a09e6" class="block-color-gray_background">게임 개발</p><figure id="e333884e-32cb-4a7b-9e51-0f1e747613c1" class="link-to-page"><a href="https://biomaticals.notion.site/unrealengine"><img class="icon" src="%25ED%2595%25A0%25EC%25A7%259D_(2).png"/>언리얼 엔진</a></figure><figure id="233ed2b7-5184-8014-8031-d40b6db785d1" class="link-to-page"><a href="https://biomaticals.notion.site/math"><img class="icon" src="https://www.notion.so/icons/123_lightgray.svg"/>수학</a></figure><figure id="24aed2b7-5184-8004-b618-c55cefa50dd1" class="link-to-page"><a href="https://biomaticals.notion.site/sitescrap"><img class="icon" src="https://www.notion.so/icons/globe_lightgray.svg"/>사이트 스크랩</a></figure><p id="7ef94c85-e5ae-461a-9d39-1419f170dcbe" class="block-color-gray_background">활동</p><figure id="6a7b5966-9662-41eb-a0e0-a715d9b67097" class="link-to-page"><a href="https://biomaticals.notion.site/professionalbooks"><span class="icon">📗</span>전문 서적</a></figure><figure id="a339420a-f5ab-431c-8326-3b6e27e492c0" class="link-to-page"><a href="https://biomaticals.notion.site/onlineactivity"><img class="icon" src="teacher_education_school_lecture_student_icon_141984.png"/>온라인 활동</a></figure><figure id="1e2ed2b7-5184-8047-9538-f678222b7268" class="link-to-page"><a href="https://biomaticals.notion.site/studygroup"><img class="icon" src="https://www.notion.so/icons/meeting_green.svg"/>스터디 그룹</a></figure><figure id="7aad95c3-458e-4486-8873-6e7eba38c127" class="link-to-page"><a href="https://biomaticals.notion.site/hobby"><img class="icon" src="https://www.notion.so/icons/music_green.svg"/>취미</a></figure><p id="68987740-29d5-40ba-999d-266251a20a33" class="block-color-gray_background">프로젝트</p><figure id="1f3ed2b7-5184-80f6-8fc4-d749668a9f03" class="link-to-page"><a href="https://biomaticals.notion.site/projecth">ProjectH</a></figure><figure id="1caed2b7-5184-8048-a70c-dac149076c59" class="link-to-page"><a href="https://biomaticals.notion.site/cgwithopengl"><img class="icon" src="https://www.notion.so/icons/alien-pixel_blue.svg"/>CGWithOpenGL</a></figure><figure id="8770beba-1ca0-4e96-948a-42234dc87855" class="link-to-page"><a href="https://biomaticals.notion.site/loc"><span class="icon">🧙‍♂️</span>격변의 땅</a></figure><p id="0e6a875b-5785-4767-ba27-b2bcc41c8476" class="block-color-gray_background">개발 도구</p><figure id="6ab2c48b-0c6c-4658-b1a1-53cd57dd9379" class="link-to-page"><a href="https://biomaticals.notion.site/git-github-gitfork"><img class="icon" src="github_git_hub_logo_icon_132878.png"/>Git, GitHub, GitFork</a></figure><figure id="d734e950-925b-4e54-9e1a-9aea19ffd377" class="link-to-page"><a href="https://biomaticals.notion.site/visual-studio"><img class="icon" src="Visual_Studio_23517.png"/>Visual Studio </a></figure></div><p id="188ed2b7-5184-8034-a79d-f2564522ba05" class="">
+</p></div><div id="70a9fbde-286a-4383-8c71-d75526a47594" style="width:75.00000000000009%" class="column"><h1 id="71b74f46-85da-40cc-9e07-6e5674425a03" class="">환영합니다!</h1><h2 id="bb365990-b92a-431b-989c-21a7e3e0f50f" class="">소개</h2><p id="229ed2b7-5184-8019-8b2d-e78b295b70c1" class="">4년차 언리얼 엔진 프로그래머 방정현입니다. EVR STUDIO(이브이알스튜디오)의 개발 본부에서 <mark class="highlight-gray_background"><strong>무당 : 두개의 심장</strong></mark><strong> </strong>을 개발하고 있습니다. XBox Showcase 2025 에 참가했습니다. </p><p id="238ed2b7-5184-8034-b6b4-ef037316a8df" class=""><strong>E-mail : biomaticals@naver.com<br/>Phone number : (+82) 010 3902 8624</strong></p><figure id="229ed2b7-5184-80cf-ae63-e01ccdbb0c5f"><div class="source"><a href="https://www.youtube.com/watch?v=Bl_0_yNoXaA&amp;t=3s">https://www.youtube.com/watch?v=Bl_0_yNoXaA&amp;t=3s</a></div></figure><h2 id="229ed2b7-5184-8031-b487-f428553f8743" class="">블로그</h2><p id="22bed2b7-5184-807a-a8c2-e45b58699efb" class="">언리얼 엔진을 활용한 게임 개발 경험과 기술적 탐구를 중심으로 정리하고 공유하는 기술 블로그입니다. <br/>학습한 기술과 그 과정에서 발생한 지적 호기심을 바탕으로 깊이 있는 탐구와 고찰을 이어갑니다. <br/>개인 프로젝트의 개발 과정과 그 안에서 마주한 문제들을 위의 학습과 탐구를 바탕으로 해결해나간 기록을 담고 있습니다.<br/>좌측의 사이드바 에서 카테고리별로 분류된 메뉴를 통해 탐색하실 수 있습니다.</p><h2 id="40a99c62-3685-4acb-a8a7-c046f3860030" class="">최근 작성한 페이지</h2><p id="260ed2b7-5184-80d1-a977-f75020cfc008" class=""><a href="https://biomaticals.notion.site/Binomial-Distribution-266ed2b7518480458a0fe3e01a437cfb">이항 분포 (Bernoulli Distribution)</a> </p><p id="25fed2b7-5184-8034-8b95-dcc2a615ff2a" class=""><a href="https://biomaticals.notion.site/Bernoulli-Distribution-260ed2b75184804db7e1f6267a0bb65f?source=copy_link">베르누이 분포</a> </p><h2 id="165ed2b7-5184-802d-86a5-d4d1bfe70ad4" class="">진행 중인 활동</h2><p id="16ded2b7-5184-80db-bbf5-d98846896eb9" class=""><a href="%5BOpen%20GL%EB%A1%9C%20%EB%B0%B0%EC%9A%B0%EB%8A%94%203%EC%B0%A8%EC%9B%90%20%EC%BB%B4%ED%93%A8%ED%84%B0%20%EA%B7%B8%EB%9E%98%ED%94%BD%EC%8A%A4%5D%20%EC%A3%BC%EC%9A%B0%EC%84%9D%20%EC%A0%80%EC%9E%90%20156ed2b7518480fe9c38dce64ad8373f.html">[Open GL로 배우는 3차원 컴퓨터 그래픽스] 주우석 저자</a> </p><p id="21ded2b7-5184-80ee-b45e-ecca2aa366da" class=""><a href="%5B%ED%97%A4%EB%93%9C%20%ED%8D%BC%EC%8A%A4%ED%8A%B8%20%EB%94%94%EC%9E%90%EC%9D%B8%20%ED%8C%A8%ED%84%B4%5D%20%EC%97%90%EB%A6%AD%20%ED%94%84%EB%A6%AC%EB%A8%BC,%20%EC%97%98%EB%A6%AC%EC%9E%90%EB%B2%A0%EC%8A%A4%20%EB%A1%AC%EC%8A%A8,%20%EC%BC%80%EC%9D%B4%EC%8B%9C%20%EC%8B%9C%EC%97%90%EB%9D%BC,%20%EB%B2%84%ED%8A%B8%20%EB%B2%A0%EC%9D%B4%EC%B8%A0%20%2021bed2b7518480f98b33fff08159e46a.html">[헤드 퍼스트 디자인 패턴] 에릭 프리먼, 엘리자베스 롬슨, 케이시 시에라, 버트 베이츠 저자</a> </p><h2 id="16eed2b7-5184-809c-8b9f-ccc2288d6999" class="">깃 레포지터리</h2><figure id="204ed2b7-5184-802f-840b-cc81a78c70b9"><a href="https://github.com/biomaticals" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">biomaticals - Overview</div><div class="bookmark-description">biomaticals has 8 repositories available. Follow their code on GitHub.</div></div><div class="bookmark-href"><img src="https://github.com/fluidicon.png" class="icon bookmark-icon"/>https://github.com/biomaticals</div></div><img src="https://avatars.githubusercontent.com/u/57808933?v=4?s=400" class="bookmark-image"/></a></figure><figure id="1f7ed2b7-5184-80cc-ba95-d46e1be6afce"><a href="https://github.com/biomaticals/ProjectH" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">biomaticals-ProjectH</div><div class="bookmark-description">3D Action Adventure RPG based on Unreal Engine 5.6</div></div><div class="bookmark-href"><img src="https://github.com/fluidicon.png" class="icon bookmark-icon"/>https://github.com/biomaticals/ProjectH</div></div><img src="https://avatars.githubusercontent.com/u/57808933?v=4?s=400" class="bookmark-image"/></a></figure>
