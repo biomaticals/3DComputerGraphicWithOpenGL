@@ -83,3 +83,50 @@ void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewH
 	glLoadIdentity();
 	glOrtho(-1.f * WidthFactor, 1.f * WidthFactor, -1.f * HeightFactor, 1.f * HeightFactor, -1.f, 1.f);
 }
+
+void UTOutputWindow::Code_5_6_Start()
+{
+	glfwSetKeyCallback(GetGLFWWindow(), Code_5_6_Key);
+}
+
+void UTOutputWindow::Code_5_6()
+{
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0.5f, 0.5f, 0.5f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.5f, -0.5f, 0.f);
+	glVertex3f(0.5f, -0.5, 0.f);
+	glVertex3f(0.5f, 0.5f, 0.f);
+	glVertex3f(-0.5f, 0.5f, 0.f);
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_5_6_End()
+{
+	glfwSetKeyCallback(GetGLFWWindow(), NULL);
+}
+
+void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	switch (Key)
+	{
+	case GLFW_KEY_Q:
+	{
+		if (Action == GLFW_PRESS)
+		{
+			exit(0);
+			break;
+		}
+		break;
+	}
+	}
+}

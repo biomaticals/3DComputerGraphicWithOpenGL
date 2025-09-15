@@ -3,10 +3,10 @@
 
 #pragma once
 
+#include <windows.h>
 #include "CoreMinimal.h"
 #include "Common.h"
 #include <string>
-#include <windows.h>
 #include "Windows/UTMainWindow.h"
 #include "Windows/UTOutputWindow.h"
 

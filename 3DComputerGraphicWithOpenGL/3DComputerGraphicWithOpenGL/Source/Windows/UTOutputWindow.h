@@ -59,6 +59,10 @@ private:
 	void Code_5_5_End();
 	static void Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
 
+	void Code_5_6_Start();
+	void Code_5_6();
+	void Code_5_6_End();
+	static void Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

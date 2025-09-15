@@ -113,3 +113,51 @@ glViewport(0, 0, NewWidth, NewHeight) 함수는 새로운 창 크기에 맞게 �
 
 Code 5-6
 Input:
+void UTOutputWindow::Code_5_6_Start()
+{
+	glfwSetKeyCallback(GetGLFWWindow(), Code_5_6_Key);
+}
+
+void UTOutputWindow::Code_5_6()
+{
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0.5f, 0.5f, 0.5f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.5f, -0.5f, 0.f);
+	glVertex3f(0.5f, -0.5, 0.f);
+	glVertex3f(0.5f, 0.5f, 0.f);
+	glVertex3f(-0.5f, 0.5f, 0.f);
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_5_6_End()
+{
+	glfwSetKeyCallback(GetGLFWWindow(), NULL);
+}
+
+void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	switch (Key)
+	{
+	case GLFW_KEY_Q:
+	{
+		if (Action == GLFW_PRESS)
+		{
+			exit(0);
+			break;
+		}
+		break;
+	}
+	}
+}
+Description:
+GLFWkeyfun glfwSetKeyCallback(GLFWwindow* window, GLFWkeyfun cbfun) 함수는 키보드 입력 이벤트를 처리하기 위한 콜백 함수를 설정합니다. 여기서 cbfun은 키 이벤트가 발생할 때 호출될 함수의 포인터입니다.
