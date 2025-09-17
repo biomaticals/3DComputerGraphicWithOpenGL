@@ -164,3 +164,70 @@ GLFWkeyfun glfwSetKeyCallback(GLFWwindow* window, GLFWkeyfun cbfun) 함수는 �
 
 Code 5-7
 Input:
+void UTOutputWindow::Code_5_7_Start()
+{
+	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_7_MouseButton);
+	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_7_CursorPosition);
+}
+
+void UTOutputWindow::Code_5_7()
+{
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0.5f, 0.5f, 0.5f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(TopLeftX_5_7, TopLeftY_5_7, 0.f);
+	glVertex3f(BottomRightX_5_7, TopLeftY_5_7, 0.f);
+	glVertex3f(BottomRightX_5_7, BottomRightY_5_7, 0.f);
+	glVertex3f(TopLeftX_5_7, BottomRightY_5_7, 0.f);
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_5_7_End()
+{
+	glfwSetMouseButtonCallback(GetGLFWWindow(), NULL);
+	glfwSetCursorPosCallback(GetGLFWWindow(), NULL);
+	TopLeftX_5_7 = -1;
+	TopLeftY_5_7 = -1;
+	BottomRightX_5_7 = 0;
+	BottomRightY_5_7 = 0;
+}
+
+void UTOutputWindow::Code_5_7_MouseButton(GLFWwindow* Window, int button, int action, int mods)
+{
+	if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(Window, &xpos, &ypos);
+
+		std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+
+		OUTPUT_WINDOW->TopLeftX_5_7 = OrthoCoords[0];
+		OUTPUT_WINDOW->TopLeftY_5_7 = OrthoCoords[1];
+	}
+}
+
+void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
+{
+	std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+
+	OUTPUT_WINDOW->BottomRightX_5_7 = OrthoCoords[0];
+	OUTPUT_WINDOW->BottomRightY_5_7 = OrthoCoords[1];
+}
+Description:
+GLFWmousebuttonfun glfwSetMouseButtonCallback(GLFWwindow* window, GLFWmousebuttonfun cbfun) 함수는 마우스 버튼 이벤트를 처리하기 위한 콜백 함수를 설정합니다. 여기서 cbfun은 마우스 버튼 이벤트가 발생할 때 호출될 함수의 포인터입니다.
+GLFWcursorposfun glfwSetCursorPosCallback(GLFWwindow* window, GLFWcursorposfun cbfun) 함수는 마우스 커서 위치 변경 이벤트를 처리하기 위한 콜백 함수를 설정합니다. 여기서 cbfun은 커서 위치가 변경될 때 호출될 함수의 포인터입니다.
+
+커서의 좌표계는 윈도우 좌표계 또는 픽셀 좌표계라 불리고, 창의 왼쪽 상단이 (0, 0)이고 오른쪽 하단이 (창의 너비, 창의 높이)인 픽셀 단위로 표현됩니다.
+glVertexfloat3f에 들어가는 점의 좌표계는 객체 좌표계이며, 이는 아직 모델-뷰 변환이나 투영 변환이 적용되지 않은 상태의 좌표계입니다. 객체 좌표계에서의 좌표는 일반적으로 -1.0에서 1.0 사이의 값으로 표현됩니다.
+
+여기에서는 모델 변환이 없고, 뷰 변환도 없으며, 투영 변환은 직교 투영(glOrtho)으로 설정되어 있습니다. 또한 그 값도 단위 행렬입니다.
+따라서 객체 좌표계의 좌표가 그대로 클립 좌표계로 전달됩니다. 클립 좌표계는 -1.0에서 1.0 사이의 값으로 표현되며, 이 범위를 벗어나는 좌표는 클리핑됩니다.
