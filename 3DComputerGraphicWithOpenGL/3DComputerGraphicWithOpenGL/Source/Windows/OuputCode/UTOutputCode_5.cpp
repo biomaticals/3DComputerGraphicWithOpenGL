@@ -2,6 +2,7 @@
 // All contents cannot be copied, distributed, revised.
 
 #include "Windows/UTOutputWindow.h"
+#include "3DComputerGraphicWithOpenGL.h"
 #include "Manager/WindowManager.h"
 
 void UTOutputWindow::Code_5_2()
@@ -149,10 +150,10 @@ void UTOutputWindow::Code_5_7()
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 	glBegin(GL_POLYGON);
-	glVertex3f((float)TopLeftX_5_7/display_w, (float)(display_h - TopLeftY_5_7)/display_h, 0.f);
-	glVertex3f((float)TopLeftX_5_7/display_w, (float)(display_h - BottomRightY_5_7)/display_h, 0.f);
-	glVertex3f((float)BottomRightX_5_7/display_w, (float)(display_h - BottomRightY_5_7)/display_h, 0.f);
-	glVertex3f((float)BottomRightX_5_7/display_w, (float)(display_h - TopLeftY_5_7)/display_h, 0.f);
+	glVertex3f(TopLeftX_5_7, TopLeftY_5_7, 0.f);
+	glVertex3f(BottomRightX_5_7, TopLeftY_5_7, 0.f);
+	glVertex3f(BottomRightX_5_7, BottomRightY_5_7, 0.f);
+	glVertex3f(TopLeftX_5_7, BottomRightY_5_7, 0.f);
 	glEnd();
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
@@ -174,13 +175,18 @@ void UTOutputWindow::Code_5_7_MouseButton(GLFWwindow* Window, int button, int ac
 	{
 		double xpos, ypos;
 		glfwGetCursorPos(Window, &xpos, &ypos);
-		OUTPUT_WINDOW->TopLeftX_5_7 = static_cast<GLint>(xpos);
-		OUTPUT_WINDOW->TopLeftY_5_7 = static_cast<GLint>(ypos);
+
+		std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+
+		OUTPUT_WINDOW->TopLeftX_5_7 = OrthoCoords[0];
+		OUTPUT_WINDOW->TopLeftY_5_7 = OrthoCoords[1];
 	}
 }
 
 void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	OUTPUT_WINDOW->BottomRightX_5_7 = static_cast<GLint>(xpos);
-	OUTPUT_WINDOW->BottomRightY_5_7 = static_cast<GLint>(ypos);
+	std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+
+	OUTPUT_WINDOW->BottomRightX_5_7 = OrthoCoords[0];
+	OUTPUT_WINDOW->BottomRightY_5_7 = OrthoCoords[1];
 }
