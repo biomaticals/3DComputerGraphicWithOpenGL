@@ -87,11 +87,13 @@ void UTOutputWindow::Initialize()
 
 	DrawFunctions.clear();
 	DrawFunctions.resize(6);
-	DrawFunctions[5].resize(30);
+	DrawFunctions[5].resize(14);
+
 	StartDrawFunctions.resize(6);
-	StartDrawFunctions[5].resize(30);
+	StartDrawFunctions[5].resize(14);
+
 	EndDrawFunctions.resize(6);
-	EndDrawFunctions[5].resize(30);
+	EndDrawFunctions[5].resize(14);
 
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
 	
@@ -108,6 +110,8 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_Start;
 	DrawFunctions[5][7] = &UTOutputWindow::Code_5_7;
 	EndDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_End;
+
+	DrawFunctions[5][13] = &UTOutputWindow::Code_5_13;
 }
 
 void UTOutputWindow::RenderDrawData()
@@ -125,10 +129,10 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 	OutputExampleCodeData.Title = RESOURCE_MANAGER->FindTitleContext(InPart, InChapter, InSection,InCodeIndex).c_str();
 	OutputExampleCodeData.DrawFunction = DrawFunctions[InChapter][InCodeIndex];
 	
-	if(StartDrawFunctions[InChapter][InCodeIndex])
+	if(StartDrawFunctions.at(InChapter).at(InCodeIndex))
 		OutputExampleCodeData.StartDrawFunction = StartDrawFunctions[InChapter][InCodeIndex];
 	
-	if(EndDrawFunctions[InChapter][InCodeIndex])
+	if(EndDrawFunctions.at(InChapter).at(InCodeIndex))
 		OutputExampleCodeData.EndDrawFunction = EndDrawFunctions[InChapter][InCodeIndex];
 
 	if (LastOutputExampleCodeData.IsValid() && LastOutputExampleCodeData.EndDrawFunction)

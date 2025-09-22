@@ -190,3 +190,25 @@ void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, do
 	OUTPUT_WINDOW->BottomRightX_5_7 = OrthoCoords[0];
 	OUTPUT_WINDOW->BottomRightY_5_7 = OrthoCoords[1];
 }
+
+void UTOutputWindow::Code_5_13()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0.5f, 0.5f, 0.5f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glFrontFace(GL_CCW);
+	glEnable(GL_CULL_FACE);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glColorPointer(3, GL_FLOAT, 0, Colors_5_13);
+	glVertexPointer(3, GL_FLOAT, 0, Vertices_5_13);
+
+	glRotatef(30.0, 1.0, 1.0, 1.0);
+	for (GLint i = 0; i < 6; i++)
+		glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_BYTE, &VertexList_5_13[4 * i]);
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}

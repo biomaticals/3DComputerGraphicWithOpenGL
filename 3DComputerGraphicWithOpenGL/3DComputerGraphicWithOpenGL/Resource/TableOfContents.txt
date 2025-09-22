@@ -9,3 +9,4 @@ Part 02 : 오픈지엘 소개
 			Code 5-5 : Reshape Callback
 			Code 5-6 : 키보드 콜백
 			Code 5-7 : 마우스 콜백
+			Code 5-13 : 정점 배열

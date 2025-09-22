@@ -74,6 +74,41 @@ private:
 	GLfloat BottomRightX_5_7 = 1;
 	GLfloat BottomRightY_5_7 = -1;
 
+	void Code_5_13();
+	inline static GLfloat Vertices_5_13[8][3]
+	{
+		{ -0.25f, -0.25f, 0.25f },
+		{ -0.25f,  0.25f, 0.25f },
+		{  0.25f,  0.25f, 0.25f },
+		{  0.25f, -0.25f, 0.25f },
+		{ -0.25f, -0.25f, -0.25f },
+		{ -0.25f,  0.25f, -0.25f },
+		{  0.25f,  0.25f, -0.25f },
+		{  0.25f, -0.25f, -0.25f }
+	};
+
+	inline static GLfloat Colors_5_13[8][3]
+	{
+		{ 0.2f, 0.2f, 0.2f },
+		{ 1.0f, 0.0f, 0.0f },
+		{ 1.0f, 1.0f, 0.0f },
+		{ 0.0f, 1.0f, 0.0f },
+		{ 0.0f, 0.0f, 1.0f },
+		{ 1.0f, 0.0f, 1.0f },
+		{ 1.0f, 1.0f, 1.0f },
+		{ 0.0f, 1.0f, 1.0f }
+	};
+
+	inline static GLubyte VertexList_5_13[24]
+	{
+		0, 3, 2, 1,
+		2, 3, 7, 6,
+		0, 4, 7, 3,
+		1, 2, 6, 5,
+		4, 5, 6, 7,
+		0, 1, 5, 4
+	};
+
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;
