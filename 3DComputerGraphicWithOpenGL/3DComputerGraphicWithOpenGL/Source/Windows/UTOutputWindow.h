@@ -109,6 +109,10 @@ private:
 		0, 1, 5, 4
 	};
 
+	void Code_5_14_Start();
+	void Code_5_14();
+	GLuint MyListID_5_14;
+
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;

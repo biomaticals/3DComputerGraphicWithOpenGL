@@ -212,3 +212,85 @@ void UTOutputWindow::Code_5_13()
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
+
+void UTOutputWindow::Code_5_14_Start()
+{
+	// Ensure the correct GL context is current when creating the display list.
+	GLFWwindow* PrevContext = glfwGetCurrentContext();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	GLFWwindow* CurrentContext = GetGLFWWindow();
+	MyListID_5_14 = glGenLists(1);
+	if (MyListID_5_14 == 0)
+	{
+		// 실패 시 에러 확인 (디버그용)
+		GLenum err = glGetError();
+		printf("glGenLists failed (err=0x%X)\n", err);
+	}
+
+	// Compile the geometry into the list. Keep matrix state minimal in the list.
+	glNewList(MyListID_5_14, GL_COMPILE);
+	{
+		// Record geometry only; projection will be set at draw time.
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glLoadIdentity();
+
+		glBegin(GL_POLYGON);
+		glColor3f(0.5f, 0.5f, 0.5f);
+		glVertex3f(-0.5f, -0.5f, 0.0f);
+		glVertex3f(0.5f, -0.5f, 0.0f);
+		glVertex3f(0.5f, 0.5f, 0.0f);
+		glVertex3f(-0.5f, 0.5f, 0.0f);
+		glEnd();
+
+		glPopMatrix();
+	}
+	glEndList();
+
+	// restore previous context if any
+	glfwMakeContextCurrent(PrevContext);
+}
+
+void UTOutputWindow::Code_5_14()
+{
+	// Make sure the window's context is current before calling the list.
+	GLFWwindow* PrevContext = glfwGetCurrentContext();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	GLFWwindow* CurrentContext = GetGLFWWindow();
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// Ensure a simple orthographic projection is set before executing the list.
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
+	// If list id is invalid, print error for debugging.
+	if (MyListID_5_14 == 0)
+	{
+		printf("Warning: MyListID_5_14 == 0, display list not created.\n");
+	}
+	else
+	{
+		glCallList(MyListID_5_14);
+	}
+
+	// restore matrices
+	glPopMatrix(); // modelview
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+
+	// restore previous context
+	glfwMakeContextCurrent(PrevContext);
+}
