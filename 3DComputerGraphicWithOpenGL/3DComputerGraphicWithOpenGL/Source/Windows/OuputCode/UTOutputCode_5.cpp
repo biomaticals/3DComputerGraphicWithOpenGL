@@ -193,6 +193,9 @@ void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, do
 
 void UTOutputWindow::Code_5_13()
 {
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -215,40 +218,23 @@ void UTOutputWindow::Code_5_13()
 
 void UTOutputWindow::Code_5_14_Start()
 {
-	// Ensure the correct GL context is current when creating the display list.
-	GLFWwindow* PrevContext = glfwGetCurrentContext();
 	glfwMakeContextCurrent(GetGLFWWindow());
-	GLFWwindow* CurrentContext = GetGLFWWindow();
 	MyListID_5_14 = glGenLists(1);
-	if (MyListID_5_14 == 0)
-	{
-		// 실패 시 에러 확인 (디버그용)
-		GLenum err = glGetError();
-		printf("glGenLists failed (err=0x%X)\n", err);
-	}
-
-	// Compile the geometry into the list. Keep matrix state minimal in the list.
 	glNewList(MyListID_5_14, GL_COMPILE);
-	{
-		// Record geometry only; projection will be set at draw time.
-		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();
-		glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
 
-		glBegin(GL_POLYGON);
-		glColor3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(-0.5f, -0.5f, 0.0f);
-		glVertex3f(0.5f, -0.5f, 0.0f);
-		glVertex3f(0.5f, 0.5f, 0.0f);
-		glVertex3f(-0.5f, 0.5f, 0.0f);
-		glEnd();
+	glBegin(GL_POLYGON);
+	glColor3f(0.5f, 0.5f, 0.5f);
+	glVertex3f(-0.5f, -0.5f, 0.0f);
+	glVertex3f(0.5f, -0.5f, 0.0f);
+	glVertex3f(0.5f, 0.5f, 0.0f);
+	glVertex3f(-0.5f, 0.5f, 0.0f); 
+	glEnd();
 
-		glPopMatrix();
-	}
+	glPopMatrix();
 	glEndList();
-
-	// restore previous context if any
-	glfwMakeContextCurrent(PrevContext);
 }
 
 void UTOutputWindow::Code_5_14()
