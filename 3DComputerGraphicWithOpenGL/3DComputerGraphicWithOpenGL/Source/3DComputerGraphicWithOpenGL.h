@@ -90,3 +90,45 @@ inline std::array<double, 2> CursorPosToOrthoCoords(GLFWwindow* Window, const st
 	double orthoY = -CursorCoords[1] / (double)height * (OrthoBound._top - OrthoBound._bottom) + OrthoBound._top;
 	return { orthoX, orthoY};
 }
+
+#include "tiny_obj_loader.h"
+
+std::vector<float> Tiny_VertexBuffer;
+std::vector<float> Tiny_NormalBuffer;
+std::vector<float> Tiny_TexcoordBuffer;
+
+void LoadOBJ(const std::string& filename) 
+{
+	tinyobj::attrib_t attrib;
+	std::vector<tinyobj::shape_t> shapes;
+	std::vector<tinyobj::material_t> materials;
+	std::string warn, err;
+
+	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename.c_str());
+	if (!ret) {
+		throw std::runtime_error(warn + err);
+	}
+
+	// 정점/노멀/UV를 하나의 배열로 풀어내기
+	for (const auto& shape : shapes) {
+		for (const auto& index : shape.mesh.indices) {
+			// 정점
+			Tiny_VertexBuffer.push_back(attrib.vertices[3 * index.vertex_index + 0]);
+			Tiny_VertexBuffer.push_back(attrib.vertices[3 * index.vertex_index + 1]);
+			Tiny_VertexBuffer.push_back(attrib.vertices[3 * index.vertex_index + 2]);
+
+			// 노멀
+			if (index.normal_index >= 0) {
+				Tiny_NormalBuffer.push_back(attrib.normals[3 * index.normal_index + 0]);
+				Tiny_NormalBuffer.push_back(attrib.normals[3 * index.normal_index + 1]);
+				Tiny_NormalBuffer.push_back(attrib.normals[3 * index.normal_index + 2]);
+			}
+
+			// 텍스처 좌표
+			if (index.texcoord_index >= 0) {
+				Tiny_TexcoordBuffer.push_back(attrib.texcoords[2 * index.texcoord_index + 0]);
+				Tiny_TexcoordBuffer.push_back(attrib.texcoords[2 * index.texcoord_index + 1]);
+			}
+		}
+	}
+}

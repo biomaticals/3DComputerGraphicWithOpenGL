@@ -275,11 +275,19 @@ void UTOutputWindow::Code_5_15_Start()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
+	glfwSetFramebufferSizeCallback(GetGLFWWindow(), UTOutputWindow::Code_5_15_Reshape);
+	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_5_15_Key);
+	glfwSetCursorPosCallback(GetGLFWWindow(), UTOutputWindow::Code_5_15_CursorPosition);
 }
 
 void UTOutputWindow::Code_5_15()
 {
-	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	LoadOBJ("Resource/Object/Table And Chairs.obj");
+	GLuint VAO, VBO;
 }
 
 void UTOutputWindow::Code_5_15_End()
@@ -289,20 +297,42 @@ void UTOutputWindow::Code_5_15_End()
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
 {
-
+	glViewport(0, 0, (GLsizei)NewWidth, (GLsizei)NewHeight);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 }
 
 void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
+	if (Action == GLFW_PRESS)
+	{
+		if (Key == GLFW_KEY_Q)
+		{
 
-}
-
-void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods)
-{
-
+		}
+		else if (Key == GLFW_KEY_S)
+		{
+			if (OUTPUT_WINDOW->Flatshaded_5_15)
+			{
+				OUTPUT_WINDOW->Flatshaded_5_15 = 0;
+				glShadeModel(GL_SMOOTH);
+			}
+			else
+			{
+				OUTPUT_WINDOW->Flatshaded_5_15 = 1;
+				glShadeModel(GL_FLAT);
+			}
+		}
+	}
 }
 
 void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
+	CursorPosToOrthoCoords(OUTPUT_WINDOW->GetGLFWWindow(), std::array<double, 2>{xpos, ypos});
+
+	int Width, Height;
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &Width, &Height);
+
 	
 }

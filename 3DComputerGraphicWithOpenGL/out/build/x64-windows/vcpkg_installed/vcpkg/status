@@ -1,0 +1,96 @@
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 75b784218e3b0d6441d41afa382c545cc75dfbeb4b3e9083b84ad556bd8ccec3
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 81c17ae93216ab1b42e97be9539c1aa80aa44ea13b5a595e7789bdfb8ebfa532
+Status: install ok installed
+
+Package: fmt
+Version: 12.0.0
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 4a69b16a11d7869882b44b6b961804e5723c28646a119b4cf838612dd6f4d4f7
+Description: {fmt} is an open-source formatting library providing a fast and safe alternative to C stdio and C++ iostreams.
+Status: install ok installed
+
+Package: egl-registry
+Version: 2024-01-25
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6689cb90739cd35465412420e1f98d7e640d68e13b983c6efa08ed16cff8a512
+Description: EGL API and Extension Registry
+Status: install ok installed
+
+Package: opengl-registry
+Version: 2024-02-10
+Port-Version: 1
+Depends: egl-registry
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b32d3a63dd68149dad076512b1f4f44a8bac783368772198b3aefe31b9bbb5bf
+Description: OpenGL, OpenGL ES, and OpenGL ES-SC API and Extension Registry
+Status: install ok installed
+
+Package: glad
+Version: 0.1.36
+Depends: egl-registry, opengl-registry, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 6a4289fd8543c398dff5a6854e7d316dda174f80e30c7d2d570f29fae9c006e3
+Description: Multi-Language Vulkan/GL/GLES/EGL/GLX/WGL Loader-Generator based on the official specs.
+Default-Features: loader
+Status: install ok installed
+
+Package: glad
+Feature: loader
+Architecture: x64-windows
+Multi-Arch: same
+Description: Generate loader logic.
+Status: install ok installed
+
+Package: glfw3
+Version: 3.4
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 75cfe1ac691869d0a556aba6435ab3e0540469d8761358678b1abac3f7e078d8
+Description: GLFW is a free, Open Source, multi-platform library for OpenGL, OpenGL ES and Vulkan application development. It provides a simple, platform-independent API for creating windows, contexts and surfaces, reading input, handling events, etc.
+Status: install ok installed
+
+Package: imgui
+Version: 1.91.9
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7ff909b0ba4795b8b56742979c8304b6e66272f273f9de832450243d056e5736
+Description: Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies.
+Status: install ok installed
+
+Package: glm
+Version: 1.0.1
+Port-Version: 3
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a3b373a92fb192cf784310878d2eba1464af6f8048187027cbc8b9a68e31be17
+Description: OpenGL Mathematics (GLM)
+Status: install ok installed
+
+Package: tinyobjloader
+Version: 2.0.0rc13
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 372c2b34d392f54facbbcd3724796e6ceaa3447214cf07735ca83f69c3a7ae60
+Description: Tiny but powerful single file wavefront obj loader
+Status: install ok installed
+

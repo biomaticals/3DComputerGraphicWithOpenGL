@@ -1,0 +1,4 @@
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/lib/imguid.lib
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/share/imgui/imgui-config.cmake
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/share/imgui/imgui-targets.cmake
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/share/imgui/imgui-targets-debug.cmake

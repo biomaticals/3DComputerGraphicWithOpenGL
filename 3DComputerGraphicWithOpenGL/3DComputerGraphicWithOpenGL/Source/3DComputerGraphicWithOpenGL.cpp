@@ -3,11 +3,14 @@
 
 #pragma once
 
-#include <Windows.h>
 #include "3DComputerGraphicWithOpenGL.h"
+#include <fmt/core.h>
+#include <Windows.h>
+#include <GLFW/glfw3.h>
+#include <imgui.h>
 #include "imgui_internal.h"
 #include "imgui_impl_glfw.h"
-#include <GLFW/glfw3.h>
+#include "imgui_impl_opengl3.h"
 #include "Manager/ResourceManager.h"
 #include "Manager/WindowManager.h"
 

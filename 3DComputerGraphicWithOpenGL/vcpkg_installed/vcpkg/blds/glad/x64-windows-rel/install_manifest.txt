@@ -1,0 +1,7 @@
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/lib/glad.lib
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/include/glad/glad.h
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/include/KHR/khrplatform.h
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/lib/cmake/glad/gladConfig.cmake
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/lib/cmake/glad/gladConfigVersion.cmake
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/lib/cmake/glad/gladTargets.cmake
+E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/glad_x64-windows/lib/cmake/glad/gladTargets-release.cmake

@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/blds/glm/x64-windows-dbg/cmake_install.cmake",
+		"E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/blds/glm/x64-windows-dbg/glm/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
