@@ -87,13 +87,13 @@ void UTOutputWindow::Initialize()
 
 	DrawFunctions.clear();
 	DrawFunctions.resize(6);
-	DrawFunctions[5].resize(15);
+	DrawFunctions[5].resize(16);
 
 	StartDrawFunctions.resize(6);
-	StartDrawFunctions[5].resize(15);
+	StartDrawFunctions[5].resize(16);
 
 	EndDrawFunctions.resize(6);
-	EndDrawFunctions[5].resize(15);
+	EndDrawFunctions[5].resize(16);
 
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
 	
@@ -115,6 +115,10 @@ void UTOutputWindow::Initialize()
 
 	StartDrawFunctions[5][14] = &UTOutputWindow::Code_5_14_Start;
 	DrawFunctions[5][14] = &UTOutputWindow::Code_5_14;
+
+	StartDrawFunctions[5][15] = &UTOutputWindow::Code_5_15_Start;
+	DrawFunctions[5][15] = &UTOutputWindow::Code_5_15;
+	EndDrawFunctions[5][15] = &UTOutputWindow::Code_5_15_End;
 }
 
 void UTOutputWindow::RenderDrawData()

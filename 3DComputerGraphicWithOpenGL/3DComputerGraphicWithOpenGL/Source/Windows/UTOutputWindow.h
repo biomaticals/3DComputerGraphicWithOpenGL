@@ -50,6 +50,7 @@ public:
 	void SetSelectedExampleCodeData(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
 
 private:
+#pragma region Chapter5
 	void Code_5_2();
 
 	void Code_5_4();
@@ -59,10 +60,13 @@ private:
 	void Code_5_5_End();
 	static void Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
 
+
 	void Code_5_6_Start();
 	void Code_5_6();
 	void Code_5_6_End();
 	static void Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	int Width_5_6;
+	int Height_5_6;
 
 	void Code_5_7_Start();
 	void Code_5_7();
@@ -112,6 +116,15 @@ private:
 	void Code_5_14_Start();
 	void Code_5_14();
 	GLuint MyListID_5_14;
+
+	void Code_5_15_Start();
+	void Code_5_15();
+	void Code_5_15_End();
+	static void Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
+	static void Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	static void Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods);
+	static void Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
+#pragma endregion
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

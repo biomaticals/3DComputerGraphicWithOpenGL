@@ -44,23 +44,18 @@ void UTOutputWindow::Code_5_4()
 
 void UTOutputWindow::Code_5_5_Start()
 {
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &Width_5_6, &Height_5_6);
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
 }
 
 void UTOutputWindow::Code_5_5()
 {
-	int display_w, display_h;
-	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
-	glViewport(0, 0, display_w, display_h);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
-	glVertex3f(0.5f, -0.5, 0.f);
+	glVertex3f(0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
@@ -75,11 +70,9 @@ void UTOutputWindow::Code_5_5_End()
 
 void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
 {
-	int display_w, display_h;
-	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, NewWidth, NewHeight);
-	GLfloat WidthFactor = (GLfloat)NewWidth / (GLfloat)display_w;
-	GLfloat HeightFactor = (GLfloat)NewHeight / (GLfloat)display_h;
+	GLfloat WidthFactor = (GLfloat)NewWidth / (GLfloat)(OUTPUT_WINDOW->Width_5_6);
+	GLfloat HeightFactor = (GLfloat)NewHeight / (GLfloat)(OUTPUT_WINDOW->Height_5_6);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f * WidthFactor, 1.f * WidthFactor, -1.f * HeightFactor, 1.f * HeightFactor, -1.f, 1.f);
@@ -239,44 +232,77 @@ void UTOutputWindow::Code_5_14_Start()
 
 void UTOutputWindow::Code_5_14()
 {
-	// Make sure the window's context is current before calling the list.
-	GLFWwindow* PrevContext = glfwGetCurrentContext();
-	glfwMakeContextCurrent(GetGLFWWindow());
-	GLFWwindow* CurrentContext = GetGLFWWindow();
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	// Ensure a simple orthographic projection is set before executing the list.
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
-
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-
-	// If list id is invalid, print error for debugging.
-	if (MyListID_5_14 == 0)
-	{
-		printf("Warning: MyListID_5_14 == 0, display list not created.\n");
-	}
-	else
-	{
-		glCallList(MyListID_5_14);
-	}
-
-	// restore matrices
-	glPopMatrix(); // modelview
+	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
+}
 
-	// restore previous context
-	glfwMakeContextCurrent(PrevContext);
+void UTOutputWindow::Code_5_15_Start()
+{
+	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
+	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
+	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat mat_ambient[] = { 0.5f, 0.4f, 0.3f, 1.f };
+	GLfloat mat_shininess[] = { 15.f };
+	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
+	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
+	GLfloat light_position[] = { -3.f, 6.f, 3.f, 0.f };
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+}
+
+void UTOutputWindow::Code_5_15()
+{
+	
+}
+
+void UTOutputWindow::Code_5_15_End()
+{
+
+}
+
+void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
+{
+
+}
+
+void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+
+}
+
+void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods)
+{
+
+}
+
+void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
+{
+	
 }
