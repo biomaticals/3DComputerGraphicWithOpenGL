@@ -1,8 +1,0 @@
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/lib/tinyobjloader.lib
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/lib/tinyobjloader/cmake/tinyobjloader-targets.cmake
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/lib/tinyobjloader/cmake/tinyobjloader-targets-release.cmake
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/include/tiny_obj_loader.h
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/share/tinyobjloader/LICENSE
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/lib/tinyobjloader/cmake/tinyobjloader-config.cmake
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/lib/tinyobjloader/cmake/tinyobjloader-config-version.cmake
-E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/pkgs/tinyobjloader_x64-windows/lib/pkgconfig/tinyobjloader.pc

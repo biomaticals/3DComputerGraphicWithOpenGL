@@ -122,12 +122,8 @@ private:
 	void Code_5_15_End();
 	static void Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
 	static void Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
-	static void Code_5_15_CursorPosition(GLFWwindow* Window, double Xpos, double Ypos);
-	int Flatshaded_5_15 = 0;
-	int Wireframed_5_15 = 0;
-	int ViewX_5_15 = 0;
-	int ViewY_5_15 = 0;
-
+	static void Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods);
+	static void Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
 #pragma endregion
 
 private:

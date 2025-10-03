@@ -126,9 +126,6 @@
     <None Include="..\Include\ImGui\imgui.natstepfilter">
       <Filter>imgui</Filter>
     </None>
-    <None Include="..\CMakePresets.json" />
-    <None Include="..\vcpkg.json" />
-    <None Include="..\vcpkg-configuration.json" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\Include\ImGui\imgui.natvis">
@@ -142,6 +139,5 @@
     <Text Include="Resource\InputAndDescription_Part2.txt">
       <Filter>Resources</Filter>
     </Text>
-    <Text Include="..\CMakeLists.txt" />
   </ItemGroup>
 </Project>

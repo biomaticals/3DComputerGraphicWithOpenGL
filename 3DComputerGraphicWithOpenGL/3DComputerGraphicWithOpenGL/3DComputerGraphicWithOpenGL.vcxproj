@@ -101,7 +101,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_UNICODE;UNICODE%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>
       </ConformanceMode>
-      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source;..\Include\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\Backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -132,7 +132,7 @@
       </SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source;..\Include\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\Backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -159,7 +159,7 @@
       </SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Source;..\Include;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\Backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -193,7 +193,7 @@
       </SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source;$(AdditionalIncludeDirectories);..\Include\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Source;..\Include;..\Include\ImGui;..\Include\ImGui\Backends;%(AdditionalIncludeDirectories)$(InsideStaticMathLibrarySolutionDir)Source;$(OutsideStaticMathLibrarySolutionDir)OutsideStaticMathLibrary\Source;$(InsideDynamicMathLibrarySolutionDir)Source;$(OutsideDynamicMathLibrarySolutionDir)OutsideDynamicMathLibrary\Source;$(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -255,17 +255,13 @@
     <ClInclude Include="Source\Windows\UTWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\CMakePresets.json" />
     <None Include="..\Include\ImGui\imgui.ini" />
     <None Include="..\Include\ImGui\imgui.natstepfilter" />
-    <None Include="..\vcpkg-configuration.json" />
-    <None Include="..\vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\Include\ImGui\imgui.natvis" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\CMakeLists.txt" />
     <Text Include="Resource\InputAndDescription_Part2.txt" />
     <Text Include="Resource\TableOfContents.txt" />
   </ItemGroup>

@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/blds/glm/x64-windows-rel/cmake_install.cmake",
-		"E:/Work/3DComputerGraphicWithOpenGL/3DComputerGraphicWithOpenGL/vcpkg_installed/vcpkg/blds/glm/x64-windows-rel/glm/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
