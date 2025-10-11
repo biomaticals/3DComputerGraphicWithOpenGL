@@ -124,6 +124,7 @@ private:
 	static void Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 	static void Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods);
 	static void Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
+	bool FlatShaded;
 #pragma endregion
 
 private:

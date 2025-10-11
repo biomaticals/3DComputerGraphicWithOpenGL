@@ -7,10 +7,6 @@
     <Filter Include="imgui\Backends">
       <UniqueIdentifier>{bc0187c9-f7c4-4ded-a747-d26135ac50f9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -26,6 +22,10 @@
     </Filter>
     <Filter Include="Source\Windows\OuputCode">
       <UniqueIdentifier>{450f1e1c-22c3-4631-b0a4-565bcf0675b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -134,10 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resource\TableOfContents.txt">
-      <Filter>Resources</Filter>
+      <Filter>Resource</Filter>
     </Text>
     <Text Include="Resource\InputAndDescription_Part2.txt">
-      <Filter>Resources</Filter>
+      <Filter>Resource</Filter>
     </Text>
   </ItemGroup>
 </Project>

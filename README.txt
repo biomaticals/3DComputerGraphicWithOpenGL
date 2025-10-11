@@ -19,20 +19,19 @@ Tech Blog: https://biomaticals.notion.site/biomaticals
 
 
 ----------------------------------------------------------------------------------------------------------
-프로젝트H
+오픈지엘로 배우는 3차원 컴퓨터 그래픽
 
 ## 개요
-언리얼 5.6을 기반으로 한 3D 액션 어드벤처 RPG
+오픈지엘을 학습하고 활용한 간단한 학습 앱
 
-이 프로젝트는 언리얼 엔진을 활용한 게임 개발 및 그래픽 렌더링 파이프라인 탐구와 활용을 목표로 합니다.
-게임을 기획, 개발하면서 엔진 내부의 다양한 시스템을 사용하고, OpenGL을 기반으로 학습한 개념을
-언리얼 엔진을 통해 실무적으로 활용할 수 있도록 확장하는 과정을 포함합니다. 즉, 게임 기획부터 프로토타입 제작,
- 그래픽 최적화, 렌더링 심화 학습까지 모두 다루며, 최종적으로 실질적인 개발 경험을 축적하는 것이 핵심 목표입니다.
+주우석 저자의 [OpenGL로 배우는 3차원 컴퓨터 그래픽스] 서적을 읽고 학습한 내용을 바탕으로 진행하는 프로젝트입니다.
+주 목적은 3D CG를 어떤 개념, 이론에 의해 처리해나가는지 지식을 습득하고 이를 실습하는 것입니다.
+또한 학습 내용 자체를 프로젝트화 하여 실용성을 갖춘 애플리케이션을 제작하며 경험을 쌓고자 합니다.
 
 ## 기술 스택
-엔진        : Unreal Engine 5.6
+API, Library: Opengl4.6, GLFW, Imgui, TinyObjectLoader, ... 
 통합개발환경: Visual Studio 2023
-버전관리    :GitHub
+버전관리    : GitHub
 
 ## 실행 방법
 1. 준비중
@@ -41,22 +40,22 @@ Tech Blog: https://biomaticals.notion.site/biomaticals
 개발 일기: https://biomaticals.notion.site/projecth
 
 ----------------------------------------------------------------------------------------------------------
-ProjectH
+3DComputerGraphicWIthOpenGL
 
 ## Overview
-3D Action Adventure RPG based on Unreal Engine 5.6
+A simple learning application developed through studying and applying OpenGL.
 
-This project aims to explore and apply game development and graphics rendering pipelines using Unreal Engine.
-Throughout the process of planning and developing a game, 
-we utilize various internal systems of the engine and extend concepts learned through OpenGL
-into practical applications within Unreal Engine. The scope includes everything from game design
-and prototype creation to graphics optimization and advanced rendering techniques. 
-Ultimately, the core objective is to gain substantial hands-on experience in real-world game development.
+This project is based on the book "Learning 3D Computer Graphics with OpenGL" by author Woo-Seok Joo. 
+The main goal is to understand how 3D computer graphics are processed through various concepts and theories,
+ and to apply that knowledge through hands-on practice.
+
+Additionally, by turning the learning content into a practical application,
+ the project aims to build experience and create something useful.
 
 ## Tech Stack
-Engine          : Unreal Engine 5.6
-IDE             : Vistual Studio 2023
-Version Control : GitHub
+API, Library   : Opengl4.6, GLFW, Imgui, TinyObjectLoader, ... 
+IDE            : Vistual Studio 2023
+Version Control: GitHub
 
 ## How to Run
 1. In Preparation
@@ -77,7 +76,7 @@ Develope diary  : https://biomaticals.notion.site/projecth
 .########..####..#######..##.....##.##.....##....##....####..######..##.....##.########..######.
 ================================================================================================ 
 방정현 (Bang Jung-hyun)
-4년차 언리얼 엔진 프로그래머. 카메라 및 전투.비전투 연출 전문가
+4년차 언리얼 엔진 프로그래머. 카메라 및 연출 전문가. 콘솔/PC TPS/Action/Adventure
 EVRSTUDIO 무당: 두개의 심장 개발 참여 XBox Showcase 2025 참가 
 ------------------------------------------------------------------------------------------------
 Phone    : +82 10 3902 8624

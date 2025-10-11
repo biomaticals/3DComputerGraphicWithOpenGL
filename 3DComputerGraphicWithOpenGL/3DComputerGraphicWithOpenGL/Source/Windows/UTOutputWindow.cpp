@@ -115,10 +115,12 @@ void UTOutputWindow::Initialize()
 
 	StartDrawFunctions[5][14] = &UTOutputWindow::Code_5_14_Start;
 	DrawFunctions[5][14] = &UTOutputWindow::Code_5_14;
+	MyListID_5_14 = 0;
 
 	StartDrawFunctions[5][15] = &UTOutputWindow::Code_5_15_Start;
 	DrawFunctions[5][15] = &UTOutputWindow::Code_5_15;
 	EndDrawFunctions[5][15] = &UTOutputWindow::Code_5_15_End;
+	FlatShaded = false;
 }
 
 void UTOutputWindow::RenderDrawData()

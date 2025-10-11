@@ -279,7 +279,27 @@ void UTOutputWindow::Code_5_15_Start()
 
 void UTOutputWindow::Code_5_15()
 {
-	
+	const std::string path = "Resources/Objects/Table And Chairs.obj";
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	LoadObjSimple(path, vertices, indices);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glBegin(GL_TRIANGLES);
+	for (size_t i = 0; i < indices.size(); i++)
+	{
+		const Vertex& v = vertices[indices[i]];
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
 }
 
 void UTOutputWindow::Code_5_15_End()
@@ -289,12 +309,39 @@ void UTOutputWindow::Code_5_15_End()
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
 {
-
+	glViewport(0, 0, NewWidth, NewHeight);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 }
 
 void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
-
+	switch (Key)
+	{
+	case GLFW_KEY_Q:
+	{
+		if (Action == GLFW_PRESS)
+		{
+			exit(0);
+			break;
+		}
+		break;
+	}
+	case GLFW_KEY_S:
+	{
+		if (OUTPUT_WINDOW->FlatShaded)
+		{
+			OUTPUT_WINDOW->FlatShaded = false;
+			glShadeModel(GL_SMOOTH);
+		}
+		else
+		{
+			OUTPUT_WINDOW->FlatShaded = true;
+			glShadeModel(GL_FLAT);
+		}
+	}
+	}
 }
 
 void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods)

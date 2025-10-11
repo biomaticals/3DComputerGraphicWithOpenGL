@@ -327,3 +327,100 @@ GLuint glGenLists(GLsizei range) 함수는 새로운 디스플레이 리스트 �
 void glNewList(GLuint list, GLenum mode) 함수는 새로운 디스플레이 리스트를 시작합니다. 여기서 list는 디스플레이 리스트의 식별자이고, mode는 디스플레이 리스트의 동작 모드를 지정합니다. GL_COMPILE 모드는 명령을 컴파일만 하고 즉시 실행하지 않음을 의미합니다.
 void glEndList() 함수는 현재 디스플레이 리스트의 정의를 종료합니다.
 void glCallList(GLuint list) 함수는 지정된 디스플레이 리스트를 실행합니다. 여기서 list는 실행할 디스플레이 리스트의 식별자입니다.
+
+Code 5-15
+Input:
+void UTOutputWindow::Code_5_15_Start()
+{
+	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
+	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
+	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat mat_ambient[] = { 0.5f, 0.4f, 0.3f, 1.f };
+	GLfloat mat_shininess[] = { 15.f };
+	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
+	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
+	GLfloat light_position[] = { -3.f, 6.f, 3.f, 0.f };
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+}
+
+void UTOutputWindow::Code_5_15()
+{
+	const std::string path = "Resources/Objects/Table And Chairs.obj";
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	//LoadObjSimple(path, vertices, indices);
+
+	glBegin(GL_TRIANGLES);
+	for (size_t i = 0; i < indices.size(); i++)
+	{
+		const Vertex& v = vertices[indices[i]];
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_5_15_End()
+{
+
+}
+
+void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
+{
+
+}
+
+void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	switch (Key)
+	{
+	case GLFW_KEY_Q:
+	{
+		if (Action == GLFW_PRESS)
+		{
+			exit(0);
+			break;
+		}
+		break;
+	}
+	case GLFW_KEY_S:
+	{
+		if (OUTPUT_WINDOW->FlatShaded)
+		{
+			OUTPUT_WINDOW->FlatShaded = false;
+			glShadeModel(GL_SMOOTH);
+		}
+		else
+		{
+			OUTPUT_WINDOW->FlatShaded = true;
+			glShadeModel(GL_FLAT);
+		}
+	}
+	}
+}
+
+void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods)
+{
+
+}
+
+void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
+{
+	
+}
+
+Description:

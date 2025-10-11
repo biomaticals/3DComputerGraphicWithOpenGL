@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define TINYOBJLOADER_IMPLEMENTATION
-#include "tiny_obj_loader.h"
 #include <Windows.h>
 #include "3DComputerGraphicWithOpenGL.h"
 #include "imgui_internal.h"
@@ -12,21 +10,17 @@
 #include <GLFW/glfw3.h>
 #include "Manager/ResourceManager.h"
 #include "Manager/WindowManager.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <vector>
-#include <unordered_map>
+#define TINYOBJLOADER_IMPLEMENTATION
+#include "tiny_obj_loader.h"
 
 
 void UpdateManager()
 {
-	
 	RESOURCE_MANAGER->Update();
 }
 
 int main(int, char**)
 {
-	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())
 		return 1;
 
@@ -77,21 +71,6 @@ int main(int, char**)
 	WINDOW_MANAGER->DestroyOutputWindow();
 
 	return 0;
-}
-
-static void glfw_error_callback(int error, const char* description)
-{
-	fprintf(stderr, "GLFW Error %d: %s\n", error, description);
-}
-
-struct Vertex {
-	glm::vec3 pos;
-	glm::vec3 normal;
-};
-
-// 간단 키 생성기
-static std::string make_key(int vi, int ni) {
-	return std::to_string(vi) + "_" + std::to_string(ni);
 }
 
 // OBJ 로드(텍스처 무시)
