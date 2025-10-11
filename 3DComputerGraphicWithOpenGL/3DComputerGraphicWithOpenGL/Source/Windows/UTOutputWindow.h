@@ -4,6 +4,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "3DComputerGraphicWithOpenGL.h"
 #include "UTWindow.h"
 #include <vector>
 
@@ -124,7 +125,10 @@ private:
 	static void Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 	static void Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods);
 	static void Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
-	bool FlatShaded;
+	bool FlatShaded;	
+	std::vector<Vertex> vertices_5_15;
+	std::vector<unsigned int> indices_5_15;
+	GLfloat light_position_5_15[5];
 #pragma endregion
 
 private:

@@ -8,7 +8,6 @@
 #include "Common.h"
 #include <string>
 #include "Windows/UTMainWindow.h"
-#include "Windows/UTOutputWindow.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
@@ -21,16 +20,14 @@ void UpdateManager();
 
 int main(int, char**);
 
-
-// math, helper, utilities below
-
-struct Vertex {
+struct Vertex 
+{
 	glm::vec3 pos;
 	glm::vec3 normal;
 };
 
-// 간단 키 생성기
-static std::string make_key(int vi, int ni) {
+inline static std::string make_key(int vi, int ni) 
+{
 	return std::to_string(vi) + "_" + std::to_string(ni);
 }
 

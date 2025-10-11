@@ -2,7 +2,6 @@
 // All contents cannot be copied, distributed, revised.
 
 #include "Windows/UTOutputWindow.h"
-#include "3DComputerGraphicWithOpenGL.h"
 #include "Manager/WindowManager.h"
 
 void UTOutputWindow::Code_5_2()
@@ -254,6 +253,9 @@ void UTOutputWindow::Code_5_14()
 
 void UTOutputWindow::Code_5_15_Start()
 {
+	const std::string path = "Resource/Object/TableAndChairs.obj";
+	LoadObjSimple(path, vertices_5_15, indices_5_15);
+
 	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
@@ -262,12 +264,15 @@ void UTOutputWindow::Code_5_15_Start()
 	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
 	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
-	GLfloat light_position[] = { -3.f, 6.f, 3.f, 0.f };
+	light_position_5_15[0] = -3.f;
+	light_position_5_15[1] = 6.f;
+	light_position_5_15[2] = 3.f;
+	light_position_5_15[3] = 0.f;
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -279,21 +284,40 @@ void UTOutputWindow::Code_5_15_Start()
 
 void UTOutputWindow::Code_5_15()
 {
-	const std::string path = "Resources/Objects/Table And Chairs.obj";
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	LoadObjSimple(path, vertices, indices);
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+
+	glViewport(0, 0, display_w, display_h);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	glm::mat4 projection = glm::perspective(
+		glm::radians(45.0f),                       // 시야각 (fovy)
+		(float)display_w / (float)display_h,       // 종횡비
+		0.1f,                                      // near plane
+		100.0f                                     // far plane
+	);
+	glLoadMatrixf(&projection[0][0]);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glm::mat4 view = glm::lookAt(
+		glm::vec3(100.0f, 100.0f, 25.0f),  // eye (카메라 위치)
+		glm::vec3(0.0f, 0.0f, 0.0f),   // center (바라보는 지점)
+		glm::vec3(0.0f, 1.0f, 0.0f)    // up (업 벡터)
+	);
+	glLoadMatrixf(&view[0][0]);
+
+	// 조명 위치는 여기서 다시 설정
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
 
 	glBegin(GL_TRIANGLES);
-	for (size_t i = 0; i < indices.size(); i++)
+	for (size_t i = 0; i < indices_5_15.size(); i++)
 	{
-		const Vertex& v = vertices[indices[i]];
+		const Vertex& v = vertices_5_15[indices_5_15[i]];
 		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
 		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
 	}
