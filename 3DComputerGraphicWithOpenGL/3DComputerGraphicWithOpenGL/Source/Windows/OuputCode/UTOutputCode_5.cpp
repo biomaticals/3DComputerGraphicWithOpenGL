@@ -253,30 +253,10 @@ void UTOutputWindow::Code_5_14()
 
 void UTOutputWindow::Code_5_15_Start()
 {
-	const std::string path = "Resource/Object/TableAndChairs.obj";
-	LoadObjSimple(path, vertices_5_15, indices_5_15);
+	const std::string path = "Resource/Object/Wood_Table/Wood_Table.obj";
+	LoadObjWithMaterial(path, vertices_5_15, indices_5_15, materials_5_15);
 
-	glm::vec3 MeanPos;
-	glm::vec3 MinPos(FLT_MAX);
-	glm::vec3 MaxPos(-FLT_MAX);
-	for(int i = 0 ; i < vertices_5_15.size() ; i ++)
-	{
-		MeanPos += vertices_5_15[i].pos;
-		if(vertices_5_15[i].pos.x > MaxPos.x)
-			MaxPos.x = vertices_5_15[i].pos.x;
-		if (vertices_5_15[i].pos.y > MaxPos.y)
-			MaxPos.y = vertices_5_15[i].pos.y;
-		if (vertices_5_15[i].pos.z > MaxPos.z)
-			MaxPos.z = vertices_5_15[i].pos.z;
-		if (vertices_5_15[i].pos.x < MinPos.x)
-			MinPos.x = vertices_5_15[i].pos.x;
-		if (vertices_5_15[i].pos.y < MinPos.y)
-			MinPos.y = vertices_5_15[i].pos.y;
-		if (vertices_5_15[i].pos.z < MinPos.z)
-			MinPos.z = vertices_5_15[i].pos.z;
-	}
-	MeanPos /= (float)vertices_5_15.size();
-	printf("Mean : (%f, %f, %f), Min : (%f, %f, %f), Max : (%f, %f, %f)", MeanPos.x, MeanPos.y, MeanPos.z, MinPos.x, MinPos.y, MinPos.z, MaxPos.x, MaxPos.y, MaxPos.z);
+
 
 	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };

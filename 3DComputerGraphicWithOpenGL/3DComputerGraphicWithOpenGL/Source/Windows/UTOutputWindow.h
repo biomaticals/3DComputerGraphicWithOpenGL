@@ -128,6 +128,7 @@ private:
 	bool FlatShaded;	
 	std::vector<Vertex> vertices_5_15;
 	std::vector<unsigned int> indices_5_15;
+	std::vector<MaterialInfo> materials_5_15;
 	GLfloat light_position_5_15[5];
 #pragma endregion
 

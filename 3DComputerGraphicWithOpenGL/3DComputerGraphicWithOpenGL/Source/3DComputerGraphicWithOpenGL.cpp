@@ -73,10 +73,10 @@ int main(int, char**)
 	return 0;
 }
 
-// OBJ 로드(텍스처 무시)
-bool LoadObjSimple(const std::string& path,
+bool LoadObjWithMaterial(const std::string& path,
 	std::vector<Vertex>& out_vertices,
-	std::vector<unsigned int>& out_indices)
+	std::vector<unsigned int>& out_indices,
+	std::vector<MaterialInfo>& out_materials)
 {
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
@@ -87,13 +87,20 @@ bool LoadObjSimple(const std::string& path,
 	bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, path.c_str(), base_dir.c_str());
 	if (!ret) return false;
 
-	// 임시 법선 저장: attrib.normals 사용; 없으면 계산
-	bool hasNormals = !attrib.normals.empty();
+	// 머티리얼 정보 저장
+	out_materials.clear();
+	for (auto& m : materials) {
+		MaterialInfo mat;
+		mat.name = m.name;
+		mat.diffuse = glm::vec3(m.diffuse[0], m.diffuse[1], m.diffuse[2]);
+		mat.ambient = glm::vec3(m.ambient[0], m.ambient[1], m.ambient[2]);
+		mat.specular = glm::vec3(m.specular[0], m.specular[1], m.specular[2]);
+		mat.shininess = m.shininess;
+		mat.diffuseTex = m.diffuse_texname; // 텍스처 파일 이름
+		out_materials.push_back(mat);
+	}
 
-	// 임시: 면법선 누적용
-	std::vector<glm::vec3> vertex_normals(attrib.vertices.size() / 3, glm::vec3(0.0f));
-
-	// 고유 정점 매핑
+	// 정점/인덱스 생성
 	std::unordered_map<std::string, unsigned int> uniqueMap;
 	out_vertices.clear();
 	out_indices.clear();
@@ -102,62 +109,48 @@ bool LoadObjSimple(const std::string& path,
 		size_t index_offset = 0;
 		for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); ++f) {
 			int fv = shapes[s].mesh.num_face_vertices[f];
-			// 면의 정점 인덱스 번호 모으기 (삼각형이 아닌 경우도 처리)
-			std::vector<int> face_vi;
-			std::vector<int> face_ni;
-			for (int v = 0; v < fv; ++v) {
+			for (int v = 0; v < fv; v++) {
 				tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
-				face_vi.push_back(idx.vertex_index);
-				face_ni.push_back(idx.normal_index);
-			}
-			// 면법선 계산(삼각형 분해)
-			if (!hasNormals && fv >= 3) {
-				glm::vec3 v0{
-				  attrib.vertices[3 * face_vi[0] + 0],
-				  attrib.vertices[3 * face_vi[0] + 1],
-				  attrib.vertices[3 * face_vi[0] + 2]
-				};
-				glm::vec3 v1{
-				  attrib.vertices[3 * face_vi[1] + 0],
-				  attrib.vertices[3 * face_vi[1] + 1],
-				  attrib.vertices[3 * face_vi[1] + 2]
-				};
-				glm::vec3 v2{
-				  attrib.vertices[3 * face_vi[2] + 0],
-				  attrib.vertices[3 * face_vi[2] + 1],
-				  attrib.vertices[3 * face_vi[2] + 2]
-				};
-				glm::vec3 n = glm::normalize(glm::cross(v1 - v0, v2 - v0));
-				for (int v = 0; v < fv; ++v) {
-					vertex_normals[face_vi[v]] += n;
-				}
-			}
-			// 인덱스/정점 생성 (각 면 정점마다)
-			for (int v = 0; v < fv; ++v) {
-				int vi = face_vi[v];
-				int ni = face_ni[v];
-				std::string key = make_key(vi, ni >= 0 ? ni : -1);
+
+				// 키 생성
+				std::string key = std::to_string(idx.vertex_index) + "/" +
+					std::to_string(idx.normal_index) + "/" +
+					std::to_string(idx.texcoord_index);
+
 				auto it = uniqueMap.find(key);
 				if (it != uniqueMap.end()) {
 					out_indices.push_back(it->second);
 				}
 				else {
 					Vertex vert;
+					// 위치
 					vert.pos = glm::vec3(
-						attrib.vertices[3 * vi + 0],
-						attrib.vertices[3 * vi + 1],
-						attrib.vertices[3 * vi + 2]
+						attrib.vertices[3 * idx.vertex_index + 0],
+						attrib.vertices[3 * idx.vertex_index + 1],
+						attrib.vertices[3 * idx.vertex_index + 2]
 					);
-					if (hasNormals && ni >= 0) {
+					// 법선
+					if (idx.normal_index >= 0) {
 						vert.normal = glm::vec3(
-							attrib.normals[3 * ni + 0],
-							attrib.normals[3 * ni + 1],
-							attrib.normals[3 * ni + 2]
+							attrib.normals[3 * idx.normal_index + 0],
+							attrib.normals[3 * idx.normal_index + 1],
+							attrib.normals[3 * idx.normal_index + 2]
 						);
 					}
 					else {
-						vert.normal = vertex_normals[vi]; // 나중에 정규화
+						vert.normal = glm::vec3(0, 1, 0); // fallback
 					}
+					// 텍스처 좌표
+					if (idx.texcoord_index >= 0) {
+						vert.texcoord = glm::vec2(
+							attrib.texcoords[2 * idx.texcoord_index + 0],
+							attrib.texcoords[2 * idx.texcoord_index + 1]
+						);
+					}
+					else {
+						vert.texcoord = glm::vec2(0, 0);
+					}
+
 					unsigned int newIndex = static_cast<unsigned int>(out_vertices.size());
 					uniqueMap[key] = newIndex;
 					out_vertices.push_back(vert);
@@ -166,14 +159,6 @@ bool LoadObjSimple(const std::string& path,
 			}
 			index_offset += fv;
 		}
-	}
-
-	// 법선 정규화(계산된 경우)
-	for (auto& v : out_vertices) {
-		if (glm::length(v.normal) > 0.0f)
-			v.normal = glm::normalize(v.normal);
-		else
-			v.normal = glm::vec3(0.0f, 1.0f, 0.0f); // 안전값
 	}
 
 	return true;

@@ -24,6 +24,17 @@ struct Vertex
 {
 	glm::vec3 pos;
 	glm::vec3 normal;
+	glm::vec2 texcoord;
+};
+
+struct MaterialInfo 
+{
+	std::string name;
+	glm::vec3 diffuse;
+	glm::vec3 ambient;
+	glm::vec3 specular;
+	float shininess;
+	std::string diffuseTex;
 };
 
 inline static std::string make_key(int vi, int ni) 
@@ -31,10 +42,10 @@ inline static std::string make_key(int vi, int ni)
 	return std::to_string(vi) + "_" + std::to_string(ni);
 }
 
-// OBJ 로드(텍스처 무시)
-bool LoadObjSimple(const std::string& path,
+bool LoadObjWithMaterial(const std::string& path,
 	std::vector<Vertex>& out_vertices,
-	std::vector<unsigned int>& out_indices);
+	std::vector<unsigned int>& out_indices,
+	std::vector<MaterialInfo>& out_materials);
 
 inline std::string WStringToUtf8(const std::wstring& wstr) 
 {
