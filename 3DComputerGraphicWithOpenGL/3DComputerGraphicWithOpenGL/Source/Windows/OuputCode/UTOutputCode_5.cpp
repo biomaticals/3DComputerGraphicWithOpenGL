@@ -256,6 +256,28 @@ void UTOutputWindow::Code_5_15_Start()
 	const std::string path = "Resource/Object/TableAndChairs.obj";
 	LoadObjSimple(path, vertices_5_15, indices_5_15);
 
+	glm::vec3 MeanPos;
+	glm::vec3 MinPos(FLT_MAX);
+	glm::vec3 MaxPos(-FLT_MAX);
+	for(int i = 0 ; i < vertices_5_15.size() ; i ++)
+	{
+		MeanPos += vertices_5_15[i].pos;
+		if(vertices_5_15[i].pos.x > MaxPos.x)
+			MaxPos.x = vertices_5_15[i].pos.x;
+		if (vertices_5_15[i].pos.y > MaxPos.y)
+			MaxPos.y = vertices_5_15[i].pos.y;
+		if (vertices_5_15[i].pos.z > MaxPos.z)
+			MaxPos.z = vertices_5_15[i].pos.z;
+		if (vertices_5_15[i].pos.x < MinPos.x)
+			MinPos.x = vertices_5_15[i].pos.x;
+		if (vertices_5_15[i].pos.y < MinPos.y)
+			MinPos.y = vertices_5_15[i].pos.y;
+		if (vertices_5_15[i].pos.z < MinPos.z)
+			MinPos.z = vertices_5_15[i].pos.z;
+	}
+	MeanPos /= (float)vertices_5_15.size();
+	printf("Mean : (%f, %f, %f), Min : (%f, %f, %f), Max : (%f, %f, %f)", MeanPos.x, MeanPos.y, MeanPos.z, MinPos.x, MinPos.y, MinPos.z, MaxPos.x, MaxPos.y, MaxPos.z);
+
 	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
@@ -298,15 +320,18 @@ void UTOutputWindow::Code_5_15()
 		glm::radians(45.0f),                       // 시야각 (fovy)
 		(float)display_w / (float)display_h,       // 종횡비
 		0.1f,                                      // near plane
-		100.0f                                     // far plane
+		10000.0f                                     // far plane
 	);
 	glLoadMatrixf(&projection[0][0]);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glm::vec3 center = glm::vec3(-15.7f, 25.4f, -13.0f);
+	glm::vec3 eye = center + glm::normalize(glm::vec3(1.f, 1.f, 1.f));
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(100.0f, 100.0f, 25.0f),  // eye (카메라 위치)
-		glm::vec3(0.0f, 0.0f, 0.0f),   // center (바라보는 지점)
+		glm::vec3(200.f, 50.f, 200.f),  // eye (카메라 위치)
+		glm::vec3(0.f, 0.f, 0.f),   // center (바라보는 지점)
 		glm::vec3(0.0f, 1.0f, 0.0f)    // up (업 벡터)
 	);
 	glLoadMatrixf(&view[0][0]);
