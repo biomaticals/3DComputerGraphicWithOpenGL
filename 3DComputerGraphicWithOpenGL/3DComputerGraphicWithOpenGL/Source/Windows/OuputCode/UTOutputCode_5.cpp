@@ -3,6 +3,7 @@
 
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
+//#include <imgui_impl_opengl3_loader.h>
 
 void UTOutputWindow::Code_5_2()
 {
@@ -206,6 +207,8 @@ void UTOutputWindow::Code_5_13()
 		glDrawElements(GL_POLYGON, 4, GL_UNSIGNED_BYTE, &VertexList_5_13[4 * i]);
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void UTOutputWindow::Code_5_14_Start()
@@ -253,10 +256,14 @@ void UTOutputWindow::Code_5_14()
 
 void UTOutputWindow::Code_5_15_Start()
 {
-	const std::string path = "Resource/Object/Wood_Table/Wood_Table.obj";
-	LoadObjWithMaterial(path, vertices_5_15, indices_5_15, materials_5_15);
-
-
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_15_MouseButton);
+	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
+	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
+	const std::string basepath = "Resource/Object/Wood_Table/";
+	const std::string texbasepath = "Resource/Object/Wood_Table/textures";
+	const std::string objpath = basepath + "Wood_Table.obj";
+	LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
 
 	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
@@ -266,14 +273,20 @@ void UTOutputWindow::Code_5_15_Start()
 	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
 	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
-	light_position_5_15[0] = -3.f;
-	light_position_5_15[1] = 6.f;
-	light_position_5_15[2] = 3.f;
-	light_position_5_15[3] = 0.f;
+	light_position_5_15[0] = 10000.f;
+	light_position_5_15[1] = 10000.f;
+	light_position_5_15[2] = 100000000.f;
+	light_position_5_15[3] = 1.f;
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
+
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
@@ -282,6 +295,10 @@ void UTOutputWindow::Code_5_15_Start()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0f);      // 기본보다 훨씬 큰 값
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5f);   // 거리 제곱에 따라 급격히 감소
+
 }
 
 void UTOutputWindow::Code_5_15()
@@ -292,48 +309,65 @@ void UTOutputWindow::Code_5_15()
 	glViewport(0, 0, display_w, display_h);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+
+ 	glm::vec3 eye{};
+ 	float theta_w = (cursor_xpos_5_15 / display_w) * 2.f * glm::pi<float>();
+ 	float theta_h = (cursor_ypos_5_15 / display_h) * glm::pi<float>();
+ 	eye.x = std::sin(theta_w) * 5.f;
+ 	eye.y = std::cos(theta_h) * 5.f;
+ 	eye.z = std::cos(theta_w) * 5.f;
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glm::mat4 projection = glm::perspective(
-		glm::radians(45.0f),                       // 시야각 (fovy)
-		(float)display_w / (float)display_h,       // 종횡비
-		0.1f,                                      // near plane
-		10000.0f                                     // far plane
+		glm::radians(45.0f),
+		(float)display_w / (float)display_h,
+		0.1f,
+		10000.0f
 	);
 	glLoadMatrixf(&projection[0][0]);
 
+	// 뷰 행렬 설정
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	glm::vec3 center = glm::vec3(-15.7f, 25.4f, -13.0f);
-	glm::vec3 eye = center + glm::normalize(glm::vec3(1.f, 1.f, 1.f));
 	glm::mat4 view = glm::lookAt(
-		glm::vec3(200.f, 50.f, 200.f),  // eye (카메라 위치)
-		glm::vec3(0.f, 0.f, 0.f),   // center (바라보는 지점)
-		glm::vec3(0.0f, 1.0f, 0.0f)    // up (업 벡터)
+		eye,
+		glm::vec3(0.f, 0.f, 0.f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 	glLoadMatrixf(&view[0][0]);
 
+
 	// 조명 위치는 여기서 다시 설정
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
-
-	glBegin(GL_TRIANGLES);
-	for (size_t i = 0; i < indices_5_15.size(); i++)
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glGetError();
+	if (!materials_5_15.empty() && materials_5_15[0].textureId != 0)
 	{
-		const Vertex& v = vertices_5_15[indices_5_15[i]];
-		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
-		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+		glBindTexture(GL_TEXTURE_2D, materials_5_15[0].textureId);
 	}
-	glEnd();
+ 	glBegin(GL_TRIANGLES);
+ 	for (size_t i = 0; i < indices_5_15.size(); i++)
+ 	{
+ 		const Vertex& v = vertices_5_15[indices_5_15[i]];
+ 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+ 		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+ 		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+ 	}
+ 	glEnd();
+
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
 
 void UTOutputWindow::Code_5_15_End()
 {
+	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
+	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 
+	glDisable(GL_TEXTURE_2D);
 }
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
@@ -380,5 +414,7 @@ void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int a
 
 void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	
+	CursorPosToOrthoCoords(OUTPUT_WINDOW->GetGLFWWindow(), std::array<double,2>{xpos, ypos});
+	OUTPUT_WINDOW->cursor_xpos_5_15 = xpos;
+	OUTPUT_WINDOW->cursor_ypos_5_15 = ypos;
 }

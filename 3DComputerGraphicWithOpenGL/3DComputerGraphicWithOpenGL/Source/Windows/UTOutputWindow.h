@@ -130,6 +130,7 @@ private:
 	std::vector<unsigned int> indices_5_15;
 	std::vector<MaterialInfo> materials_5_15;
 	GLfloat light_position_5_15[5];
+	double cursor_xpos_5_15, cursor_ypos_5_15;
 #pragma endregion
 
 private:

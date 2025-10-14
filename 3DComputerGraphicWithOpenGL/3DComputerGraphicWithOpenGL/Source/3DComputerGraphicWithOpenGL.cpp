@@ -12,7 +12,8 @@
 #include "Manager/WindowManager.h"
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
-
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 void UpdateManager()
 {
@@ -25,7 +26,8 @@ int main(int, char**)
 		return 1;
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 	IMGUI_CHECKVERSION();
 
 	WINDOW_MANAGER->CreateMainWindow();
@@ -73,6 +75,11 @@ int main(int, char**)
 	return 0;
 }
 
+bool FileExists(const std::string& path) {
+	std::ifstream f(path.c_str());
+	return f.good();
+}
+
 bool LoadObjWithMaterial(const std::string& path,
 	std::vector<Vertex>& out_vertices,
 	std::vector<unsigned int>& out_indices,
@@ -96,7 +103,32 @@ bool LoadObjWithMaterial(const std::string& path,
 		mat.ambient = glm::vec3(m.ambient[0], m.ambient[1], m.ambient[2]);
 		mat.specular = glm::vec3(m.specular[0], m.specular[1], m.specular[2]);
 		mat.shininess = m.shininess;
-		mat.diffuseTex = m.diffuse_texname; // 텍스처 파일 이름
+
+		auto fixPath = [](std::string path) {
+			std::replace(path.begin(), path.end(), '\\', '/');
+			return path;
+			};
+
+		std::string texPath;
+		if (!m.diffuse_texname.empty()) {
+			texPath = base_dir + "/" + fixPath(m.diffuse_texname);
+			if (!FileExists(texPath)) {
+				texPath.clear();
+			}
+		}
+
+		if (texPath.empty() && !m.specular_texname.empty()) {
+			std::string specPath = base_dir + "/" + fixPath(m.specular_texname);
+			if (FileExists(specPath)) {
+				texPath = specPath;
+			}
+		}
+
+		if (!texPath.empty()) {
+			mat.diffuseTex = texPath;
+			mat.textureId = LoadTexture2D(texPath);
+		}
+
 		out_materials.push_back(mat);
 	}
 
@@ -162,4 +194,43 @@ bool LoadObjWithMaterial(const std::string& path,
 	}
 
 	return true;
+}
+
+GLuint LoadTexture2D(const std::string& filename, bool flipY)
+{
+	//if (flipY)
+	stbi_set_flip_vertically_on_load(true);
+
+	int w = 0, h = 0, channels = 0;
+	unsigned char* data = stbi_load(filename.c_str(), &w, &h, &channels, 0);
+	if (!data) {
+		std::cerr << "Failed to load texture: " << filename << std::endl;
+		return 0;
+	}
+
+	GLenum format = GL_RGB;
+	if (channels == 4)      format = GL_RGBA;
+	else if (channels == 3) format = GL_RGB;
+	else if (channels == 1) format = GL_RED;
+
+	std::cout << "Loaded " << filename << " size: " << w << "x" << h << " channels: " << channels << std::endl;
+
+	GLuint texId = 0;
+	glGenTextures(1, &texId);
+	glBindTexture(GL_TEXTURE_2D, texId);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	GLint texW = 0, texH = 0;
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &texW);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &texH);
+	std::cout << "GPU texture size: " << texW << "x" << texH << std::endl;
+
+
+	stbi_image_free(data);
+	return texId;
 }

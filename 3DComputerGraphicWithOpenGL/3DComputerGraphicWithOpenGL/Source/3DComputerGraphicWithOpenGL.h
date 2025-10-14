@@ -30,11 +30,12 @@ struct Vertex
 struct MaterialInfo 
 {
 	std::string name;
-	glm::vec3 diffuse;
-	glm::vec3 ambient;
-	glm::vec3 specular;
-	float shininess;
-	std::string diffuseTex;
+	glm::vec3 diffuse;		//Kd
+	glm::vec3 ambient;		//Ka
+	glm::vec3 specular;		//Ks
+	float shininess;		//Ns
+	std::string diffuseTex; //map_Kd
+	unsigned int textureId = 0;
 };
 
 inline static std::string make_key(int vi, int ni) 
@@ -46,6 +47,8 @@ bool LoadObjWithMaterial(const std::string& path,
 	std::vector<Vertex>& out_vertices,
 	std::vector<unsigned int>& out_indices,
 	std::vector<MaterialInfo>& out_materials);
+
+GLuint LoadTexture2D(const std::string& filename, bool flipY = true);
 
 inline std::string WStringToUtf8(const std::wstring& wstr) 
 {
