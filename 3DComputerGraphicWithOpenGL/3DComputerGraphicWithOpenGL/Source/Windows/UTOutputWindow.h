@@ -125,7 +125,8 @@ private:
 	static void Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 	static void Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods);
 	static void Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
-	bool FlatShaded;	
+	bool FlatShadeMode_5_15;
+	bool WireframeMode_5_15;
 	std::vector<Vertex> vertices_5_15;
 	std::vector<unsigned int> indices_5_15;
 	std::vector<MaterialInfo> materials_5_15;

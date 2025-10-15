@@ -278,8 +278,8 @@ void UTOutputWindow::Code_5_15_Start()
 	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
 	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
-	light_position_5_15[0] = 0.f;
-	light_position_5_15[1] = 10.f;
+	light_position_5_15[0] = 5.f;
+	light_position_5_15[1] = 5.f;
 	light_position_5_15[2] = 0.f;
 	light_position_5_15[3] = 1.f;
 	glShadeModel(GL_SMOOTH);
@@ -350,6 +350,25 @@ void UTOutputWindow::Code_5_15()
 	{
 		glBindTexture(GL_TEXTURE_2D, materials_5_15[0].textureId);
 	}
+
+	if (FlatShadeMode_5_15)
+	{
+		glShadeModel(GL_SMOOTH);
+	}
+	else
+	{
+		glShadeModel(GL_FLAT);
+	}
+
+	if (WireframeMode_5_15)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
  	glBegin(GL_TRIANGLES);
  	for (size_t i = 0; i < indices_5_15.size(); i++)
  	{
@@ -394,17 +413,33 @@ void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, in
 		}
 		break;
 	}
-	case GLFW_KEY_S:
+	case GLFW_KEY_1:
 	{
-		if (OUTPUT_WINDOW->FlatShaded)
+		if (Action == GLFW_PRESS)
 		{
-			OUTPUT_WINDOW->FlatShaded = false;
-			glShadeModel(GL_SMOOTH);
+			if (OUTPUT_WINDOW->FlatShadeMode_5_15)
+			{
+				OUTPUT_WINDOW->FlatShadeMode_5_15 = false;
+			}
+			else
+			{
+				OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
+			}
 		}
-		else
+		break;
+	}
+	case GLFW_KEY_2:
+	{
+		if (Action == GLFW_PRESS)
 		{
-			OUTPUT_WINDOW->FlatShaded = true;
-			glShadeModel(GL_FLAT);
+			if(OUTPUT_WINDOW->WireframeMode_5_15)
+			{
+				OUTPUT_WINDOW->WireframeMode_5_15 = false;
+			}
+			else
+			{
+				OUTPUT_WINDOW->WireframeMode_5_15 = true;
+			}
 		}
 	}
 	}
