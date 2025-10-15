@@ -3,10 +3,10 @@
 
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
-//#include <imgui_impl_opengl3_loader.h>
 
 void UTOutputWindow::Code_5_2()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
@@ -23,6 +23,7 @@ void UTOutputWindow::Code_5_2()
 
 void UTOutputWindow::Code_5_4()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
@@ -65,6 +66,7 @@ void UTOutputWindow::Code_5_5()
 
 void UTOutputWindow::Code_5_5_End()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
 }
 
@@ -85,6 +87,7 @@ void UTOutputWindow::Code_5_6_Start()
 
 void UTOutputWindow::Code_5_6()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
@@ -133,6 +136,7 @@ void UTOutputWindow::Code_5_7_Start()
 
 void UTOutputWindow::Code_5_7()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
@@ -186,6 +190,7 @@ void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, do
 
 void UTOutputWindow::Code_5_13()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
@@ -273,9 +278,9 @@ void UTOutputWindow::Code_5_15_Start()
 	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
 	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
-	light_position_5_15[0] = 10000.f;
-	light_position_5_15[1] = 10000.f;
-	light_position_5_15[2] = 100000000.f;
+	light_position_5_15[0] = 0.f;
+	light_position_5_15[1] = 10.f;
+	light_position_5_15[2] = 0.f;
 	light_position_5_15[3] = 1.f;
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_DEPTH_TEST);
@@ -296,9 +301,8 @@ void UTOutputWindow::Code_5_15_Start()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0f);      // 기본보다 훨씬 큰 값
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5f);   // 거리 제곱에 따라 급격히 감소
-
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
 }
 
 void UTOutputWindow::Code_5_15()
@@ -336,7 +340,6 @@ void UTOutputWindow::Code_5_15()
 		glm::vec3(0.0f, 1.0f, 0.0f)
 	);
 	glLoadMatrixf(&view[0][0]);
-
 
 	// 조명 위치는 여기서 다시 설정
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);

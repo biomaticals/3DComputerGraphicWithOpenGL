@@ -45,7 +45,6 @@ private:
 
 	FBook Book;
 
-
 	unsigned int SelectedPart;
 	unsigned int SelectedChapter;
 	unsigned int SelectedSection;

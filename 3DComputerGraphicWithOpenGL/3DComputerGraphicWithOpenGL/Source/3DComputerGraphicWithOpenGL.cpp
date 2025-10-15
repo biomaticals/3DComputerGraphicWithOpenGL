@@ -198,8 +198,8 @@ bool LoadObjWithMaterial(const std::string& path,
 
 GLuint LoadTexture2D(const std::string& filename, bool flipY)
 {
-	//if (flipY)
-	stbi_set_flip_vertically_on_load(true);
+	if (flipY)
+		stbi_set_flip_vertically_on_load(true);
 
 	int w = 0, h = 0, channels = 0;
 	unsigned char* data = stbi_load(filename.c_str(), &w, &h, &channels, 0);
