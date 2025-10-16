@@ -73,7 +73,8 @@ bool ResourceManager::LoadTitleContext()
 	std::wstring Delimeter{ L": " };
 	while (std::getline(ContextStream, Line))
 	{
-		if (PartIndex == 0)
+		
+		if (Line.find(L"Part ") != -1)
 		{
 			Prefix = L"Part ";
 			Delimeter = L": ";
@@ -96,7 +97,7 @@ bool ResourceManager::LoadTitleContext()
 			
 			Book.Parts[PartIndex] = FPart(PartTitle);
 		}
-		else if (ChapterIndex == 0)
+		else if (Line.find(L"Chapter ") != -1)
 		{
 			Prefix = L"Chapter ";
 			Delimeter = L": ";
@@ -104,7 +105,7 @@ bool ResourceManager::LoadTitleContext()
 			if (StartPosition == std::wstring::npos)
 				break;
 			std::wstring ChapterTitle = Line.substr(StartPosition);
-			
+
 			StartPosition += Prefix.length();
 			EndPosition = Line.find(Delimeter, StartPosition);
 			if (EndPosition == std::wstring::npos)
@@ -119,7 +120,7 @@ bool ResourceManager::LoadTitleContext()
 
 			Book.Parts[PartIndex].Chapters[ChapterIndex] = FChapter(ChapterTitle);
 		}
-		else if (SectionIndex == 0)
+		else if (Line.find(L"Section ") != -1)
 		{
 			Prefix = L"Section ";
 			Delimeter = L": ";
@@ -135,7 +136,7 @@ bool ResourceManager::LoadTitleContext()
 
 			NumberStr = Line.substr(StartPosition, EndPosition - StartPosition);
 			SectionIndex = std::stoi(NumberStr);
-			
+
 			if (Book.Parts[PartIndex].Chapters[ChapterIndex].Sections.size() <= SectionIndex)
 			{
 				Book.Parts[PartIndex].Chapters[ChapterIndex].Sections.resize(SectionIndex + 1);
@@ -143,7 +144,7 @@ bool ResourceManager::LoadTitleContext()
 
 			Book.Parts[PartIndex].Chapters[ChapterIndex].Sections[SectionIndex] = FSection(SectionTitle);
 		}
-		else
+		else if(Line.find(L"Code ") != -1)
 		{
 			Prefix = L"Code ";
 			Delimeter = L": ";
@@ -165,14 +166,14 @@ bool ResourceManager::LoadTitleContext()
 			StartPosition += 1;
 			NumberStr = Line.substr(StartPosition, EndPosition - StartPosition);
 			CodeIndex = std::stoi(NumberStr);
-			
+
 			if (Book.Parts[PartIndex].Chapters[ChapterIndex].Sections[SectionIndex].ExampleCodes.size() <= CodeIndex)
 			{
 				Book.Parts[PartIndex].Chapters[ChapterIndex].Sections[SectionIndex].ExampleCodes.resize(CodeIndex + 1);
 			}
 
-			Book.Parts[PartIndex].Chapters[ChapterIndex].Sections[SectionIndex].ExampleCodes[CodeIndex] = FExampleCode(CodeTitle);   
-		}
+			Book.Parts[PartIndex].Chapters[ChapterIndex].Sections[SectionIndex].ExampleCodes[CodeIndex] = FExampleCode(CodeTitle);
+ 		}
 	}
 	ContextStream.close();
 

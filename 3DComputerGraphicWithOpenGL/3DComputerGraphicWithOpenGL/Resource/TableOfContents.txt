@@ -5,10 +5,19 @@ Part 02 : 오픈지엘 소개
 	Chapter 05 : 오픈지엘 기본 툴
 		Section 03 : 지엘 프로그램의 예
 			Code 5-2 : 흑색 바탕에 백색 사각형 그리기 1
+		Section 04 : 윈도우와 뷰 포트
 			Code 5-4 : 흑색 바탕에 백색 사각형 그리기 2
+		Section 05 : 콜백 프로그래밍
 			Code 5-5 : Reshape Callback
 			Code 5-6 : 키보드 콜백
 			Code 5-7 : 마우스 콜백
+		Section 07 : 정점 배열
 			Code 5-13 : 정점 배열
+		Section 08 : 디스플레이 리스트
 			Code 5-14 : 디스플레이 리스트
+		Section 09 : 프로젝트1
 			Code 5-15 : 프로젝트1 모델링
+Part 03 : 그래픽 파이프라인
+	Chapter 06 : 모델 변환과 시점 변환
+		Section 03 : 지엘의 모델 변환
+			Code 6-3 : 기하 변환
