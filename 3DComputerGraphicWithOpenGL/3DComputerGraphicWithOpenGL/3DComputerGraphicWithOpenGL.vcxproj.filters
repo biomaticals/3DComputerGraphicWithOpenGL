@@ -77,6 +77,12 @@
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_6.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Include\glad\src\glad.c">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\ImGui\imconfig.h">
@@ -140,6 +146,9 @@
       <Filter>Resource</Filter>
     </Text>
     <Text Include="Resource\InputAndDescription_Part2.txt">
+      <Filter>Resource</Filter>
+    </Text>
+    <Text Include="Resource\InputAndDescription_Part3.txt">
       <Filter>Resource</Filter>
     </Text>
   </ItemGroup>

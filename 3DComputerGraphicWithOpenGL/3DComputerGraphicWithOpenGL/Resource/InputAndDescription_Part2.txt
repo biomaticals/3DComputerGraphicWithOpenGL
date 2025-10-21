@@ -332,6 +332,15 @@ Code 5-15
 Input:
 void UTOutputWindow::Code_5_15_Start()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_15_MouseButton);
+	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
+	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
+	const std::string basepath = "Resource/Object/Wood_Table/";
+	const std::string texbasepath = "Resource/Object/Wood_Table/textures";
+	const std::string objpath = basepath + "Wood_Table.obj";
+	LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
+
 	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
@@ -340,12 +349,21 @@ void UTOutputWindow::Code_5_15_Start()
 	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
 	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
-	GLfloat light_position[] = { -3.f, 6.f, 3.f, 0.f };
+	light_position_5_15[0] = 5.f;
+	light_position_5_15[1] = 5.f;
+	light_position_5_15[2] = 0.f;
+	light_position_5_15[3] = 1.f;
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glEnable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -353,35 +371,104 @@ void UTOutputWindow::Code_5_15_Start()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
 }
 
 void UTOutputWindow::Code_5_15()
 {
-	const std::string path = "Resources/Objects/Table And Chairs.obj";
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
-	//LoadObjSimple(path, vertices, indices);
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 
-	glBegin(GL_TRIANGLES);
-	for (size_t i = 0; i < indices.size(); i++)
+	glViewport(0, 0, display_w, display_h);
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+ 	glm::vec3 eye{};
+ 	float theta_w = (cursor_xpos_5_15 / display_w) * 2.f * glm::pi<float>();
+ 	float theta_h = (cursor_ypos_5_15 / display_h) * glm::pi<float>();
+ 	eye.x = std::sin(theta_w) * 5.f;
+ 	eye.y = std::cos(theta_h) * 5.f;
+ 	eye.z = std::cos(theta_w) * 5.f;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glm::mat4 projection = glm::perspective(
+		glm::radians(45.0f),
+		(float)display_w / (float)display_h,
+		0.1f,
+		10000.0f
+	);
+	glLoadMatrixf(&projection[0][0]);
+
+	// 뷰 행렬 설정
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glm::mat4 view = glm::lookAt(
+		eye,
+		glm::vec3(0.f, 0.f, 0.f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	);
+	glLoadMatrixf(&view[0][0]);
+
+	// 조명 위치는 여기서 다시 설정
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glGetError();
+	if (!materials_5_15.empty() && materials_5_15[0].textureId != 0)
 	{
-		const Vertex& v = vertices[indices[i]];
-		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
-		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+		glBindTexture(GL_TEXTURE_2D, materials_5_15[0].textureId);
 	}
-	glEnd();
+
+	if (FlatShadeMode_5_15)
+	{
+		glShadeModel(GL_SMOOTH);
+	}
+	else
+	{
+		glShadeModel(GL_FLAT);
+	}
+
+	if (WireframeMode_5_15)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+ 	glBegin(GL_TRIANGLES);
+ 	for (size_t i = 0; i < indices_5_15.size(); i++)
+ 	{
+ 		const Vertex& v = vertices_5_15[indices_5_15[i]];
+ 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+ 		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+ 		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+ 	}
+ 	glEnd();
+
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
 
 void UTOutputWindow::Code_5_15_End()
 {
+	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
+	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 
+	glDisable(GL_TEXTURE_2D);
 }
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
 {
-
+	glViewport(0, 0, NewWidth, NewHeight);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 }
 
 void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -397,17 +484,33 @@ void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, in
 		}
 		break;
 	}
-	case GLFW_KEY_S:
+	case GLFW_KEY_1:
 	{
-		if (OUTPUT_WINDOW->FlatShaded)
+		if (Action == GLFW_PRESS)
 		{
-			OUTPUT_WINDOW->FlatShaded = false;
-			glShadeModel(GL_SMOOTH);
+			if (OUTPUT_WINDOW->FlatShadeMode_5_15)
+			{
+				OUTPUT_WINDOW->FlatShadeMode_5_15 = false;
+			}
+			else
+			{
+				OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
+			}
 		}
-		else
+		break;
+	}
+	case GLFW_KEY_2:
+	{
+		if (Action == GLFW_PRESS)
 		{
-			OUTPUT_WINDOW->FlatShaded = true;
-			glShadeModel(GL_FLAT);
+			if(OUTPUT_WINDOW->WireframeMode_5_15)
+			{
+				OUTPUT_WINDOW->WireframeMode_5_15 = false;
+			}
+			else
+			{
+				OUTPUT_WINDOW->WireframeMode_5_15 = true;
+			}
 		}
 	}
 	}
@@ -420,7 +523,23 @@ void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int a
 
 void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	
+	CursorPosToOrthoCoords(OUTPUT_WINDOW->GetGLFWWindow(), std::array<double,2>{xpos, ypos});
+	OUTPUT_WINDOW->cursor_xpos_5_15 = xpos;
+	OUTPUT_WINDOW->cursor_ypos_5_15 = ypos;
 }
 
 Description:
+LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15) 함수는 지정된 OBJ 파일을 로드하고, 정점 데이터(vertices_5_15), 인덱스 데이터(indices_5_15), 재질 정보(materials_5_15)를 추출합니다.
+
+glm::perspective 함수는 원근 투영 행렬을 생성합니다. 이 함수는 시야각, 종횡비, 근평면 및 원평면 거리를 매개변수로 받아 투영 행렬을 반환합니다.
+glm::lookAt 함수는 뷰 행렬을 생성합니다. 이 함수는 카메라 위치(eye), 바라보는 대상(center), 업 벡터(up)를 매개변수로 받아 뷰 행렬을 반환합니다.
+
+glEnable(GL_TEXTURE_2D) 함수는 2D 텍스처 매핑을 활성화합니다. 이를 통해 텍스처를 사용하여 표면에 이미지를 적용할 수 있습니다.
+glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE) 함수는 텍스처 환경 설정을 지정합니다. 여기서는 텍스처 색상과 재질 색상을 곱하는 모드인 GL_MODULATE를 설정합니다.
+glBindTexture(GL_TEXTURE_2D, materials_5_15[0].textureId) 함수는 지정된 텍스처 ID를 현재 바인딩된 2D 텍스처로 설정합니다. 이를 통해 이후의 렌더링에서 해당 텍스처가 사용됩니다.
+
+glShadeModel(GL_SMOOTH) 함수는 셰이딩 모델을 부드러운 셰이딩으로 설정합니다. 부드러운 셰이딩은 정점 색상을 보간하여 면의 색상을 계산합니다.
+glShadeModel(GL_FLAT) 함수는 셰이딩 모델을 평면 셰이딩으로 설정합니다. 평면 셰이딩은 면의 첫 번째 정점의 색상을 사용하여 면 전체의 색상을 계산합니다.
+
+glPolygonMode(GL_FRONT_AND_BACK, GL_FILL) 함수는 폴리곤의 앞면과 뒷면을 모두 채우는 모드로 설정합니다. 이를 통해 폴리곤이 실린더처럼 보이게 됩니다.
+glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) 함수는 폴리곤의 앞면과 뒷면을 모두 선 모드로 설정합니다. 이를 통해 폴리곤의 윤곽선만 그려지게 됩니다.

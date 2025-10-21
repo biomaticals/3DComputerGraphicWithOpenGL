@@ -49,9 +49,9 @@ public:
 
 public:
 	void SetSelectedExampleCodeData(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
-
-private:
+	void DumpGLState(const char* tag = "");
 #pragma region Chapter5
+private:
 	void Code_5_2();
 
 	void Code_5_4();
@@ -133,6 +133,13 @@ private:
 	GLfloat light_position_5_15[5];
 	double cursor_xpos_5_15, cursor_ypos_5_15;
 #pragma endregion
+//Chapter5
+
+#pragma region Chapter6
+private:
+	void Code_6_3();
+#pragma endregion 
+//Chapter6
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

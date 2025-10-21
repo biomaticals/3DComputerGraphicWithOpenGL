@@ -34,6 +34,7 @@ int main(int, char**)
 	WINDOW_MANAGER->CreateOutputWindow();
 
 	glfwMakeContextCurrent(MAIN_WINDOW->GetGLFWWindow());
+
 	ImGui::SetCurrentContext(MAIN_WINDOW->GetGuiContext());
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui_ImplGlfw_InitForOpenGL(MAIN_WINDOW->GetGLFWWindow(), true);
