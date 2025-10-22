@@ -159,15 +159,14 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 
 void UTOutputWindow::DumpGLState(const char* tag)
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	GLint iv[4];
 	GLfloat fv[16];
 	GLint i;
 	GLint prog = 0;
 	GLint tex = 0;
-	GLint viewport[4];
 	GLfloat clearColor[4];
 	GLfloat depthClear;
-	GLint polygonMode;
 	GLint shadeModel;
 	GLint frontFace;
 	GLint activeTexture;
@@ -175,15 +174,9 @@ void UTOutputWindow::DumpGLState(const char* tag)
 
 	printf("---- GL STATE DUMP %s ----\n", tag);
 
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	printf("VIEWPORT: %d %d %d %d\n", viewport[0], viewport[1], viewport[2], viewport[3]);
-
 	glGetFloatv(GL_COLOR_CLEAR_VALUE, clearColor);
 	glGetFloatv(GL_DEPTH_CLEAR_VALUE, &depthClear);
 	printf("CLEAR COLOR: %f %f %f %f  DEPTH CLEAR: %f\n", clearColor[0], clearColor[1], clearColor[2], clearColor[3], depthClear);
-
-	glGetIntegerv(GL_POLYGON_MODE, &polygonMode);
-	printf("POLYGON MODE (enum): %d (GL_POINT=0x1B00, GL_LINE=0x1B01, GL_FILL=0x1B02)\n", polygonMode);
 
 	glGetIntegerv(GL_SHADE_MODEL, &shadeModel);
 	printf("SHADE MODEL (enum): %d (GL_FLAT=0x1D00, GL_SMOOTH=0x1D01)\n", shadeModel);

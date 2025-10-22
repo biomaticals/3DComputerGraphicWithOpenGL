@@ -10,6 +10,7 @@ void UTOutputWindow::Code_5_2()
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
@@ -204,7 +205,7 @@ void UTOutputWindow::Code_5_13()
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glRotatef(30.0, 1.0, 1.0, 1.0);
+	glRotatef(30.0, 1.f, 1.f, 1.1);
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
 
@@ -221,17 +222,21 @@ void UTOutputWindow::Code_5_13()
 
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
+	glRotatef(-30.f, 1.f, 1.f, 1.f);
 }
 
 void UTOutputWindow::Code_5_14_Start()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	MyListID_5_14 = glGenLists(1);
 	glNewList(MyListID_5_14, GL_COMPILE);
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-
+	
 	glBegin(GL_POLYGON);
 	glColor3f(0.5f, 0.5f, 0.5f);
 	glVertex3f(-0.5f, -0.5f, 0.0f);
@@ -239,7 +244,7 @@ void UTOutputWindow::Code_5_14_Start()
 	glVertex3f(0.5f, 0.5f, 0.0f);
 	glVertex3f(-0.5f, 0.5f, 0.0f); 
 	glEnd();
-
+	
 	glPopMatrix();
 	glEndList();
 }
@@ -265,7 +270,7 @@ void UTOutputWindow::Code_5_14()
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
-
+	
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
@@ -281,7 +286,7 @@ void UTOutputWindow::Code_5_15_Start()
 	const std::string objpath = basepath + "Wood_Table.obj";
 	LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
 
-	glClearColor(0.4f, 0.4f, 0.4f, 0.f);
+	glClearColor(0.4f, 0.4f, 0.4f, 1.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat mat_ambient[] = { 0.5f, 0.4f, 0.3f, 1.f };
@@ -390,17 +395,34 @@ void UTOutputWindow::Code_5_15()
  	}
  	glEnd();
 
-	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
 }
 
 void UTOutputWindow::Code_5_15_End()
 {
+	//glfwMakeContextCurrent(GetGLFWWindow());
+
 	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
 	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-
+	
+	glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_TEXTURE_2D);
+	for (auto& material : materials_5_15)
+	{
+		if (material.textureId != 0)
+		{
+			glDeleteTextures(1, &material.textureId);
+			material.textureId = 0;
+		}
+	}
+	glFlush();
 }
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)

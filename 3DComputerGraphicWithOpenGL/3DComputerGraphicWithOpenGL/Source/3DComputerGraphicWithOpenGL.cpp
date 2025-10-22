@@ -4,6 +4,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <glad/glad.h>
 #include "3DComputerGraphicWithOpenGL.h"
 #include "imgui_internal.h"
 #include "imgui_impl_glfw.h"
@@ -34,6 +35,11 @@ int main(int, char**)
 	WINDOW_MANAGER->CreateOutputWindow();
 
 	glfwMakeContextCurrent(MAIN_WINDOW->GetGLFWWindow());
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		fprintf(stderr, "Failed to initialize GLAD\n");
+		return -1;
+	}
+
 
 	ImGui::SetCurrentContext(MAIN_WINDOW->GetGuiContext());
 	ImGui_ImplOpenGL3_Init(glsl_version);
