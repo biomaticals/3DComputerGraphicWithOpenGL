@@ -49,6 +49,8 @@ public:
 
 public:
 	void SetSelectedExampleCodeData(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
+	void ResetAll();
+
 	void DumpGLState(const char* tag = "");
 #pragma region Chapter5
 private:
@@ -80,6 +82,7 @@ private:
 	GLfloat BottomRightY_5_7 = -1;
 
 	void Code_5_13();
+	void Code_5_13_End();
 	inline static GLfloat Vertices_5_13[8][3]
 	{
 		{ -0.25f, -0.25f, 0.25f },
@@ -138,7 +141,6 @@ private:
 
 #pragma region Chapter6
 private:
-	void Code_6_3_Start();
 	void Code_6_3();
 	void Code_6_3_End();
 #pragma endregion 

@@ -6,6 +6,7 @@
 
 void UTOutputWindow::Code_5_2()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -24,6 +25,7 @@ void UTOutputWindow::Code_5_2()
 
 void UTOutputWindow::Code_5_4()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -46,15 +48,23 @@ void UTOutputWindow::Code_5_4()
 
 void UTOutputWindow::Code_5_5_Start()
 {
+	ResetAll();
 	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &Width_5_6, &Height_5_6);
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
 }
 
 void UTOutputWindow::Code_5_5()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f , 1.f, -1.f, 1.f, -1.f, 1.f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5f, 0.f);
@@ -83,6 +93,7 @@ void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewH
 
 void UTOutputWindow::Code_5_6_Start()
 {
+	ResetAll();
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_6_Key);
 }
 
@@ -131,6 +142,7 @@ void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 
 void UTOutputWindow::Code_5_7_Start()
 {
+	ResetAll();
 	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_7_MouseButton);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_7_CursorPosition);
 }
@@ -205,7 +217,7 @@ void UTOutputWindow::Code_5_13()
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glRotatef(30.0, 1.f, 1.f, 1.1);
+	glRotatef(30.f, 1.f, 0.f, 1.1);
 	glFrontFace(GL_CCW);
 	glEnable(GL_CULL_FACE);
 
@@ -219,15 +231,21 @@ void UTOutputWindow::Code_5_13()
 
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
-
+	glLoadIdentity();
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
-	glRotatef(-30.f, 1.f, 1.f, 1.f);
+}
+
+void UTOutputWindow::Code_5_13_End()
+{
+	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glDisable(GL_CULL_FACE);
 }
 
 void UTOutputWindow::Code_5_14_Start()
 {
-	//glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -270,13 +288,14 @@ void UTOutputWindow::Code_5_14()
 
 void UTOutputWindow::Code_5_14_End()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glDeleteLists(MyListID_5_14, 1);
 }
 
 void UTOutputWindow::Code_5_15_Start()
 {
-	//glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
 	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_15_MouseButton);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
@@ -346,7 +365,6 @@ void UTOutputWindow::Code_5_15()
 		10000.0f
 	);
 	glLoadMatrixf(&projection[0][0]);
-
 	// 뷰 행렬 설정
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -401,19 +419,20 @@ void UTOutputWindow::Code_5_15()
 
 void UTOutputWindow::Code_5_15_End()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
 	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-	
+
 	OUTPUT_WINDOW->WireframeMode_5_15 = true;
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
 	glShadeModel(GL_SMOOTH);
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);
@@ -428,7 +447,9 @@ void UTOutputWindow::Code_5_15_End()
 			material.textureId = 0;
 		}
 	}
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glFlush();
+	glGetError();
 }
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)

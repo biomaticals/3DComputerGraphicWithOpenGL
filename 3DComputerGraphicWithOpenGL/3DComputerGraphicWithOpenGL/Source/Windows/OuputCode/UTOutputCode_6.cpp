@@ -4,19 +4,22 @@
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
 
-void UTOutputWindow::Code_6_3_Start()
-{
-	//glfwMakeContextCurrent(GetGLFWWindow());
-}
-
 void UTOutputWindow::Code_6_3()
 {
+	printf("ctx=%p",(void*)glfwGetCurrentContext());
+
+
 	glfwMakeContextCurrent(GetGLFWWindow());
+
+	glDisable(GL_LIGHTING);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.f, 1.f, 1.f);
 
 	// 원점

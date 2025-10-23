@@ -4,5 +4,72 @@
 
 Code 6-3
 Input:
+void UTOutputWindow::Code_6_3()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.f, 1.f, 1.f);
+
+	// 원점
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+
+	glBegin(GL_POLYGON);
+	glVertex3f(0.1f, 0.1f, 0.f);
+	glVertex3f(0.1f, -0.1f, 0.f);
+	glVertex3f(-0.1f, -0.1f, 0.f);
+	glVertex3f(-0.1f, 0.1f, 0.f);
+	glEnd();
+
+	// 45도 회전 후, x축으로 0.6만큼 이동
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glRotatef(45.f, 0.f, 0.f, 1.f);
+	glTranslatef(0.6f, 0.f, 0.f);
+	glColor3f(1.f, 0.f, 0.f);
+
+	glBegin(GL_POLYGON);
+	glVertex3f(0.1f, 0.1f, 0.f);
+	glVertex3f(0.1f, -0.1f, 0.f);
+	glVertex3f(-0.1f, -0.1f, 0.f);
+	glVertex3f(-0.1f, 0.1f, 0.f);
+	glEnd();
+
+	// 먼저 x축으로 0.6만큼 이동 후, 45도 회전
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslatef(0.6f, 0.f, 0.f);
+	glRotatef(45.f, 0.f, 0.f, 1.f);
+	glColor3f(0.f, 1.f, 0.f);
+
+	glBegin(GL_POLYGON);
+	glVertex3f(0.1f, 0.1f, 0.f);
+	glVertex3f(0.1f, -0.1f, 0.f);
+	glVertex3f(-0.1f, -0.1f, 0.f);
+	glVertex3f(-0.1f, 0.1f, 0.f);
+	glEnd();
+
+	glFlush();
+	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_6_3_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glColor3f(1.f, 1.f, 1.f);
+}
 
 Description:
+glRoatef 함수와 glTranslatef 함수의 호출 순서에 따른 변환 결과의 차이를 확인하는 예제입니다.
+
+예를 들어, glRotatef(45.f, 0.f, 0.f, 1.f); 가 먼저 호출되고 glTranslatef(0.6f, 0.f, 0.f); 가 나중에 호출되면,
+변환 행렬의 곱셈 순서는 오른쪽에서 왼쪽으로 적용되므로, 실제로는 먼저 이동이 적용되고 그 다음에 회전이 적용됩니다.

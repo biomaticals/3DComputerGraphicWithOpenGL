@@ -117,6 +117,7 @@ void UTOutputWindow::Initialize()
 	EndDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_End;
 
 	DrawFunctions[5][13] = &UTOutputWindow::Code_5_13;
+	EndDrawFunctions[5][13] = &UTOutputWindow::Code_5_13_End;
 
 	StartDrawFunctions[5][14] = &UTOutputWindow::Code_5_14_Start;
 	DrawFunctions[5][14] = &UTOutputWindow::Code_5_14;
@@ -133,7 +134,6 @@ void UTOutputWindow::Initialize()
 #pragma endregion
 
 #pragma region Chapter6
-	StartDrawFunctions[6][3] = &UTOutputWindow::Code_6_3_Start;
 	DrawFunctions[6][3] = &UTOutputWindow::Code_6_3;
 	EndDrawFunctions[6][3] = &UTOutputWindow::Code_6_3_End;
 
@@ -168,6 +168,24 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 		(this->*OutputExampleCodeData.StartDrawFunction)();
 
 	glfwSetWindowShouldClose(GetGLFWWindow(), GLFW_FALSE);
+}
+
+void UTOutputWindow::ResetAll()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
+	glDisable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glShadeModel(GL_SMOOTH);
+	glFlush();
+	glGetError();
 }
 
 void UTOutputWindow::DumpGLState(const char* tag)
