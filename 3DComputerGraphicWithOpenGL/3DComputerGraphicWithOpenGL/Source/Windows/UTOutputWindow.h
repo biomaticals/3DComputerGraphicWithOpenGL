@@ -116,6 +116,7 @@ private:
 
 	void Code_5_14_Start();
 	void Code_5_14();
+	void Code_5_14_End();
 	GLuint MyListID_5_14;
 
 	void Code_5_15_Start();
@@ -137,7 +138,9 @@ private:
 
 #pragma region Chapter6
 private:
+	void Code_6_3_Start();
 	void Code_6_3();
+	void Code_6_3_End();
 #pragma endregion 
 //Chapter6
 

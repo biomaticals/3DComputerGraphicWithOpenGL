@@ -1,4 +1,4 @@
-// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
 #pragma once
@@ -42,7 +42,7 @@ void UTWindow::Initialize()
 	}
 	glfwMakeContextCurrent(GLFWWindow);
 	glViewport(0, 0, Width, Height);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	glfwSwapInterval(1);
 	glfwSetWindowFocusCallback(GLFWWindow, FocusCallback);
 }

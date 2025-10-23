@@ -227,14 +227,13 @@ void UTOutputWindow::Code_5_13()
 
 void UTOutputWindow::Code_5_14_Start()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
+	//glfwMakeContextCurrent(GetGLFWWindow());
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	MyListID_5_14 = glGenLists(1);
 	glNewList(MyListID_5_14, GL_COMPILE);
 	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
 	glLoadIdentity();
 	
 	glBegin(GL_POLYGON);
@@ -244,40 +243,40 @@ void UTOutputWindow::Code_5_14_Start()
 	glVertex3f(0.5f, 0.5f, 0.0f);
 	glVertex3f(-0.5f, 0.5f, 0.0f); 
 	glEnd();
-	
-	glPopMatrix();
+
 	glEndList();
 }
 
 void UTOutputWindow::Code_5_14()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 	
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-	
 	glCallList(MyListID_5_14);
 
-	glPopMatrix();
-	glMatrixMode(GL_PROJECTION);
-	glPopMatrix();
-	glMatrixMode(GL_MODELVIEW);
-	
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
 }
 
-void UTOutputWindow::Code_5_15_Start()
+void UTOutputWindow::Code_5_14_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glDeleteLists(MyListID_5_14, 1);
+}
+
+void UTOutputWindow::Code_5_15_Start()
+{
+	//glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_15_MouseButton);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
@@ -323,6 +322,7 @@ void UTOutputWindow::Code_5_15_Start()
 
 void UTOutputWindow::Code_5_15()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 
@@ -401,12 +401,18 @@ void UTOutputWindow::Code_5_15()
 
 void UTOutputWindow::Code_5_15_End()
 {
-	//glfwMakeContextCurrent(GetGLFWWindow());
+	glfwMakeContextCurrent(GetGLFWWindow());
 
 	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
 	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	
+	OUTPUT_WINDOW->WireframeMode_5_15 = true;
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
+	glShadeModel(GL_SMOOTH);
+
 	glClearColor(0.1f, 0.1f, 0.1f, 1.f);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
