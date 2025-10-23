@@ -94,8 +94,8 @@ void UTMainWindow::RenderUI()
 	}
 
 	// remain this for R&D
-	if (show_demo_window)
-		ImGui::ShowDemoWindow(&show_demo_window);
+	//if (show_demo_window)
+	//	ImGui::ShowDemoWindow(&show_demo_window);
 }
 
 void UTMainWindow::RenderDrawData()
@@ -105,12 +105,6 @@ void UTMainWindow::RenderDrawData()
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT);
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.5f, -0.5f, 0.f);
-	glVertex3f(0.5f, -0.5, 0.f);
-	glVertex3f(0.5f, 0.5f, 0.f);
-	glVertex3f(-0.5f, 0.5f, 0.f);
-	glEnd();
 	glFlush();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	glfwSwapBuffers(GetGLFWWindow());
