@@ -89,15 +89,15 @@ void UTOutputWindow::Initialize()
 	DrawFunctions.clear();
 	DrawFunctions.resize(7);
 	DrawFunctions[5].resize(16);
-	DrawFunctions[6].resize(4);
+	DrawFunctions[6].resize(6);
 
 	StartDrawFunctions.resize(7);
 	StartDrawFunctions[5].resize(16);
-	StartDrawFunctions[6].resize(4);
+	StartDrawFunctions[6].resize(6);
 
 	EndDrawFunctions.resize(7);
 	EndDrawFunctions[5].resize(16);
-	EndDrawFunctions[6].resize(4);
+	EndDrawFunctions[6].resize(6);
 
 #pragma region Chapter5
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
@@ -137,6 +137,12 @@ void UTOutputWindow::Initialize()
 	DrawFunctions[6][3] = &UTOutputWindow::Code_6_3;
 	EndDrawFunctions[6][3] = &UTOutputWindow::Code_6_3_End;
 
+	StartDrawFunctions[6][5] = &UTOutputWindow::Code_6_6_Start;
+	DrawFunctions[6][5] = &UTOutputWindow::Code_6_6;
+	EndDrawFunctions[6][5] = &UTOutputWindow::Code_6_6_End;
+	EarthOrbitAngle_6_6 = 0.f;
+	EarthRotationAngle_6_6 = 0.f;
+	MoonOrbitAngle_6_6 = 0.f;
 #pragma endregion
 }
 

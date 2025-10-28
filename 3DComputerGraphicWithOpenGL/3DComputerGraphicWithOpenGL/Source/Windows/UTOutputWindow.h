@@ -137,14 +137,22 @@ private:
 	GLfloat light_position_5_15[5];
 	double cursor_xpos_5_15, cursor_ypos_5_15;
 #pragma endregion
-//Chapter5
+// ~Chapter5
 
 #pragma region Chapter6
 private:
 	void Code_6_3();
 	void Code_6_3_End();
+
+	void Code_6_6_Start();
+	void Code_6_6();
+	void Code_6_6_End();
+	static void Code_6_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	GLfloat EarthOrbitAngle_6_6;
+	GLfloat EarthRotationAngle_6_6;
+	GLfloat MoonOrbitAngle_6_6;
 #pragma endregion 
-//Chapter6
+// ~Chapter6
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
