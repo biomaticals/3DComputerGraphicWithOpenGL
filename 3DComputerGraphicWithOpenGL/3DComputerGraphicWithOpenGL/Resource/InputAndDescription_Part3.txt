@@ -301,3 +301,21 @@ glm::mat4 view = glm::lookAt( // 뷰 행렬 생성
 );
 
 glLoadMatrixf(&view[0][0]); // 뷰 행렬을 OpenGL에 로드
+
+Code 6-9
+Input:
+void UTOutputWindow::Code_6_9_Start()
+{
+	ResetAll();
+	glfwSetKeyCallback(GetGLFWWindow(), Code_6_9_Key);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+Description:
+자유 낙하 구간의 운동 방정식
+충돌이 없을 때(비충돌 구간) 수직 운동은 등가속도 운동:

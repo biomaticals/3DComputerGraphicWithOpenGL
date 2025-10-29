@@ -158,6 +158,34 @@ private:
 	std::vector<Vertex> vertices_6_8;
 	std::vector<unsigned int> indices_6_8;
 	std::vector<MaterialInfo> materials_6_8;
+
+	void Code_6_9_Start();
+	void Code_6_9();
+	void Code_6_9_End();
+	static void Code_6_9_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	struct BoundcingBall_physics
+	{
+		GLfloat Gravity;   // 중력 가속도 (>0)
+		GLfloat Elastic;   // 탄성 계수 (0 <= e <= 1)
+		GLfloat IniitlaiHeight;  // 초기 높이 (>=0)
+		GLfloat InitialVerticalVelocity;  // 초기 수직 속도 (양수: 위, 음수: 아래)
+		GLfloat HorizonalVelocity; // 수평 속도
+	};
+	std::array<GLfloat, 2> GetBallState_6_9(const BoundcingBall_physics Physics, const GLfloat Time);
+	 GLfloat GetBallHeight(const BoundcingBall_physics Physics, const GLfloat Time, const double epsilon = 1e-12);
+	 GLfloat Gravity_6_9;
+	 GLfloat Elastic_6_9;
+	 GLfloat InitialHeight_6_9;
+	 GLfloat InitialVerticalVelocity_6_9;
+	 GLfloat HorizonalVelocity_6_9;
+	 GLfloat Time_6_9;
+	 std::vector<Vertex> vertices_6_9;
+	 std::vector<unsigned int> indices_6_9;
+	 std::vector<MaterialInfo> materials_6_9;
+
+	void Code_6_10_Start();
+	void Code_6_10();
+	void Code_6_10_End();
 #pragma endregion 
 // ~Chapter6
 
