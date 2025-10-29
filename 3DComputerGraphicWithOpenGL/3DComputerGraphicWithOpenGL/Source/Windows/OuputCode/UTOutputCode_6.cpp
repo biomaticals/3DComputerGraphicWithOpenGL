@@ -187,3 +187,88 @@ void UTOutputWindow::Code_6_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 		}
 	}
 }
+
+void UTOutputWindow::Code_6_8_Start()
+{
+	ResetAll();
+	const std::string basepath = "Resource/Object/Chaynik/";
+	const std::string texbasepath = "Resource/Object/Chaynik/textures";
+	const std::string objpath = basepath + "Chaynik.obj";
+	LoadObjWithMaterial(objpath, vertices_6_8, indices_6_8, materials_6_8);
+
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	GLfloat mat_diffuse[] = { 0.f, 0.4f, 0.3f, 1.f };
+	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat mat_ambient[] = { 0.5f, 0.4f, 0.3f, 1.f };
+	GLfloat mat_shininess[] = { 15.f };
+	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
+	GLfloat light_ambient[] = { 0.3f, 0.3f, 0.3f, 1.f };
+	GLfloat light_position[] = { -3.f, 6.f, 3.f, 0.f };
+
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
+	glFlush();
+}
+
+void UTOutputWindow::Code_6_8()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glColor3f(1.f, 1.f, 1.f);
+	// 원점
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glm::mat4 projection = glm::perspective(
+		glm::radians(45.0f),
+		(float)display_w / (float)display_h,
+		0.1f,
+		10000.0f
+	);
+	glLoadMatrixf(&projection[0][0]);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glm::mat4 view = glm::lookAt(
+		glm::vec3(1.5f, 0.6f, -1.f),
+		glm::vec3(0.f, 0.f, 0.f),
+		glm::vec3(0.f, 1.f, 0.f)
+	);
+	glLoadMatrixf(&view[0][0]);
+
+	glBegin(GL_TRIANGLES);
+	for (size_t i = 0; i < indices_6_8.size(); i++)
+	{
+		const Vertex& v = vertices_6_8[indices_6_8[i]];
+		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_6_8_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glColor3f(1.f, 1.f, 1.f);
+}

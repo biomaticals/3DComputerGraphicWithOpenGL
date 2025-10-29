@@ -151,6 +151,13 @@ private:
 	GLfloat EarthOrbitAngle_6_6;
 	GLfloat EarthRotationAngle_6_6;
 	GLfloat MoonOrbitAngle_6_6;
+
+	void Code_6_8_Start();
+	void Code_6_8();
+	void Code_6_8_End();
+	std::vector<Vertex> vertices_6_8;
+	std::vector<unsigned int> indices_6_8;
+	std::vector<MaterialInfo> materials_6_8;
 #pragma endregion 
 // ~Chapter6
 

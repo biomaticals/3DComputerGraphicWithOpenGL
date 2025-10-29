@@ -48,7 +48,7 @@ bool LoadObjWithMaterial(const std::string& path,
 	std::vector<unsigned int>& out_indices,
 	std::vector<MaterialInfo>& out_materials);
 
-GLuint LoadTexture2D(const std::string& filename, bool flipY = true);
+GLuint LoadTexture2D(const std::string& filename, bool flipY = false);
 
 inline std::string WStringToUtf8(const std::wstring& wstr) 
 {
