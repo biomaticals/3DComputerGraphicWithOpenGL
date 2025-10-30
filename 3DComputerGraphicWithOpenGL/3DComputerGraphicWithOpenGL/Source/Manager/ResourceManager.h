@@ -23,6 +23,8 @@ public:
 	
 private:
 	static ResourceManager* Instance;
+	std::wstring ProgramBasePath;
+	std::wstring Modified;
 
 public:
 	void Update();

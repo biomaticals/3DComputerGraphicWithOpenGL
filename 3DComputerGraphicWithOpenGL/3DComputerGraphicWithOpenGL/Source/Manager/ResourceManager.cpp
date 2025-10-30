@@ -59,6 +59,12 @@ bool ResourceManager::LoadTitleContext()
 	Book.Parts.clear();
 
 	std::wifstream ContextStream(TableOfContentsPath, std::ios::in);
+	if(ContextStream.fail())
+	{
+		TableOfContentsPath = L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\TableOfContents.txt";
+		ContextStream.open(TableOfContentsPath, std::ios::in);
+	}
+
 	ContextStream.imbue(std::locale("en_US.UTF-8"));
 
 	unsigned int PartIndex = 0;
@@ -191,6 +197,12 @@ FBook ResourceManager::GetBook() const
 const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsigned int InChapter,unsigned int InSection, unsigned int InCodeIndex)
 {
 	std::wifstream _ContextStream(TableOfContentsPath, std::ios::in);
+	if (_ContextStream.fail())
+	{
+		TableOfContentsPath = L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\TableOfContents.txt";
+		_ContextStream.open(TableOfContentsPath, std::ios::in);
+	}
+
 	_ContextStream.imbue(std::locale("en_US.UTF-8"));
 
 	std::wstring Line{};
@@ -257,6 +269,13 @@ bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsign
 	std::wstring InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
 
 	std::wifstream ContextStream(std::filesystem::path(InputAndDescriptionPath), std::ios::in);
+	if (ContextStream.fail())
+	{
+		InputAndDescriptionPathBase =  L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\InputAndDescription";
+		InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
+		ContextStream.open(InputAndDescriptionPath, std::ios::in);
+	}
+
 	ContextStream.imbue(std::locale("en_US.UTF-8"));
 	if (!ContextStream)
 	{
