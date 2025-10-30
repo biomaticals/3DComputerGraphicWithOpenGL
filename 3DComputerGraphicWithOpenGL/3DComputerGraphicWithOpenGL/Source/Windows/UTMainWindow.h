@@ -20,6 +20,8 @@ public:
 
 	ImGuiContext* GetGuiContext() const;
 
+	std::wstring DebugContext;
+
 private:
 	void DrawInputWindow();
 	void DrawSelectorWindow();

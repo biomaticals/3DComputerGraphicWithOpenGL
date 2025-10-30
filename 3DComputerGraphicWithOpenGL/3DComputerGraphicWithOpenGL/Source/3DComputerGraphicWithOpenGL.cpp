@@ -45,7 +45,8 @@ int main(int, char**)
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui_ImplGlfw_InitForOpenGL(MAIN_WINDOW->GetGLFWWindow(), true);
 	ImGuiIO& io = ImGui::GetIO();
-	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\malgun.ttf", 16.0f, NULL, io.Fonts->GetGlyphRangesKorean());
+	DefaultFont = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\malgun.ttf", 16.0f, NULL, io.Fonts->GetGlyphRangesKorean());
+	BigFont = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\malgun.ttf", 40.0f, NULL, io.Fonts->GetGlyphRangesKorean());
 	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
 	glfwSwapInterval(1);
 	while (MAIN_WINDOW->ShouldClose() == false)

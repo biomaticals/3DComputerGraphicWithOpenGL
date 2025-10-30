@@ -201,6 +201,16 @@ void UTMainWindow::DrawSelectorWindow()
 
 void UTMainWindow::DrawDescriptionWindow()
 {
+	if (DebugContext.empty() == false)
+	{
+		ImGui::PushFont(BigFont);
+		ImGui::SeparatorText(WStringToUtf8(L"디버그 정보").c_str());
+		ImGui::PushTextWrapPos();
+		ImGui::Text("%s", WStringToUtf8(DebugContext).c_str());
+		ImGui::PopTextWrapPos();
+		ImGui::PopFont();
+	}
+
 	ImGui::PushTextWrapPos();
 	ImGui::Text("%s", WStringToUtf8(DescriptionContext).c_str());
 	ImGui::PopTextWrapPos();

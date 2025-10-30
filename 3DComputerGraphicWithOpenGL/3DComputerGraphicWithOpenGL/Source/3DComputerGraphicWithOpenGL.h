@@ -120,3 +120,6 @@ inline std::array<double, 2> CursorPosToOrthoCoords(GLFWwindow* Window, const st
 	double orthoY = -CursorCoords[1] / (double)height * (OrthoBound._top - OrthoBound._bottom) + OrthoBound._top;
 	return { orthoX, orthoY};
 }
+
+inline ImFont* DefaultFont = nullptr;
+inline ImFont* BigFont = nullptr;

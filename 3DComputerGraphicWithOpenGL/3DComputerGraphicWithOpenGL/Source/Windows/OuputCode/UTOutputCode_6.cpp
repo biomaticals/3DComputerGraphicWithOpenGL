@@ -107,7 +107,7 @@ void UTOutputWindow::Code_6_6()
 	glPushMatrix();
 	glColor3f(1.f, 0.84f, 0.f);
 	glBegin(GL_POLYGON);
-	for(int i = 0 ; i < 360 ; i += 30)
+	for (int i = 0; i < 360; i += 30)
 	{
 		float rad = i * 3.14159f / 180.f;
 		glVertex3f(0.5f * cos(rad), 0.5f * sin(rad), 0.f);
@@ -119,11 +119,11 @@ void UTOutputWindow::Code_6_6()
 	glTranslatef(3.f, 0.f, 0.f);
 	glRotatef(EarthRotationAngle_6_6, 0.f, 0.f, 1.f); // 지구 자전
 	glPushMatrix();
-	
+
 	glColor3f(0.2f, 0.5f, 0.9f);
 	glBegin(GL_POLYGON);
-	for(int i = 0 ; i < 360 ; i += 30)
-		{
+	for (int i = 0; i < 360; i += 30)
+	{
 		float rad = i * 3.14159f / 180.f;
 		glVertex3f(0.2f * cos(rad), 0.2f * sin(rad), 0.f);
 	}
@@ -134,7 +134,7 @@ void UTOutputWindow::Code_6_6()
 	glTranslatef(0.7f, 0.f, 0.f);
 	glColor3f(0.8f, 0.8f, 0.8f);
 	glBegin(GL_POLYGON);
-	for(int i = 0 ; i < 360 ; i += 30)
+	for (int i = 0; i < 360; i += 30)
 	{
 		float rad = i * 3.14159f / 180.f;
 		glVertex3f(0.05f * cos(rad), 0.05f * sin(rad), 0.f);
@@ -143,7 +143,7 @@ void UTOutputWindow::Code_6_6()
 
 	glPopMatrix(); // 지구 복원
 	glPopMatrix(); // 태양 복원
-	
+
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
@@ -274,6 +274,7 @@ void UTOutputWindow::Code_6_8_End()
 void UTOutputWindow::Code_6_9_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_9_Key);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	Gravity_6_9 = 9.8f;
@@ -287,6 +288,34 @@ void UTOutputWindow::Code_6_9_Start()
 	const std::string texbasepath = "Resource/Object/Soccer_ball/textures";
 	const std::string objpath = basepath + "10536_soccerball_V1_iterations-2.obj";
 	LoadObjWithMaterial(objpath, vertices_6_9, indices_6_9, materials_6_9);
+
+	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };
+	GLfloat light_ambient[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat global_ambient[] = { 0.6f, 0.6f, 0.6f, 1.f };
+
+	light_position_5_15[0] = 50.f;
+	light_position_5_15[1] = 50.f;
+	light_position_5_15[2] = 0.f;
+	light_position_5_15[3] = 0.f;
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.f);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
 }
 
 void UTOutputWindow::Code_6_9()
@@ -297,12 +326,20 @@ void UTOutputWindow::Code_6_9()
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
- 	glMatrixMode(GL_PROJECTION);
- 	glLoadIdentity();
-	glOrtho(0.f, 100.f, -7.5f, 100.f, -10.f, 10.f);
- 
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.f, 100.f, -7.5f, 100.f, -100.f, 100.f);
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	if (!materials_6_9.empty() && materials_6_9[0].textureId != 0)
+	{
+		glBindTexture(GL_TEXTURE_2D, materials_6_9[0].textureId);
+	}
 
 	BoundcingBall_physics Physics{};
 	Physics.Gravity = Gravity_6_9; // 중력 가속도
@@ -314,19 +351,31 @@ void UTOutputWindow::Code_6_9()
 	GLfloat currentTime = glfwGetTime();
 	GLfloat deltaTime = (currentTime - Time_6_9);
 
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glBindTexture(GL_TEXTURE_2D, materials_6_9[0].textureId);
-
 	std::array<GLfloat, 2> BallPosition = GetBallState_6_9(Physics, deltaTime);
+
+	if(BallPosition[0] >= 100.f)
+	{
+		Time_6_9 = currentTime;
+		deltaTime = 0.f;
+		BallPosition = GetBallState_6_9(Physics, deltaTime);
+	}
+
+	glTranslatef(BallPosition[0], BallPosition[1], 0.f);
+	glRotatef(deltaTime * 30.f, 0.f, 0.f, -1.f);
+
 	glBegin(GL_TRIANGLES);
-	for(size_t i = 0 ; i < indices_6_9.size() ; i++)
+	for (size_t i = 0; i < indices_6_9.size(); i++)
 	{
 		const Vertex& v = vertices_6_9[indices_6_9[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
 		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
-		glVertex3f(v.pos.x + BallPosition[0], v.pos.y + BallPosition[1], v.pos.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
 	}
 	glEnd();
+
+	std::wstring debugContext = L"중력가속도 증감(1/2), 탄성계수 증감(3/4), 초기 높이 증감(5/6), 초기 수직 속도 증감(7/8), 초기화(R)\n";
+	debugContext += L"중력 가속도는 " + std::to_wstring(Gravity_6_9) + L", 탄성 계수는 " + std::to_wstring(Elastic_6_9) + L", 초기 높이는 " + std::to_wstring(InitialHeight_6_9) + L", 초기 수직 속도는 " + std::to_wstring(InitialVerticalVelocity_6_9);
+	MAIN_WINDOW->DebugContext = debugContext;
 
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
@@ -336,19 +385,21 @@ void UTOutputWindow::Code_6_9_End()
 {
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glColor3f(1.f, 1.f, 1.f);
 	Time_6_9 = 0.f;
+
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_6_9_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
 	switch (Key)
 	{
-		if (Action != GLFW_PRESS)
-			return;
-
+		if (Action == GLFW_PRESS && Scancode == 0)
+		{
 	case GLFW_KEY_1:
 		OUTPUT_WINDOW->Gravity_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
@@ -373,13 +424,20 @@ void UTOutputWindow::Code_6_9_Key(GLFWwindow* Window, int Key, int Scancode, int
 	case GLFW_KEY_8:
 		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 -= 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	case GLFW_KEY_R:
+		OUTPUT_WINDOW->Gravity_6_9 = 9.8f;
+		OUTPUT_WINDOW->Elastic_6_9 = 0.75f;
+		OUTPUT_WINDOW->InitialHeight_6_9 = 30.f;
+		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 = 0.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		}
 	}
 }
 
 std::array<GLfloat, 2> 	UTOutputWindow::GetBallState_6_9(const BoundcingBall_physics Physics, const GLfloat Time)
 {
 	std::array<GLfloat, 2> Position{};
-	Position[0] = Physics.HorizonalVelocity* Time;
+	Position[0] = Physics.HorizonalVelocity * Time;
 	Position[1] = GetBallHeight(Physics, Time);
 
 	return Position;
@@ -387,10 +445,10 @@ std::array<GLfloat, 2> 	UTOutputWindow::GetBallState_6_9(const BoundcingBall_phy
 
 GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const GLfloat time, const double eps /* = 1e-12 */)
 {
-	if (time < 0.f) 
+	if (time < 0.f)
 		return Physics.IniitlaiHeight;
-	
-	if (Physics.IniitlaiHeight <= 0.f && Physics.InitialVerticalVelocity <= 0.f) 
+
+	if (Physics.IniitlaiHeight <= 0.f && Physics.InitialVerticalVelocity <= 0.f)
 		return 0.f;
 
 	const GLfloat G = Physics.Gravity;
@@ -399,7 +457,7 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 	const GLfloat V0 = Physics.InitialVerticalVelocity;
 
 	GLfloat U0 = sqrt(std::max(0.f, V0 * V0 + 2.f * G * Y0));
-	if(U0 < eps)
+	if (U0 < eps)
 		return 0.f;
 
 	GLfloat t_first_bounce = (V0 + U0) / G;
@@ -413,7 +471,7 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 	if (E <= 0.f)
 	{
 		GLfloat dt_after = 2.f * U_n / G;
-		if(time < T + dt_after)
+		if (time < T + dt_after)
 		{
 			GLfloat t_in_bounce = time - T;
 			return std::max(0.f, t_in_bounce * (U_n * t_in_bounce - 0.5f * G * t_in_bounce));
