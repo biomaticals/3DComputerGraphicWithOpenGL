@@ -292,6 +292,18 @@ void UTOutputWindow::Code_6_9_Start()
 	HorizonalVelocity_6_9 = 5.f;
 	Time_6_9 = glfwGetTime();
 
+// 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+// 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0f);
+// 	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0f);
+
+	GLfloat LightConstantAttenuation_6_9;
+	GLfloat LightLinearAttenuation_6_9;
+	GLfloat LightQuadraticAttenuation_6_9;
+
+	glGetLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, &LightConstantAttenuation_6_9);
+	glGetLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, &LightLinearAttenuation_6_9);
+	glGetLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, &LightQuadraticAttenuation_6_9);
+
 	const std::string basepath = "Resource/Object/Soccer_ball/";
 	const std::string texbasepath = "Resource/Object/Soccer_ball/textures";
 	const std::string objpath = basepath + "10536_soccerball_V1_iterations-2.obj";
@@ -312,18 +324,14 @@ void UTOutputWindow::Code_6_9_Start()
 	glEnable(GL_LIGHT0);
 	glEnable(GL_NORMALIZE);
 	glDisable(GL_COLOR_MATERIAL);
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.f);
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.f);
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position_5_15);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1f);
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
+	glColor3f(1.f, 1.f, 1.f);
+	glFlush();
 }
 
 void UTOutputWindow::Code_6_9()
@@ -397,9 +405,14 @@ void UTOutputWindow::Code_6_9_End()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glColor3f(1.f, 1.f, 1.f);
+	GLfloat defaultAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, defaultAmbient);
+	
 	Time_6_9 = 0.f;
 
 	MAIN_WINDOW->DebugContext = L"";
+	
+	glFlush();
 }
 
 void UTOutputWindow::Code_6_9_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -544,6 +557,7 @@ static int key = 1;  // 동작 모드와 색상 변경 변수
 void UTOutputWindow::Code_6_10_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_10_Key);
 	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"\\funny-comedy-cartoon-background-music.mp3";
 	bool Result = 0;
@@ -564,33 +578,58 @@ void UTOutputWindow::Code_6_10_Start()
 		}
 	}
 
+	glDisable(GL_TEXTURE_2D);
+
+	glShadeModel(GL_SMOOTH); // 부드러운 음영 처리
 	glEnable(GL_DEPTH_TEST); // 깊이 테스팅 사용
 	glEnable(GL_NORMALIZE);  // 정규화
 	glEnable(GL_SMOOTH);     // 각 정점의 색상을 부드럽게 연결하여 칠해지도록  하므로, 각정점에 적용된 색상이 혼합되어 적용된다. 
 	glEnable(GL_LIGHTING);   // 지엘 조명. 빛을 받는 각도에 따라 로봇 색상이 변화
+	glEnable(GL_LIGHT0);
 
-	/* 빛을 받는 각도에 따라 로봇 색깔의 변화를 위한 설정 */
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	GLfloat ambientLight[] = { 0.3f,0.3f,0.3f,1.0f };
 	GLfloat diffuseLight[] = { 0.7f,0.7f,0.7f,1.0f };
 	GLfloat specular[] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat specref[] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat position[] = { 400.0,300.0,-700.0,1.0 };
+
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_COLOR_MATERIAL);
-	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
-	glMateriali(GL_FRONT, GL_SHININESS, 128);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0f);
 
+	GLfloat LightConstantAttenuation_6_9;
+	GLfloat LightLinearAttenuation_6_9;
+	GLfloat LightQuadraticAttenuation_6_9;
+
+	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
+	glEnable(GL_COLOR_MATERIAL);
+	
+	GLfloat white[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glMaterialfv(GL_FRONT, GL_AMBIENT, white);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, white);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, white);
+	glMateriali(GL_FRONT, GL_SHININESS, 128);
+	
+	glColor3f(1.f, 1.f, 1.f);
 	glClearColor(1.0, 1.0, 1.0, 1.0); // 배경 검은색
+	
 	glMatrixMode(GL_PROJECTION);   // 모드 설정
 	glLoadIdentity();              // CTM 값 초기화 
 	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0); // 가시 범위 설정
 
 	Time_6_10 = glfwGetTime();
 	LastTime_6_10 = Time_6_10;
+
+	// 디버그 추가해야겠다 각 키가 무슨 행동하는건지
+	MAIN_WINDOW->DebugContext = L"1: RUN 2: JAP 3: ROCKET 4: YUNA 5: EXIT\nW: Wireframe S: Solid Toggle\nR: Reset Pose\nP: Pause";
+	glFlush();
 }
 
 void Draw_Color(int i)
@@ -1211,13 +1250,37 @@ void UTOutputWindow::Code_6_10()
 		ex();
 		glPopMatrix();
 	}
+	glFlush();
 }
 
 void UTOutputWindow::Code_6_10_End()
 {
 	ResetAll();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-	sndPlaySound(NULL, SND_ASYNC);
+	mciSendStringW(L"close bgm", NULL, 0, NULL);
+
+	glDisable(GL_DEPTH_TEST); // 깊이 테스팅 사용
+	glDisable(GL_NORMALIZE);  // 정규화
+	glDisable(GL_SMOOTH);     // 각 정점의 색상을 부드럽게 연결하여 칠해지도록  하므로, 각정점에 적용된 색상이 혼합되어 적용된다. 
+	glDisable(GL_LIGHTING);   // 지엘 조명. 빛을 받는 각도에 따라 로봇 색상이 변화
+
+	glDisable(GL_LIGHT0);
+	glDisable(GL_COLOR_MATERIAL);
+	GLfloat White[3] = {1.f, 1.f, 1.f};
+	glMaterialfv(GL_FRONT, GL_AMBIENT, White);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, White);
+	glMateriali(GL_FRONT, GL_SHININESS, 0);
+
+	glClearColor(1.0, 1.0, 1.0, 1.0); // 배경 검은색
+	glMatrixMode(GL_PROJECTION);   // 모드 설정
+	glLoadIdentity();              // CTM 값 초기화 
+
+	Time_6_10 = glfwGetTime();
+	LastTime_6_10 = Time_6_10;
+
+
+	MAIN_WINDOW->DebugContext = L"";
+	glFlush();
 }
 
 /*
@@ -1251,7 +1314,7 @@ void UTOutputWindow::Code_6_10_Key(GLFWwindow* Window, int Key, int Scancode, in
 		case GLFW_KEY_S:
 			flag_6_10 = 0;
 			break;
-		case GLFW_KEY_Q:
+		case GLFW_KEY_P:
 			key = 6;
 			break;
 		}

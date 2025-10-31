@@ -209,6 +209,7 @@ void UTOutputWindow::ResetAll()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glShadeModel(GL_SMOOTH);
+	glColor3f(1.f, 1.f, 1.f);
 	glFlush();
 	glGetError();
 }
