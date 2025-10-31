@@ -335,11 +335,26 @@ bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsign
 		{
 			OutDescriptionContext += L"\n" + Line;
 		}
-		
 	}
 
 	ContextStream.close();
 
 	return !(OutInputContext.empty() && OutDescriptionContext.empty());
+}
+#pragma endregion
+
+#pragma region Sound
+std::wstring ResourceManager::GetSoundPath()
+{
+	if (std::filesystem::exists(SoundPath))
+	{
+		return SoundPath;
+	}
+	else 
+	{
+		SoundPath = L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\Sound";
+	}
+
+	return SoundPath;
 }
 #pragma endregion

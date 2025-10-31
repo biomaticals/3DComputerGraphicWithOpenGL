@@ -186,6 +186,9 @@ private:
 	void Code_6_10_Start();
 	void Code_6_10();
 	void Code_6_10_End();
+	static void Code_6_10_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	GLfloat Time_6_10;
+	GLfloat LastTime_6_10;
 #pragma endregion 
 // ~Chapter6
 

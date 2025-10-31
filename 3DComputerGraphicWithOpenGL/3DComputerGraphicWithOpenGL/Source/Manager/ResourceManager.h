@@ -54,4 +54,12 @@ public:
 private:
 	std::wstring InputAndDescriptionPathBase = L"Resource\\InputAndDescription";
 #pragma endregion
+
+#pragma region Sound
+public:
+	std::wstring GetSoundPath();
+
+private:
+	std::wstring SoundPath = L"Resource\\Sound";
+#pragma 
 };
