@@ -83,6 +83,9 @@
     <ClCompile Include="Source\Manager\ResourceManager.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_7.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\ImGui\imconfig.h">
