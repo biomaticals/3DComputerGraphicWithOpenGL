@@ -204,6 +204,15 @@ private:
 #pragma endregion
 // ~Chapter7
 
+#pragma region Chapter8
+private:
+	void Code_8_3_Start();
+	void Code_8_3();
+	void Code_8_3_End();
+	std::vector<Vertex> vertices_8_3;
+	std::vector<unsigned int> indices_8_3;
+	std::vector<MaterialInfo> materials_8_3;
+
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

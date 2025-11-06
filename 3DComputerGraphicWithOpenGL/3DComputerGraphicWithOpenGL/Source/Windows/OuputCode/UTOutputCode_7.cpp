@@ -89,7 +89,6 @@ void UTOutputWindow::Code_7_1()
  	glPopMatrix();
 
 	glfwSwapBuffers(GetGLFWWindow());
-	//glFlush();
 }
 
 void UTOutputWindow::Code_7_1_End()
