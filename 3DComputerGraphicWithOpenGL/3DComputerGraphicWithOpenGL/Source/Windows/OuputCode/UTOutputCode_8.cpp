@@ -145,3 +145,53 @@ void UTOutputWindow::Code_8_3_End()
 {
 	ResetAll();
 }
+
+void UTOutputWindow::Code_8_6_Start()
+{
+	ResetAll();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+}
+
+void UTOutputWindow::Code_8_6()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+ 	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
+	glColor3f(0.62f, 0.45f, 0.35f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, 0.9f, 0.1f);
+	glVertex3f(-0.9f, 0.9f, 0.1f);
+	glEnd();
+	glColor3f(0.92f, 0.63f, 0.45f);
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-0.5f, -0.5f, 0.5f);
+	glVertex3f(0.5f, -0.5f, 0.5f);
+	glVertex3f(0.f, 0.5f, 0.5f);
+	glEnd();
+
+	glDepthMask(GL_TRUE);
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glColor3f(0.f, 1.f, 0.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, 0.9f, 0.1f);
+	glVertex3f(-0.9f, 0.9f, 0.1f);
+	glEnd();
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_8_6_End()
+{
+	ResetAll();
+}

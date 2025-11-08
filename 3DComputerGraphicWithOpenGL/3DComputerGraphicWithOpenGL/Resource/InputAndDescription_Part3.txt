@@ -1487,3 +1487,70 @@ Description:
 우측 하단은 후면 제거한 렌더링 결과입니다.
 좌측 상단은 후면, 은면 제거한 렌더링 결과입니다.
 우측 상단은 은면 제거한 렌더링 결과입니다.
+
+Code 8-6
+Input:
+void UTOutputWindow::Code_8_6_Start()
+{
+	ResetAll();
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+}
+
+void UTOutputWindow::Code_8_6()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+ 	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
+	glColor3f(0.62f, 0.45f, 0.35f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, 0.9f, 0.1f);
+	glVertex3f(-0.9f, 0.9f, 0.1f);
+	glEnd();
+	glColor3f(0.92f, 0.63f, 0.45f);
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-0.5f, -0.5f, 0.5f);
+	glVertex3f(0.5f, -0.5f, 0.5f);
+	glVertex3f(0.f, 0.5f, 0.5f);
+	glEnd();
+
+	glDepthMask(GL_TRUE);
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glColor3f(0.f, 1.f, 0.f);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, -0.9f, 0.1f);
+	glVertex3f(0.9f, 0.9f, 0.1f);
+	glVertex3f(-0.9f, 0.9f, 0.1f);
+	glEnd();
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_8_6_End()
+{
+	ResetAll();
+}
+
+Description:
++Z 방향에서 0.1f 위치에 사각형 폴리곤을 그리고, +Z 방향에서 0.5f 위치에 삼각형 폴리곤이 있습니다.
+이 때, 사각형 폴리곤이 배경화면이 되어, 삼각형 폴리곤이 어디에 존재하든 사각형 폴리곤 위에 그려지게 하고자 합니다.
+
+이 때, 의사 코드는 아래와 같습니다.
+1. 깊이 버퍼 비활성화
+2. 사각형 폴리곤 그리기
+3. 삼각형 폴리곤 그리기
+4. 깊이 버퍼 활성화
+5. 색상 버퍼 비활성화
+6. 사각형 폴리곤 그리기
+
+이렇게 하면 깊이 버퍼에는 사각형 폴리곤의 깊이만 저장됩니다.
+삼각형 폴리곤은 깊이 버퍼에 영향을 주지 않으므로, 삼각형 폴리곤이 어디에 존재하든 사각형 폴리곤 위에 그려지게 됩니다.

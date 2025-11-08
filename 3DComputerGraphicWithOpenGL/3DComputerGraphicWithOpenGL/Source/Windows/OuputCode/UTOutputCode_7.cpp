@@ -17,7 +17,6 @@ void UTOutputWindow::Code_7_1_Start()
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
 	glOrtho(-0.5, 0.5, -0.5, 0.5, -0.5, 5.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -55,7 +54,13 @@ void UTOutputWindow::Code_7_1()
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
-	
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-0.5, 0.5, -0.5, 0.5, -0.5, 5.0);
+
 	glViewport(0, 0, display_w / 2, display_h / 2);
 	glPushMatrix();
 		gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);

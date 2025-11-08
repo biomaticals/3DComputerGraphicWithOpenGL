@@ -213,6 +213,10 @@ private:
 	std::vector<unsigned int> indices_8_3;
 	std::vector<MaterialInfo> materials_8_3;
 
+	void Code_8_6_Start();
+	void Code_8_6();
+	void Code_8_6_End();
+#pragma endregion
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
