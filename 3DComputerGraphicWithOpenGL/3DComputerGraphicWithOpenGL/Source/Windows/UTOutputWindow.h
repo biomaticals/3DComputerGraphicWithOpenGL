@@ -218,6 +218,12 @@ private:
 	void Code_8_6_End();
 #pragma endregion
 
+#pragma region Chapter9
+private:
+	void Code_9_10_Start();
+	void Code_9_10();
+	void Code_9_10_End();
+
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;

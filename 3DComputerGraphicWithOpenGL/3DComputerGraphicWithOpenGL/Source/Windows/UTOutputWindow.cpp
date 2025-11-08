@@ -87,23 +87,26 @@ void UTOutputWindow::Initialize()
 	UTWindow::Initialize();
 
 	DrawFunctions.clear();
-	DrawFunctions.resize(9);
+	DrawFunctions.resize(11);
 	DrawFunctions[5].resize(16);
 	DrawFunctions[6].resize(11);
 	DrawFunctions[7].resize(2);
 	DrawFunctions[8].resize(7);
+	DrawFunctions[9].resize(11);
 
-	StartDrawFunctions.resize(9);
+	StartDrawFunctions.resize(11);
 	StartDrawFunctions[5].resize(16);
 	StartDrawFunctions[6].resize(11);
 	StartDrawFunctions[7].resize(2);
 	StartDrawFunctions[8].resize(7);
+	StartDrawFunctions[9].resize(11);
 
-	EndDrawFunctions.resize(9);
+	EndDrawFunctions.resize(11);
 	EndDrawFunctions[5].resize(16);
 	EndDrawFunctions[6].resize(11);
 	EndDrawFunctions[7].resize(2);
 	EndDrawFunctions[8].resize(7);
+	EndDrawFunctions[9].resize(11);
 
 #pragma region Chapter5
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
@@ -182,6 +185,12 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[8][6] = &UTOutputWindow::Code_8_6_Start;
 	DrawFunctions[8][6] = &UTOutputWindow::Code_8_6;
 	EndDrawFunctions[8][6] = &UTOutputWindow::Code_8_6_End;
+#pragma endregion
+
+#pragma region Chapter9
+	StartDrawFunctions[9][10] = &UTOutputWindow::Code_9_10_Start;
+	DrawFunctions[9][10] = &UTOutputWindow::Code_9_10;
+	EndDrawFunctions[9][10] = &UTOutputWindow::Code_9_10_End;
 #pragma endregion
 }
 
