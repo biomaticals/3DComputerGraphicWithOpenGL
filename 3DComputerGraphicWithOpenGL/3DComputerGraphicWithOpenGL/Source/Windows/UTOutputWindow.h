@@ -217,12 +217,46 @@ private:
 	void Code_8_6();
 	void Code_8_6_End();
 #pragma endregion
+// ~Chapter8
 
 #pragma region Chapter9
 private:
 	void Code_9_10_Start();
 	void Code_9_10();
 	void Code_9_10_End();
+
+	void Code_9_15_Start();
+	void Code_9_15();
+	void Code_9_15_End();
+	static void Code_9_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	unsigned char PALETTE[16][3] =
+	{
+	{ 255, 255, 255 },      // WHITE
+	{   0, 255, 255 },      // CYAN
+	{ 255,   0, 255 },      // PURPLE
+	{   0,   0, 255 },      // BLUE
+	{ 192, 192, 192 },      // LIGHT GRAY
+	{ 128, 128, 128 },      // DARK GRAY
+	{   0, 128, 128 },      // DARK TEAL
+	{ 128,   0, 128 },      // DARK PURPLE
+	{   0,   0, 128 },      // DARK BLUE
+	{ 255, 255,   0 },      // YELLOW
+	{   0, 255,   0 },      // GREEN
+	{ 128, 128,   0 },      // DARK YELLOW
+	{   0, 128,   0 },      // DARK GREEN
+	{ 255,   0,   0 },      // RED
+	{ 128,   0,   0 },      // DARK RED
+	{   0,   0,   0 },      // BLACK
+	};
+
+	GLint Index_9_15;
+	GLfloat ElapsedTime_9_15;
+	GLfloat Time_9_15;
+	bool bSmooth_9_15;
+	bool bBlend_9_15;
+	bool bChangePalette;
+#pragma endregion
+// ~Chapter9
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

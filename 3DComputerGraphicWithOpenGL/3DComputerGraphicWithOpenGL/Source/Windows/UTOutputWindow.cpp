@@ -92,21 +92,21 @@ void UTOutputWindow::Initialize()
 	DrawFunctions[6].resize(11);
 	DrawFunctions[7].resize(2);
 	DrawFunctions[8].resize(7);
-	DrawFunctions[9].resize(11);
+	DrawFunctions[9].resize(16);
 
 	StartDrawFunctions.resize(11);
 	StartDrawFunctions[5].resize(16);
 	StartDrawFunctions[6].resize(11);
 	StartDrawFunctions[7].resize(2);
 	StartDrawFunctions[8].resize(7);
-	StartDrawFunctions[9].resize(11);
+	StartDrawFunctions[9].resize(16);
 
 	EndDrawFunctions.resize(11);
 	EndDrawFunctions[5].resize(16);
 	EndDrawFunctions[6].resize(11);
 	EndDrawFunctions[7].resize(2);
 	EndDrawFunctions[8].resize(7);
-	EndDrawFunctions[9].resize(11);
+	EndDrawFunctions[9].resize(16);
 
 #pragma region Chapter5
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
@@ -191,6 +191,16 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[9][10] = &UTOutputWindow::Code_9_10_Start;
 	DrawFunctions[9][10] = &UTOutputWindow::Code_9_10;
 	EndDrawFunctions[9][10] = &UTOutputWindow::Code_9_10_End;
+
+	StartDrawFunctions[9][15] = &UTOutputWindow::Code_9_15_Start;
+	DrawFunctions[9][15] = &UTOutputWindow::Code_9_15;
+	EndDrawFunctions[9][15] = &UTOutputWindow::Code_9_15_End;
+	Index_9_15 = 0;
+	ElapsedTime_9_15 = 0.f;
+	Time_9_15 = 0.f;
+	bSmooth_9_15 = false;
+	bBlend_9_15 = false;
+	bChangePalette = false;
 #pragma endregion
 }
 
