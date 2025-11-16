@@ -8,6 +8,8 @@
 #include "UTWindow.h"
 #include <vector>
 
+#define M_PI 3.14159265358979323846
+
 #define REGISTER_DRAW_FUNCTION(Chapter, CodeIndex) \
 	{ \
 		if (this->DrawFunctions.size() <= Chapter) \
@@ -257,6 +259,16 @@ private:
 	bool bChangePalette;
 #pragma endregion
 // ~Chapter9
+
+#pragma region Chapter10
+private:
+	void Code_10_11_Start();
+	void Code_10_11();
+	void Code_10_11_End();
+	static void Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	bool bEnableLight0_10_11;
+	bool bEnableLight1_10_11;
+#pragma endregion
 
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();

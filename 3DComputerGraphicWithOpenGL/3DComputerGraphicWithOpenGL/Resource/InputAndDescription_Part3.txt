@@ -1739,3 +1739,166 @@ glEnable(GL_BLEND) 를 통해 알파 블렌딩 기능을 활성화합니다.
 
 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) 를 통해 블렌딩 함수를 설정합니다.
 최종 색상 = a * 소스 + (1-a) * 배경
+
+Code 10-11
+Input:
+void UTOutputWindow::Code_10_11_Start()
+{
+    ResetAll();
+    glfwMakeContextCurrent(GetGLFWWindow());
+    
+    glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_10_11_Key);
+}
+
+void UTOutputWindow::Code_10_11()
+{
+    glfwMakeContextCurrent(GetGLFWWindow());
+    int display_w, display_h;
+    glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    GLfloat LightPosition0[] = {0.0, 0.0, 2.0, 1.0};
+    GLfloat LightPosition1[] = {1.0, 1.0, 1.0, 1.0};
+    GLfloat LightDirection1[] = {-0.5, -1.0, -1.0};
+    GLfloat SpotAngle1[] = {20.0};
+    
+    GLfloat global_ambient[] = {0.1f, 0.1f, 0.1f, 1.f};
+
+    GLfloat light0_ambient[] = {0.5f, 0.4f, 0.3f, 1.f};
+    GLfloat light0_diffuse[] = {0.5f, 0.4f, 0.3f, 1.f};
+    GLfloat light0_specular[] = {1.f, 1.f, 1.f, 1.f};
+
+    GLfloat light1_ambient[] = {0.f, 0.f, 0.f, 1.f};
+    GLfloat light1_diffuse[] = {0.5, 0.2, 0.3, 1.f};
+    GLfloat light1_specular[] = {0.f, 0.f, 0.f, 1.f};
+
+    GLfloat material_ambient[] = {0.3f, 0.3f, 0.3f, 1.f};
+    GLfloat material_diffuse[] = {0.8f, 0.8f, 0.8f, 1.f};
+    GLfloat material_specular[] = {0.f, 0.f, 1.f, 1.f};
+    GLfloat material_shininess[] = {25.f};
+
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    
+    if (bEnableLight0_10_11)
+    {
+        glEnable(GL_LIGHT0);
+        glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+    }
+    else
+    {
+        glDisable(GL_LIGHT0);
+    }
+    
+    if (bEnableLight1_10_11)
+    {
+        glEnable(GL_LIGHT1);
+        glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+        glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+        glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+    }
+    else
+    {
+        glDisable(GL_LIGHT1);
+    }
+    
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
+    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
+
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0.5, 0.5, 0.5, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
+    glTranslatef(0.3, 0.3, 0.0);
+    
+    glLightfv(GL_LIGHT0, GL_POSITION, LightPosition0);
+    glLightfv(GL_LIGHT1, GL_POSITION, LightPosition1);
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, LightDirection1);
+    glLightfv(GL_LIGHT1, GL_SPOT_CUTOFF, SpotAngle1);
+    glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 1.0);
+
+    float innerRadius = 0.3f;
+    float outerRadius = 0.6f;
+    int nsides = 800;
+    int rings = 800;
+
+    for (int i = 0; i < rings; i++) {
+        float phi = (float)i * 2.0f * M_PI / rings;
+        float nextPhi = (float)(i + 1) * 2.0f * M_PI / rings;
+
+        glBegin(GL_QUAD_STRIP);
+        for (int j = 0; j <= nsides; j++) {
+            float theta = (float)j * 2.0f * M_PI / nsides;
+
+            // 첫 번째 원
+            float x1 = (outerRadius + innerRadius * cos(theta)) * cos(phi);
+            float y1 = (outerRadius + innerRadius * cos(theta)) * sin(phi);
+            float z1 = innerRadius * sin(theta);
+
+            // 두 번째 원 (nextPhi)
+            float x2 = (outerRadius + innerRadius * cos(theta)) * cos(nextPhi);
+            float y2 = (outerRadius + innerRadius * cos(theta)) * sin(nextPhi);
+            float z2 = innerRadius * sin(theta);
+
+            glVertex3f(x1, y1, z1);
+            glVertex3f(x2, y2, z2);
+        }
+        glEnd();
+    }
+    
+    std::wstringstream wss{};
+    wss << L"1 : Toggle Light 0 (now " << (bEnableLight0_10_11 ? L"On)" : L"Off)") << std::endl << L"2 : Toggle Light 1 (now " << (bEnableLight1_10_11 ? L"On)" : L"Off)");
+    MAIN_WINDOW->DebugContext = wss.str(); 
+    
+    glfwSwapBuffers(GetGLFWWindow());
+    glFlush();
+}
+
+void UTOutputWindow::Code_10_11_End()
+{
+    glfwMakeContextCurrent(GetGLFWWindow());
+    glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+    
+    ResetAll();
+    
+    MAIN_WINDOW->DebugContext = L"";
+}
+
+void UTOutputWindow::Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+    
+    glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
+
+    if (Action == GLFW_PRESS)
+    {
+        switch (Key)
+        {
+        case GLFW_KEY_1:
+            {
+                OUTPUT_WINDOW->bEnableLight0_10_11 = !OUTPUT_WINDOW->bEnableLight0_10_11;
+                break;
+            }
+        case GLFW_KEY_2:
+            {
+                OUTPUT_WINDOW->bEnableLight1_10_11 = !OUTPUT_WINDOW->bEnableLight1_10_11;
+                break;
+            }
+        }
+    }
+}
+
+Description:
+ 라이트 0은 따뜻한 포인트 라이트로 하이라이트를 생성하고, 라이트 1은 붉은 스포트라이트로 좁은 영역을 비춘다. 
+ 두 라이트를 모두 켜면 조명 효과가 합산되어 더 밝고 복합적인 색감을 만든다.

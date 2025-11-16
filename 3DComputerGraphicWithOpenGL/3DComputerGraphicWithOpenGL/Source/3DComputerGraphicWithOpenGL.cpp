@@ -14,6 +14,8 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
 #define STB_IMAGE_IMPLEMENTATION
+#include <GL/freeglut_std.h>
+
 #include "stb_image.h"
 
 void UpdateManager()
@@ -21,7 +23,7 @@ void UpdateManager()
 	RESOURCE_MANAGER->Update();
 }
 
-int main(int, char**)
+int main(int argc, char** argv)
 {
 	if (!glfwInit())
 		return 1;
@@ -39,8 +41,7 @@ int main(int, char**)
 		fprintf(stderr, "Failed to initialize GLAD\n");
 		return -1;
 	}
-
-
+	
 	ImGui::SetCurrentContext(MAIN_WINDOW->GetGuiContext());
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui_ImplGlfw_InitForOpenGL(MAIN_WINDOW->GetGLFWWindow(), true);

@@ -92,6 +92,9 @@
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_9.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_10.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\ImGui\imconfig.h">

@@ -7,11 +7,9 @@
 #include "CoreMinimal.h"
 #include "Common.h"
 #include <string>
-#include "Windows/UTMainWindow.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <vector>
-#include <unordered_map>
 // math, helper, utilities below
 #include <GL/glu.h>
 #include <array>
