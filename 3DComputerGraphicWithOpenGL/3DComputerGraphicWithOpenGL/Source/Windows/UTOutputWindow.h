@@ -139,7 +139,6 @@ private:
 	GLfloat light_position_5_15[5];
 	double cursor_xpos_5_15, cursor_ypos_5_15;
 #pragma endregion
-// ~Chapter5
 
 #pragma region Chapter6
 private:
@@ -192,7 +191,6 @@ private:
 	GLfloat Time_6_10;
 	GLfloat LastTime_6_10;
 #pragma endregion 
-// ~Chapter6
 
 #pragma region Chapter7
 private:
@@ -204,7 +202,6 @@ private:
 	std::vector<unsigned int> indices_7_1;
 	std::vector<MaterialInfo> materials_7_1;
 #pragma endregion
-// ~Chapter7
 
 #pragma region Chapter8
 private:
@@ -219,7 +216,6 @@ private:
 	void Code_8_6();
 	void Code_8_6_End();
 #pragma endregion
-// ~Chapter8
 
 #pragma region Chapter9
 private:
@@ -258,7 +254,6 @@ private:
 	bool bBlend_9_15;
 	bool bChangePalette;
 #pragma endregion
-// ~Chapter9
 
 #pragma region Chapter10
 private:
@@ -268,6 +263,15 @@ private:
 	static void Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 	bool bEnableLight0_10_11;
 	bool bEnableLight1_10_11;
+
+	void Code_10_12_Start();
+	void Code_10_12();
+	void Code_10_12_End();
+	GLfloat LightSpinAngle_10_12;
+	GLfloat ElapsedTime_10_12;
+	GLfloat Time_10_12;
+	GLint Stacks_10_12;
+	GLint Slices_10_12;
 #pragma endregion
 
 private:

@@ -82,10 +82,6 @@ void UTOutputWindow::Code_10_11()
     glMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient);
     glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
     
-
-    
-    
-
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
     glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
     
@@ -171,4 +167,102 @@ void UTOutputWindow::Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, i
             }
         }
     }
+}
+
+void UTOutputWindow::Code_10_12_Start()
+{
+    glfwMakeContextCurrent(GetGLFWWindow());
+    ResetAll();
+    
+    Time_10_12 = glfwGetTime();
+    ElapsedTime_10_12 = 0.f;
+    LightSpinAngle_10_12 = 0.f;
+}
+
+void UTOutputWindow::Code_10_12()
+{
+    int display_w{}, display_h{};
+    glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+    glViewport(0, 0, display_w, display_h);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    ElapsedTime_10_12 = glfwGetTime() - Time_10_12;
+    Time_10_12 = glfwGetTime();
+    
+    LightSpinAngle_10_12 += ElapsedTime_10_12 * 20.f;
+
+    GLfloat LightPosition[] = {0.f, 0.f, 1.5f, 1.f};
+
+    GLfloat light0_ambient[] = {0.5f, 0.4f, 0.3f, 1.f};
+    GLfloat light0_diffuse[] = {0.8f, 0.7f, 0.6f, 1.f};
+    GLfloat light0_specular[] = {1.f, 1.f, 1.f, 1.f};
+
+    GLfloat material_ambient[] = {0.4f, 0.4f, 0.4f, 1.f};
+    GLfloat material_diffuse[] = {0.9f, 0.9f, 0.9f, 1.f};
+    GLfloat material_specular[] = {1.f, 1.f, 1.f, 1.f};
+    GLfloat material_shininess[] = {25.f};
+
+    glShadeModel(GL_SMOOTH);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+    glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION,   0.f);
+    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION,0.1f);
+    
+    glMaterialfv(GL_FRONT, GL_AMBIENT,  material_ambient);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE,  material_diffuse);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
+    
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(40.f, (GLfloat)display_w / (GLfloat)display_h, 0.1f, 100.f);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(0.f, 0.f, 5.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
+    glPushMatrix();
+        glTranslatef(0.f, 0.f, -5.f);
+        glPushMatrix();
+            glRotatef(LightSpinAngle_10_12, 1.f, 0.f, 0.f);
+            glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+        glPopMatrix();
+        
+        glColor3f(0.9f, 0.9f, 0.9f);
+        for (int i = 0; i < Stacks_10_12; ++i)
+        {
+            float phi0 = M_PI * float(i) / Stacks_10_12;
+            float phi1 = M_PI * float(i + 1) / Stacks_10_12;
+
+            glBegin(GL_TRIANGLE_STRIP);
+            for (int j = 0; j <= Slices_10_12; ++j)
+            {
+                float theta = 2.0f * M_PI * float(j) / Slices_10_12;
+                auto emit = [&](float phi)
+                {
+                    float y = std::cos(phi), rxy = std::sin(phi);
+                    float x = rxy * std::cos(theta), z = rxy * std::sin(theta);
+                    glNormal3f(x, y, z);
+                    glTexCoord2f(theta / (2.0f * M_PI), phi / M_PI);
+                    glVertex3f(x, y, z);
+                };
+                emit(phi0);
+                emit(phi1);
+            }
+            glEnd();
+        }
+    glPopMatrix();
+    
+    glfwSwapBuffers(GetGLFWWindow());
+    glFlush();
+}
+
+void UTOutputWindow::Code_10_12_End()
+{
+    ResetAll();
 }

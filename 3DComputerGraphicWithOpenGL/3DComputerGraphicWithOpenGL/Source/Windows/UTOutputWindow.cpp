@@ -93,7 +93,7 @@ void UTOutputWindow::Initialize()
 	DrawFunctions[7].resize(2);
 	DrawFunctions[8].resize(7);
 	DrawFunctions[9].resize(16);
-	DrawFunctions[10].resize(12);
+	DrawFunctions[10].resize(13);
 
 	StartDrawFunctions.resize(12);
 	StartDrawFunctions[5].resize(16);
@@ -101,7 +101,7 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[7].resize(2);
 	StartDrawFunctions[8].resize(7);
 	StartDrawFunctions[9].resize(16);
-	StartDrawFunctions[10].resize(12);
+	StartDrawFunctions[10].resize(13);
 
 	EndDrawFunctions.resize(12);
 	EndDrawFunctions[5].resize(16);
@@ -109,7 +109,7 @@ void UTOutputWindow::Initialize()
 	EndDrawFunctions[7].resize(2);
 	EndDrawFunctions[8].resize(7);
 	EndDrawFunctions[9].resize(16);
-	EndDrawFunctions[10].resize(12);
+	EndDrawFunctions[10].resize(13);
 
 #pragma region Chapter5
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
@@ -212,6 +212,15 @@ void UTOutputWindow::Initialize()
 	EndDrawFunctions[10][11] = &UTOutputWindow::Code_10_11_End;
 	bEnableLight0_10_11 = true;
 	bEnableLight1_10_11 = true;
+	
+	StartDrawFunctions[10][12] = &UTOutputWindow::Code_10_12_Start;
+	DrawFunctions[10][12] = &UTOutputWindow::Code_10_12;
+	EndDrawFunctions[10][12] = &UTOutputWindow::Code_10_12_End;
+	LightSpinAngle_10_12 = 0.f;
+	Time_10_12 = 0.f;
+	ElapsedTime_10_12 = 0.f;
+	Stacks_10_12 = 60;
+	Slices_10_12 = 60;
 #pragma endregion
 }
 
