@@ -274,6 +274,18 @@ private:
 	GLint Slices_10_12;
 #pragma endregion
 
+#pragma region Chapter11
+private:
+	void Code_11_7_Start();
+	void Code_11_7();
+	void Code_11_7_End();
+
+#define Width_11_7 10
+#define Height_11_7 10
+	GLubyte Texture_11_7[Width_11_7][Height_11_7][3];
+	
+#pragma endregion
+
 private:
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;
