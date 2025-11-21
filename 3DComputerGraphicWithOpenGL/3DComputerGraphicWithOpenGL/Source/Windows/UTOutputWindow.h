@@ -284,6 +284,11 @@ private:
 #define Height_11_7 10
 	GLubyte Texture_11_7[Width_11_7][Height_11_7][3];
 	
+	void Code_11_9_Start();
+	void Code_11_9();
+	void Code_11_9_End();
+	GLuint TextureObject_11_7;
+	GLUquadricObj* QuardricObj_11_7;
 #pragma endregion
 
 private:
