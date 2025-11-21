@@ -289,14 +289,20 @@ private:
 	void Code_11_9_End();
 	GLuint TextureObject_11_7;
 	GLUquadricObj* QuardricObj_11_7;
+
+	void Code_11_10_Start();
+	void Code_11_10();
+	void Code_11_10_End();
 #pragma endregion
 
 private:
-	using DrawFuncPtr = void (UTOutputWindow::*)();
-	std::vector<std::vector<DrawFuncPtr>> DrawFunctions;
 
-	std::vector<std::vector<DrawFuncPtr>> StartDrawFunctions;
-	std::vector<std::vector<DrawFuncPtr>> EndDrawFunctions;
+#define MAX_CHAPTER_COUNT 15
+	using DrawFuncPtr = void (UTOutputWindow::*)();
+	std::array<std::unordered_map<unsigned int, DrawFuncPtr>, MAX_CHAPTER_COUNT + 1> DrawFunctions;
+
+	std::array<std::unordered_map<unsigned int, DrawFuncPtr>, MAX_CHAPTER_COUNT + 1> StartDrawFunctions;
+	std::array<std::unordered_map<unsigned int, DrawFuncPtr>, MAX_CHAPTER_COUNT + 1 > EndDrawFunctions;
 
 public:
 	FExampleCode OutputExampleCodeData;

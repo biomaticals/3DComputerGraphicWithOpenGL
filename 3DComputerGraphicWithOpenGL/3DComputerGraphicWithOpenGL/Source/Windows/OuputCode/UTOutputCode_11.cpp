@@ -3,6 +3,7 @@
 
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
+#include "glaux/glaux.h"
 
 void UTOutputWindow::Code_11_7_Start()
 {
@@ -132,4 +133,20 @@ void UTOutputWindow::Code_11_9_End()
 	glDisable(GL_LIGHT0);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_1D);
+}
+
+void UTOutputWindow::Code_11_10_Start()
+{
+	
+}
+
+void UTOutputWindow::Code_11_10()
+{
+
+}
+
+void UTOutputWindow::Code_11_10_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
 }
