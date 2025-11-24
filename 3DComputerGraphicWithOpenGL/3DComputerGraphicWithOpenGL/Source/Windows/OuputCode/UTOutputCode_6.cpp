@@ -283,7 +283,7 @@ void UTOutputWindow::Code_6_9_Start()
 {
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-	glfwSetKeyCallback(GetGLFWWindow(), Code_6_9_Key);
+	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_6_9_Key);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	Gravity_6_9 = 9.8f;
 	Elastic_6_9 = 0.75f;

@@ -1,0 +1,886 @@
+﻿  camera.cpp
+  main.cpp
+  Skybox.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(109,1): warning C4005: 'GLUT_API_VERSION': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(183,1):
+      'GLUT_API_VERSION'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(110,1): warning C4005: 'GLUT_XLIB_IMPLEMENTATION': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(223,1):
+      'GLUT_XLIB_IMPLEMENTATION'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(136,1): warning C4005: 'GLUT_KEY_F1': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(255,1):
+      'GLUT_KEY_F1'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(137,1): warning C4005: 'GLUT_KEY_F2': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(256,1):
+      'GLUT_KEY_F2'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(138,1): warning C4005: 'GLUT_KEY_F3': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(257,1):
+      'GLUT_KEY_F3'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(139,1): warning C4005: 'GLUT_KEY_F4': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(258,1):
+      'GLUT_KEY_F4'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(140,1): warning C4005: 'GLUT_KEY_F5': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(259,1):
+      'GLUT_KEY_F5'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(141,1): warning C4005: 'GLUT_KEY_F6': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(260,1):
+      'GLUT_KEY_F6'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(142,1): warning C4005: 'GLUT_KEY_F7': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(261,1):
+      'GLUT_KEY_F7'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(143,1): warning C4005: 'GLUT_KEY_F8': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(262,1):
+      'GLUT_KEY_F8'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(144,1): warning C4005: 'GLUT_KEY_F9': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(263,1):
+      'GLUT_KEY_F9'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(145,1): warning C4005: 'GLUT_KEY_F10': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(264,1):
+      'GLUT_KEY_F10'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(146,1): warning C4005: 'GLUT_KEY_F11': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(265,1):
+      'GLUT_KEY_F11'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(147,1): warning C4005: 'GLUT_KEY_F12': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(266,1):
+      'GLUT_KEY_F12'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(148,1): warning C4005: 'GLUT_KEY_LEFT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(268,1):
+      'GLUT_KEY_LEFT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(149,1): warning C4005: 'GLUT_KEY_UP': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(269,1):
+      'GLUT_KEY_UP'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(150,1): warning C4005: 'GLUT_KEY_RIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(270,1):
+      'GLUT_KEY_RIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(151,1): warning C4005: 'GLUT_KEY_DOWN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(271,1):
+      'GLUT_KEY_DOWN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(152,1): warning C4005: 'GLUT_KEY_PAGE_UP': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(272,1):
+      'GLUT_KEY_PAGE_UP'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(153,1): warning C4005: 'GLUT_KEY_PAGE_DOWN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(273,1):
+      'GLUT_KEY_PAGE_DOWN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(154,1): warning C4005: 'GLUT_KEY_HOME': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(274,1):
+      'GLUT_KEY_HOME'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(155,1): warning C4005: 'GLUT_KEY_END': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(275,1):
+      'GLUT_KEY_END'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(156,1): warning C4005: 'GLUT_KEY_INSERT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(276,1):
+      'GLUT_KEY_INSERT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(161,1): warning C4005: 'GLUT_LEFT_BUTTON': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(245,1):
+      'GLUT_LEFT_BUTTON'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(162,1): warning C4005: 'GLUT_MIDDLE_BUTTON': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(246,1):
+      'GLUT_MIDDLE_BUTTON'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(163,1): warning C4005: 'GLUT_RIGHT_BUTTON': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(247,1):
+      'GLUT_RIGHT_BUTTON'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(164,1): warning C4005: 'GLUT_DOWN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(250,1):
+      'GLUT_DOWN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(165,1): warning C4005: 'GLUT_UP': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(251,1):
+      'GLUT_UP'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(166,1): warning C4005: 'GLUT_LEFT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(280,1):
+      'GLUT_LEFT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(167,1): warning C4005: 'GLUT_ENTERED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(281,1):
+      'GLUT_ENTERED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(172,1): warning C4005: 'GLUT_RGB': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(227,1):
+      'GLUT_RGB'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(173,1): warning C4005: 'GLUT_RGBA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(228,1):
+      'GLUT_RGBA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(174,1): warning C4005: 'GLUT_INDEX': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(229,1):
+      'GLUT_INDEX'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(175,1): warning C4005: 'GLUT_SINGLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(230,1):
+      'GLUT_SINGLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(176,1): warning C4005: 'GLUT_DOUBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(231,1):
+      'GLUT_DOUBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(177,1): warning C4005: 'GLUT_ACCUM': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(232,1):
+      'GLUT_ACCUM'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(178,1): warning C4005: 'GLUT_ALPHA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(233,1):
+      'GLUT_ALPHA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(179,1): warning C4005: 'GLUT_DEPTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(234,1):
+      'GLUT_DEPTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(180,1): warning C4005: 'GLUT_STENCIL': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(235,1):
+      'GLUT_STENCIL'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(181,1): warning C4005: 'GLUT_MULTISAMPLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(237,1):
+      'GLUT_MULTISAMPLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(182,1): warning C4005: 'GLUT_STEREO': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(238,1):
+      'GLUT_STEREO'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(183,1): warning C4005: 'GLUT_LUMINANCE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(241,1):
+      'GLUT_LUMINANCE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(188,1): warning C4005: 'GLUT_MENU_NOT_IN_USE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(284,1):
+      'GLUT_MENU_NOT_IN_USE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(189,1): warning C4005: 'GLUT_MENU_IN_USE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(285,1):
+      'GLUT_MENU_IN_USE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(190,1): warning C4005: 'GLUT_NOT_VISIBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(288,1):
+      'GLUT_NOT_VISIBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(191,1): warning C4005: 'GLUT_VISIBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(289,1):
+      'GLUT_VISIBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(192,1): warning C4005: 'GLUT_HIDDEN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(292,1):
+      'GLUT_HIDDEN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(193,1): warning C4005: 'GLUT_FULLY_RETAINED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(293,1):
+      'GLUT_FULLY_RETAINED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(194,1): warning C4005: 'GLUT_PARTIALLY_RETAINED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(294,1):
+      'GLUT_PARTIALLY_RETAINED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(195,1): warning C4005: 'GLUT_FULLY_COVERED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(295,1):
+      'GLUT_FULLY_COVERED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(203,1): warning C4005: 'GLUT_STROKE_ROMAN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(304,1):
+      'GLUT_STROKE_ROMAN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(204,1): warning C4005: 'GLUT_STROKE_MONO_ROMAN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(305,1):
+      'GLUT_STROKE_MONO_ROMAN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(205,1): warning C4005: 'GLUT_BITMAP_9_BY_15': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(308,1):
+      'GLUT_BITMAP_9_BY_15'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(206,1): warning C4005: 'GLUT_BITMAP_8_BY_13': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(309,1):
+      'GLUT_BITMAP_8_BY_13'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(207,1): warning C4005: 'GLUT_BITMAP_TIMES_ROMAN_10': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(310,1):
+      'GLUT_BITMAP_TIMES_ROMAN_10'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(208,1): warning C4005: 'GLUT_BITMAP_TIMES_ROMAN_24': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(311,1):
+      'GLUT_BITMAP_TIMES_ROMAN_24'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(209,1): warning C4005: 'GLUT_BITMAP_HELVETICA_10': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(313,1):
+      'GLUT_BITMAP_HELVETICA_10'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(210,1): warning C4005: 'GLUT_BITMAP_HELVETICA_12': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(314,1):
+      'GLUT_BITMAP_HELVETICA_12'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(211,1): warning C4005: 'GLUT_BITMAP_HELVETICA_18': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(315,1):
+      'GLUT_BITMAP_HELVETICA_18'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(243,1): warning C4005: 'GLUT_WINDOW_X': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(348,1):
+      'GLUT_WINDOW_X'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(244,1): warning C4005: 'GLUT_WINDOW_Y': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(349,1):
+      'GLUT_WINDOW_Y'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(245,1): warning C4005: 'GLUT_WINDOW_WIDTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(350,1):
+      'GLUT_WINDOW_WIDTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(246,1): warning C4005: 'GLUT_WINDOW_HEIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(351,1):
+      'GLUT_WINDOW_HEIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(247,1): warning C4005: 'GLUT_WINDOW_BUFFER_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(352,1):
+      'GLUT_WINDOW_BUFFER_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(248,1): warning C4005: 'GLUT_WINDOW_STENCIL_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(353,1):
+      'GLUT_WINDOW_STENCIL_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(249,1): warning C4005: 'GLUT_WINDOW_DEPTH_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(354,1):
+      'GLUT_WINDOW_DEPTH_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(250,1): warning C4005: 'GLUT_WINDOW_RED_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(355,1):
+      'GLUT_WINDOW_RED_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(251,1): warning C4005: 'GLUT_WINDOW_GREEN_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(356,1):
+      'GLUT_WINDOW_GREEN_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(252,1): warning C4005: 'GLUT_WINDOW_BLUE_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(357,1):
+      'GLUT_WINDOW_BLUE_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(253,1): warning C4005: 'GLUT_WINDOW_ALPHA_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(358,1):
+      'GLUT_WINDOW_ALPHA_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(254,1): warning C4005: 'GLUT_WINDOW_ACCUM_RED_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(359,1):
+      'GLUT_WINDOW_ACCUM_RED_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(255,1): warning C4005: 'GLUT_WINDOW_ACCUM_GREEN_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(360,1):
+      'GLUT_WINDOW_ACCUM_GREEN_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(256,1): warning C4005: 'GLUT_WINDOW_ACCUM_BLUE_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(361,1):
+      'GLUT_WINDOW_ACCUM_BLUE_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(257,1): warning C4005: 'GLUT_WINDOW_ACCUM_ALPHA_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(362,1):
+      'GLUT_WINDOW_ACCUM_ALPHA_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(258,1): warning C4005: 'GLUT_WINDOW_DOUBLEBUFFER': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(363,1):
+      'GLUT_WINDOW_DOUBLEBUFFER'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(259,1): warning C4005: 'GLUT_WINDOW_RGBA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(364,1):
+      'GLUT_WINDOW_RGBA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(260,1): warning C4005: 'GLUT_WINDOW_PARENT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(365,1):
+      'GLUT_WINDOW_PARENT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(261,1): warning C4005: 'GLUT_WINDOW_NUM_CHILDREN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(366,1):
+      'GLUT_WINDOW_NUM_CHILDREN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(262,1): warning C4005: 'GLUT_WINDOW_COLORMAP_SIZE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(367,1):
+      'GLUT_WINDOW_COLORMAP_SIZE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(263,1): warning C4005: 'GLUT_WINDOW_NUM_SAMPLES': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(369,1):
+      'GLUT_WINDOW_NUM_SAMPLES'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(264,1): warning C4005: 'GLUT_WINDOW_STEREO': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(370,1):
+      'GLUT_WINDOW_STEREO'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(265,1): warning C4005: 'GLUT_WINDOW_CURSOR': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(373,1):
+      'GLUT_WINDOW_CURSOR'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(267,1): warning C4005: 'GLUT_SCREEN_WIDTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(375,1):
+      'GLUT_SCREEN_WIDTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(268,1): warning C4005: 'GLUT_SCREEN_HEIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(376,1):
+      'GLUT_SCREEN_HEIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(269,1): warning C4005: 'GLUT_SCREEN_WIDTH_MM': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(377,1):
+      'GLUT_SCREEN_WIDTH_MM'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(270,1): warning C4005: 'GLUT_SCREEN_HEIGHT_MM': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(378,1):
+      'GLUT_SCREEN_HEIGHT_MM'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(271,1): warning C4005: 'GLUT_MENU_NUM_ITEMS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(379,1):
+      'GLUT_MENU_NUM_ITEMS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(272,1): warning C4005: 'GLUT_DISPLAY_MODE_POSSIBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(380,1):
+      'GLUT_DISPLAY_MODE_POSSIBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(273,1): warning C4005: 'GLUT_INIT_WINDOW_X': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(381,1):
+      'GLUT_INIT_WINDOW_X'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(274,1): warning C4005: 'GLUT_INIT_WINDOW_Y': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(382,1):
+      'GLUT_INIT_WINDOW_Y'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(275,1): warning C4005: 'GLUT_INIT_WINDOW_WIDTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(383,1):
+      'GLUT_INIT_WINDOW_WIDTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(276,1): warning C4005: 'GLUT_INIT_WINDOW_HEIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(384,1):
+      'GLUT_INIT_WINDOW_HEIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(277,1): warning C4005: 'GLUT_INIT_DISPLAY_MODE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(385,1):
+      'GLUT_INIT_DISPLAY_MODE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(278,1): warning C4005: 'GLUT_ELAPSED_TIME': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(387,1):
+      'GLUT_ELAPSED_TIME'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(279,1): warning C4005: 'GLUT_WINDOW_FORMAT_ID': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(390,1):
+      'GLUT_WINDOW_FORMAT_ID'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(284,1): warning C4005: 'GLUT_HAS_KEYBOARD': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(395,1):
+      'GLUT_HAS_KEYBOARD'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(285,1): warning C4005: 'GLUT_HAS_MOUSE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(396,1):
+      'GLUT_HAS_MOUSE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(286,1): warning C4005: 'GLUT_HAS_SPACEBALL': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(397,1):
+      'GLUT_HAS_SPACEBALL'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(287,1): warning C4005: 'GLUT_HAS_DIAL_AND_BUTTON_BOX': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(398,1):
+      'GLUT_HAS_DIAL_AND_BUTTON_BOX'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(288,1): warning C4005: 'GLUT_HAS_TABLET': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(399,1):
+      'GLUT_HAS_TABLET'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(289,1): warning C4005: 'GLUT_NUM_MOUSE_BUTTONS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(400,1):
+      'GLUT_NUM_MOUSE_BUTTONS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(290,1): warning C4005: 'GLUT_NUM_SPACEBALL_BUTTONS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(401,1):
+      'GLUT_NUM_SPACEBALL_BUTTONS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(291,1): warning C4005: 'GLUT_NUM_BUTTON_BOX_BUTTONS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(402,1):
+      'GLUT_NUM_BUTTON_BOX_BUTTONS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(292,1): warning C4005: 'GLUT_NUM_DIALS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(403,1):
+      'GLUT_NUM_DIALS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(293,1): warning C4005: 'GLUT_NUM_TABLET_BUTTONS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(404,1):
+      'GLUT_NUM_TABLET_BUTTONS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(294,1): warning C4005: 'GLUT_DEVICE_IGNORE_KEY_REPEAT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(407,1):
+      'GLUT_DEVICE_IGNORE_KEY_REPEAT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(295,1): warning C4005: 'GLUT_DEVICE_KEY_REPEAT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(408,1):
+      'GLUT_DEVICE_KEY_REPEAT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(296,1): warning C4005: 'GLUT_HAS_JOYSTICK': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(409,1):
+      'GLUT_HAS_JOYSTICK'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(297,1): warning C4005: 'GLUT_OWNS_JOYSTICK': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(410,1):
+      'GLUT_OWNS_JOYSTICK'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(298,1): warning C4005: 'GLUT_JOYSTICK_BUTTONS': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(411,1):
+      'GLUT_JOYSTICK_BUTTONS'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(299,1): warning C4005: 'GLUT_JOYSTICK_AXES': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(412,1):
+      'GLUT_JOYSTICK_AXES'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(300,1): warning C4005: 'GLUT_JOYSTICK_POLL_RATE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(413,1):
+      'GLUT_JOYSTICK_POLL_RATE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(305,1): warning C4005: 'GLUT_OVERLAY_POSSIBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(418,1):
+      'GLUT_OVERLAY_POSSIBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(306,1): warning C4005: 'GLUT_LAYER_IN_USE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(419,1):
+      'GLUT_LAYER_IN_USE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(307,1): warning C4005: 'GLUT_HAS_OVERLAY': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(420,1):
+      'GLUT_HAS_OVERLAY'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(308,1): warning C4005: 'GLUT_TRANSPARENT_INDEX': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(421,1):
+      'GLUT_TRANSPARENT_INDEX'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(309,1): warning C4005: 'GLUT_NORMAL_DAMAGED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(422,1):
+      'GLUT_NORMAL_DAMAGED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(310,1): warning C4005: 'GLUT_OVERLAY_DAMAGED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(423,1):
+      'GLUT_OVERLAY_DAMAGED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(315,1): warning C4005: 'GLUT_VIDEO_RESIZE_POSSIBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(427,1):
+      'GLUT_VIDEO_RESIZE_POSSIBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(316,1): warning C4005: 'GLUT_VIDEO_RESIZE_IN_USE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(428,1):
+      'GLUT_VIDEO_RESIZE_IN_USE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(317,1): warning C4005: 'GLUT_VIDEO_RESIZE_X_DELTA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(429,1):
+      'GLUT_VIDEO_RESIZE_X_DELTA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(318,1): warning C4005: 'GLUT_VIDEO_RESIZE_Y_DELTA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(430,1):
+      'GLUT_VIDEO_RESIZE_Y_DELTA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(319,1): warning C4005: 'GLUT_VIDEO_RESIZE_WIDTH_DELTA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(431,1):
+      'GLUT_VIDEO_RESIZE_WIDTH_DELTA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(320,1): warning C4005: 'GLUT_VIDEO_RESIZE_HEIGHT_DELTA': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(432,1):
+      'GLUT_VIDEO_RESIZE_HEIGHT_DELTA'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(321,1): warning C4005: 'GLUT_VIDEO_RESIZE_X': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(433,1):
+      'GLUT_VIDEO_RESIZE_X'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(322,1): warning C4005: 'GLUT_VIDEO_RESIZE_Y': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(434,1):
+      'GLUT_VIDEO_RESIZE_Y'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(323,1): warning C4005: 'GLUT_VIDEO_RESIZE_WIDTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(435,1):
+      'GLUT_VIDEO_RESIZE_WIDTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(324,1): warning C4005: 'GLUT_VIDEO_RESIZE_HEIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(436,1):
+      'GLUT_VIDEO_RESIZE_HEIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(329,1): warning C4005: 'GLUT_NORMAL': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(440,1):
+      'GLUT_NORMAL'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(330,1): warning C4005: 'GLUT_OVERLAY': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(441,1):
+      'GLUT_OVERLAY'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(335,1): warning C4005: 'GLUT_ACTIVE_SHIFT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(444,1):
+      'GLUT_ACTIVE_SHIFT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(336,1): warning C4005: 'GLUT_ACTIVE_CTRL': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(445,1):
+      'GLUT_ACTIVE_CTRL'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(337,1): warning C4005: 'GLUT_ACTIVE_ALT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(446,1):
+      'GLUT_ACTIVE_ALT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(342,1): warning C4005: 'GLUT_CURSOR_RIGHT_ARROW': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(450,1):
+      'GLUT_CURSOR_RIGHT_ARROW'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(343,1): warning C4005: 'GLUT_CURSOR_LEFT_ARROW': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(451,1):
+      'GLUT_CURSOR_LEFT_ARROW'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(344,1): warning C4005: 'GLUT_CURSOR_INFO': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(453,1):
+      'GLUT_CURSOR_INFO'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(345,1): warning C4005: 'GLUT_CURSOR_DESTROY': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(454,1):
+      'GLUT_CURSOR_DESTROY'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(346,1): warning C4005: 'GLUT_CURSOR_HELP': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(455,1):
+      'GLUT_CURSOR_HELP'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(347,1): warning C4005: 'GLUT_CURSOR_CYCLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(456,1):
+      'GLUT_CURSOR_CYCLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(348,1): warning C4005: 'GLUT_CURSOR_SPRAY': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(457,1):
+      'GLUT_CURSOR_SPRAY'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(349,1): warning C4005: 'GLUT_CURSOR_WAIT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(458,1):
+      'GLUT_CURSOR_WAIT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(350,1): warning C4005: 'GLUT_CURSOR_TEXT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(459,1):
+      'GLUT_CURSOR_TEXT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(351,1): warning C4005: 'GLUT_CURSOR_CROSSHAIR': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(460,1):
+      'GLUT_CURSOR_CROSSHAIR'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(352,1): warning C4005: 'GLUT_CURSOR_UP_DOWN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(462,1):
+      'GLUT_CURSOR_UP_DOWN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(353,1): warning C4005: 'GLUT_CURSOR_LEFT_RIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(463,1):
+      'GLUT_CURSOR_LEFT_RIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(354,1): warning C4005: 'GLUT_CURSOR_TOP_SIDE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(465,1):
+      'GLUT_CURSOR_TOP_SIDE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(355,1): warning C4005: 'GLUT_CURSOR_BOTTOM_SIDE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(466,1):
+      'GLUT_CURSOR_BOTTOM_SIDE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(356,1): warning C4005: 'GLUT_CURSOR_LEFT_SIDE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(467,1):
+      'GLUT_CURSOR_LEFT_SIDE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(357,1): warning C4005: 'GLUT_CURSOR_RIGHT_SIDE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(468,1):
+      'GLUT_CURSOR_RIGHT_SIDE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(358,1): warning C4005: 'GLUT_CURSOR_TOP_LEFT_CORNER': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(469,1):
+      'GLUT_CURSOR_TOP_LEFT_CORNER'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(359,1): warning C4005: 'GLUT_CURSOR_TOP_RIGHT_CORNER': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(470,1):
+      'GLUT_CURSOR_TOP_RIGHT_CORNER'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(360,1): warning C4005: 'GLUT_CURSOR_BOTTOM_RIGHT_CORNER': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(471,1):
+      'GLUT_CURSOR_BOTTOM_RIGHT_CORNER'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(361,1): warning C4005: 'GLUT_CURSOR_BOTTOM_LEFT_CORNER': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(472,1):
+      'GLUT_CURSOR_BOTTOM_LEFT_CORNER'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(362,1): warning C4005: 'GLUT_CURSOR_INHERIT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(474,1):
+      'GLUT_CURSOR_INHERIT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(363,1): warning C4005: 'GLUT_CURSOR_NONE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(476,1):
+      'GLUT_CURSOR_NONE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(364,1): warning C4005: 'GLUT_CURSOR_FULL_CROSSHAIR': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(478,1):
+      'GLUT_CURSOR_FULL_CROSSHAIR'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(369,1): warning C4005: 'GLUT_RED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(298,1):
+      'GLUT_RED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(370,1): warning C4005: 'GLUT_GREEN': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(299,1):
+      'GLUT_GREEN'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(371,1): warning C4005: 'GLUT_BLUE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(300,1):
+      'GLUT_BLUE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(376,1): warning C4005: 'GLUT_KEY_REPEAT_OFF': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(661,1):
+      'GLUT_KEY_REPEAT_OFF'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(377,1): warning C4005: 'GLUT_KEY_REPEAT_ON': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(662,1):
+      'GLUT_KEY_REPEAT_ON'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(378,1): warning C4005: 'GLUT_KEY_REPEAT_DEFAULT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(663,1):
+      'GLUT_KEY_REPEAT_DEFAULT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(380,1): warning C4005: 'GLUT_JOYSTICK_BUTTON_A': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(666,1):
+      'GLUT_JOYSTICK_BUTTON_A'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(381,1): warning C4005: 'GLUT_JOYSTICK_BUTTON_B': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(667,1):
+      'GLUT_JOYSTICK_BUTTON_B'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(382,1): warning C4005: 'GLUT_JOYSTICK_BUTTON_C': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(668,1):
+      'GLUT_JOYSTICK_BUTTON_C'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(383,1): warning C4005: 'GLUT_JOYSTICK_BUTTON_D': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(669,1):
+      'GLUT_JOYSTICK_BUTTON_D'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(388,1): warning C4005: 'GLUT_GAME_MODE_ACTIVE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(677,1):
+      'GLUT_GAME_MODE_ACTIVE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(389,1): warning C4005: 'GLUT_GAME_MODE_POSSIBLE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(678,1):
+      'GLUT_GAME_MODE_POSSIBLE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(390,1): warning C4005: 'GLUT_GAME_MODE_WIDTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(679,1):
+      'GLUT_GAME_MODE_WIDTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(391,1): warning C4005: 'GLUT_GAME_MODE_HEIGHT': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(680,1):
+      'GLUT_GAME_MODE_HEIGHT'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(392,1): warning C4005: 'GLUT_GAME_MODE_PIXEL_DEPTH': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(681,1):
+      'GLUT_GAME_MODE_PIXEL_DEPTH'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(393,1): warning C4005: 'GLUT_GAME_MODE_REFRESH_RATE': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(682,1):
+      'GLUT_GAME_MODE_REFRESH_RATE'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(394,1): warning C4005: 'GLUT_GAME_MODE_DISPLAY_CHANGED': 매크로 재정의
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(683,1):
+      'GLUT_GAME_MODE_DISPLAY_CHANGED'의 이전 정의를 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(399,26): error C2375: 'glutInit_ATEXIT_HACK': 재정의. 연결이 다릅니다.
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(486,22):
+      'glutInit_ATEXIT_HACK' 선언을 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(413,26): error C2375: 'glutCreateWindow_ATEXIT_HACK': 재정의. 연결이 다릅니다.
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(503,21):
+      'glutCreateWindow_ATEXIT_HACK' 선언을 참조하십시오.
+  
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\gl\freeglut_std.h(456,26): error C2375: 'glutCreateMenu_ATEXIT_HACK': 재정의. 연결이 다릅니다.
+  (소스 파일 'main.cpp'을(를) 컴파일하는 중)
+      E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\inc\gl\glut.h(549,21):
+      'glutCreateMenu_ATEXIT_HACK' 선언을 참조하십시오.
+  
+E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\main.cpp(29,2): error C2065: 'glutInit_ATEXIT_HACK': 선언되지 않은 식별자입니다.
+E:\3DComputerGraphicWithOpenGL\Book\[CG]Project IV\CGprojectB5\main.cpp(35,2): error C2065: 'glutCreateWindow_ATEXIT_HACK': 선언되지 않은 식별자입니다.
+  Terrain.cpp

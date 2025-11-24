@@ -80,9 +80,6 @@
     <ClCompile Include="..\Include\glad\src\glad.c">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Manager\ResourceManager.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_7.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
@@ -96,6 +93,18 @@
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_11.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ResourceManager.cpp">
+      <Filter>Source\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\camera.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\skybox.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\terrain.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
   </ItemGroup>
@@ -141,6 +150,15 @@
     </ClInclude>
     <ClInclude Include="Source\Manager\WindowManager.h">
       <Filter>Source\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Windows\OuputCode\camera.h">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Windows\OuputCode\skybox.h">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Windows\OuputCode\terrain.h">
+      <Filter>Source\Windows\OuputCode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

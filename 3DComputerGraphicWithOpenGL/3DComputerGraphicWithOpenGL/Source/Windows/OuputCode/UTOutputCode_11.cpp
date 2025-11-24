@@ -135,18 +135,196 @@ void UTOutputWindow::Code_11_9_End()
 	glDisable(GL_TEXTURE_1D);
 }
 
-void UTOutputWindow::Code_11_10_Start()
+void UTOutputWindow::Code_11_11_Start()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
+
+
+	Time_11_11 = glfwGetTime();
+}
+
+void UTOutputWindow::Code_11_11()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w{}, display_h{};
+	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	if (terrain_11_11 == nullptr && skybox_11_11 == nullptr && camera_11_11 == nullptr)
+	{
+		terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
+		skybox_11_11 = new Skybox();
+		camera_11_11 = new Camera();
+
+// 		camera_11_11->set(4.f, 4.f, 4.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
+// 		camera_11_11->setShape(60.f, 64.f / 48.f, 0.5f, 1000.f);
+// 
+// 		camera_11_11->slide(0, 100, 0);
+// 		camera_11_11->roll(0);
+// 		camera_11_11->yaw(180);
+// 		camera_11_11->pitch(45);
+
+		camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
+		camera_11_11->setShape(90.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
+
+		camera_11_11->slide(0.f, 100.f, 0.f);
+		camera_11_11->roll(0.f);
+		camera_11_11->yaw(0.f);
+		camera_11_11->pitch(0.f);
+	}
+
+	ElapsedTime_11_11 = Time_11_11 - glfwGetTime();
+	Time_11_11 = glfwGetTime();
 	
+	switch (Action_11_11)
+	{
+	case EKeyInputAction::LEFT:
+		camera_11_11->slide(-0.2f, 0.f, 0.f);
+		break;
+	case EKeyInputAction::RIGHT:
+		camera_11_11->slide(0.2f, 0.f, 0.f);
+		break;
+	case EKeyInputAction::UP:
+		camera_11_11->slide(0.f, 0.f, -0.2f);
+		break;
+	case EKeyInputAction::DOWN:
+		camera_11_11->slide(0.f, 0.f, 0.2f);
+		break;
+	case EKeyInputAction::PITCH_UP:
+		camera_11_11->pitch(0.5f);
+		break;
+	case EKeyInputAction::PITCH_DOWN:
+		camera_11_11->pitch(-0.5f);
+		break;
+	case EKeyInputAction::YAW_LEFT:
+		camera_11_11->yaw(-0.5f);
+		break;
+	case EKeyInputAction::YAW_RIGHT:
+		camera_11_11->yaw(0.5f);
+		break;
+	case EKeyInputAction::ROLL_LEFT:
+		camera_11_11->roll(0.5f);
+		break;
+	case EKeyInputAction::ROLL_RIGHT:
+		camera_11_11->roll(-0.5f);
+		break;
+	default:
+		break;
+	}
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+
+	glPushMatrix();
+	glTranslatef(camera_11_11->eye.x, camera_11_11->eye.y, camera_11_11->eye.z);
+	skybox_11_11->draw();
+	glPopMatrix();
+
+
+
+	//glScalef(1.0f, 0.2f, 1.0f);
+	//glPushMatrix();
+	//terrain_11_11->RenderTerrain(camera_11_11->eye.x, camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
+	//glPopMatrix();
+	//fog(); // 수면아래 안개효과
+	
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
 }
 
-void UTOutputWindow::Code_11_10()
-{
-
-}
-
-void UTOutputWindow::Code_11_10_End()
+void UTOutputWindow::Code_11_11_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
+
+	dispose();
+}
+
+void UTOutputWindow::dispose()
+{
+	delete terrain_11_11;
+	delete skybox_11_11;
+	delete camera_11_11;
+}
+
+void UTOutputWindow::fog()
+{
+	//GL_FOG를 활성화 한다.
+	glEnable(GL_FOG);
+	//안개의 농도차이를 결정하는 인자 (GL_LINEAR, GL_EXP, GL_EXP2)
+	glFogi(GL_FOG_MODE, GL_EXP2);
+	//Viewer의 Y가 waterLevel보다 작으면, 즉 물속에 있다면
+	GLfloat waterFogColor[4] = { 0.0,0.6,0.6,5.0 };
+	GLfloat fogColor[4] = { 0.75,0.75,0.75,0.0 };
+	if (camera_11_11->eye.y < (terrain_11_11->waterLevel - 75)) {
+		//안개 색상을 waterFogColor(0.0,0.6,0.6,1.0)으로 변경하고
+		glFogfv(GL_FOG_COLOR, waterFogColor);
+		//안개 거리를 waterFogDensity(0.075)로 변경해서 물속이라는 느낌을 주게 한다.
+		glFogf(GL_FOG_DENSITY, 0.075);
+	}
+	else {//아니면 
+		//안개 색상을 fogColor(0.7,0.7.0.7,1) 변경하고
+		glFogfv(GL_FOG_COLOR, fogColor);
+		//안개 거리를 fogDensity(0.002) 변경해서 물밖이라는 느낌을 주게 한다.
+		glFogf(GL_FOG_DENSITY, 0.001);
+	}
+}
+
+void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	if(Action == GLFW_PRESS)
+	{
+		switch (Key)
+		{
+		case GLFW_KEY_1:
+			glPolygonMode(GL_FRONT, GL_LINE);
+			break;
+		case GLFW_KEY_2:
+			glPolygonMode(GL_FRONT, GL_FILL);
+			break;
+		case GLFW_KEY_D:
+			OUTPUT_WINDOW->camera_11_11->slide(0.2f, 0.f, 0.f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::RIGHT;
+			break;
+		case GLFW_KEY_A:
+			OUTPUT_WINDOW->camera_11_11->slide(-0.2f, 0.f, 0.f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::LEFT;
+			break;
+		case GLFW_KEY_S:
+			OUTPUT_WINDOW->camera_11_11->slide(0.f, 0.f, 1.f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::UP;
+			break;
+		case GLFW_KEY_W:
+			OUTPUT_WINDOW->camera_11_11->slide(0.f, 0.f, -1.f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::DOWN;
+			break;
+		case GLFW_KEY_K:
+			OUTPUT_WINDOW->camera_11_11->pitch(-0.5f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::PITCH_DOWN;
+			break;
+		case GLFW_KEY_I:
+			OUTPUT_WINDOW->camera_11_11->pitch(0.5f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::PITCH_UP;
+			break;
+		case GLFW_KEY_Q:
+			OUTPUT_WINDOW->camera_11_11->yaw(-0.5f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::YAW_LEFT;
+			break;
+		case GLFW_KEY_E:
+			OUTPUT_WINDOW->camera_11_11->yaw(0.5f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::YAW_RIGHT;
+			break;
+		case GLFW_KEY_J:
+			OUTPUT_WINDOW->camera_11_11->roll(0.5f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::ROLL_LEFT;
+			break;
+		case GLFW_KEY_L:
+			OUTPUT_WINDOW->camera_11_11->roll(-0.5f);
+			OUTPUT_WINDOW->Action_11_11 = EKeyInputAction::ROLL_RIGHT;
+			break;
+		}
+	}
 }

@@ -6,6 +6,9 @@
 #include "CoreMinimal.h"
 #include "3DComputerGraphicWithOpenGL.h"
 #include "UTWindow.h"
+#include "Windows/OuputCode/camera.h"
+#include "Windows/OuputCode/skybox.h"
+#include "Windows/OuputCode/terrain.h"
 #include <vector>
 
 #define M_PI 3.14159265358979323846
@@ -283,16 +286,39 @@ private:
 #define Width_11_7 10
 #define Height_11_7 10
 	GLubyte Texture_11_7[Width_11_7][Height_11_7][3];
+	GLuint TextureObject_11_7;
+	GLUquadricObj* QuardricObj_11_7;
 	
 	void Code_11_9_Start();
 	void Code_11_9();
 	void Code_11_9_End();
-	GLuint TextureObject_11_7;
-	GLUquadricObj* QuardricObj_11_7;
 
-	void Code_11_10_Start();
-	void Code_11_10();
-	void Code_11_10_End();
+	void Code_11_11_Start();
+	void Code_11_11();
+	void Code_11_11_End();
+	static void Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	void dispose();
+	void fog();
+
+	Terrain* terrain_11_11;
+	Skybox* skybox_11_11;
+	Camera* camera_11_11;
+	GLfloat Time_11_11;
+	GLfloat ElapsedTime_11_11;
+
+	enum class EKeyInputAction
+	{
+		LEFT,
+		RIGHT,
+		UP,
+		DOWN,
+		PITCH_UP,
+		PITCH_DOWN,
+		YAW_LEFT,
+		YAW_RIGHT,
+		ROLL_LEFT,
+		ROLL_RIGHT
+	}Action_11_11;
 #pragma endregion
 
 private:

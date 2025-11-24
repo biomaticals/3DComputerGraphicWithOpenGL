@@ -202,14 +202,21 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[11][7] = &UTOutputWindow::Code_11_7_Start;
 	DrawFunctions[11][7] = &UTOutputWindow::Code_11_7;
 	EndDrawFunctions[11][7] = &UTOutputWindow::Code_11_7_End;
+	TextureObject_11_7 = 0;
+	QuardricObj_11_7 = nullptr;
 
 	StartDrawFunctions[11][9] = &UTOutputWindow::Code_11_9_Start;
 	DrawFunctions[11][9] = &UTOutputWindow::Code_11_9;
 	EndDrawFunctions[11][9] = &UTOutputWindow::Code_11_9_End;
 
-	StartDrawFunctions[11][10] = &UTOutputWindow::Code_11_10_Start;
-	DrawFunctions[11][10] = &UTOutputWindow::Code_11_10;
-	EndDrawFunctions[11][10] = &UTOutputWindow::Code_11_10_End;
+	StartDrawFunctions[11][11] = &UTOutputWindow::Code_11_11_Start;
+	DrawFunctions[11][11] = &UTOutputWindow::Code_11_11;
+	EndDrawFunctions[11][11] = &UTOutputWindow::Code_11_11_End;
+	terrain_11_11 = nullptr;
+	skybox_11_11 = nullptr;
+	camera_11_11 = nullptr;
+	Time_11_11 = 0.f;
+	ElapsedTime_11_11 = 0.f;
 #pragma endregion
 }
 
@@ -227,7 +234,7 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 
 	OutputExampleCodeData.Title = RESOURCE_MANAGER->FindTitleContext(InPart, InChapter, InSection,InCodeIndex).c_str();
 	OutputExampleCodeData.DrawFunction = DrawFunctions[InChapter][InCodeIndex];
-	
+
 	if(StartDrawFunctions.at(InChapter).at(InCodeIndex))
 		OutputExampleCodeData.StartDrawFunction = StartDrawFunctions[InChapter][InCodeIndex];
 	

@@ -229,6 +229,9 @@
     <ClCompile Include="Source\Common.cpp" />
     <ClCompile Include="Source\Manager\ResourceManager.cpp" />
     <ClCompile Include="Source\Manager\WindowManager.cpp" />
+    <ClCompile Include="Source\Windows\OuputCode\camera.cpp" />
+    <ClCompile Include="Source\Windows\OuputCode\skybox.cpp" />
+    <ClCompile Include="Source\Windows\OuputCode\terrain.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_10.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_11.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp" />
@@ -257,6 +260,9 @@
     <ClInclude Include="Source\CoreMinimal.h" />
     <ClInclude Include="Source\Manager\ResourceManager.h" />
     <ClInclude Include="Source\Manager\WindowManager.h" />
+    <ClInclude Include="Source\Windows\OuputCode\camera.h" />
+    <ClInclude Include="Source\Windows\OuputCode\skybox.h" />
+    <ClInclude Include="Source\Windows\OuputCode\terrain.h" />
     <ClInclude Include="Source\Windows\UTMainWindow.h" />
     <ClInclude Include="Source\Windows\UTOutputWindow.h" />
     <ClInclude Include="Source\Windows\UTWindow.h" />
