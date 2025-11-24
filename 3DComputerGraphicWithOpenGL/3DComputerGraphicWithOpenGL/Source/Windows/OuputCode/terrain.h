@@ -18,7 +18,7 @@ private:
 	uint _texId_ground, _texId_water;
 	int imgWidth, imgHeight, imgChannels;
 	unsigned char* imgData;
-	ubyte* _height;
+	
 	GLint _map_width, _map_height;
 	GLuint baseTerrain;
 	GLubyte minHeight;
@@ -33,4 +33,5 @@ public:
 	GLint getTileX(GLfloat);
 	GLint getTileY(GLfloat);
 	GLfloat waterLevel;
+	ubyte* _height;
 };

@@ -306,10 +306,12 @@ private:
 	GLfloat Time_11_11;
 	GLfloat ElapsedTime_11_11;
 
-	enum class EKeyInputAction
+	enum EKeyInputAction
 	{
-		LEFT,
+		LEFT = 0,
 		RIGHT,
+		FORWARD,
+		BACKWARD,
 		UP,
 		DOWN,
 		PITCH_UP,
@@ -318,7 +320,11 @@ private:
 		YAW_RIGHT,
 		ROLL_LEFT,
 		ROLL_RIGHT
-	}Action_11_11;
+	};
+	
+	std::array<bool, 12> Actions{};
+	bool LINE_MODE_11_11 = false;
+	bool FILL_MODE_11_11 = true;
 #pragma endregion
 
 private:

@@ -51,11 +51,15 @@ Terrain::Terrain(pcStr heightFile, pcStr surfaceTexFile, GLuint width, GLint hei
 	_height = readRawData(heightFile, width, height);
 
 	int i;
-	for (i = 0, minHeight = 255; i < _map_width * height; i++)
+	for (i = 0, minHeight = 2^10; i < _map_width * height; i++)
 	{
-		if (minHeight > _height[i]) { minHeight = _height[i]; }
+		if (minHeight > _height[i])
+		{ 
+			minHeight = _height[i];
+		}
 	}
-	waterLevel = (GLfloat)minHeight + 100;
+
+	waterLevel = (GLfloat)minHeight + 15.f;
 	for (int i = 0; i < _map_width * _map_height + 1; i++)
 		_height[i] -= minHeight;
 
@@ -80,9 +84,10 @@ Terrain::Terrain(pcStr heightFile, pcStr surfaceTexFile, GLuint width, GLint hei
 Terrain::~Terrain()
 {
 	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
-	if (_height != 0) 
+	if (_height) 
 	{ 
-		delete[] _height; 
+		delete _height;
+		_height = nullptr;
 	}
 
 	if (_texId_ground != 0) 
@@ -99,6 +104,10 @@ Terrain::~Terrain()
 void Terrain::RenderTerrain(GLfloat x, GLfloat y)
 {
 	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
+	
+	glPushMatrix();
+	/*glScalef(1.0f, 0.2f, 1.0f);*/
+	
 	int i, j;
 
 	//detail level1 지형
@@ -165,6 +174,8 @@ void Terrain::RenderTerrain(GLfloat x, GLfloat y)
 			glPopMatrix();
 		}
 	}
+
+	glPopMatrix();
 }
 
 void Terrain::TileTerrain(GLint levelOfDetail)
@@ -204,14 +215,14 @@ void Terrain::RenderWater()
 	glEnable(GL_BLEND);
 	glDisable(GL_CULL_FACE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4f(0.0, 0.4, 0.5, 0.7);
+	glColor4f(0.f, 0.4f, 0.5f, 0.7f);
 
 	glBindTexture(GL_TEXTURE_2D, _texId_water);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0, 0.0);		glVertex3f(0.0, waterLevel, 0.0);
-	glTexCoord2f(15.0, 0.0);	glVertex3f(0.0, waterLevel, _map_height);
-	glTexCoord2f(15.0, 15.0);	glVertex3f(_map_height, waterLevel, _map_height);
-	glTexCoord2f(0.0, 15.0);	glVertex3f(_map_height, waterLevel, 0.0);
+	glTexCoord2f(0.f, 0.f);		glVertex3f(0.f, waterLevel, 0.f);
+	glTexCoord2f(15.f, 0.f);	glVertex3f(0.f, waterLevel, _map_height);
+	glTexCoord2f(15.f, 15.f);	glVertex3f(_map_height, waterLevel, _map_height);
+	glTexCoord2f(0.f, 15.f);	glVertex3f(_map_height, waterLevel, 0.f);
 	glEnd();
 	glEnable(GL_CULL_FACE);
 	glDisable(GL_BLEND);

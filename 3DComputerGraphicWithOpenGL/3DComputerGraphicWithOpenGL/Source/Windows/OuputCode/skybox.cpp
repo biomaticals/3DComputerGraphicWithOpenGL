@@ -43,67 +43,58 @@ void Skybox::draw()
 	glColor3f(0, 0, 0);
 
 	// front
-	//glBindTexture(GL_TEXTURE_2D, textures[0]);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	//glEnd();
-
-	// front (V 좌표 반전)
 	glBindTexture(GL_TEXTURE_2D, textures[0]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(0.f, 1.f); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(1.f, 1.f); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(1.f, 0.f); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(0.f, 0.f); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
 	glEnd();
 
-	//// back
-	//glBindTexture(GL_TEXTURE_2D, textures[1]);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(TEX_SIZE, -TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(-TEX_SIZE, -TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(-TEX_SIZE, TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(TEX_SIZE, TEX_SIZE, TEX_SIZE);
-	//glEnd();
-	//
-	//// left
-	//glBindTexture(GL_TEXTURE_2D, textures[2]);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(TEX_SIZE, -TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(TEX_SIZE, TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	//glEnd();
-	//
-	//// right
-	//glBindTexture(GL_TEXTURE_2D, textures[3]);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(-TEX_SIZE, -TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(-TEX_SIZE, TEX_SIZE, TEX_SIZE);
-	//glEnd();
-	//
-	//// up
-	//glBindTexture(GL_TEXTURE_2D, textures[4]);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(TEX_SIZE, TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(-TEX_SIZE, TEX_SIZE, TEX_SIZE);
-	//glEnd();
-	//
-	//// down
-	//glBindTexture(GL_TEXTURE_2D, textures[5]);
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(0.0, 0.0); glVertex3f(-TEX_SIZE, -TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(1.0, 0.0); glVertex3f(TEX_SIZE, -TEX_SIZE, TEX_SIZE);
-	//glTexCoord2f(1.0, 1.0); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	//glTexCoord2f(0.0, 1.0); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
-	//glEnd();
+	// back
+	glBindTexture(GL_TEXTURE_2D, textures[1]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.f, 1.f); glVertex3f(TEX_SIZE, -TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(1.f, 1.f); glVertex3f(-TEX_SIZE, -TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(1.f, 0.f); glVertex3f(-TEX_SIZE, TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(0.f, 0.f); glVertex3f(TEX_SIZE, TEX_SIZE, TEX_SIZE);
+	glEnd();
+	
+	// left
+	glBindTexture(GL_TEXTURE_2D, textures[2]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.f, 1.f); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(1.f, 1.f); glVertex3f(TEX_SIZE, -TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(1.f, 0.f); glVertex3f(TEX_SIZE, TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(0.f, 0.f); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
+	glEnd();
+	
+	// right
+	glBindTexture(GL_TEXTURE_2D, textures[3]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.f, 1.f); glVertex3f(-TEX_SIZE, -TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(1.f, 1.f); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(1.f, 0.f); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(0.f, 0.f); glVertex3f(-TEX_SIZE, TEX_SIZE, TEX_SIZE);
+	glEnd();
+	
+	// up
+	glBindTexture(GL_TEXTURE_2D, textures[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.f, 1.f); glVertex3f(-TEX_SIZE, TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(1.f, 1.f); glVertex3f(TEX_SIZE, TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(1.f, 0.f); glVertex3f(TEX_SIZE, TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(0.f, 0.f); glVertex3f(-TEX_SIZE, TEX_SIZE, TEX_SIZE);
+	glEnd();
+	
+	// down
+	glBindTexture(GL_TEXTURE_2D, textures[5]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.f, 1.f); glVertex3f(-TEX_SIZE, -TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(1.f, 1.f); glVertex3f(TEX_SIZE, -TEX_SIZE, TEX_SIZE);
+	glTexCoord2f(1.f, 0.f); glVertex3f(TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
+	glTexCoord2f(0.f, 0.f); glVertex3f(-TEX_SIZE, -TEX_SIZE, -TEX_SIZE);
+	glEnd();
 
 	glEnable(GL_DEPTH_TEST);
 	glPopMatrix();
