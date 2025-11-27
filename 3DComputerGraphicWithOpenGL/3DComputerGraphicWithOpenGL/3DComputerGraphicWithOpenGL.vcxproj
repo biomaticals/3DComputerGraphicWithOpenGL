@@ -270,6 +270,7 @@
   <ItemGroup>
     <None Include="..\Include\ImGui\imgui.ini" />
     <None Include="..\Include\ImGui\imgui.natstepfilter" />
+    <None Include="Resource\Object\space\terrain1.raw" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\Include\ImGui\imgui.natvis" />

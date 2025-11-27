@@ -2193,3 +2193,291 @@ Description:
 이미지 생성 -> 텍스츠 객체 생성 -> 바인딩 -> 이미지 지정 -> 좌표 생성 설정 -> 매개 변수 설정 -> 환경 설정 -> 기능 활성화
 
 또한 텍스처 바인딩 하기 전에 객체가 먼저 생성되어 있어야하고, 이미지 지정 이후 단계들은 바인딩 이후에 수행되어야 합니다.
+
+Code 11-11
+Input:
+void UTOutputWindow::Code_11_11_Start()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
+
+	Time_11_11 = glfwGetTime();
+
+	MAIN_WINDOW->DebugContext = L"W : 앞 / A : 왼쪽 / D : 오른쪽 / S : 뒤\nQ : -롤 회전  E : +롤 회전 /J : -요 회전 / L : +요 회전 / I : +피치 회전 / K : -피치 회전\nR : 위 / F : 아래";
+}
+
+void UTOutputWindow::Code_11_11()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w{}, display_h{};
+	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	if (terrain_11_11 == nullptr && skybox_11_11 == nullptr && camera_11_11 == nullptr)
+	{
+		terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
+		skybox_11_11 = new Skybox();
+		camera_11_11 = new Camera();
+
+		camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
+		camera_11_11->setShape(60.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
+
+		camera_11_11->slide(0.f, 30.f, 0.f);
+		camera_11_11->roll(0.f);
+		camera_11_11->yaw(0.f);
+		camera_11_11->pitch(0.f);
+	}
+
+	ElapsedTime_11_11 = glfwGetTime() - Time_11_11;
+	Time_11_11 = glfwGetTime();
+	
+	if (Actions[LEFT])
+		camera_11_11->slide(-10.f * ElapsedTime_11_11, 0.f, 0.f);
+	
+	if (Actions[RIGHT])
+		camera_11_11->slide(10.f * ElapsedTime_11_11, 0.f, 0.f);
+
+	if(Actions[FORWARD])
+		camera_11_11->slide(0.f, 0.f, 10.f * ElapsedTime_11_11);
+
+	if (Actions[BACKWARD])
+		camera_11_11->slide(0.f, 0.f, -10.f * ElapsedTime_11_11);
+
+	if(Actions[UP])
+		camera_11_11->slide(0.f, 10.f * ElapsedTime_11_11, 0.f);
+	
+	if (Actions[DOWN])
+		camera_11_11->slide(0.f, -10.f * ElapsedTime_11_11, 0.f);
+
+	if(Actions[PITCH_UP])
+		camera_11_11->pitch(25.f * ElapsedTime_11_11);
+
+	if (Actions[PITCH_DOWN])
+		camera_11_11->pitch(-25.f * ElapsedTime_11_11);
+
+	if (Actions[YAW_LEFT])
+		camera_11_11->yaw(-25.f * ElapsedTime_11_11);
+
+	if (Actions[YAW_RIGHT])
+		camera_11_11->yaw(25.f * ElapsedTime_11_11);
+
+	if(Actions[ROLL_LEFT])
+		camera_11_11->roll(25.f * ElapsedTime_11_11);
+
+	if (Actions[ROLL_RIGHT])
+		camera_11_11->roll(-25.f * ElapsedTime_11_11);
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+
+	glPushMatrix();
+	glTranslatef(camera_11_11->eye.x, camera_11_11->eye.y, camera_11_11->eye.z);
+	skybox_11_11->draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glScalef(1.0f, 0.2f, 1.0f);
+	terrain_11_11->RenderTerrain(camera_11_11->eye.x, camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
+	terrain_11_11->RenderWater();
+	glPopMatrix();
+	fog(); // 수면아래 안개효과
+
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_11_11_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glDisable(GL_FOG);
+	glDisable(GL_BLEND);
+	ResetAll();
+
+	dispose();
+	MAIN_WINDOW->DebugContext = L"";
+}
+
+void UTOutputWindow::dispose()
+{
+	delete terrain_11_11;
+	delete skybox_11_11;
+	delete camera_11_11;
+
+	terrain_11_11 = nullptr;
+	skybox_11_11 = nullptr;
+	camera_11_11 = nullptr;
+}
+
+void UTOutputWindow::fog()
+{
+	glEnable(GL_FOG);
+	glFogi(GL_FOG_MODE, GL_EXP2);
+
+	GLfloat waterFogColor[4] = { 0.0,0.6,0.6,5.0 };
+	GLfloat fogColor[4] = { 0.75,0.75,0.75,0.0 };
+
+	if (camera_11_11->eye.y < (terrain_11_11->waterLevel * 0.2f))
+	{
+		glFogfv(GL_FOG_COLOR, waterFogColor);
+		glFogf(GL_FOG_DENSITY, 0.075);
+	}
+	else
+	{
+		glFogfv(GL_FOG_COLOR, fogColor);
+		glFogf(GL_FOG_DENSITY, 0.001);
+	}
+}
+
+void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	switch (Key)
+	{
+
+	case GLFW_KEY_1:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->LINE_MODE_11_11 = !OUTPUT_WINDOW->LINE_MODE_11_11;
+		break;
+	}
+
+	case GLFW_KEY_2:
+	{
+		if(Action == GLFW_PRESS)
+			OUTPUT_WINDOW->FILL_MODE_11_11 = !OUTPUT_WINDOW->FILL_MODE_11_11;
+		break;
+	}
+
+	case GLFW_KEY_D:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[RIGHT] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[RIGHT] = false;
+		break;
+	}
+
+	case GLFW_KEY_A:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[LEFT] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[LEFT] = false;
+		break;
+	}
+
+	case GLFW_KEY_S:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[FORWARD] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[FORWARD] = false;
+		break;
+	}
+
+	case GLFW_KEY_W:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[BACKWARD] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[BACKWARD] = false;
+		break;
+	}
+
+	case GLFW_KEY_SPACE:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[UP] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[UP] = false;
+		break;
+	}
+
+	case GLFW_KEY_LEFT_SHIFT:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[DOWN] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[DOWN] = false;
+		break;
+	}
+
+	case GLFW_KEY_K:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[PITCH_UP] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[PITCH_UP] = false;
+		break;
+	}
+
+	case GLFW_KEY_I:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[PITCH_DOWN] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[PITCH_DOWN] = false;
+		break;
+	}
+
+	case GLFW_KEY_J:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[YAW_LEFT] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[YAW_LEFT] = false;
+		break;
+	}
+
+	case GLFW_KEY_L:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[YAW_RIGHT] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[YAW_RIGHT] = false;
+		break;
+	}
+
+	case GLFW_KEY_Q:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[ROLL_LEFT] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[ROLL_LEFT] = false;
+		break;
+	}
+
+	case GLFW_KEY_E:
+	{
+		if (Action == GLFW_PRESS)
+			OUTPUT_WINDOW->Actions[ROLL_RIGHT] = true;
+		else if (Action == GLFW_RELEASE)
+			OUTPUT_WINDOW->Actions[ROLL_RIGHT] = false;
+		break;
+	}
+	}
+}
+
+Description:
+이 예제는 간단한 지형 렌더링과 카메라 이동을 구현한 것입니다. 사용자는 키보드 입력을 통해 카메라를 이동하고 회전시킬 수 있습니다. 지형은 높이 맵과 텍스처를 사용하여 렌더링되며, 스카이박스도 함께 그려집니다. 또한, 카메라가 수면 아래에 있을 때 안개 효과가 적용됩니다.
+키보드 입력을 처리하는 부분에서는 각 키에 대한 동작을 정의하고, 키가 눌리거나 떼어질 때 해당 동작을 활성화하거나 비활성화합니다. 예를 들어, 'W' 키를 누르면 카메라가 앞으로 이동하고, 'S' 키를 누르면 뒤로 이동합니다. 'A'와 'D' 키는 좌우 이동을 담당하며, 스페이스바와 왼쪽 쉬프트 키는 각각 위아래 이동을 제어합니다. 또한, 'I', 'K', 'J', 'L', 'Q', 'E' 키는 카메라의 피치, 요, 롤 회전을 제어합니다.
+
+스카이박스
+스카이박스(Skybox)는 3D 그래픽스에서 사용되는 기법으로, 사용자가 보는 장면의 배경을 구성하는 데 사용됩니다. 스카이박스는 일반적으로 큐브 형태로 만들어지며, 각 면에 하늘, 구름, 산, 우주 등과 같은 배경 이미지를 텍스처로 매핑하여 사용자가 어느 방향을 바라보더라도 자연스러운 배경을 제공할 수 있도록 합니다.
+일반적인 3D 객체와는 다르게 후면 제거(culling)를 처리해야 합니다. 일반적으로 3D 객체는 카메라에서 멀어지는 면(후면)을 제거하기 위해 시계방향(CW) 또는 반시계방향(CCW)으로 정의된 면을 사용합니다. 그러나 스카이박스의 경우, 카메라가 내부에 위치하기 때문에 표면의 방향이 반대가 되어야 합니다. 따라서 스카이박스를 그릴 때는 후면 제거를 시계방향(CW)으로 설정하여 카메라 내부에서 볼 때 올바른 면이 렌더링되도록 해야 합니다.
+
+지형
+지형을 그리기 위해서는 높이 맵(Height Map)과 텍스처(Texture)를 활용합니다.
+높이 맵은 그레이스케일 이미지로, 각 픽셀의 밝기 값이 해당 지형의 높이를 나타냅니다. 밝은 픽셀은 높은 지형을, 어두운 픽셀은 낮은 지형을 의미합니다.
+텍스처는 지형의 표면에 적용되는 이미지로, 지형의 시각적 디테일을 향상시킵니다. 
+
+LOD
+지형을 렌더링할 때는 높이 맵 데이터를 기반으로 버텍스(Vertex)를 생성하고, 각 버텍스에 텍스처 좌표를 할당합니다. 그런 다음, OpenGL을 사용하여 지형을 그립니다.
+LOD 기법을 사용하여, 카메라가 위치한 타일은 더 높은 해상도로 렌더링하고, 멀리 있는 타일은 낮은 해상도로 렌더링하여 성능을 최적화합니다.
+
+수면
+수면은 직접 수동 매핑을 통해 버텍스의 위치에 텍스처 위치 좌표를 입력하여 구현했습니다.
+
+안개
+카메라가 수면 아래에 있을 때 안개 효과를 적용하여 시각적 깊이감을 향상시킵니다.

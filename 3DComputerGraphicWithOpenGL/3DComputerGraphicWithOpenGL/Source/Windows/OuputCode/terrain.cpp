@@ -50,6 +50,12 @@ Terrain::Terrain(pcStr heightFile, pcStr surfaceTexFile, GLuint width, GLint hei
 
 	_height = readRawData(heightFile, width, height);
 
+	if(_height == nullptr)
+	{
+		printf("Failed to load height data: %s\n", heightFile);
+		throw std::exception();
+	}
+
 	int i;
 	for (i = 0, minHeight = 2^10; i < _map_width * height; i++)
 	{
@@ -86,7 +92,7 @@ Terrain::~Terrain()
 	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
 	if (_height) 
 	{ 
-		delete _height;
+		delete[] _height;
 		_height = nullptr;
 	}
 
@@ -180,6 +186,13 @@ void Terrain::RenderTerrain(GLfloat x, GLfloat y)
 
 void Terrain::TileTerrain(GLint levelOfDetail)
 {
+	if (_height == nullptr)
+	{
+		printf("_height is invalid.\n");
+		throw std::exception();
+		return;
+	}
+
 	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
 	glEnable(GL_TEXTURE_2D);
 	glMatrixMode(GL_MODELVIEW);
@@ -188,8 +201,8 @@ void Terrain::TileTerrain(GLint levelOfDetail)
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, _texId_ground);
-	float coordX = (float)1.0 / _map_width;
-	float coordZ = (float)1.0 / _map_height;
+	float coordX = (float)1.0 / (_map_width - 1);
+	float coordZ = (float)1.0 / (_map_height - 1);
 	for (int z = 0; z < _map_height; z += levelOfDetail)
 	{
 		glBegin(GL_TRIANGLE_STRIP);
@@ -197,8 +210,11 @@ void Terrain::TileTerrain(GLint levelOfDetail)
 		{
 			glTexCoord2f(coordX * x, coordZ * z);
 			glVertex3f(x, _height[z * _map_height + x], z);
-			glTexCoord2f(coordX * x, coordZ * (z + levelOfDetail));
-			glVertex3f(x, _height[(z + levelOfDetail) * _map_height + x], z + levelOfDetail);
+			if ((z + levelOfDetail) * _map_height + x <= _map_height * _map_width)
+			{
+				glTexCoord2f(coordX * x, coordZ * (z + levelOfDetail));
+				glVertex3f(x, _height[(z + levelOfDetail) * _map_height + x], z + levelOfDetail);
+			}
 		}
 		glEnd();
 	}

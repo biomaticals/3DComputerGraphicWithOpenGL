@@ -28,6 +28,13 @@ void UTOutputWindow::Code_11_7()
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width_11_7, Height_11_7, 0, GL_RGB, GL_UNSIGNED_BYTE, &Texture_11_7);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -51,7 +58,7 @@ void UTOutputWindow::Code_11_7()
 void UTOutputWindow::Code_11_7_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
-
+	glDisable(GL_TEXTURE_2D);
 	ResetAll();
 }
 
@@ -141,6 +148,8 @@ void UTOutputWindow::Code_11_11_Start()
 	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
 
 	Time_11_11 = glfwGetTime();
+
+	MAIN_WINDOW->DebugContext = L"W : 앞 / A : 왼쪽 / D : 오른쪽 / S : 뒤\nQ : -롤 회전  E : +롤 회전 /J : -요 회전 / L : +요 회전 / I : +피치 회전 / K : -피치 회전\nR : 위 / F : 아래";
 }
 
 void UTOutputWindow::Code_11_11()
@@ -149,22 +158,22 @@ void UTOutputWindow::Code_11_11()
 	int display_w{}, display_h{};
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-
+	
 	if (terrain_11_11 == nullptr && skybox_11_11 == nullptr && camera_11_11 == nullptr)
 	{
 		terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
 		skybox_11_11 = new Skybox();
 		camera_11_11 = new Camera();
-
+	
 		camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
 		camera_11_11->setShape(60.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
-
+	
 		camera_11_11->slide(0.f, 30.f, 0.f);
 		camera_11_11->roll(0.f);
 		camera_11_11->yaw(0.f);
 		camera_11_11->pitch(0.f);
 	}
-
+	
 	ElapsedTime_11_11 = glfwGetTime() - Time_11_11;
 	Time_11_11 = glfwGetTime();
 	
@@ -173,54 +182,54 @@ void UTOutputWindow::Code_11_11()
 	
 	if (Actions[RIGHT])
 		camera_11_11->slide(10.f * ElapsedTime_11_11, 0.f, 0.f);
-
+	
 	if(Actions[FORWARD])
 		camera_11_11->slide(0.f, 0.f, 10.f * ElapsedTime_11_11);
-
+	
 	if (Actions[BACKWARD])
 		camera_11_11->slide(0.f, 0.f, -10.f * ElapsedTime_11_11);
-
+	
 	if(Actions[UP])
 		camera_11_11->slide(0.f, 10.f * ElapsedTime_11_11, 0.f);
 	
 	if (Actions[DOWN])
 		camera_11_11->slide(0.f, -10.f * ElapsedTime_11_11, 0.f);
-
+	
 	if(Actions[PITCH_UP])
 		camera_11_11->pitch(25.f * ElapsedTime_11_11);
-
+	
 	if (Actions[PITCH_DOWN])
 		camera_11_11->pitch(-25.f * ElapsedTime_11_11);
-
+	
 	if (Actions[YAW_LEFT])
 		camera_11_11->yaw(-25.f * ElapsedTime_11_11);
-
+	
 	if (Actions[YAW_RIGHT])
 		camera_11_11->yaw(25.f * ElapsedTime_11_11);
-
+	
 	if(Actions[ROLL_LEFT])
 		camera_11_11->roll(25.f * ElapsedTime_11_11);
-
+	
 	if (Actions[ROLL_RIGHT])
 		camera_11_11->roll(-25.f * ElapsedTime_11_11);
-
+	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
-
+	
 	glPushMatrix();
 	glTranslatef(camera_11_11->eye.x, camera_11_11->eye.y, camera_11_11->eye.z);
 	skybox_11_11->draw();
 	glPopMatrix();
-
+	
 	glPushMatrix();
 	glScalef(1.0f, 0.2f, 1.0f);
 	terrain_11_11->RenderTerrain(camera_11_11->eye.x, camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
 	terrain_11_11->RenderWater();
 	glPopMatrix();
 	fog(); // 수면아래 안개효과
-
+	
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
@@ -228,9 +237,14 @@ void UTOutputWindow::Code_11_11()
 void UTOutputWindow::Code_11_11_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glDisable(GL_FOG);
+	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
 	ResetAll();
 
 	dispose();
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::dispose()
@@ -355,7 +369,7 @@ void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 		break;
 	}
 
-	case GLFW_KEY_Q:
+	case GLFW_KEY_J:
 	{
 		if (Action == GLFW_PRESS)
 			OUTPUT_WINDOW->Actions[YAW_LEFT] = true;
@@ -364,7 +378,7 @@ void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 		break;
 	}
 
-	case GLFW_KEY_E:
+	case GLFW_KEY_L:
 	{
 		if (Action == GLFW_PRESS)
 			OUTPUT_WINDOW->Actions[YAW_RIGHT] = true;
@@ -373,7 +387,7 @@ void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 		break;
 	}
 
-	case GLFW_KEY_J:
+	case GLFW_KEY_Q:
 	{
 		if (Action == GLFW_PRESS)
 			OUTPUT_WINDOW->Actions[ROLL_LEFT] = true;
@@ -382,7 +396,7 @@ void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 		break;
 	}
 
-	case GLFW_KEY_L:
+	case GLFW_KEY_E:
 	{
 		if (Action == GLFW_PRESS)
 			OUTPUT_WINDOW->Actions[ROLL_RIGHT] = true;
