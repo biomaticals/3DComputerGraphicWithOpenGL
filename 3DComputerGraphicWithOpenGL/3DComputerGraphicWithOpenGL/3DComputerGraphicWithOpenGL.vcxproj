@@ -234,6 +234,7 @@
     <ClCompile Include="Source\Windows\OuputCode\terrain.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_10.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_11.cpp" />
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_12.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_6.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_7.cpp" />

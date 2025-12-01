@@ -159,59 +159,59 @@ void UTOutputWindow::Code_11_11()
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 	
-	if (terrain_11_11 == nullptr && skybox_11_11 == nullptr && camera_11_11 == nullptr)
+	if (Terrain_11_11 == nullptr && Skybox_11_11 == nullptr && Camera_11_11 == nullptr)
 	{
-		terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
-		skybox_11_11 = new Skybox();
-		camera_11_11 = new Camera();
+		Terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
+		Skybox_11_11 = new Skybox();
+		Camera_11_11 = new Camera();
 	
-		camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
-		camera_11_11->setShape(60.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
+		Camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
+		Camera_11_11->setShape(60.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
 	
-		camera_11_11->slide(0.f, 30.f, 0.f);
-		camera_11_11->roll(0.f);
-		camera_11_11->yaw(0.f);
-		camera_11_11->pitch(0.f);
+		Camera_11_11->slide(0.f, 30.f, 0.f);
+		Camera_11_11->roll(0.f);
+		Camera_11_11->yaw(0.f);
+		Camera_11_11->pitch(0.f);
 	}
 	
 	ElapsedTime_11_11 = glfwGetTime() - Time_11_11;
 	Time_11_11 = glfwGetTime();
 	
 	if (Actions[LEFT])
-		camera_11_11->slide(-10.f * ElapsedTime_11_11, 0.f, 0.f);
+		Camera_11_11->slide(-10.f * ElapsedTime_11_11, 0.f, 0.f);
 	
 	if (Actions[RIGHT])
-		camera_11_11->slide(10.f * ElapsedTime_11_11, 0.f, 0.f);
+		Camera_11_11->slide(10.f * ElapsedTime_11_11, 0.f, 0.f);
 	
 	if(Actions[FORWARD])
-		camera_11_11->slide(0.f, 0.f, 10.f * ElapsedTime_11_11);
+		Camera_11_11->slide(0.f, 0.f, 10.f * ElapsedTime_11_11);
 	
 	if (Actions[BACKWARD])
-		camera_11_11->slide(0.f, 0.f, -10.f * ElapsedTime_11_11);
+		Camera_11_11->slide(0.f, 0.f, -10.f * ElapsedTime_11_11);
 	
 	if(Actions[UP])
-		camera_11_11->slide(0.f, 10.f * ElapsedTime_11_11, 0.f);
+		Camera_11_11->slide(0.f, 10.f * ElapsedTime_11_11, 0.f);
 	
 	if (Actions[DOWN])
-		camera_11_11->slide(0.f, -10.f * ElapsedTime_11_11, 0.f);
+		Camera_11_11->slide(0.f, -10.f * ElapsedTime_11_11, 0.f);
 	
 	if(Actions[PITCH_UP])
-		camera_11_11->pitch(25.f * ElapsedTime_11_11);
+		Camera_11_11->pitch(25.f * ElapsedTime_11_11);
 	
 	if (Actions[PITCH_DOWN])
-		camera_11_11->pitch(-25.f * ElapsedTime_11_11);
+		Camera_11_11->pitch(-25.f * ElapsedTime_11_11);
 	
 	if (Actions[YAW_LEFT])
-		camera_11_11->yaw(-25.f * ElapsedTime_11_11);
+		Camera_11_11->yaw(-25.f * ElapsedTime_11_11);
 	
 	if (Actions[YAW_RIGHT])
-		camera_11_11->yaw(25.f * ElapsedTime_11_11);
+		Camera_11_11->yaw(25.f * ElapsedTime_11_11);
 	
 	if(Actions[ROLL_LEFT])
-		camera_11_11->roll(25.f * ElapsedTime_11_11);
+		Camera_11_11->roll(25.f * ElapsedTime_11_11);
 	
 	if (Actions[ROLL_RIGHT])
-		camera_11_11->roll(-25.f * ElapsedTime_11_11);
+		Camera_11_11->roll(-25.f * ElapsedTime_11_11);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -219,14 +219,14 @@ void UTOutputWindow::Code_11_11()
 	glMatrixMode(GL_MODELVIEW);
 	
 	glPushMatrix();
-	glTranslatef(camera_11_11->eye.x, camera_11_11->eye.y, camera_11_11->eye.z);
-	skybox_11_11->draw();
+	glTranslatef(Camera_11_11->eye.x, Camera_11_11->eye.y, Camera_11_11->eye.z);
+	Skybox_11_11->draw();
 	glPopMatrix();
 	
 	glPushMatrix();
 	glScalef(1.0f, 0.2f, 1.0f);
-	terrain_11_11->RenderTerrain(camera_11_11->eye.x, camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
-	terrain_11_11->RenderWater();
+	Terrain_11_11->RenderTerrain(Camera_11_11->eye.x, Camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
+	Terrain_11_11->RenderWater();
 	glPopMatrix();
 	fog(); // 수면아래 안개효과
 	
@@ -249,13 +249,13 @@ void UTOutputWindow::Code_11_11_End()
 
 void UTOutputWindow::dispose()
 {
-	delete terrain_11_11;
-	delete skybox_11_11;
-	delete camera_11_11;
+	delete Terrain_11_11;
+	delete Skybox_11_11;
+	delete Camera_11_11;
 
-	terrain_11_11 = nullptr;
-	skybox_11_11 = nullptr;
-	camera_11_11 = nullptr;
+	Terrain_11_11 = nullptr;
+	Skybox_11_11 = nullptr;
+	Camera_11_11 = nullptr;
 }
 
 void UTOutputWindow::fog()
@@ -266,7 +266,7 @@ void UTOutputWindow::fog()
 	GLfloat waterFogColor[4] = { 0.0,0.6,0.6,5.0 };
 	GLfloat fogColor[4] = { 0.75,0.75,0.75,0.0 };
 
-	if (camera_11_11->eye.y < (terrain_11_11->waterLevel * 0.2f))
+	if (Camera_11_11->eye.y < (Terrain_11_11->waterLevel * 0.2f))
 	{
 		glFogfv(GL_FOG_COLOR, waterFogColor);
 		glFogf(GL_FOG_DENSITY, 0.075);

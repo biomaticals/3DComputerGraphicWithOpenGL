@@ -126,7 +126,6 @@ ImGuiContext* UTMainWindow::GetGuiContext() const
 void UTMainWindow::DrawInputWindow()
 {
 	ImGui::PushTextWrapPos();
-	// std::wstring → std::string 변환 후 출력
 	ImGui::Text("%s", WStringToUtf8(InputContext).c_str());
 	ImGui::PopTextWrapPos();
 }
@@ -146,7 +145,6 @@ void UTMainWindow::DrawSelectorWindow()
 		}
 	}
 
-	
 	for (unsigned int i = 0 ; i < Book.Parts.size(); i++)
 	{
 		ImGui::SetNextItemOpen(true, ImGuiCond_Appearing);
@@ -155,13 +153,11 @@ void UTMainWindow::DrawSelectorWindow()
 			ImGui::Indent();
 			for (unsigned int j = 0 ; j < Book.Parts[i].Chapters.size() ; j++)
 			{
-				ImGui::SetNextItemOpen(true, ImGuiCond_Appearing);
 				if (Book.Parts[i].Chapters[j].IsValid() && ImGui::CollapsingHeader(WStringToUtf8(Book.Parts[i].Chapters[j].Title).c_str()))
 				{
 					ImGui::Indent();
 					for (unsigned int k = 0 ; k < Book.Parts[i].Chapters[j].Sections.size() ; k++)
 					{
-						ImGui::SetNextItemOpen(true, ImGuiCond_Appearing);
 						if (Book.Parts[i].Chapters[j].Sections[k].IsValid() && ImGui::CollapsingHeader(WStringToUtf8(Book.Parts[i].Chapters[j].Sections[k].Title).c_str()))
 						{
 							ImGui::Indent();
@@ -178,7 +174,6 @@ void UTMainWindow::DrawSelectorWindow()
 										ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f * Blink, 0.2f, 0.2f, 1.0f));
 									}
 
-									ImGui::SetNextItemOpen(true, ImGuiCond_Appearing);
 									if (ImGui::MenuItem(WStringToUtf8(Book.Parts[i].Chapters[j].Sections[k].ExampleCodes[l].Title).c_str(), nullptr, false, true))
 									{
 										RESOURCE_MANAGER->FindInputAndDescriptionContext(i, j, k, l, InputContext, DescriptionContext);

@@ -107,6 +107,9 @@
     <ClCompile Include="Source\Windows\OuputCode\terrain.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_12.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\ImGui\imconfig.h">

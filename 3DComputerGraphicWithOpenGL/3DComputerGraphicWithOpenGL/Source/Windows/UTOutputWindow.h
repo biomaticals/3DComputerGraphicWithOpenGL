@@ -300,9 +300,9 @@ private:
 	void dispose();
 	void fog();
 
-	Terrain* terrain_11_11;
-	Skybox* skybox_11_11;
-	Camera* camera_11_11;
+	Terrain* Terrain_11_11;
+	Skybox* Skybox_11_11;
+	Camera* Camera_11_11;
 	GLfloat Time_11_11;
 	GLfloat ElapsedTime_11_11;
 
@@ -326,6 +326,18 @@ private:
 	bool LINE_MODE_11_11 = false;
 	bool FILL_MODE_11_11 = true;
 #pragma endregion
+
+#pragma region Chapter12
+private:
+	void Code_12_8_Start();
+	void Code_12_8();
+	void Code_12_8_End();
+	static void Code_12_8_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	void DrawScene_12_8();
+	GLint StartX_12_8, StartY_12_8;
+	GLint EndX_12_8, EndY_12_8;
+#pragma endregion
+
 
 private:
 

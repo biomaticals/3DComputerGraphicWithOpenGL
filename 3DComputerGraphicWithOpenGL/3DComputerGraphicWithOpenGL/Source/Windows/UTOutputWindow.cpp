@@ -212,11 +212,20 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[11][11] = &UTOutputWindow::Code_11_11_Start;
 	DrawFunctions[11][11] = &UTOutputWindow::Code_11_11;
 	EndDrawFunctions[11][11] = &UTOutputWindow::Code_11_11_End;
-	terrain_11_11 = nullptr;
-	skybox_11_11 = nullptr;
-	camera_11_11 = nullptr;
+	Terrain_11_11 = nullptr;
+	Skybox_11_11 = nullptr;
+	Camera_11_11 = nullptr;
 	Time_11_11 = 0.f;
 	ElapsedTime_11_11 = 0.f;
+#pragma endregion
+
+#pragma region Chapter12
+	StartDrawFunctions[12][8] = &UTOutputWindow::Code_12_8_Start;
+	DrawFunctions[12][8] = &UTOutputWindow::Code_12_8;
+	EndDrawFunctions[12][8] = &UTOutputWindow::Code_12_8_End;
+	StartX_12_8 = 0, StartY_12_8 = 0;
+	EndX_12_8 = 0, EndY_12_8 = 0;;
+
 #pragma endregion
 }
 
