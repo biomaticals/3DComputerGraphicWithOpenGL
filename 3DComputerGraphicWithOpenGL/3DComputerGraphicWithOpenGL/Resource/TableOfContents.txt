@@ -50,3 +50,7 @@ Part 03 : 그래픽 파이프라인
 	Chapter 12 : 프래그먼트 연산
 		Section 07 : 지엘 프로그램의 예
 			Code 12-8 : 시저 박스
+Part 04 : 그래픽 이론
+	Chapter 14 : 스플라인
+		Section 04 : 2차 곡면
+			Code 14-1 : GLU 2차 곡면 그리기

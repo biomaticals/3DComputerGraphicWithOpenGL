@@ -338,6 +338,16 @@ private:
 	GLint EndX_12_8, EndY_12_8;
 #pragma endregion
 
+#pragma region Chapter14
+private:
+	void Code_14_1_Start();
+	void Code_14_1();
+	void Code_14_1_End();
+	static void Code_14_1_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	GLUquadricObj* QuardricObj_14_1;
+	unsigned int bDrawStyle_14_1;
+	unsigned int bDrawingShape_14_1;
+#pragma endregion
 
 private:
 

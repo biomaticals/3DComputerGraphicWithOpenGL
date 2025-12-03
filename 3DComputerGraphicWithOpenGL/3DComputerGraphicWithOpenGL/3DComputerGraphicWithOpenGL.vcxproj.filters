@@ -110,6 +110,9 @@
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_12.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_14.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\ImGui\imconfig.h">
@@ -188,6 +191,9 @@
       <Filter>Resource</Filter>
     </Text>
     <Text Include="Resource\InputAndDescription_Part3.txt">
+      <Filter>Resource</Filter>
+    </Text>
+    <Text Include="Resource\InputAndDescription_Part4.txt">
       <Filter>Resource</Filter>
     </Text>
   </ItemGroup>

@@ -1,0 +1,132 @@
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+// All contents cannot be copied, distributed, revised.
+
+#include "Windows/UTOutputWindow.h"
+#include "Manager/WindowManager.h"
+
+void UTOutputWindow::Code_14_1_Start()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_14_1_Key);
+
+	QuardricObj_14_1 = gluNewQuadric();
+
+	GLfloat mat_diffuse[] = { 1.f, 1.f, 0.9f, 1.f };
+	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat light_position[] = { 2.5f, 2.5f, -15.f, 1.f };
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialf(GL_FRONT, GL_SHININESS, 25.f);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	MAIN_WINDOW->DebugContext = L"1: 구, 2:원판, 3:부분원판, 4:원기둥\n5:그리기 스타일 변경(점->선->채우기)";
+}
+
+void UTOutputWindow::Code_14_1()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+
+	int display_w{}, display_h{};
+	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(40.f, (GLfloat)display_w / (GLfloat)display_h, 1.f, 10.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0.f, 0.f, 5.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
+	glTranslatef(0.f, 0.f, -1.f);
+
+	glShadeModel(GL_SMOOTH);
+	gluQuadricNormals(QuardricObj_14_1, GLU_SMOOTH);
+
+	if (bDrawStyle_14_1 == 1 << 0)
+		gluQuadricDrawStyle(QuardricObj_14_1, GLU_POINT);
+	else if (bDrawStyle_14_1 == 1 << 1)
+		gluQuadricDrawStyle(QuardricObj_14_1, GLU_LINE);
+	else if (bDrawStyle_14_1 == 1 << 2)
+		gluQuadricDrawStyle(QuardricObj_14_1, GLU_FILL);
+
+	if (bDrawingShape_14_1 == 1 << 0)
+	{
+		gluSphere(QuardricObj_14_1, 1.f, 20, 20);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
+	}
+	else if (bDrawingShape_14_1 == 1 << 1)
+	{
+		gluDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_INSIDE);
+	}
+
+	else if (bDrawingShape_14_1 == 1 << 2)
+	{
+		gluPartialDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4, 0.f, 270.f);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_INSIDE);
+	}
+	else if (bDrawingShape_14_1 == 1 << 3)
+	{
+		gluCylinder(QuardricObj_14_1, 0.5f, 0.2f, 2.f, 20, 4);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
+	}
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_14_1_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
+
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+
+	gluDeleteQuadric(QuardricObj_14_1);
+
+	MAIN_WINDOW->DebugContext = L"";
+}
+
+void UTOutputWindow::Code_14_1_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	if (Action != GLFW_PRESS)
+		return;
+
+	switch (Key)
+	{
+	case GLFW_KEY_1:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 0;
+		break;
+	}
+	case GLFW_KEY_2:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 1;
+		break;
+
+	}
+	case GLFW_KEY_3:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 2;
+		break;
+	}
+	case GLFW_KEY_4:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 3;
+		break;
+	}
+	case GLFW_KEY_5:
+	{
+		OUTPUT_WINDOW->bDrawStyle_14_1 = OUTPUT_WINDOW->bDrawStyle_14_1 << 1;
+		if (OUTPUT_WINDOW->bDrawStyle_14_1 > (1 << 2))
+			OUTPUT_WINDOW->bDrawStyle_14_1 = 1 << 0;
+		break;
+	}
+	default:
+		break;
+	}
+}

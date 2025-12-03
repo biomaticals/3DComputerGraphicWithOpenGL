@@ -235,6 +235,7 @@
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_10.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_11.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_12.cpp" />
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_14.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_6.cpp" />
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_7.cpp" />
@@ -279,6 +280,7 @@
   <ItemGroup>
     <Text Include="Resource\InputAndDescription_Part2.txt" />
     <Text Include="Resource\InputAndDescription_Part3.txt" />
+    <Text Include="Resource\InputAndDescription_Part4.txt" />
     <Text Include="Resource\TableOfContents.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -225,7 +225,14 @@ void UTOutputWindow::Initialize()
 	EndDrawFunctions[12][8] = &UTOutputWindow::Code_12_8_End;
 	StartX_12_8 = 0, StartY_12_8 = 0;
 	EndX_12_8 = 0, EndY_12_8 = 0;;
+#pragma endregion
 
+#pragma region Chapter14
+	StartDrawFunctions[14][1] = &UTOutputWindow::Code_14_1_Start;
+	DrawFunctions[14][1] = &UTOutputWindow::Code_14_1;
+	EndDrawFunctions[14][1] = &UTOutputWindow::Code_14_1_End;
+	bDrawStyle_14_1 = 1 << 2;
+	bDrawingShape_14_1 = 1 << 0;
 #pragma endregion
 }
 

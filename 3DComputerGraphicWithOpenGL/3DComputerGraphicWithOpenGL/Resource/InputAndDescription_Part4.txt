@@ -1,0 +1,148 @@
+﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
+// All contents cannot be copied, distributed, revised.
+
+Code 14-1
+Input:
+void UTOutputWindow::Code_14_1_Start()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_14_1_Key);
+
+	QuardricObj_14_1 = gluNewQuadric();
+
+	GLfloat mat_diffuse[] = { 1.f, 1.f, 0.9f, 1.f };
+	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat light_position[] = { 2.5f, 2.5f, -15.f, 1.f };
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialf(GL_FRONT, GL_SHININESS, 25.f);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+
+	MAIN_WINDOW->DebugContext = L"1: 구, 2:원판, 3:부분원판, 4:원기둥\n5:그리기 스타일 변경(점->선->채우기)";
+}
+
+void UTOutputWindow::Code_14_1()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+
+	int display_w{}, display_h{};
+	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(40.f, (GLfloat)display_w / (GLfloat)display_h, 1.f, 10.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0.f, 0.f, 5.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
+	glTranslatef(0.f, 0.f, -1.f);
+
+	glShadeModel(GL_SMOOTH);
+	gluQuadricNormals(QuardricObj_14_1, GLU_SMOOTH);
+
+	if (bDrawStyle_14_1 == 1 << 0)
+		gluQuadricDrawStyle(QuardricObj_14_1, GLU_POINT);
+	else if (bDrawStyle_14_1 == 1 << 1)
+		gluQuadricDrawStyle(QuardricObj_14_1, GLU_LINE);
+	else if (bDrawStyle_14_1 == 1 << 2)
+		gluQuadricDrawStyle(QuardricObj_14_1, GLU_FILL);
+
+	if (bDrawingShape_14_1 == 1 << 0)
+	{
+		gluSphere(QuardricObj_14_1, 1.f, 20, 20);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
+	}
+	else if (bDrawingShape_14_1 == 1 << 1)
+	{
+		gluDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_INSIDE);
+	}
+
+	else if (bDrawingShape_14_1 == 1 << 2)
+	{
+		gluPartialDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4, 0.f, 270.f);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_INSIDE);
+	}
+	else if (bDrawingShape_14_1 == 1 << 3)
+	{
+		gluCylinder(QuardricObj_14_1, 0.5f, 0.2f, 2.f, 20, 4);
+		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
+	}
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_14_1_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
+
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+
+	gluDeleteQuadric(QuardricObj_14_1);
+
+	MAIN_WINDOW->DebugContext = L"";
+}
+
+void UTOutputWindow::Code_14_1_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+{
+	if (Action != GLFW_PRESS)
+		return;
+
+	switch (Key)
+	{
+	case GLFW_KEY_1:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 0;
+		break;
+	}
+	case GLFW_KEY_2:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 1;
+		break;
+
+	}
+	case GLFW_KEY_3:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 2;
+		break;
+	}
+	case GLFW_KEY_4:
+	{
+		OUTPUT_WINDOW->bDrawingShape_14_1 = 1 << 3;
+		break;
+	}
+	case GLFW_KEY_5:
+	{
+		OUTPUT_WINDOW->bDrawStyle_14_1 = OUTPUT_WINDOW->bDrawStyle_14_1 << 1;
+		if (OUTPUT_WINDOW->bDrawStyle_14_1 > (1 << 2))
+			OUTPUT_WINDOW->bDrawStyle_14_1 = 1 << 0;
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+Description:
+gluNewQuadric은 새로운 쿼드릭 객체를 생성하고 그 객체에 대한 포인터를 반환하는 함수입니다. 쿼드릭 객체는 구, 원판, 원기둥 등의 3D 기하학적 도형을 그리는 데 사용됩니다.
+gluDeleteQuadric은 생성된 쿼드릭 객체를 삭제하는 함수입니다. 메모리 누수를 방지하기 위해 사용 후 반드시 호출해야 합니다.
+
+gluQuadricNormals 함수는 쿼드릭 객체에 대한 법선 벡터의 생성을 설정합니다. GLU_SMOOTH, GLU_FLAT, GLU_NONE 등의 옵션을 사용할 수 있습니다. 
+GLU_SMOOTH는 부드러운 음영 처리를 위해 법선을 생성합니다.
+
+gluQuadricDrawStyle 함수는 쿼드릭 객체의 그리기 스타일을 설정합니다. GLU_POINT, GLU_LINE, GLU_FILL, GLU_SILHOUETTE 등의 옵션이 있습니다.
+예를 들어, GLU_POINT는 점으로 도형을 그리며, GLU_FILL은 채워진 도형을 그립니다.
+
+gluQuadricOrientation 함수는 쿼드릭 객체의 방향을 설정합니다. GLU_OUTSIDE와 GLU_INSIDE 옵션이 있으며, 이는 도형의 앞면과 뒷면을 결정합니다.
+
+gluSphere 함수는 쿼드릭 객체를 사용하여 구를 그리는 함수입니다. 반지름과 세그먼트 수를 지정하여 구의 세부 사항을 조절할 수 있습니다.
+gluDisk 함수는 쿼드릭 객체를 사용하여 원판을 그리는 함수입니다. 내부 반지름과 외부 반지름을 지정하여 원판의 크기를 조절할 수 있습니다.
+gluPartialDisk 함수는 쿼드릭 객체를 사용하여 부분 원판을 그리는 함수입니다. 내부 반지름, 외부 반지름, 시작 각도, 끝 각도를 지정하여 원판의 일부분만 그릴 수 있습니다.
+gluCylinder 함수는 쿼드릭 객체를 사용하여 원기둥을 그리는 함수입니다. 밑면과 윗면의 반지름, 높이, 세그먼트 수를 지정하여 원기둥의 모양을 조절할 수 있습니다.

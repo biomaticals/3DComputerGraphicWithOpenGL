@@ -236,8 +236,8 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 	PopupFlags |= ImGuiPopupFlags_AnyPopupLevel;
 	PopupFlags |= ImGuiPopupFlags_MouseButtonLeft;
 
-	ImGui::OpenPopup(WStringToUtf8(L"Introduction").c_str(), PopupFlags);
-	if (ImGui::BeginPopupModal(WStringToUtf8(L"Introduction").c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	ImGui::OpenPopup(WStringToUtf8(L"소개").c_str(), PopupFlags);
+	if (ImGui::BeginPopupModal(WStringToUtf8(L"소개").c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::SeparatorText(WStringToUtf8(L"OpenGL로 배우는 3D 컴퓨터 그래픽 - biomatic").c_str());
 		ImGui::Text(WStringToUtf8(L"이 프로젝트는 OpenGL API를 학습하고 실습하기 위해 시작되었습니다.").c_str());
