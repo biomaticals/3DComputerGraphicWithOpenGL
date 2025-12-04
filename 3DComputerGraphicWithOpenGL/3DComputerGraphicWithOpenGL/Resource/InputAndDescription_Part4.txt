@@ -146,3 +146,156 @@ gluSphere 함수는 쿼드릭 객체를 사용하여 구를 그리는 함수입�
 gluDisk 함수는 쿼드릭 객체를 사용하여 원판을 그리는 함수입니다. 내부 반지름과 외부 반지름을 지정하여 원판의 크기를 조절할 수 있습니다.
 gluPartialDisk 함수는 쿼드릭 객체를 사용하여 부분 원판을 그리는 함수입니다. 내부 반지름, 외부 반지름, 시작 각도, 끝 각도를 지정하여 원판의 일부분만 그릴 수 있습니다.
 gluCylinder 함수는 쿼드릭 객체를 사용하여 원기둥을 그리는 함수입니다. 밑면과 윗면의 반지름, 높이, 세그먼트 수를 지정하여 원기둥의 모양을 조절할 수 있습니다.
+
+Code 14-2
+Input:
+void UTOutputWindow::Code_14_2_Start()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+
+	GLfloat light0_position[] = { 3.f, 1.f, 1.f, 1.f };
+	GLfloat light1_position[] = { -3.f, 1.f, 1.f, 1.f };
+	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, 1.f);
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_DEPTH_TEST);
+	glClearColor(1.f, 1.f, 1.f, 1.f);
+	glEnable(GL_AUTO_NORMAL);
+	
+	
+	Time_14_2 = glfwGetTime();
+}
+
+void UTOutputWindow::Code_14_2()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+
+	int display_w{}, display_h{};
+	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	Nurbs_14_2 = gluNewNurbsRenderer();
+	int s, t;
+	for (s = 0; s < 4; s++) {           //x, y, z 방향으로 -3에서 +3까지
+		for (t = 0; t < 4; t++) {
+			ctlpointsCoordi_14_2[s][t][0] = 2.f * ((GLfloat)s - 1.5f);
+			ctlpointsCoordi_14_2[s][t][2] = 2.f * ((GLfloat)t - 1.5f);
+			if ((s == 1 || s == 2) && (t == 1 || t == 2))
+				ctlpointsCoordi_14_2[s][t][1] = 3.f;
+			else
+				ctlpointsCoordi_14_2[s][t][1] = -3.f;
+			for (int k = 0; k < 3; k++)
+				ctlpoints_14_2[s][t][k] = weight_14_2[s][t] * ctlpointsCoordi_14_2[s][t][k];    //제어점 정보 초기화
+			ctlpoints_14_2[s][t][3] = weight_14_2[s][t];
+		}
+	}
+	
+	ElapsedTime_14_2 = (GLfloat)(glfwGetTime() - Time_14_2);
+	ElapsedTime_14_2 = fmod(ElapsedTime_14_2, 11.f);
+	ctlpoints_14_2[1][1][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+	ctlpoints_14_2[1][2][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+	ctlpointsCoordi_14_2[1][1][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+	ctlpointsCoordi_14_2[1][2][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-5.f, 5.f, -10.f, 10.f, -20.f, 20.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(0.f, 0.f, -15.f);
+	glPushMatrix();
+	glRotatef(45.f, 1.f, 0.f, 0.f);
+	for (int i = 0; i < 4; i++) 
+	{               
+		for (int j = 0; j < 4; j++) 
+		{
+			glPushMatrix();
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, point_mat_diffuse);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, point_mat_specular);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, point_mat_emission);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, point_mat_shininess);
+			glPointSize(5.f);
+			glBegin(GL_POINTS);
+			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+				ctlpointsCoordi_14_2[i][j][1],
+				ctlpointsCoordi_14_2[i][j][2]);
+			glEnd();
+			glPopMatrix();
+		}
+	}
+	glPushMatrix();
+	for (int i = 0; i < 4; i++) 
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			glBegin(GL_LINES);
+			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+				ctlpointsCoordi_14_2[i][j][1],
+				ctlpointsCoordi_14_2[i][j][2]);
+			glVertex3f(ctlpointsCoordi_14_2[i][j + 1][0],
+				ctlpointsCoordi_14_2[i][j + 1][1],
+				ctlpointsCoordi_14_2[i][j + 1][2]);
+			glEnd();
+		}
+	}
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 4; j++) {
+			glBegin(GL_LINES);
+			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+				ctlpointsCoordi_14_2[i][j][1],
+				ctlpointsCoordi_14_2[i][j][2]);
+			glVertex3f(ctlpointsCoordi_14_2[i + 1][j][0],
+				ctlpointsCoordi_14_2[i + 1][j][1],
+				ctlpointsCoordi_14_2[i + 1][j][2]);
+			glEnd();
+		}
+	}
+
+	glPopMatrix();
+	glPushMatrix();
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, surface_mat_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, surface_mat_specular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, surface_mat_emission);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, surface_mat_shininess);
+	gluBeginSurface(Nurbs_14_2);
+	gluNurbsSurface(Nurbs_14_2, 8, knots, 8, knots, 4 * 4, 4,
+		&ctlpoints_14_2[0][0][0], 4, 4, GL_MAP2_VERTEX_4);
+	gluEndSurface(Nurbs_14_2);
+	glPopMatrix();
+	glPopMatrix();
+	gluDeleteNurbsRenderer(Nurbs_14_2);
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_14_2_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
+}
+
+
+Description:
+OpenGL에서 NURBS(Non-Uniform Rational B-Splines)는 복잡한 곡면과 곡선을 표현하는 데 사용되는 수학적 모델입니다.
+NURBS는 제어점, 가중치, 매듭 벡터 등을 사용하여 유연하고 정밀한 형상을 생성할 수 있습니다.
+
+gluNewNurbsRenderer 함수는 새로운 NURBS 렌더러 객체를 생성하고 그 객체에 대한 포인터를 반환하는 함수입니다. 이 렌더러는 NURBS 곡면과 곡선을 그리는 데 사용됩니다.
+gluDeleteNurbsRenderer 함수는 생성된 NURBS 렌더러 객체를 삭제하는 함수입니다. 메모리 누수를 방지하기 위해 사용 후 반드시 호출해야 합니다.
+
+gluBeginSurface 함수는 NURBS 곡면의 그리기를 시작하는 함수입니다. 이 함수는 NURBS 렌더러 객체를 인수로 받아 해당 렌더러에서 곡면을 그리기 위한 준비를 합니다.
+gluEndSurface 함수는 NURBS 곡면의 그리기를 종료하는 함수입니다.
+
+gluNurbsSurface 함수는 NURBS 렌더러 객체를 사용하여 NURBS 곡면을 정의하고 그리는 함수입니다.
+이 함수는 매듭 벡터, 제어점 배열, 그리고 기타 매개변수를 인수로 받아 곡면의 형상을 결정합니다.
+
+ctlpoints_14_2는 가중치가 적용된 제어점 좌표를 저장하고, ctlpointsCoordi_14_2는 실제 3D 좌표를 저장합니다.
+현재 예제에서는 가운데 4개의 점은 3의 높이를, 나머지 12개의 점은 -3의 높이를 가졌습니다. 제어점의 가중치는 모두 1로 동일합니다.
+시간이 흐름에 따라 3번째 줄의 가운데 2개의 점 높이는 12까지 올라갑니다.
+이 배열들은 NURBS 곡면의 형태와 위치를 결정하는 데 중요한 역할을 합니다.

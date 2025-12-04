@@ -233,6 +233,55 @@ void UTOutputWindow::Initialize()
 	EndDrawFunctions[14][1] = &UTOutputWindow::Code_14_1_End;
 	bDrawStyle_14_1 = 1 << 2;
 	bDrawingShape_14_1 = 1 << 0;
+
+	StartDrawFunctions[14][2] = &UTOutputWindow::Code_14_2_Start;
+	DrawFunctions[14][2] = &UTOutputWindow::Code_14_2;
+	EndDrawFunctions[14][2] = &UTOutputWindow::Code_14_2_End;
+	
+	for(int i = 0 ; i < 4 ; ++i)
+	{
+		for(int j = 0 ; j < 4 ; ++j)
+		{
+			weight_14_2[i][j] = 1.f;
+		}
+	}
+	
+	point_mat_diffuse[0] = 1.f;
+	point_mat_diffuse[1] = 0.5f;
+	point_mat_diffuse[2] = 1.f;
+	point_mat_diffuse[3] = 1.f;
+	
+	point_mat_specular[0] = 0.8f;
+	point_mat_specular[1] = 0.f;
+	point_mat_specular[2] = 0.8f;
+	point_mat_specular[3] = 0.f;
+
+	point_mat_emission[0] = 0.f;
+	point_mat_emission[1] = 0.f;
+	point_mat_emission[2] = 0.f;
+	point_mat_emission[3] = 1.f;
+
+	point_mat_shininess[0] = 30.f;
+
+	surface_mat_diffuse[0] = 0.8f;
+	surface_mat_diffuse[1] = 0.8f;
+	surface_mat_diffuse[2] = 0.2f;
+	surface_mat_diffuse[3] = 1.f;
+
+	surface_mat_specular[0] = 0.8f;
+	surface_mat_specular[1] = 0.f;
+	surface_mat_specular[2] = 0.8f;
+	surface_mat_specular[3] = 0.0f;
+
+	surface_mat_emission[0] = 0.f;
+	surface_mat_emission[1] = 0.f;
+	surface_mat_emission[2] = 0.f;
+	surface_mat_emission[3] = 1.f;
+
+	surface_mat_shininess[0] = 30.f;
+
+	ElapsedTime_14_2 = 0.f;
+	Time_14_2 = 0.f;
 #pragma endregion
 }
 

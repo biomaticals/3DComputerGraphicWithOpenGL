@@ -347,6 +347,25 @@ private:
 	GLUquadricObj* QuardricObj_14_1;
 	unsigned int bDrawStyle_14_1;
 	unsigned int bDrawingShape_14_1;
+
+	void Code_14_2_Start();
+	void Code_14_2();
+	void Code_14_2_End();
+	static inline GLfloat weight_14_2[4][4];
+	static inline GLfloat ctlpointsCoordi_14_2[4][4][4];
+	static inline GLfloat ctlpoints_14_2[4][4][4];
+	GLfloat knots[8] = { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0 };
+	static inline GLUnurbsObj* Nurbs_14_2;
+	GLfloat point_mat_diffuse[4];
+	GLfloat point_mat_specular[4];
+	GLfloat point_mat_emission[4];
+	GLfloat point_mat_shininess[1];
+	GLfloat surface_mat_diffuse[4];
+	GLfloat surface_mat_specular[4];
+	GLfloat surface_mat_emission[4];
+	GLfloat surface_mat_shininess[1];
+	GLfloat ElapsedTime_14_2;
+	GLfloat Time_14_2;
 #pragma endregion
 
 private:

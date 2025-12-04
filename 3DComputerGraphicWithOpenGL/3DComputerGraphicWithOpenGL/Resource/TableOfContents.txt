@@ -54,3 +54,4 @@ Part 04 : 그래픽 이론
 	Chapter 14 : 스플라인
 		Section 04 : 2차 곡면
 			Code 14-1 : GLU 2차 곡면 그리기
+			Code 14-2 : 너브스 곡면 그리기

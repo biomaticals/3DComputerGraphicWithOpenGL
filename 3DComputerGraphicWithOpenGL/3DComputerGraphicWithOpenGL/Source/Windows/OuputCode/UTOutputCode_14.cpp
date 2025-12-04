@@ -130,3 +130,135 @@ void UTOutputWindow::Code_14_1_Key(GLFWwindow* Window, int Key, int Scancode, in
 		break;
 	}
 }
+
+void UTOutputWindow::Code_14_2_Start()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+
+	GLfloat light0_position[] = { 3.f, 1.f, 1.f, 1.f };
+	GLfloat light1_position[] = { -3.f, 1.f, 1.f, 1.f };
+	glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, 1.f);
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_DEPTH_TEST);
+	glClearColor(1.f, 1.f, 1.f, 1.f);
+	glEnable(GL_AUTO_NORMAL);
+	
+	
+	Time_14_2 = glfwGetTime();
+}
+
+void UTOutputWindow::Code_14_2()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+
+	int display_w{}, display_h{};
+	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	Nurbs_14_2 = gluNewNurbsRenderer();
+	int s, t;
+	for (s = 0; s < 4; s++) {           //x, y, z 방향으로 -3에서 +3까지
+		for (t = 0; t < 4; t++) {
+			ctlpointsCoordi_14_2[s][t][0] = 2.f * ((GLfloat)s - 1.5f);
+			ctlpointsCoordi_14_2[s][t][2] = 2.f * ((GLfloat)t - 1.5f);
+			if ((s == 1 || s == 2) && (t == 1 || t == 2))
+				ctlpointsCoordi_14_2[s][t][1] = 3.f;
+			else
+				ctlpointsCoordi_14_2[s][t][1] = -3.f;
+			for (int k = 0; k < 3; k++)
+				ctlpoints_14_2[s][t][k] = weight_14_2[s][t] * ctlpointsCoordi_14_2[s][t][k];    //제어점 정보 초기화
+			ctlpoints_14_2[s][t][3] = weight_14_2[s][t];
+		}
+	}
+	
+	ElapsedTime_14_2 = (GLfloat)(glfwGetTime() - Time_14_2);
+	ElapsedTime_14_2 = fmod(ElapsedTime_14_2, 11.f);
+	ctlpoints_14_2[1][1][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+	ctlpoints_14_2[1][2][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+	ctlpointsCoordi_14_2[1][1][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+	ctlpointsCoordi_14_2[1][2][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-5.f, 5.f, -10.f, 10.f, -20.f, 20.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(0.f, 0.f, -15.f);
+	glPushMatrix();
+	glRotatef(45.f, 1.f, 0.f, 0.f);
+	for (int i = 0; i < 4; i++) 
+	{               
+		for (int j = 0; j < 4; j++) 
+		{
+			glPushMatrix();
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, point_mat_diffuse);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, point_mat_specular);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, point_mat_emission);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, point_mat_shininess);
+			glPointSize(5.f);
+			glBegin(GL_POINTS);
+			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+				ctlpointsCoordi_14_2[i][j][1],
+				ctlpointsCoordi_14_2[i][j][2]);
+			glEnd();
+			glPopMatrix();
+		}
+	}
+	glPushMatrix();
+	for (int i = 0; i < 4; i++) 
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			glBegin(GL_LINES);
+			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+				ctlpointsCoordi_14_2[i][j][1],
+				ctlpointsCoordi_14_2[i][j][2]);
+			glVertex3f(ctlpointsCoordi_14_2[i][j + 1][0],
+				ctlpointsCoordi_14_2[i][j + 1][1],
+				ctlpointsCoordi_14_2[i][j + 1][2]);
+			glEnd();
+		}
+	}
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 4; j++) {
+			glBegin(GL_LINES);
+			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+				ctlpointsCoordi_14_2[i][j][1],
+				ctlpointsCoordi_14_2[i][j][2]);
+			glVertex3f(ctlpointsCoordi_14_2[i + 1][j][0],
+				ctlpointsCoordi_14_2[i + 1][j][1],
+				ctlpointsCoordi_14_2[i + 1][j][2]);
+			glEnd();
+		}
+	}
+
+	glPopMatrix();
+	glPushMatrix();
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, surface_mat_diffuse);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, surface_mat_specular);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, surface_mat_emission);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, surface_mat_shininess);
+	gluBeginSurface(Nurbs_14_2);
+	gluNurbsSurface(Nurbs_14_2, 8, knots, 8, knots, 4 * 4, 4,
+		&ctlpoints_14_2[0][0][0], 4, 4, GL_MAP2_VERTEX_4);
+	gluEndSurface(Nurbs_14_2);
+	glPopMatrix();
+	glPopMatrix();
+	gluDeleteNurbsRenderer(Nurbs_14_2);
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_14_2_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
+}
