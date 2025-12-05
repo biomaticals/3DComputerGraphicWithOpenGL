@@ -3,6 +3,14 @@
 
 #pragma once
 
+#define GLEW_STATIC
+#include <glew/glew.h>
+
+#pragma comment(lib, "glew32s.lib")
+#pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "glu32.lib")
+#pragma comment(lib, "freeglut.lib") // freeglut 사용 시
+
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,6 +29,8 @@
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
 #endif
+
+
 
 #include <GLFW/glfw3.h>
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)

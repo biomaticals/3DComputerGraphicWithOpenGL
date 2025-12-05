@@ -55,3 +55,6 @@ Part 04 : 그래픽 이론
 		Section 04 : 2차 곡면
 			Code 14-1 : GLU 2차 곡면 그리기
 			Code 14-2 : 너브스 곡면 그리기
+	Chapter 15 : 그래픽스 응용
+		Section 08 : GLSL
+			Code 15-2 : GLSL 샘플 프로그램

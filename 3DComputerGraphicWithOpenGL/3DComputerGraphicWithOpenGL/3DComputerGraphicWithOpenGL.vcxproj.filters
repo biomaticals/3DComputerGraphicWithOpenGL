@@ -113,6 +113,9 @@
     <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_14.cpp">
       <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_15.cpp">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\ImGui\imconfig.h">
@@ -176,6 +179,12 @@
     </None>
     <None Include="Resource\Object\space\terrain1.raw">
       <Filter>Resource\Object</Filter>
+    </None>
+    <None Include="Source\Windows\OuputCode\glsl_example.frag">
+      <Filter>Source\Windows\OuputCode</Filter>
+    </None>
+    <None Include="Source\Windows\OuputCode\glsl_example.vert">
+      <Filter>Source\Windows\OuputCode</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

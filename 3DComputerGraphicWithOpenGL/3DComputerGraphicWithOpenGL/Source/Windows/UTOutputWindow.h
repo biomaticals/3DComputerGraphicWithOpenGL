@@ -11,6 +11,8 @@
 #include "Windows/OuputCode/terrain.h"
 #include <vector>
 
+#include "io.h"
+
 #define M_PI 3.14159265358979323846
 
 #define REGISTER_DRAW_FUNCTION(Chapter, CodeIndex) \
@@ -368,8 +370,15 @@ private:
 	GLfloat Time_14_2;
 #pragma endregion
 
+#pragma region Chapter15
 private:
+	void Code_15_2_Start();
+	void Code_15_2();
+	void Code_15_2_End();
+	char* ReadShaderSource(char* fileName);
+	GLhandleARB h_vertex_15_2, h_frag_15_2, h_program_15_2;
 
+private:
 #define MAX_CHAPTER_COUNT 15
 	using DrawFuncPtr = void (UTOutputWindow::*)();
 	std::array<std::unordered_map<unsigned int, DrawFuncPtr>, MAX_CHAPTER_COUNT + 1> DrawFunctions;

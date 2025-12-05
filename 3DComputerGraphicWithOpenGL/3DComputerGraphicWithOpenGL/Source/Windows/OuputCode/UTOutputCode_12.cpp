@@ -1,9 +1,10 @@
 ﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
+#include "CoreMinimal.h"
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
-#include "glad/glad.h"
+//#include "glad/glad.h"
 
 void UTOutputWindow::Code_12_8_Start()
 {

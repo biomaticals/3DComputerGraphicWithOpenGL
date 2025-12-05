@@ -4,6 +4,7 @@
 #pragma once
 
 #include <windows.h>
+
 #include "CoreMinimal.h"
 #include "Common.h"
 #include <string>

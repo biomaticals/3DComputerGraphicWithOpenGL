@@ -1,7 +1,7 @@
 ﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
-#include "glad/glad.h"
+//#include "glad/glad.h"
 #include "UTOutputWindow.h"
 #include "Manager/ResourceManager.h"
 #include "Manager/WindowManager.h"
@@ -85,6 +85,13 @@ UTOutputWindow::~UTOutputWindow()
 void UTOutputWindow::Initialize()
 {
 	UTWindow::Initialize();
+
+	GLenum err = glewInit();
+	if (err != GLEW_OK)
+	{
+		fprintf(stderr, "GLEW init error: %s\n", glewGetErrorString(err));
+		// 필요시 예외처리 / 종료
+	}
 
 #pragma region Chapter5
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
