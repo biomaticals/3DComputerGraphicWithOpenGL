@@ -90,13 +90,16 @@ void UTOutputWindow::Initialize()
 	if (err != GLEW_OK)
 	{
 		fprintf(stderr, "GLEW init error: %s\n", glewGetErrorString(err));
-		// 필요시 예외처리 / 종료
 	}
 
 #pragma region Chapter5
+	StartDrawFunctions[5][2] = &UTOutputWindow::Code_5_2_Start;
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;
+	EndDrawFunctions[5][2] = &UTOutputWindow::Code_5_2_End;
 	
+	StartDrawFunctions[5][4] = &UTOutputWindow::Code_5_4_Start;
 	DrawFunctions[5][4] = &UTOutputWindow::Code_5_4;
+	EndDrawFunctions[5][4] = &UTOutputWindow::Code_5_4_End;
 	
 	StartDrawFunctions[5][5] = &UTOutputWindow::Code_5_5_Start;
 	DrawFunctions[5][5] = &UTOutputWindow::Code_5_5;
@@ -109,6 +112,10 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_Start;
 	DrawFunctions[5][7] = &UTOutputWindow::Code_5_7;
 	EndDrawFunctions[5][7] = &UTOutputWindow::Code_5_7_End;
+	TopLeftX_5_7 = -0.85;
+	TopLeftY_5_7 = 0.85;
+	BottomRightX_5_7 = 0.85;
+	BottomRightY_5_7 = -0.85;
 
 	DrawFunctions[5][13] = &UTOutputWindow::Code_5_13;
 	EndDrawFunctions[5][13] = &UTOutputWindow::Code_5_13_End;
@@ -313,11 +320,23 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 	OutputExampleCodeData.Title = RESOURCE_MANAGER->FindTitleContext(InPart, InChapter, InSection,InCodeIndex).c_str();
 	OutputExampleCodeData.DrawFunction = DrawFunctions[InChapter][InCodeIndex];
 
-	if(StartDrawFunctions.at(InChapter).empty() && StartDrawFunctions.at(InChapter).at(InCodeIndex))
+	if (StartDrawFunctions.at(InChapter).find(InCodeIndex) != StartDrawFunctions.at(InChapter).end())
+	{
 		OutputExampleCodeData.StartDrawFunction = StartDrawFunctions[InChapter][InCodeIndex];
+	}
+	else
+	{
+		OutputExampleCodeData.StartDrawFunction = nullptr;
+	}
 	
-	if(EndDrawFunctions.at(InChapter).empty() && EndDrawFunctions.at(InChapter).at(InCodeIndex))
+	if (EndDrawFunctions.at(InChapter).find(InCodeIndex) != EndDrawFunctions.at(InChapter).end())
+	{
 		OutputExampleCodeData.EndDrawFunction = EndDrawFunctions[InChapter][InCodeIndex];
+	}
+	else
+	{
+		OutputExampleCodeData.EndDrawFunction = nullptr;
+	}
 
 	if (LastOutputExampleCodeData.IsValid() && LastOutputExampleCodeData.EndDrawFunction)
 		(this->*LastOutputExampleCodeData.EndDrawFunction)();

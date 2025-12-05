@@ -329,11 +329,11 @@ bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsign
 
 		if (bFoundInput && !bFoundDescription)
 		{
-			OutInputContext += L"\n" + Line;
+			OutInputContext += OutInputContext.empty() ? Line : L"\n" + Line;
 		}
 		else if (bFoundInput && bFoundDescription)
 		{
-			OutDescriptionContext += L"\n" + Line;
+			OutDescriptionContext += OutDescriptionContext.empty() ? Line : L"\n" + Line;
 		}
 	}
 

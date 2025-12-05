@@ -4,6 +4,12 @@
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
 
+void UTOutputWindow::Code_5_2_Start()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화한 뒤, 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링 하는 기초 예제입니다.";
+}
+
 void UTOutputWindow::Code_5_2()
 {
 	ResetAll();
@@ -11,16 +17,31 @@ void UTOutputWindow::Code_5_2()
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
+	
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
+	
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
-	glFlush();
+	
 	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_5_2_End()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+}
+
+void UTOutputWindow::Code_5_4_Start()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 투영 행렬을 직교 투영 행렬로 설정합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다.";
 }
 
 void UTOutputWindow::Code_5_4()
@@ -30,27 +51,40 @@ void UTOutputWindow::Code_5_4()
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
+	
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.f, 1.f, 1.f);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
-	glFlush();
+	
 	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_5_4_End()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_5_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &Width_5_6, &Height_5_6);
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
+
+	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 창의 크기가 변경될 때마다 호출되는 콜백 함수를 등록합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다.";
 }
 
 void UTOutputWindow::Code_5_5()
@@ -59,31 +93,39 @@ void UTOutputWindow::Code_5_5()
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
+
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f , 1.f, -1.f, 1.f, -1.f, 1.f);
+
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
-	glFlush();
+
 	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
 }
 
 void UTOutputWindow::Code_5_5_End()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
 {
+	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
 	glViewport(0, 0, NewWidth, NewHeight);
+	
 	GLfloat WidthFactor = (GLfloat)NewWidth / (GLfloat)(OUTPUT_WINDOW->Width_5_6);
 	GLfloat HeightFactor = (GLfloat)NewHeight / (GLfloat)(OUTPUT_WINDOW->Height_5_6);
 	glMatrixMode(GL_PROJECTION);
@@ -95,6 +137,8 @@ void UTOutputWindow::Code_5_6_Start()
 {
 	ResetAll();
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_6_Key);
+
+	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 키보드 입력을 처리하는 콜백 함수를 등록합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다. 'Q' 키를 누르면 프로그램이 종료됩니다.";
 }
 
 void UTOutputWindow::Code_5_6()
@@ -103,25 +147,32 @@ void UTOutputWindow::Code_5_6()
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
+	
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5f, 0.5f, 0.5f);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
-	glFlush();
+	
 	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
 }
 
 void UTOutputWindow::Code_5_6_End()
 {
+	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), NULL);
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -143,8 +194,16 @@ void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 void UTOutputWindow::Code_5_7_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_7_MouseButton);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_7_CursorPosition);
+
+	TopLeftX_5_7 = -0.85;
+	TopLeftY_5_7 = 0.85;
+	BottomRightX_5_7 = 0.85;
+	BottomRightY_5_7 = -0.85;
+
+	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 마우스 입력을 처리하는 콜백 함수를 등록합니다. 마우스 왼쪽 버튼을 클릭한 위치를 사각형의 왼쪽 위 꼭지점으로, 마우스를 이동한 위치를 사각형의 오른쪽 아래 꼭지점으로 설정하여 사각형을 렌더링합니다.";
 }
 
 void UTOutputWindow::Code_5_7()
@@ -171,18 +230,24 @@ void UTOutputWindow::Code_5_7()
 
 void UTOutputWindow::Code_5_7_End()
 {
+	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetMouseButtonCallback(GetGLFWWindow(), NULL);
 	glfwSetCursorPosCallback(GetGLFWWindow(), NULL);
-	TopLeftX_5_7 = -1;
-	TopLeftY_5_7 = -1;
-	BottomRightX_5_7 = 0;
-	BottomRightY_5_7 = 0;
+
+	TopLeftX_5_7 = -0.85;
+	TopLeftY_5_7 = -0.85;
+	BottomRightX_5_7 = 0.85;
+	BottomRightY_5_7 = 0.85;
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_7_MouseButton(GLFWwindow* Window, int button, int action, int mods)
 {
 	if(button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
 	{
+		glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
 		double xpos, ypos;
 		glfwGetCursorPos(Window, &xpos, &ypos);
 

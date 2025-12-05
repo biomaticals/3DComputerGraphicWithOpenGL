@@ -61,9 +61,13 @@ public:
 	void DumpGLState(const char* tag = "");
 #pragma region Chapter5
 private:
+	void Code_5_2_Start();
 	void Code_5_2();
+	void Code_5_2_End();
 
+	void Code_5_4_Start();
 	void Code_5_4();
+	void Code_5_4_End();
 
 	void Code_5_5_Start();
 	void Code_5_5();
@@ -83,10 +87,10 @@ private:
 	void Code_5_7_End();
 	static void Code_5_7_MouseButton(GLFWwindow* Window, int button, int action, int mods);
 	static void Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
-	GLfloat TopLeftX_5_7 = -1;
-	GLfloat TopLeftY_5_7 = 1;
-	GLfloat BottomRightX_5_7 = 1;
-	GLfloat BottomRightY_5_7 = -1;
+	GLfloat TopLeftX_5_7;
+	GLfloat TopLeftY_5_7;
+	GLfloat BottomRightX_5_7;
+	GLfloat BottomRightY_5_7;
 
 	void Code_5_13();
 	void Code_5_13_End();

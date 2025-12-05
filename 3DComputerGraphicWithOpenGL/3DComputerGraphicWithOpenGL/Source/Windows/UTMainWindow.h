@@ -20,6 +20,7 @@ public:
 
 	ImGuiContext* GetGuiContext() const;
 
+	std::wstring ExplanationContext;
 	std::wstring DebugContext;
 
 private:
