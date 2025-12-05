@@ -20,15 +20,15 @@
     <Filter Include="Source\CodeSamples">
       <UniqueIdentifier>{8715dac9-7037-43d2-ae1c-d63a9362439d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Windows\OuputCode">
-      <UniqueIdentifier>{450f1e1c-22c3-4631-b0a4-565bcf0675b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Resource\Object">
       <UniqueIdentifier>{c92fb45c-f720-4c12-8d7f-20c0622aa06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Windows\OutputCode">
+      <UniqueIdentifier>{450f1e1c-22c3-4631-b0a4-565bcf0675b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,50 +71,50 @@
     <ClCompile Include="Source\Common.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_6.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
     <ClCompile Include="..\Include\glad\src\glad.c">
       <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_7.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_8.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_9.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_10.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_11.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
     </ClCompile>
     <ClCompile Include="Source\Manager\ResourceManager.cpp">
       <Filter>Source\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\camera.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClCompile Include="Source\Windows\OutputCode\camera.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\skybox.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClCompile Include="Source\Windows\OutputCode\skybox.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\terrain.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClCompile Include="Source\Windows\OutputCode\terrain.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_12.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_5.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_14.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_6.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_15.cpp">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_7.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_8.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_9.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_10.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_11.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_12.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_14.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_15.cpp">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,14 +160,14 @@
     <ClInclude Include="Source\Manager\WindowManager.h">
       <Filter>Source\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Windows\OuputCode\camera.h">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClInclude Include="Source\Windows\OutputCode\camera.h">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Windows\OuputCode\skybox.h">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClInclude Include="Source\Windows\OutputCode\skybox.h">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Windows\OuputCode\terrain.h">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <ClInclude Include="Source\Windows\OutputCode\terrain.h">
+      <Filter>Source\Windows\OutputCode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -180,11 +180,11 @@
     <None Include="Resource\Object\space\terrain1.raw">
       <Filter>Resource\Object</Filter>
     </None>
-    <None Include="Source\Windows\OuputCode\glsl_example.frag">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <None Include="Source\Windows\OutputCode\glsl_example.frag">
+      <Filter>Source\Windows\OutputCode</Filter>
     </None>
-    <None Include="Source\Windows\OuputCode\glsl_example.vert">
-      <Filter>Source\Windows\OuputCode</Filter>
+    <None Include="Source\Windows\OutputCode\glsl_example.vert">
+      <Filter>Source\Windows\OutputCode</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

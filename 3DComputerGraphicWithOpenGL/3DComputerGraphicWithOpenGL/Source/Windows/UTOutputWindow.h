@@ -6,9 +6,9 @@
 #include "CoreMinimal.h"
 #include "3DComputerGraphicWithOpenGL.h"
 #include "UTWindow.h"
-#include "Windows/OuputCode/camera.h"
-#include "Windows/OuputCode/skybox.h"
-#include "Windows/OuputCode/terrain.h"
+#include "Windows/OutputCode/camera.h"
+#include "Windows/OutputCode/skybox.h"
+#include "Windows/OutputCode/terrain.h"
 #include <vector>
 
 #include "io.h"
@@ -377,6 +377,7 @@ private:
 	void Code_15_2_End();
 	char* ReadShaderSource(char* fileName);
 	GLhandleARB h_vertex_15_2, h_frag_15_2, h_program_15_2;
+#pragma endregion
 
 private:
 #define MAX_CHAPTER_COUNT 15

@@ -290,6 +290,12 @@ void UTOutputWindow::Initialize()
 	ElapsedTime_14_2 = 0.f;
 	Time_14_2 = 0.f;
 #pragma endregion
+
+#pragma region Chapter 15
+	StartDrawFunctions[15][2] = &UTOutputWindow::Code_15_2_Start;
+	DrawFunctions[15][2] = &UTOutputWindow::Code_15_2;
+	EndDrawFunctions[15][2] = &UTOutputWindow::Code_15_2_End;
+#pragma endregion
 }
 
 void UTOutputWindow::RenderDrawData()
@@ -307,10 +313,10 @@ void UTOutputWindow::SetSelectedExampleCodeData(unsigned int InPart, unsigned in
 	OutputExampleCodeData.Title = RESOURCE_MANAGER->FindTitleContext(InPart, InChapter, InSection,InCodeIndex).c_str();
 	OutputExampleCodeData.DrawFunction = DrawFunctions[InChapter][InCodeIndex];
 
-	if(StartDrawFunctions.at(InChapter).at(InCodeIndex))
+	if(StartDrawFunctions.at(InChapter).empty() && StartDrawFunctions.at(InChapter).at(InCodeIndex))
 		OutputExampleCodeData.StartDrawFunction = StartDrawFunctions[InChapter][InCodeIndex];
 	
-	if(EndDrawFunctions.at(InChapter).at(InCodeIndex))
+	if(EndDrawFunctions.at(InChapter).empty() && EndDrawFunctions.at(InChapter).at(InCodeIndex))
 		OutputExampleCodeData.EndDrawFunction = EndDrawFunctions[InChapter][InCodeIndex];
 
 	if (LastOutputExampleCodeData.IsValid() && LastOutputExampleCodeData.EndDrawFunction)
@@ -327,16 +333,24 @@ void UTOutputWindow::ResetAll()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glColor3f(1.f, 1.f, 1.f);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);
 	glDisable(GL_NORMALIZE);
 	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_TEXTURE_2D);
+	
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glShadeModel(GL_SMOOTH);
-	glColor3f(1.f, 1.f, 1.f);
+
 	glFlush();
 	glGetError();
 }

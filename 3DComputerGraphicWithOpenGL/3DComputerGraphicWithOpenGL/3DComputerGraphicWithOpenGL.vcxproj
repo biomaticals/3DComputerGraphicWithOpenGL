@@ -229,19 +229,19 @@
     <ClCompile Include="Source\Common.cpp" />
     <ClCompile Include="Source\Manager\ResourceManager.cpp" />
     <ClCompile Include="Source\Manager\WindowManager.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\camera.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\skybox.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\terrain.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_10.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_11.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_12.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_14.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_15.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_5.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_6.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_7.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_8.cpp" />
-    <ClCompile Include="Source\Windows\OuputCode\UTOutputCode_9.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\camera.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\skybox.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\terrain.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_10.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_11.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_12.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_14.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_15.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_5.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_6.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_7.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_8.cpp" />
+    <ClCompile Include="Source\Windows\OutputCode\UTOutputCode_9.cpp" />
     <ClCompile Include="Source\Windows\UTMainWindow.cpp" />
     <ClCompile Include="Source\Windows\UTOutputWindow.cpp" />
     <ClCompile Include="Source\Windows\UTWindow.cpp" />
@@ -263,9 +263,9 @@
     <ClInclude Include="Source\CoreMinimal.h" />
     <ClInclude Include="Source\Manager\ResourceManager.h" />
     <ClInclude Include="Source\Manager\WindowManager.h" />
-    <ClInclude Include="Source\Windows\OuputCode\camera.h" />
-    <ClInclude Include="Source\Windows\OuputCode\skybox.h" />
-    <ClInclude Include="Source\Windows\OuputCode\terrain.h" />
+    <ClInclude Include="Source\Windows\OutputCode\camera.h" />
+    <ClInclude Include="Source\Windows\OutputCode\skybox.h" />
+    <ClInclude Include="Source\Windows\OutputCode\terrain.h" />
     <ClInclude Include="Source\Windows\UTMainWindow.h" />
     <ClInclude Include="Source\Windows\UTOutputWindow.h" />
     <ClInclude Include="Source\Windows\UTWindow.h" />
@@ -274,8 +274,8 @@
     <None Include="..\Include\ImGui\imgui.ini" />
     <None Include="..\Include\ImGui\imgui.natstepfilter" />
     <None Include="Resource\Object\space\terrain1.raw" />
-    <None Include="Source\Windows\OuputCode\glsl_example.frag" />
-    <None Include="Source\Windows\OuputCode\glsl_example.vert" />
+    <None Include="Source\Windows\OutputCode\glsl_example.frag" />
+    <None Include="Source\Windows\OutputCode\glsl_example.vert" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="..\Include\ImGui\imgui.natvis" />
