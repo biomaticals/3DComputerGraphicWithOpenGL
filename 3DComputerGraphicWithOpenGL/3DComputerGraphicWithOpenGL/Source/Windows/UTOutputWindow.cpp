@@ -117,6 +117,7 @@ void UTOutputWindow::Initialize()
 	BottomRightX_5_7 = 0.85;
 	BottomRightY_5_7 = -0.85;
 
+	StartDrawFunctions[5][13] = &UTOutputWindow::Code_5_13_Start;
 	DrawFunctions[5][13] = &UTOutputWindow::Code_5_13;
 	EndDrawFunctions[5][13] = &UTOutputWindow::Code_5_13_End;
 
@@ -359,6 +360,8 @@ void UTOutputWindow::ResetAll()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	glFrontFace(GL_CCW);
+	glDisable(GL_CULL_FACE);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);

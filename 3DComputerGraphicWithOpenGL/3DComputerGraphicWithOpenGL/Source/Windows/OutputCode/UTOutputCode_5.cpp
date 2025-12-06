@@ -266,6 +266,14 @@ void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, do
 	OUTPUT_WINDOW->BottomRightY_5_7 = OrthoCoords[1];
 }
 
+void UTOutputWindow::Code_5_13_Start()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"정점 배열과 색상 배열, 인덱스 배열을 사용하여 3D 큐브를 렌더링하는 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"폴리곤의 와인딩 순서를 반시계(CCW)로 설정하여 앞면을 정의하고,\n";
+	MAIN_WINDOW->ExplanationContext += L"백페이스 컬링을 활성화하여 카메라에서 보이지 않는 뒷면을 제거합니다.";
+}
+
 void UTOutputWindow::Code_5_13()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
@@ -304,8 +312,7 @@ void UTOutputWindow::Code_5_13()
 void UTOutputWindow::Code_5_13_End()
 {
 	ResetAll();
-	glfwMakeContextCurrent(GetGLFWWindow());
-	glDisable(GL_CULL_FACE);
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_14_Start()
@@ -328,6 +335,10 @@ void UTOutputWindow::Code_5_14_Start()
 	glEnd();
 
 	glEndList();
+
+	MAIN_WINDOW->ExplanationContext = L"디스플레이 리스트를 사용하여 정적 지오메트리를 사전에 컴파일하고, \n";
+	MAIN_WINDOW->ExplanationContext += L"렌더링 단계에서는 glCallList를 통해 미리 기록된 명령을 즉시 실행하는 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"정사각형을 하나의 리스트로 생성한 뒤, 매 프레임마다 해당 리스트를 호출하여 효율적으로 동일한 도형을 렌더링합니다.";
 }
 
 void UTOutputWindow::Code_5_14()
@@ -356,12 +367,14 @@ void UTOutputWindow::Code_5_14_End()
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glDeleteLists(MyListID_5_14, 1);
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_15_Start()
 {
 	ResetAll();
-	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_15_MouseButton);
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
 	const std::string basepath = "Resource/Object/Wood_Table/";
@@ -402,6 +415,15 @@ void UTOutputWindow::Code_5_15_Start()
 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.1f);
 	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.01f);
+
+	FlatShadeMode_5_15 = false;
+	WireframeMode_5_15 = false;
+
+	MAIN_WINDOW->ExplanationContext = L"OBJ 모델과 머티리얼 정보를 로드하여 텍스처, 노멀, 조명 계산을 포함한 전통적인 OpenGL 고정 파이프라인 방식으로 3D 오브젝트를 렌더링하는 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"마우스 입력을 통해 카메라의 위치를 구면 좌표계로 변환하여 모델 주위를 회전하며 관찰할 수 있으며,\n";
+	MAIN_WINDOW->ExplanationContext += L"광원 위치, 확산광·정반사광·환경광 등의 머티리얼 속성을 설정하여 실제와 유사한 조명 효과를 구현합니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"렌더링 시에는 텍스처 좌표, 노멀 벡터, 정점 위치를 기반으로 삼각형 단위로 모델을 그리며,\n";
+	MAIN_WINDOW->ExplanationContext += L"쉐이딩 모드와 폴리곤 모드는 런타임에서 토글할 수 있도록 구성되어 있습니다.";
 }
 
 void UTOutputWindow::Code_5_15()
@@ -480,6 +502,12 @@ void UTOutputWindow::Code_5_15()
 
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
+
+	MAIN_WINDOW->DebugContext = L"Q : 종료\n";
+	MAIN_WINDOW->DebugContext  = L"1 : 쉐이드 모드 전환(현재 : ";
+	MAIN_WINDOW->DebugContext += (FlatShadeMode_5_15 ? L"플랫 쉐이딩)" : L"스무스 쉐이딩)\n");
+	MAIN_WINDOW->DebugContext += L"2 : 폴리곤 모드 전환(현재:";
+	MAIN_WINDOW->DebugContext += (WireframeMode_5_15 ? L"와이어프레임)" : L"채워진 폴리곤)\n");
 }
 
 void UTOutputWindow::Code_5_15_End()
@@ -515,6 +543,9 @@ void UTOutputWindow::Code_5_15_End()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glFlush();
 	glGetError();
+
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight)
@@ -527,52 +558,40 @@ void UTOutputWindow::Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int New
 
 void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
+	if (Action != GLFW_PRESS)
+		return;
+
 	switch (Key)
 	{
 	case GLFW_KEY_Q:
 	{
-		if (Action == GLFW_PRESS)
-		{
-			exit(0);
-			break;
-		}
+		exit(0);
 		break;
 	}
 	case GLFW_KEY_1:
 	{
-		if (Action == GLFW_PRESS)
+		if (OUTPUT_WINDOW->FlatShadeMode_5_15)
 		{
-			if (OUTPUT_WINDOW->FlatShadeMode_5_15)
-			{
-				OUTPUT_WINDOW->FlatShadeMode_5_15 = false;
-			}
-			else
-			{
-				OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
-			}
+			OUTPUT_WINDOW->FlatShadeMode_5_15 = false;
+		}
+		else
+		{
+			OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
 		}
 		break;
 	}
 	case GLFW_KEY_2:
 	{
-		if (Action == GLFW_PRESS)
+		if (OUTPUT_WINDOW->WireframeMode_5_15)
 		{
-			if(OUTPUT_WINDOW->WireframeMode_5_15)
-			{
-				OUTPUT_WINDOW->WireframeMode_5_15 = false;
-			}
-			else
-			{
-				OUTPUT_WINDOW->WireframeMode_5_15 = true;
-			}
+			OUTPUT_WINDOW->WireframeMode_5_15 = false;
+		}
+		else
+		{
+			OUTPUT_WINDOW->WireframeMode_5_15 = true;
 		}
 	}
 	}
-}
-
-void UTOutputWindow::Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods)
-{
-
 }
 
 void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)

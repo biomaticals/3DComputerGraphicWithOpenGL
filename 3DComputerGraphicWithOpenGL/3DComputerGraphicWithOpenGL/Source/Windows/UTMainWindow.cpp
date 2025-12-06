@@ -216,9 +216,11 @@ void UTMainWindow::DrawDescriptionWindow()
 		ImGui::PushFont(BigFont);
 		ImGui::SeparatorText(WStringToUtf8(L"디버그 정보").c_str());
 		ImGui::PopFont();
+		ImGui::PushFont(MediumFont);
 		ImGui::PushTextWrapPos();
 		ImGui::Text("%s", WStringToUtf8(DebugContext).c_str());
 		ImGui::PopTextWrapPos();
+		ImGui::PopFont();
 	}
 
 	if (DescriptionContext.empty() == false)
@@ -255,7 +257,10 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 	ImGui::OpenPopup(WStringToUtf8(L"소개").c_str(), PopupFlags);
 	if (ImGui::BeginPopupModal(WStringToUtf8(L"소개").c_str(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::SeparatorText(WStringToUtf8(L"OpenGL로 배우는 3D 컴퓨터 그래픽 - biomatic").c_str());
+		// 3D CG With OpenGL
+		ImGui::PushFont(BigFont);
+		ImGui::SeparatorText(WStringToUtf8(L"3D CG With OpenGL").c_str());
+		ImGui::PopFont();
 		ImGui::Text(WStringToUtf8(L"이 프로젝트는 OpenGL API를 학습하고 실습하기 위해 시작되었습니다.").c_str());
 		ImGui::Text(WStringToUtf8(L"내용은 \"3D Computer Graphics with OpenGL\"이라는 책을 기반으로 구성되어 있습니다.").c_str());
 		ImGui::Text(WStringToUtf8(L"이 프로그램을 통해 각 파트와 챕터의 코드 예제를 직접 확인하고 실행할 수 있습니다.").c_str());
@@ -268,10 +273,13 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::Text(WStringToUtf8(L"이 프로그램의 오픈소스는 아래 링크에서 확인할 수 있습니다.").c_str());
 		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://github.com/biomaticals/3DComputerGraphicWithOpenGL").c_str());
 		ImGui::NewLine();
-		ImGui::SeparatorText(WStringToUtf8(L"biomatic 소개").c_str());
+
+		// biomatic
+		ImGui::PushFont(BigFont);
+		ImGui::SeparatorText(WStringToUtf8(L"biomaticals 소개").c_str());
+		ImGui::PopFont();
 		ImGui::Text(WStringToUtf8(L"저는 대한민국에서 4년 경력의 게임 클라이언트 프로그래머입니다.").c_str());
 		ImGui::NewLine();
-
 		ImGui::Text(WStringToUtf8(L"기술 블로그는 아래 링크에서 확인하실 수 있습니다.").c_str());
 		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://biomaticals.notion.site/biomaticals").c_str());
 		ImGui::NewLine();
@@ -283,12 +291,24 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::Text(WStringToUtf8(L"전화번호 : +82 10 3902 8624 (대한민국)").c_str());
 		ImGui::Text(WStringToUtf8(L"이메일 : biomaticals@naver.com").c_str());
 		ImGui::NewLine();
-
+		ImGui::PushFont(MonospaceFont);
+		ImGui::Text(WStringToUtf8(L"========================================================\n").c_str());
+		ImGui::Text(WStringToUtf8(L".###..###..###..##.##...#...###.###..##....#...#....####\n").c_str());
+		ImGui::Text(WStringToUtf8(L".# ##..#..##.##.##.##..#.#...#...#..#..#..#.#..#....#...\n").c_str());
+		ImGui::Text(WStringToUtf8(L".####..#..##.##.#.#.#.#####..#...#..#....#####.#....####\n").c_str());
+		ImGui::Text(WStringToUtf8(L".# ##..#..##.##.#...#.#...#..#...#..#..#.#...#.#.......#\n").c_str());
+		ImGui::Text(WStringToUtf8(L".###..###..###..#...#.#...#..#..###..##..#...#.####.####\n").c_str());
+		ImGui::Text(WStringToUtf8(L"========================================================\n").c_str());
+		ImGui::PopFont();
+		
+		// 닫기
+		ImGui::PushFont(MediumFont);
 		if (ImGui::Button(WStringToUtf8(L"닫기").c_str(), ImVec2(-FLT_MIN, 0.f)))
 		{
 			ImGui::CloseCurrentPopup();
 			*bOpen = false;
 		}
+		ImGui::PopFont();
 
 		ImGui::EndPopup();
 		return;

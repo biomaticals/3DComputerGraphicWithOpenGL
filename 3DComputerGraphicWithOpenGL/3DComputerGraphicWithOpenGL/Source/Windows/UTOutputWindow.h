@@ -92,6 +92,7 @@ private:
 	GLfloat BottomRightX_5_7;
 	GLfloat BottomRightY_5_7;
 
+	void Code_5_13_Start();
 	void Code_5_13();
 	void Code_5_13_End();
 	inline static GLfloat Vertices_5_13[8][3]
@@ -138,7 +139,6 @@ private:
 	void Code_5_15_End();
 	static void Code_5_15_Reshape(GLFWwindow* Window, int NewWidth, int NewHeight);
 	static void Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
-	static void Code_5_15_MouseButton(GLFWwindow* Window, int button, int action, int mods);
 	static void Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos);
 	bool FlatShadeMode_5_15;
 	bool WireframeMode_5_15;

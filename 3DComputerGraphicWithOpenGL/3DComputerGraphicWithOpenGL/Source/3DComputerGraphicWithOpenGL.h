@@ -121,4 +121,6 @@ inline std::array<double, 2> CursorPosToOrthoCoords(GLFWwindow* Window, const st
 }
 
 inline ImFont* DefaultFont = nullptr;
+inline ImFont* MediumFont = nullptr;
 inline ImFont* BigFont = nullptr;
+inline ImFont* MonospaceFont = nullptr;
