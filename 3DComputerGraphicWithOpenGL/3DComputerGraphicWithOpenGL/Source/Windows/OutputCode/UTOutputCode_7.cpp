@@ -21,7 +21,6 @@ void UTOutputWindow::Code_7_1_Start()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//glClearColor(0.f, 0.f, 0.f, 1.f);
 	GLfloat mat_diffuse[] = { 0.f, 0.4f, 0.3f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat mat_ambient[] = { 0.5f, 0.4f, 0.3f, 1.f };
@@ -44,7 +43,10 @@ void UTOutputWindow::Code_7_1_Start()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
-	glFlush();
+	
+	MAIN_WINDOW->ExplanationContext = L"하나의 3D 장면을 네 개의 서로 다른 카메라 시점에서 동시에 렌더링하는 예제입니다.\n";
+	MAIN_WINDOW->DebugContext = L"좌하단: 정면 / 우하단 : 우측면 / 좌상단 : 평면 (이상 정투영)\n";
+	MAIN_WINDOW->DebugContext += L"우상단: 원근투영으로 대각선에서 바라본 씬\n";
 }
 
 void UTOutputWindow::Code_7_1()
@@ -98,14 +100,15 @@ void UTOutputWindow::Code_7_1()
 
 void UTOutputWindow::Code_7_1_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_7_1_DrawScene()
 {
 	glColor3f(0.1, 0.1, 0.1);
 	glPushMatrix();
-		//glTranslatef(0.0, -1.0, 0.0);
 		glBegin(GL_QUADS);
 			glVertex3f(2.0, 0.0, 2.0);
 			glVertex3f(2.0, 0.0, -2.0);
@@ -114,9 +117,7 @@ void UTOutputWindow::Code_7_1_DrawScene()
 		glEnd();
 	glPopMatrix();
 
-// 	glColor3f(0.3, 0.3, 0.7);
 	glPushMatrix();
-		//glTranslatef(0.0, 0.0, -0.5);
 		glBegin(GL_TRIANGLES);
 		for(GLint i = 0; i < indices_7_1.size(); i++)
 		{
