@@ -62,21 +62,27 @@ void UTMainWindow::RenderUI()
 	float InputWindowTitleBarSize = ImGui::GetFontSize() + ImGui::GetStyle().FramePadding.y * 2;
 	ImGui::SetNextWindowPos(ImVec2(MainViewport->WorkPos.x, MainViewport->WorkPos.y),ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->Size.y / 2.f), ImGuiCond_Always);
+	ImGui::PushFont(MediumFont);
 	ImGui::Begin(WStringToUtf8(L"입력").c_str(), &ShowInputWindow, CoreWindowFlags);
+	ImGui::PopFont();
 	InputWindow = ImGui::GetCurrentWindow();
 	DrawInputWindow();
 	ImGui::End();
 	
 	ImGui::SetNextWindowPos(ImVec2(MainViewport->WorkPos.x, MainViewport->Size.y / 2.f + InputWindowTitleBarSize), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->Size.y / 2.f - InputWindowTitleBarSize), ImGuiCond_Always);
+	ImGui::PushFont(MediumFont);
 	ImGui::Begin(WStringToUtf8(L"설명").c_str(), &ShowDescriptionWindow, CoreWindowFlags);
+	ImGui::PopFont();
 	DescriptionWindow = ImGui::GetCurrentWindow();
 	DrawDescriptionWindow();
 	ImGui::End();
 	
 	ImGui::SetNextWindowPos(ImVec2(6.f * MainViewport->Size.x / 10.f, MainViewport->WorkPos.y), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(4.f * MainViewport->Size.x / 10.f, MainViewport->Size.y), ImGuiCond_Always);
+	ImGui::PushFont(MediumFont);
 	ImGui::Begin(WStringToUtf8(L"선택").c_str(), &ShowSelectorWindow, CoreWindowFlags);
+	ImGui::PopFont();
 	SelectorWindow = ImGui::GetCurrentWindow();
 	DrawSelectorWindow();
 	ImGui::End();
@@ -278,9 +284,9 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::PushFont(BigFont);
 		ImGui::SeparatorText(WStringToUtf8(L"biomaticals 소개").c_str());
 		ImGui::PopFont();
-		ImGui::Text(WStringToUtf8(L"저는 대한민국에서 4년 경력의 게임 클라이언트 프로그래머입니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"4년 경력의 게임 클라이언트 프로그래머입니다.").c_str());
 		ImGui::NewLine();
-		ImGui::Text(WStringToUtf8(L"기술 블로그는 아래 링크에서 확인하실 수 있습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"기술 블로그를 운영하고 있으며 아래 링크에서 확인하실 수 있습니다.").c_str());
 		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://biomaticals.notion.site/biomaticals").c_str());
 		ImGui::NewLine();
 		ImGui::Text(WStringToUtf8(L"아쉽게도 블로그는 현재 영어를 지원하지 않습니다.").c_str());

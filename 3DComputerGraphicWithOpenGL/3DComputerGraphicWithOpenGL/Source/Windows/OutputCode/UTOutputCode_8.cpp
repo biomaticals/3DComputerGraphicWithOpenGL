@@ -45,6 +45,12 @@ void UTOutputWindow::Code_8_3_Start()
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
 	glFlush();
+
+	MAIN_WINDOW->ExplanationContext = L"후면 제거 및 깊이버퍼 테스트로 인한 은면의 효과를 비교하는 예제입니다.\n";
+	MAIN_WINDOW->DebugContext = L"좌하단: 후면, 은면 모두 존재\n";
+	MAIN_WINDOW->DebugContext += L"우하단 : 후면 제거\n";
+	MAIN_WINDOW->DebugContext += L"좌상단 : 후면, 은면 제거\n";
+	MAIN_WINDOW->DebugContext += L"우상단 : 은면 제거\n";
 }
 
 void UTOutputWindow::Code_8_3()
@@ -92,8 +98,6 @@ void UTOutputWindow::Code_8_3()
 	}
 	glEnd();
 	glPopMatrix();
-	glFlush();
-
 
 	// 좌상단, 후면, 은면 제거
 	glClear(GL_DEPTH_BUFFER_BIT);
@@ -114,7 +118,6 @@ void UTOutputWindow::Code_8_3()
 	}
 	glEnd();
 	glPopMatrix();
-	glFlush();
 
 	// 은면 제거
 	glClear(GL_DEPTH_BUFFER_BIT);
@@ -139,17 +142,23 @@ void UTOutputWindow::Code_8_3()
 	glPopMatrix();
 
 	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
 }
 
 void UTOutputWindow::Code_8_3_End()
 {
 	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_8_6_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+
+	MAIN_WINDOW->ExplanationContext = L"배경과 물체를 그려내기 위해 깊이 버퍼와 색깔 버퍼를 분리해서 처리하는 방법을 보여줍니다.\n";
 }
 
 void UTOutputWindow::Code_8_6()
@@ -160,6 +169,7 @@ void UTOutputWindow::Code_8_6()
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// 깊이 테스트는 켜지만 버퍼에는 기록하지 않음
  	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 	glColor3f(0.62f, 0.45f, 0.35f);
@@ -176,6 +186,7 @@ void UTOutputWindow::Code_8_6()
 	glVertex3f(0.f, 0.5f, 0.5f);
 	glEnd();
 
+	// 깊이 버퍼에 기록은 하지만 색깔 버퍼에는 기록하지 않음
 	glDepthMask(GL_TRUE);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glColor3f(0.f, 1.f, 0.f);
@@ -194,4 +205,5 @@ void UTOutputWindow::Code_8_6()
 void UTOutputWindow::Code_8_6_End()
 {
 	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
 }

@@ -1268,12 +1268,10 @@ void UTOutputWindow::Code_7_1_Start()
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -0.5, 5.0);
+	glOrtho(-0.5, 0.5, -0.5, 0.5, -0.5, 5.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//glClearColor(0.f, 0.f, 0.f, 1.f);
 	GLfloat mat_diffuse[] = { 0.f, 0.4f, 0.3f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat mat_ambient[] = { 0.5f, 0.4f, 0.3f, 1.f };
@@ -1296,7 +1294,10 @@ void UTOutputWindow::Code_7_1_Start()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
-	glFlush();
+	
+	MAIN_WINDOW->ExplanationContext = L"하나의 3D 장면을 네 개의 서로 다른 카메라 시점에서 동시에 렌더링하는 예제입니다.\n";
+	MAIN_WINDOW->DebugContext = L"좌하단: 정면 / 우하단 : 우측면 / 좌상단 : 평면 (이상 정투영)\n";
+	MAIN_WINDOW->DebugContext += L"우상단: 원근투영으로 대각선에서 바라본 씬\n";
 }
 
 void UTOutputWindow::Code_7_1()
@@ -1306,7 +1307,13 @@ void UTOutputWindow::Code_7_1()
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
-	
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-0.5, 0.5, -0.5, 0.5, -0.5, 5.0);
+
 	glViewport(0, 0, display_w / 2, display_h / 2);
 	glPushMatrix();
 		gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
@@ -1333,26 +1340,26 @@ void UTOutputWindow::Code_7_1()
  		gluPerspective(30, 1.0, 0.001, 10.0);
  		glMatrixMode(GL_MODELVIEW);
  		glPushMatrix();
- 			gluLookAt(2.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+ 			gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
  			Code_7_1_DrawScene();
  		glPopMatrix();
  		glMatrixMode(GL_PROJECTION);
  	glPopMatrix();
 
 	glfwSwapBuffers(GetGLFWWindow());
-	//glFlush();
 }
 
 void UTOutputWindow::Code_7_1_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_7_1_DrawScene()
 {
-/*	glColor3f(0.7, 0.7, 0.7);*/
+	glColor3f(0.1, 0.1, 0.1);
 	glPushMatrix();
-		//glTranslatef(0.0, -1.0, 0.0);
 		glBegin(GL_QUADS);
 			glVertex3f(2.0, 0.0, 2.0);
 			glVertex3f(2.0, 0.0, -2.0);
@@ -1361,9 +1368,7 @@ void UTOutputWindow::Code_7_1_DrawScene()
 		glEnd();
 	glPopMatrix();
 
-// 	glColor3f(0.3, 0.3, 0.7);
 	glPushMatrix();
-		//glTranslatef(0.0, 0.0, -0.5);
 		glBegin(GL_TRIANGLES);
 		for(GLint i = 0; i < indices_7_1.size(); i++)
 		{
@@ -1375,13 +1380,17 @@ void UTOutputWindow::Code_7_1_DrawScene()
 		glEnd();
 	glPopMatrix();
 }
-
 Description:
-이 프로젝트는 OpenGL을 이용하여 3D 모델링된 차이닉 주전자를 다양한 시점에서 렌더링하는 것입니다.
-1. 좌측 하단의 뷰포트는 +Z축 방향에서 바라보는 정면 뷰입니다.
-2. 우측 하단의 뷰포트는 +X축 방향에서 바라보는 측면 뷰입니다.
-3. 좌측 상단의 뷰포트는 +Y축 방향에서 바라보는 탑 뷰입니다.
-4. 우측 상단의 뷰포트는 원근 투영법을 사용하여 (2, 1, 2) 위치에서 바라보는 3D 뷰입니다.
+gluPerspective 함수는 OpenGL에서 원근 투영을 설정하는 데 사용되는 함수입니다. 이 함수는 시야각, 종횡비, 근평면 및 원평면 거리를 지정하여 3D 장면이 2D 화면에 어떻게 투영될지를 정의합니다. 주요 매개변수는 다음과 같습니다:
+- fovy: 시야각 (Field of View in Y direction)으로, 카메라의 수직 시야 범위를 도(degree) 단위로 지정합니다.
+- aspect: 종횡비 (Aspect Ratio)로, 화면의 너비와 높이의 비율을 나타냅니다. 일반적으로 화면의 너비를 높이로 나눈 값입니다.
+- zNear: 근평면 (Near Clipping Plane) 거리로, 카메라에서 가장 가까운 렌더링 가능한 거리를 지정합니다. 이 거리보다 가까운 객체는 렌더링되지 않습니다.
+- zFar: 원평면 (Far Clipping Plane) 거리로, 카메라에서 가장 먼 렌더링 가능한 거리를 지정합니다. 이 거리보다 먼 객체는 렌더링되지 않습니다.
+
+gluLookAt 함수는 OpenGL에서 카메라의 위치와 방향을 설정하는 데 사용되는 함수입니다. 이 함수는 카메라의 위치, 바라보는 지점, 그리고 카메라의 상향 벡터를 지정하여 3D 장면에서 카메라의 시점을 정의합니다. 주요 매개변수는 다음과 같습니다:
+- eyeX, eyeY, eyeZ: 카메라의 위치를 나타내는 좌표입니다.
+- centerX, centerY, centerZ: 카메라가 바라보는 지점의 좌표입니다.
+- upX, upY, upZ: 카메라의 상향 벡터를 나타내는 값으로, 일반적으로 (0, 1, 0)으로 설정하여 카메라가 위쪽을 향하도록 합니다.
 
 Code 8-3
 Input:
@@ -1426,6 +1435,12 @@ void UTOutputWindow::Code_8_3_Start()
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
 	glFlush();
+
+	MAIN_WINDOW->ExplanationContext = L"후면 제거 및 깊이버퍼 테스트로 인한 은면의 효과를 비교하는 예제입니다.\n";
+	MAIN_WINDOW->DebugContext = L"좌하단: 후면, 은면 모두 존재\n";
+	MAIN_WINDOW->DebugContext += L"우하단 : 후면 제거\n";
+	MAIN_WINDOW->DebugContext += L"좌상단 : 후면, 은면 제거\n";
+	MAIN_WINDOW->DebugContext += L"우상단 : 은면 제거\n";
 }
 
 void UTOutputWindow::Code_8_3()
@@ -1436,37 +1451,112 @@ void UTOutputWindow::Code_8_3()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);
 
-
-	// 후면, 은면 모두 존재
+	// 좌하단 - 후면, 은면 모두 존재
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_DEPTH_TEST);
- 	glViewport(0, 0, display_w / 2, display_h / 2);
- 	glPushMatrix();
- 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
- 	glBegin(GL_TRIANGLES);
- 	for (GLint i = 0; i < indices_8_3.size(); i++)
- 	{
- 		const Vertex& v = vertices_8_3[indices_8_3[i]];
- 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
- 		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
- 		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
- 	}
- 	glEnd();
- 	glPopMatrix();
- 	glFlush();
+	glViewport(0, 0, display_w / 2, display_h / 2);
+	glPushMatrix();
+	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLES);
+	for (GLint i = 0; i < indices_8_3.size(); i++)
+	{
+		const Vertex& v = vertices_8_3[indices_8_3[i]];
+		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+	glPopMatrix();
+	glFlush();
 
+	// 우하단 - 후면 제거
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
+	glViewport(display_w / 2, 0, display_w / 2, display_h / 2);
+	glPushMatrix();
+	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLES);
+	for (GLint i = 0; i < indices_8_3.size(); i++)
+	{
+		const Vertex& v = vertices_8_3[indices_8_3[i]];
+		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+	glPopMatrix();
+
+	// 좌상단, 후면, 은면 제거
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glViewport(0, display_h / 2, display_w / 2, display_h / 2);
+	glPushMatrix();
+	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLES);
+	for (GLint i = 0; i < indices_8_3.size(); i++)
+	{
+		const Vertex& v = vertices_8_3[indices_8_3[i]];
+		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+	glPopMatrix();
+
+	// 은면 제거
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glViewport(display_w / 2, display_h / 2, display_w / 2, display_h / 2);
+	glPushMatrix();
+	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLES);
+	for (GLint i = 0; i < indices_8_3.size(); i++)
+	{
+		const Vertex& v = vertices_8_3[indices_8_3[i]];
+		glTexCoord2f(v.texcoord.x, v.texcoord.y);
+		glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		glVertex3f(v.pos.x, v.pos.y, v.pos.z);
+	}
+	glEnd();
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+
+	glfwSwapBuffers(GetGLFWWindow());
+	glFlush();
+}
+
+void UTOutputWindow::Code_8_3_End()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
+}
 Description:
-좌측 하단은 후면, 은면이 모두 존재하는 렌더링 결과입니다.
-우측 하단은 후면 제거한 렌더링 결과입니다.
-좌측 상단은 후면, 은면 제거한 렌더링 결과입니다.
-우측 상단은 은면 제거한 렌더링 결과입니다.
+glFrontFace 함수는 OpenGL에서 폴리곤의 앞면과 뒷면을 정의하는 데 사용됩니다. 이 함수는 폴리곤의 정점이 시계방향(CW)인지 반시계방향(CCW)인지에 따라 앞면을 결정합니다. 기본값은 반시계방향(CCW)입니다. 즉, 정점이 반시계방향으로 정의된 폴리곤이 앞면으로 간주됩니다.
+glCullFace 함수는 OpenGL에서 폴리곤의 어느 면을 제거할지 지정하는 데 사용됩니다. 이 함수는 glFrontFace 함수와 함께 사용되어, 앞면과 뒷면 중 어느 면을 렌더링하지 않을지 결정합니다.
+glEnable(GL_CULL_FACE) 함수는 은면 제거를 활성화합니다. 이 기능이 활성화되면, glCullFace 함수에서 지정한 면이 렌더링되지 않습니다.
+
+glEnable(GL_DEPTH_TEST) 함수는 깊이 테스트를 활성화합니다. 깊이 테스트는 3D 장면에서 객체들이 서로 겹칠 때, 카메라에 더 가까운 객체가 더 먼 객체를 가리도록 하는 기능입니다. 깊이 테스트가 활성화되면, OpenGL은 각 픽셀의 깊이 값을 비교하여 어떤 픽셀이 화면에 그려질지 결정합니다. 이를 통해 올바른 시각적 표현을 유지할 수 있습니다.
 
 Code 8-6
 Input:
 void UTOutputWindow::Code_8_6_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+
+	MAIN_WINDOW->ExplanationContext = L"배경과 물체를 그려내기 위해 깊이 버퍼와 색깔 버퍼를 분리해서 처리하는 방법을 보여줍니다.\n";
 }
 
 void UTOutputWindow::Code_8_6()
@@ -1477,6 +1567,7 @@ void UTOutputWindow::Code_8_6()
 	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// 깊이 테스트는 켜지만 버퍼에는 기록하지 않음
  	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 	glColor3f(0.62f, 0.45f, 0.35f);
@@ -1493,6 +1584,7 @@ void UTOutputWindow::Code_8_6()
 	glVertex3f(0.f, 0.5f, 0.5f);
 	glEnd();
 
+	// 깊이 버퍼에 기록은 하지만 색깔 버퍼에는 기록하지 않음
 	glDepthMask(GL_TRUE);
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glColor3f(0.f, 1.f, 0.f);
@@ -1511,22 +1603,22 @@ void UTOutputWindow::Code_8_6()
 void UTOutputWindow::Code_8_6_End()
 {
 	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
-
 Description:
 +Z 방향에서 0.1f 위치에 사각형 폴리곤을 그리고, +Z 방향에서 0.5f 위치에 삼각형 폴리곤이 있습니다.
 이 때, 사각형 폴리곤이 배경화면이 되어, 삼각형 폴리곤이 어디에 존재하든 사각형 폴리곤 위에 그려지게 하고자 합니다.
-
 이 때, 의사 코드는 아래와 같습니다.
-1. 깊이 버퍼 비활성화
+1. 깊이 테스트 활성화, 깊이 버퍼 비활성화
 2. 사각형 폴리곤 그리기
 3. 삼각형 폴리곤 그리기
-4. 깊이 버퍼 활성화
-5. 색상 버퍼 비활성화
-6. 사각형 폴리곤 그리기
+4. 깊이 버퍼 활성화, 색상 버퍼 비활성화
+5. 사각형 폴리곤 그리기
 
 이렇게 하면 깊이 버퍼에는 사각형 폴리곤의 깊이만 저장됩니다.
 삼각형 폴리곤은 깊이 버퍼에 영향을 주지 않으므로, 삼각형 폴리곤이 어디에 존재하든 사각형 폴리곤 위에 그려지게 됩니다.
+
+투명한 오브젝트를 그리거나, UI / HUD / 2D 오버레이드를 그릴 때 위와 같은 테크닉을 사용합니다.
 
 Code 9-10
 Input:
