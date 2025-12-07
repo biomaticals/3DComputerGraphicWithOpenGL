@@ -151,6 +151,7 @@ private:
 
 #pragma region Chapter6
 private:
+	void Code_6_3_Start();
 	void Code_6_3();
 	void Code_6_3_End();
 
@@ -197,8 +198,61 @@ private:
 	void Code_6_10();
 	void Code_6_10_End();
 	static void Code_6_10_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+	void Draw_Color(int i);
+	void Change_Wire_Or_Solid(int i);
+	void DrawL_Arm(int x, int a, int b, int c);
+	void DrawL_Hand(int y, int a, int b, int c);
+	void DrawL_HandRocket();
+	void DrawR_Arm(int x, int a, int b, int c);
+	void DrawR_Hand(int y, int a, int b, int c);
+	void DrawR_HandRocket();
+	void DrawBody(int x, int a, int b, int c);
+	void DrawL_Legs(int x, int a, int b, int c);
+	void DrawL_foot(int y, int a, int b, int c);
+	void DrawR_Legs(int x, int a, int b, int c);
+	void DrawR_foot(int y, int a, int b, int c);
+	void Drawneck();
+	void DrawGround();
+	void DrawHead();
+	void DrawAndroid();
+	void Run();
+	void Jap();
+	void ex();
+	void Show();
+	void Rocket();
+	double time_6_10;  // Run_time 변수
+	double time2_6_10; // Jap_time 변수
+	double time3_6_10; // Rocket_time 변수
+	double time4_6_10; // ground_time 변수
+	double time6_6_10; // exit_time 변수
 	GLfloat Time_6_10;
 	GLfloat LastTime_6_10;
+
+	GLfloat R_Arm_x_6_10; 
+	GLfloat R_Arm_y_6_10; 
+	GLfloat L_Arm_x_6_10; 
+	GLfloat L_Arm_y_6_10; 
+	GLfloat R_Leg_x_6_10; 
+	GLfloat R_Leg_y_6_10; 
+	GLfloat L_Leg_x_6_10; 
+	GLfloat L_Leg_y_6_10; 
+	GLfloat R_6_10; 
+	GLfloat R2_6_10;
+
+	GLUquadricObj* cyl_6_10;
+
+	int a_6_10; // x축 기준(값이 1일 때 x축을 기준으로 회전)
+	int b_6_10; // y축 기준(값이 1일 때 y축을 기준으로 회전)
+	int c_6_10;
+
+	int flag_6_10; // wireframe 모드와 solid rendering 모드 구분 변수
+	int key_6_10;  // 동작 모드와 색상 변경 변수
+
+#define RUN		1
+#define JAP		2
+#define ROCKET	3
+#define YUNA	4
+#define EXIT	5
 #pragma endregion 
 
 #pragma region Chapter7

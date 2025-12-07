@@ -136,6 +136,7 @@ void UTOutputWindow::Initialize()
 #pragma endregion
 
 #pragma region Chapter6
+	StartDrawFunctions[6][3] = &UTOutputWindow::Code_6_3_Start;
 	DrawFunctions[6][3] = &UTOutputWindow::Code_6_3;
 	EndDrawFunctions[6][3] = &UTOutputWindow::Code_6_3_End;
 
@@ -162,6 +163,33 @@ void UTOutputWindow::Initialize()
 	StartDrawFunctions[6][10] = &UTOutputWindow::Code_6_10_Start;
 	DrawFunctions[6][10] = &UTOutputWindow::Code_6_10;
 	EndDrawFunctions[6][10] = &UTOutputWindow::Code_6_10_End;
+	time_6_10 = 0;
+	time2_6_10 = 0;
+	time3_6_10 = 0;
+	time4_6_10 = 0;
+	time6_6_10 = 0;
+	Time_6_10 = 0.f;
+	LastTime_6_10 = 0.f;
+
+	R_Arm_x_6_10 = 0.f;
+	R_Arm_y_6_10 = 0.f;
+	L_Arm_x_6_10 = 0.f;
+	L_Arm_y_6_10 = 0.f;
+	R_Leg_x_6_10 = 0.f;
+	R_Leg_y_6_10 = 0.f;
+	L_Leg_x_6_10 = 0.f;
+	L_Leg_y_6_10 = 0.f;
+	R_6_10 = 0.f;
+	R2_6_10 = 0.f;
+
+	cyl_6_10 = nullptr;
+
+	a_6_10 = 0;
+	b_6_10 = 0;
+	c_6_10 = 0;
+
+	flag_6_10 = 0;
+	key_6_10 = 1;
 #pragma endregion
 
 #pragma region Chapter7

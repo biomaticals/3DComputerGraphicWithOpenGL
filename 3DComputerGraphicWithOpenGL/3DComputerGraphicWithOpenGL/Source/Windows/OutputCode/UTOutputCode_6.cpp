@@ -11,6 +11,16 @@
 #include<math.h>
 #include<cmath>
 
+void UTOutputWindow::Code_6_3_Start()
+{
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"행렬 변환의 순서에 따른 결과 차이를 확인하는 예제입니다.\n"
+		"원점을 기준으로 45도 회전한 후, x축으로 0.6만큼 이동한 사각형과\n"
+		"x축으로 0.6만큼 이동한 후, 45도 회전한 사각형을 비교합니다.\n\n"
+		"빨간색 사각형: 먼저 45도 회전 후, x축으로 0.6만큼 이동\n"
+		"초록색 사각형: 먼저 x축으로 0.6만큼 이동 후, 45도 회전";
+}
+
 void UTOutputWindow::Code_6_3()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
@@ -72,10 +82,8 @@ void UTOutputWindow::Code_6_3()
 
 void UTOutputWindow::Code_6_3_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glColor3f(1.f, 1.f, 1.f);
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_6_6_Start()
@@ -83,19 +91,15 @@ void UTOutputWindow::Code_6_6_Start()
 	ResetAll();
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_6_Key);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	MAIN_WINDOW->ExplanationContext = L"행렬 스택을 활용하여 태양,지구,달의 계층적 변환을 구현합니다. glPushMatrix / glPopMatrix를 사용해 각 천체의 공전과 자전을 독립적으로 구성하면서도 부모 변환을 자연스럽게 계승합니다.\n";
+	MAIN_WINDOW->DebugContext = L"1: 지구 자전 및 달 공전\n";
+	MAIN_WINDOW->DebugContext += L"2: 지구 공전\n";
+	MAIN_WINDOW->DebugContext += L"R: 초기화\n";
+	MAIN_WINDOW->DebugContext += L"Q: 종료";
 }
 
 void UTOutputWindow::Code_6_6()
 {
-	// 이전의 Code들을 참고해줘. 태양계 모델링을 할거야. 태양, 지구, 달을 그릴 거고, 사용자에게 1를 입력받아서 지구의 자전, 달의 공전을 점점 진행하게 해주고 2를 입력 받아서 지구의 공전을 실행시켜줘
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -158,6 +162,8 @@ void UTOutputWindow::Code_6_6()
 void UTOutputWindow::Code_6_6_End()
 {
 	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_6_6_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -198,6 +204,8 @@ void UTOutputWindow::Code_6_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 void UTOutputWindow::Code_6_8_Start()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+
 	const std::string basepath = "Resource/Object/Chaynik/";
 	const std::string texbasepath = "Resource/Object/Chaynik/textures";
 	const std::string objpath = basepath + "Chaynik.obj";
@@ -226,7 +234,8 @@ void UTOutputWindow::Code_6_8_Start()
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 
-	glFlush();
+	MAIN_WINDOW->ExplanationContext = L"조명과 재질 속성을 사용하여 3D 모델을 렌더링하는 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"모델의 표면이 조명에 반응하여 현실감 있는 모습을 보여줍니다.";
 }
 
 void UTOutputWindow::Code_6_8()
@@ -272,10 +281,9 @@ void UTOutputWindow::Code_6_8()
 
 void UTOutputWindow::Code_6_8_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glColor3f(1.f, 1.f, 1.f);
+	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_6_9_Start()
@@ -290,10 +298,6 @@ void UTOutputWindow::Code_6_9_Start()
 	InitialVerticalVelocity_6_9 = 0.f;
 	HorizonalVelocity_6_9 = 5.f;
 	Time_6_9 = glfwGetTime();
-
-// 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
-// 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0f);
-// 	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0f);
 
 	GLfloat LightConstantAttenuation_6_9;
 	GLfloat LightLinearAttenuation_6_9;
@@ -330,7 +334,9 @@ void UTOutputWindow::Code_6_9_Start()
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
 	glColor3f(1.f, 1.f, 1.f);
-	glFlush();
+
+	MAIN_WINDOW->ExplanationContext = L"중력과 탄성 계수를 적용한 1차원 탄성 충돌 물리 모델을 사용한 바운싱 볼 시뮬레이션 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext = L"사용자는 중력 가속도, 탄성 계수, 초기 높이, 초기 수직 속도를 조절하여 공의 운동을 실시간으로 관찰할 수 있습니다.\n";
 }
 
 void UTOutputWindow::Code_6_9()
@@ -410,47 +416,68 @@ void UTOutputWindow::Code_6_9_End()
 	Time_6_9 = 0.f;
 
 	MAIN_WINDOW->DebugContext = L"";
-	
-	glFlush();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_6_9_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
+	if (Action != GLFW_PRESS)
+		return;
+
 	switch (Key)
 	{
-		if (Action == GLFW_PRESS && Scancode == 0)
-		{
 	case GLFW_KEY_1:
+	{
 		OUTPUT_WINDOW->Gravity_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_2:
+	{
 		OUTPUT_WINDOW->Gravity_6_9 = std::max(0.f, OUTPUT_WINDOW->Gravity_6_9 - 1.f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_3:
+	{
 		OUTPUT_WINDOW->Elastic_6_9 = std::min(1.f, OUTPUT_WINDOW->Elastic_6_9 + 0.05f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_4:
+	{
 		OUTPUT_WINDOW->Elastic_6_9 = std::max(0.f, OUTPUT_WINDOW->Elastic_6_9 - 0.05f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_5:
+	{
 		OUTPUT_WINDOW->InitialHeight_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_6:
+	{
 		OUTPUT_WINDOW->InitialHeight_6_9 = std::max(0.f, OUTPUT_WINDOW->InitialHeight_6_9 - 1.f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_7:
+	{
 		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_8:
+	{
 		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 -= 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
+	}
 	case GLFW_KEY_R:
+	{
 		OUTPUT_WINDOW->Gravity_6_9 = 9.8f;
 		OUTPUT_WINDOW->Elastic_6_9 = 0.75f;
 		OUTPUT_WINDOW->InitialHeight_6_9 = 30.f;
 		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 = 0.f;
 		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
-		}
+	}
+	default:
+	{
+		break;
+	}
 	}
 }
 
@@ -521,38 +548,6 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 	return 0.f;
 }
 
-static double time_6_10 = 0;  // Run_time 변수
-static double time2_6_10 = 0; // Jap_time 변수
-static double time3_6_10 = 0; // Rocket_time 변수
-static double time4_6_10 = 0; // ground_time 변수
-static double time6_6_10 = 0; // exit_time 변수
-
-GLfloat R_Arm_x_6_10 = 0; // 오른쪽 어깨
-GLfloat R_Arm_y_6_10 = 0; // 오른쪽 팔
-GLfloat L_Arm_x_6_10 = 0; // 왼쪽 어깨
-GLfloat L_Arm_y_6_10 = 0; // 왼쪽 팔
-GLfloat R_Leg_x_6_10 = 0; // 오른 허벅지
-GLfloat R_Leg_y_6_10 = 0; // 오른 종아리
-GLfloat L_Leg_x_6_10 = 0; // 왼 허벅지
-GLfloat L_Leg_y_6_10 = 0; // 왼 종아리
-GLfloat R_6_10 = 0; // 왼쪽 로켓 펀치 움직임 변수
-GLfloat R2_6_10 = 0;// 오른쪽 로켓 펀치 움직임 변수
-
-GLUquadricObj* cyl_6_10;// 실린더 객체 선언
-
-int a_6_10 = 0; // x축 기준(값이 1일 때 x축을 기준으로 회전)
-int b_6_10 = 0; // y축 기준(값이 1일 때 y축을 기준으로 회전)
-int c_6_10 = 0; // z축 기준(값이 1일 때 z축을 기준으로 회전)
-
-static int flag_6_10 = 0; // wireframe 모드와 solid rendering 모드 구분 변수
-static int key = 1;  // 동작 모드와 색상 변경 변수
-
-#define RUN		1
-#define JAP		2
-#define ROCKET	3
-#define YUNA	4
-#define EXIT	5
-
 void UTOutputWindow::Code_6_10_Start()
 {
 	ResetAll();
@@ -562,7 +557,6 @@ void UTOutputWindow::Code_6_10_Start()
 	bool Result = 0;
 	if (std::filesystem::exists(MusicPath))
 	{
-		//Result = sndPlaySound(MusicPath.c_str(), SND_ASYNC | SND_NOSTOP);
 		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);
 		if (err != 0)
 		{
@@ -579,11 +573,11 @@ void UTOutputWindow::Code_6_10_Start()
 
 	glDisable(GL_TEXTURE_2D);
 
-	glShadeModel(GL_SMOOTH); // 부드러운 음영 처리
-	glEnable(GL_DEPTH_TEST); // 깊이 테스팅 사용
-	glEnable(GL_NORMALIZE);  // 정규화
-	glEnable(GL_SMOOTH);     // 각 정점의 색상을 부드럽게 연결하여 칠해지도록  하므로, 각정점에 적용된 색상이 혼합되어 적용된다. 
-	glEnable(GL_LIGHTING);   // 지엘 조명. 빛을 받는 각도에 따라 로봇 색상이 변화
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_SMOOTH);
+	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -617,22 +611,26 @@ void UTOutputWindow::Code_6_10_Start()
 	glMateriali(GL_FRONT, GL_SHININESS, 128);
 	
 	glColor3f(1.f, 1.f, 1.f);
-	glClearColor(1.0, 1.0, 1.0, 1.0); // 배경 검은색
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 	
-	glMatrixMode(GL_PROJECTION);   // 모드 설정
-	glLoadIdentity();              // CTM 값 초기화 
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0); // 가시 범위 설정
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 
 	Time_6_10 = glfwGetTime();
 	LastTime_6_10 = Time_6_10;
 
-	// 디버그 추가해야겠다 각 키가 무슨 행동하는건지
-	MAIN_WINDOW->DebugContext = L"1: RUN 2: JAP 3: ROCKET 4: YUNA 5: EXIT\nW: Wireframe S: Solid Toggle\nR: Reset Pose\nP: Pause";
-	glFlush();
+	MAIN_WINDOW->DebugContext = L"1: 달리기 / 2: 잽 / 3: 로켓 펀치 / 4: 피겨 / 5: 퇴장\n";
+	MAIN_WINDOW->DebugContext += L"W: 와이어프레임 드로잉 / S : 솔리드 렌더링 / R : 초기화 / P : 중지\n";
+	MAIN_WINDOW->ExplanationContext = L"고정 파이프라인과 GLU 쿼드릭을 이용해 관절 기반 로봇 캐릭터를 계층적 트랜스폼으로 구성하고,\n";
+	MAIN_WINDOW->ExplanationContext += L"키 입력에 따라 서로 다른 애니메이션 동작을 재생하는 시스템입니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"각 신체 부위는 실린더·구(Sphere)로 구성되며, glPushMatrix / glPopMatrix를 사용해 부모 - 자식 관계를 유지한 채 회전·이동 변환을 누적하여 자연스러운 관절 움직임을 구현합니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"애니메이션은 sin(), cos() 기반의 주기 함수로 관절 각도를 계산하여 달리기, 잽, 로켓펀치, 피겨 동작 등 다양한 모션을 표현합니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"또한 Wireframe / Solid 모드 전환, 음악 재생, 조명 설정 등 렌더링 환경 제어 기능도 포함되어 있습니다.\n";
 }
 
-void Draw_Color(int i)
-{ // 색상을 그리는 함수
+void UTOutputWindow::Draw_Color(int i)
+{
 	if (i == RUN) {
 		glColor3f(0.0, 1.0, 0.0);
 	}
@@ -650,62 +648,53 @@ void Draw_Color(int i)
 	}
 }
 
-void Change_Wire_Or_Solid(int i)
-{          // 솔리드, 와이어 선택
+void UTOutputWindow::Change_Wire_Or_Solid(int i)
+{ 
 	if (flag_6_10 == 1)
-		gluQuadricDrawStyle(cyl_6_10, GLU_LINE); // 스타일을 와이어로 변경
+		gluQuadricDrawStyle(cyl_6_10, GLU_LINE);
 }
-/*
-로봇 왼팔을 그리는 함수
-*/
-void DrawL_Arm(int x, int a, int b, int c)
+
+void UTOutputWindow::DrawL_Arm(int x, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);       // 색 설정
-	cyl_6_10 = gluNewQuadric();   // 실린더 객체 생성
-	glRotatef(x, a, b, c);  // 파라미터 값만큼 회전
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
+	glRotatef(x, a, b, c);
 	glRotatef(90.0, 1.0, 0.0, 0.0); // 실린더를 x축 기준으로 90도 회전(실린더 생성 시 각도 변경을 위해)
-	glTranslatef(0.25, 0.0, 0.0);    // 왼쪽 어깨 시작점으로 이동
+	glTranslatef(0.25, 0.0, 0.0);   // 왼쪽 어깨 시작점으로 이동
 	glRotatef(15.0, 0.0, 1.0, 0.0); // 왼쪽 어깨를 y축을 기준으로 15도 회전
 	Change_Wire_Or_Solid(flag_6_10);
 	gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1); // 실린더를 그림
 }
 
-/*
-로봇 왼쪽 손을 그리는 함수
-*/
-void DrawL_Hand(int y, int a, int b, int c)
+void UTOutputWindow::DrawL_Hand(int y, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);       // 색 설정
+	Draw_Color(key_6_10);
 	cyl_6_10 = gluNewQuadric();   // 실린더 객체 생성
 	glTranslatef(0.0, 0.0, 0.22); // 왼손 시작점
 	glRotatef(y, a, b, c);        // 파라미터 값만큼 회전
 	Change_Wire_Or_Solid(flag_6_10);
-	if (key == YUNA) gluCylinder(cyl_6_10, 0.05, 0.02, 0.2, 15, 1); // 깔때기 모양 실린더를 그림
+	if (key_6_10 == YUNA) gluCylinder(cyl_6_10, 0.05, 0.02, 0.2, 15, 1); // 깔때기 모양 실린더를 그림
 	else gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 15, 1);           // 실린더를 그림
 	glPopMatrix();
 }
-/*
-로봇 왼쪽 주먹
-*/
-void DrawL_HandRocket()
+
+void UTOutputWindow::DrawL_HandRocket()
 {
 	glPushMatrix();
-	Draw_Color(key);     // 색 설정
+	Draw_Color(key_6_10);     // 색 설정
 	cyl_6_10 = gluNewQuadric(); // 실린더 객체 생성
 	glTranslatef(0, 0, R_6_10); // 왼쪽 주먹 위치를 파라미터만큼 이동
 	Change_Wire_Or_Solid(flag_6_10);
 	gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1); // 실린더를 그림
 	glPopMatrix();
 }
-/*
-로봇 오른팔을 그리는 함수
-*/
-void DrawR_Arm(int x, int a, int b, int c)
+
+void UTOutputWindow::DrawR_Arm(int x, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);     // 색 설정
+	Draw_Color(key_6_10);     // 색 설정
 	cyl_6_10 = gluNewQuadric(); // 실린더 객체 생성
 	glRotatef(x, a, b, c);  // 파라미터 값만큼 회전
 	glRotatef(90.0, 1.0, 0.0, 0.0); // 실린더를 x축을 기준으로 90도 회전(실린더 생성 시 각도 변경을 위해)
@@ -715,133 +704,110 @@ void DrawR_Arm(int x, int a, int b, int c)
 	gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1);// 실린더 그림
 
 }
-/*
-로봇 오른쪽 손을 그리는 함수
-*/
-void DrawR_Hand(int y, int a, int b, int c)
+
+void UTOutputWindow::DrawR_Hand(int y, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key); // 색 설정
-	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
 	glTranslatef(0.0, 0.0, 0.22);//오른쪽 손 시작점
 	glRotatef(y, a, b, c);// 파라미터값 만큼 회전
 	Change_Wire_Or_Solid(flag_6_10);
-	if (key == YUNA) gluCylinder(cyl_6_10, 0.05, 0.02, 0.2, 50, 1);// 깔때기 모양 실린더 그림
+	if (key_6_10 == YUNA) gluCylinder(cyl_6_10, 0.05, 0.02, 0.2, 50, 1);// 깔때기 모양 실린더 그림
 	else gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1);// 실린더 그림
 	glPopMatrix();
 }
 
-/*
-로봇 오른쪽 로켓트 함수
-*/
-
-void DrawR_HandRocket()
+void UTOutputWindow::DrawR_HandRocket()
 {
 	glPushMatrix();
-	Draw_Color(key);
-	cyl_6_10 = gluNewQuadric(); //실린더 객체 생성
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
 	glTranslatef(0, 0, R2_6_10);//오른주먹 위치 파라미터만큼 이동
 	Change_Wire_Or_Solid(flag_6_10);
-	gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1);// 실린더 그림
+	gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1);
 	glPopMatrix();
 }
-/*
-로봇 몸체를 그리는 함수
-*/
-void DrawBody(int x, int a, int b, int c)
+
+void UTOutputWindow::DrawBody(int x, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);
-	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
 	glRotatef(90.0, 1.0, 0.0, 0.0);//실린더 90도 x축기준 회전 (실린더 생성시 각도 변경을 위하여)
-	glRotatef(x, a, b, c);//파라미터값 만큼 회전
+	glRotatef(x, a, b, c);
 	Change_Wire_Or_Solid(flag_6_10);
-	gluCylinder(cyl_6_10, 0.2, 0.2, 0.45, 50, 1);// 실린더 그림
+	gluCylinder(cyl_6_10, 0.2, 0.2, 0.45, 50, 1);
 	glPopMatrix();
 }
-/*
-로봇 왼쪽 허벅지를 그리는 함수
-*/
-void DrawL_Legs(int x, int a, int b, int c)
+
+void UTOutputWindow::DrawL_Legs(int x, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);
-	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
 	glRotatef(90.0, 1.0, 0.0, 0.0);//실린더 90도 x축기준 회전 (실린더 생성시 각도 변경을 위하여)
 	glTranslatef(0.1, 0.0, 0.42);//왼쪽 허벅지 시작점
-	glRotatef(x, a, b, c);//파라미터만큼 회전
+	glRotatef(x, a, b, c);
 	Change_Wire_Or_Solid(flag_6_10);
-	gluCylinder(cyl_6_10, 0.05, 0.05, 0.15, 50, 1);// 실린더 그림
+	gluCylinder(cyl_6_10, 0.05, 0.05, 0.15, 50, 1);
 
 }
-/*
-로봇 왼쪽 종아리를 그리는 함수
-*/
-void DrawL_foot(int y, int a, int b, int c)
+
+void UTOutputWindow::DrawL_foot(int y, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);
-	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
 	glTranslatef(0.0, 0.0, 0.18);//왼쪽 종아리 시작점
-	glRotatef(y, a, b, c);//파라미터만큼 회전
+	glRotatef(y, a, b, c);
 	Change_Wire_Or_Solid(flag_6_10);
-	if (key == YUNA) gluCylinder(cyl_6_10, 0.05, 0.03, 0.2, 50, 1);// 깔때기 모양 실린더 그림
-	else gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1);// 실린더 그림
+	if (key_6_10 == YUNA) gluCylinder(cyl_6_10, 0.05, 0.03, 0.2, 50, 1);// 깔때기 모양 실린더 그림
+	else gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 50, 1);
 	glPopMatrix();
 }
-/*
-로봇 오른쪽 허벅지를 그리는 함수
-*/
-void DrawR_Legs(int x, int a, int b, int c)
+
+void UTOutputWindow::DrawR_Legs(int x, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);
+	Draw_Color(key_6_10);
 	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
 	glRotatef(90.0, 1.0, 0.0, 0.0);//실린더 90도 x축기준 회전 (실린더 생성시 각도 변경을 위하여)
 	glTranslatef(-0.1, 0.0, 0.42);//오른쪽 허벅지 시작점
-	glRotatef(x, a, b, c);//파라미터만큼 회전
+	glRotatef(x, a, b, c);
 	Change_Wire_Or_Solid(flag_6_10);
-	gluCylinder(cyl_6_10, 0.05, 0.05, 0.15, 50, 1);// 실린더 그림
+	gluCylinder(cyl_6_10, 0.05, 0.05, 0.15, 50, 1);
 
 }
-/*
-로봇 오른쪽 종아리를 그리는 함수
-*/
-void DrawR_foot(int y, int a, int b, int c)
+
+void UTOutputWindow::DrawR_foot(int y, int a, int b, int c)
 {
 	glPushMatrix();
-	Draw_Color(key);
-	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
+	Draw_Color(key_6_10);
+	cyl_6_10 = gluNewQuadric();
 
 	glTranslatef(0.0, 0.0, 0.18);//오른쪽 종아리 시작점
-	glRotatef(y, a, b, c);//파라미터만큼 회전
+	glRotatef(y, a, b, c);
 
 	Change_Wire_Or_Solid(flag_6_10);
-	if (key == YUNA) gluCylinder(cyl_6_10, 0.05, 0.03, 0.2, 15, 1);// 깔때기 모양 실린더 그림
-	else gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 15, 1);// 실린더 그림
+	if (key_6_10 == YUNA) gluCylinder(cyl_6_10, 0.05, 0.03, 0.2, 15, 1);// 깔때기 모양 실린더 그림
+	else gluCylinder(cyl_6_10, 0.05, 0.05, 0.2, 15, 1);
 	glPopMatrix();
 }
-/*
-로봇 목을 그리는 함수
-*/
-void Drawneck()
+
+void UTOutputWindow::Drawneck()
 {
 	glPushMatrix();
-	glColor3f(1.0, 1.0, 1.0);//색 지정(흰색)
-	cyl_6_10 = gluNewQuadric();//실린더 객체 생성
+	glColor3f(1.0, 1.0, 1.0);
+	cyl_6_10 = gluNewQuadric();
 	glRotatef(90.0, 1.0, 0.0, 0.0);//실린더 90도 x축기준 회전 (실린더 생성시 각도 변경을 위하여)
 	glTranslatef(0.0, 0.0, -0.045); // 목 시작점
 	Change_Wire_Or_Solid(flag_6_10);
-	gluCylinder(cyl_6_10, 0.2, 0.2, 0.025, 100, 1);// 실린더 그림
+	gluCylinder(cyl_6_10, 0.2, 0.2, 0.025, 100, 1);
 	glPopMatrix();
 }
-/*
-땅을 그리는 함수
-땅은 커다란 구로 설정하였다.
-땅은 시간에 따라 회전하여서 마치 로봇이
-앞으로 뛰어가는 느낌이 들도록 설계하였다.
-*/
-void DrawGround()
+
+void UTOutputWindow::DrawGround()
 {
 	Draw_Color(flag_6_10);//색깔 설정
 	glTranslatef(0.0, -2.73, 0.0);//땅 시작점
@@ -850,18 +816,14 @@ void DrawGround()
 	Change_Wire_Or_Solid(flag_6_10);
 	gluSphere(cyl_6_10, 2.5, 30, 90);
 }
-/*
-로봇 머리를 그리는 함수
-로봇의 머리에 달려있는 뿔과
-로봇의 눈을 설정하였다.
-*/
-void DrawHead()
+
+void UTOutputWindow::DrawHead()
 {
 	glTranslatef(0.0, 0.02, 0.0);//머리 시작점
 	glPushMatrix();// 처음 저장 좌표 다시 저장
 	cyl_6_10 = gluNewQuadric();
 	Change_Wire_Or_Solid(flag_6_10);
-	Draw_Color(key);//색깔 설정
+	Draw_Color(key_6_10);//색깔 설정
 	gluSphere(cyl_6_10, 0.20, 30, 10);//머리 그리기
 	/*왼쪽 뿔 그리기*/
 	glRotatef(90.0, 1.0, 0.0, 0.0);//실린더 90도 x축기준 회전 (실린더 생성시 각도 변경을 위하여)
@@ -892,19 +854,17 @@ void DrawHead()
 	gluSphere(cyl_6_10, 0.03, 10, 10);
 	glPopMatrix();// 처음 저장 좌표 다시 저장
 }
-/*
-안드로이드 전체 모습을 그리는 함수
-*/
-void DrawAndroid()
+
+void UTOutputWindow::DrawAndroid()
 {
 	DrawBody(0, 0, 0, 0); // 몸통 함수 호출
 	Drawneck(); // 목함수 호출
 	DrawHead(); // 머리 호출
 	DrawR_Arm(R_Arm_x_6_10, 1, 0, 0);//우측팔뚝
-	if (key == ROCKET) DrawR_HandRocket(); // 로켓모드일때 우측로켓호출
+	if (key_6_10 == ROCKET) DrawR_HandRocket(); // 로켓모드일때 우측로켓호출
 	else DrawR_Hand(R_Arm_y_6_10, 1, 0, 0);  //우측팔호출
 	DrawL_Arm(L_Arm_x_6_10, 1, 0, 0);   //좌측팔뚝
-	if (key == ROCKET) DrawL_HandRocket(); // 로켓모드일때 우측로켓호출
+	if (key_6_10 == ROCKET) DrawL_HandRocket(); // 로켓모드일때 우측로켓호출
 	else DrawL_Hand(L_Arm_y_6_10, 1, 0, 0);//좌측손호출
 	DrawL_Legs(L_Leg_x_6_10, 1, 0, 0);  //좌측다리
 	DrawL_foot(L_Leg_y_6_10, 1, 0, 0);  //좌측발		 
@@ -912,12 +872,7 @@ void DrawAndroid()
 	DrawR_foot(R_Leg_y_6_10, 1, 0, 0);  //우측발	
 }
 
-/*
-로봇이 달리는 것을 표현한 함수.
-로봇의 관절이 움직이는 것을 표현했고,
-로봇이 달리면서 상,하,좌,우로 움직이는 모습을 표현했다.
-*/
-void Run()
+void UTOutputWindow::Run()
 {
 	glLoadIdentity();//CTM 초기화
 	/*
@@ -940,8 +895,8 @@ void Run()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //초기화
 	glMatrixMode(GL_MODELVIEW); //모드 설정
 
-	DrawGround();    //지면 호출
-	glLoadIdentity();//CTM 초기화
+	DrawGround();
+	glLoadIdentity();
 
 	/*
 	로봇이 달리면서 앞,뒤로 뒤뚱거리고 몸이 틀어지는 것을 표현
@@ -955,7 +910,7 @@ void Run()
 	*/
 	float i = 0;
 	i = abs(sin(time_6_10) * 0.08); //i변수값 설정
-	glPushMatrix();// 처음 저장 좌표 다시 저장
+	glPushMatrix();
 	glTranslatef(0.0, i, 0); //변수 i만큼 로봇의 몸체가 Y축기준으로 움직임.
 
 	glTranslatef(0.0, 0.5, 0.0);//최초 로봇의 위치 
@@ -964,15 +919,9 @@ void Run()
 	glFlush();
 }
 
-/*
-로봇이 잽을 날리는 것을 표현한 함수
-*/
-void Jap()
+void UTOutputWindow::Jap()
 {
-	glLoadIdentity();//CTM 초기화
-	/*
-	로봇의 기본적인 관절의 움직임 범위를 제한하는 곳
-	*/
+	glLoadIdentity();
 	L_Arm_x_6_10 = (-40) + sin(time2_6_10) * 60;//왼쪽 어깨의 각도시작은 -40상태에서 sin()함수를 사용하여 주기적인 움직임 설정
 	R_Arm_x_6_10 = (-80) - L_Arm_x_6_10;      //우측 어깨의 각도시작은 -80상태에서 왼쪽어깨 움직임의 반대로 설정
 	R_Arm_y_6_10 = -abs(cos(time2_6_10) * 80);  //우측팔뚝 각도조절(팔을 뻗는 움직임표현을위하여 어깨의 sin()함수와 반대인 cos()함수 사용)
@@ -984,40 +933,30 @@ void Jap()
 	L_Leg_x_6_10 = -R_Leg_x_6_10;              //좌측다리는 우측다리반대로 30도 각도까지 움직이되 sin()함수를 사용하여 주기적인 움직임 설정
 
 	////////////////display////////////////
+	cyl_6_10 = gluNewQuadric();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
 
-	cyl_6_10 = gluNewQuadric(); //실린더 객체 생성
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //초기화
-	glMatrixMode(GL_MODELVIEW); //모드 설정
+	DrawGround();
+	glLoadIdentity();
 
-	DrawGround(); //지면 호출
-	glLoadIdentity(); //CTM 초기화
-
-	glRotatef(-230.0, 0, 1, 0); //y축기준으로 회전
+	glRotatef(-230.0, 0, 1, 0);
 
 	glRotatef(sin(time2_6_10) * 10, 0, 0, 1);//로봇의 좌,우 반동 표현(좌우로 10도 만큼 주기적인 움직임 설정)
 
-	/*
-	로봇이 잽을 날리면서 상,하로 움직이는 것을 표현
-	*/
 	float j = 0;
-	j = abs(sin(time2_6_10) * 0.085);// j값 설정
-	glPushMatrix();// 처음 저장 좌표 다시 저장
-	glTranslatef(0.0, j, 0); //변수 j만큼 로봇의 몸체가 Y축기준으로 움직임.
-	glTranslatef(0.0, 0.5, 0.0);//최초 위치 
+	j = abs(sin(time2_6_10) * 0.085);
+	glPushMatrix();
+	glTranslatef(0.0, j, 0);
+	glTranslatef(0.0, 0.5, 0.0);
 	DrawAndroid();
 	glfwSwapBuffers(OUTPUT_WINDOW->GetGLFWWindow());
 	glFlush();
 }
 
-/*
-로봇이 퇴장할때 크기 변환을 표현한 함수
-*/
-void ex()
+void UTOutputWindow::ex()
 {
-	glLoadIdentity(); //CTM 초기화
-	/*
-	로봇의 기본적인 관절의 움직임 범위를 제한하는 곳
-	*/
+	glLoadIdentity();
 	L_Arm_x_6_10 = (-40) + sin(time6_6_10) * 60;//왼쪽 어깨의 각도시작은 -40상태에서 sin()함수를 사용하여 주기적인 움직임 설정
 	R_Arm_x_6_10 = (-80) - L_Arm_x_6_10;      //우측 어깨의 각도시작은 -80상태에서 왼쪽어깨 움직임의 반대로 설정
 	R_Arm_y_6_10 = -abs(cos(time6_6_10) * 10);  //우측팔뚝 각도조절(팔을 뻗는 움직임표현을위하여 어깨의 sin()함수와 반대인 cos()함수 사용)
@@ -1029,33 +968,27 @@ void ex()
 	L_Leg_x_6_10 = -R_Leg_x_6_10;              //좌측다리는 우측다리반대로 60도 각도까지 움직이되 sin()함수를 사용하여 주기적인 움직임 설정
 
 	////////////////display////////////////
+	cyl_6_10 = gluNewQuadric();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
 
-	cyl_6_10 = gluNewQuadric(); //실린더 객체 생성
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //초기화
-	glMatrixMode(GL_MODELVIEW); //모드 설정
-
-	glLoadIdentity(); //CTM 초기화
-	glRotatef(-180, 0, 1, 0); //y축 기준으로 회전
-	glRotatef(time6_6_10, 0, 0, 1); //time6 변수만큼 z축기준으로 회전
+	glLoadIdentity();
+	glRotatef(-180, 0, 1, 0);
+	glRotatef(time6_6_10, 0, 0, 1);
 
 	glScalef(0.4 / (sin(time3_6_10)), 0.4 / (sin(time3_6_10)), 0.4 / (sin(time3_6_10))); //0.4의 크기에서 sin()를 통한 크기조절을 주기적으로 가함에따라 
 
-	glPushMatrix();// 처음 저장 좌표 다시 저장															  //멀어지고 가까워지는듯한 느낌을 표현
-	glTranslatef(0.0, 0.5, 0.0);//최초 위치 
+	glPushMatrix();
+	glTranslatef(0.0, 0.5, 0.0);
 	DrawAndroid();
 	glfwSwapBuffers(OUTPUT_WINDOW->GetGLFWWindow());
 	glFlush();
 }
-/*
-김연아 선수의 모션을 취하는 함수
-*/
-void Show()
-{
-	glLoadIdentity(); //CTM 초기화
 
-	/*
-	로봇의 기본적인 관절의 움직임 범위를 제한하는 곳
-	*/
+void UTOutputWindow::Show()
+{
+	glLoadIdentity();
+
 	L_Arm_x_6_10 = (-40) + sin(time2_6_10) * 60;//왼쪽 어깨의 각도시작은 -40상태에서 sin()함수를 사용하여 주기적인 움직임 설정
 	R_Arm_x_6_10 = (-80) - L_Arm_x_6_10;       //우측 어깨의 각도시작은 -80상태에서 왼쪽어깨 움직임의 반대로 설정
 	R_Arm_y_6_10 = -abs(cos(time2_6_10) * 10);  //우측팔뚝 각도조절(팔을 뻗는 움직임표현을위하여 어깨의 sin()함수와 반대인 cos()함수 사용)
@@ -1068,94 +1001,81 @@ void Show()
 
 	////////////////display////////////////
 
-	cyl_6_10 = gluNewQuadric(); //실린더 객체 생성
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //초기화
-	glMatrixMode(GL_MODELVIEW); //모드 설정
+	cyl_6_10 = gluNewQuadric();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
 
-	DrawGround(); //지면 호출
-	glLoadIdentity(); //CTM 초기화
-	glRotatef(-230.0, 0, 1, 0); //y축기준으로 회전
+	DrawGround();
+	glLoadIdentity();
+	glRotatef(-230.0, 0, 1, 0);
 
-	/*
-	로봇이 피겨동작시 몸이 틀어지는 것을 표현
-	*/
 	glRotatef(sin(time2_6_10) * 7, 0, 0, 1); //z축기준으로 7도 까지 각도틀어짐 (sin()함수를 사용하여 주기적인 움직임 설정)
 	glRotatef(sin(time2_6_10) * 7, 0, 1, 0); //y축으로 7도 까지 각도틀어짐 (sin()함수를 사용하여 주기적인 움직임 설정)
 
-	//로봇 몸체 각도 조절
-	glTranslatef(0.0, 0.18, 0.0); //y축으로 이동
-	glRotatef(80, 1, 0, 0);        //x축 기준으로 회전
+	glTranslatef(0.0, 0.18, 0.0);
+	glRotatef(80, 1, 0, 0);
 
-	glTranslatef(0.0, 0.5, 0.0);//최초 위치 
+	glTranslatef(0.0, 0.5, 0.0);
 
-	glPushMatrix(); // 처음 저장 위치
+	glPushMatrix();
 
-	DrawBody(0, 0, 0, 0); // 몸통 함수 호출
+	DrawBody(0, 0, 0, 0);
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
-	glPushMatrix();// 처음 저장 좌표 다시 저장
+	glPopMatrix();
+	glPushMatrix();
 
-	Drawneck(); // 목함수 호출
+	Drawneck();
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
-	glPushMatrix();// 처음 저장 좌표 다시 저장
+	glPopMatrix();
+	glPushMatrix();
 
-	//머리 위치 설정
 	glRotatef(-75, 1, 0, 0); //x축기준으로 회전(머리를 위쪽으로 돌리기)
 	glTranslatef(0.0, -0.02, 0.0); //y축으로 이동 (머리 시작점)
 
-	DrawHead(); // 머리 호출
+	DrawHead();
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
-	glPushMatrix();// 처음 저장 좌표 다시 저장
-
-	//우측전체팔 위치 설정
-
+	glPopMatrix();
+	glPushMatrix();
 
 	DrawR_Arm((R_Arm_y_6_10 + 30), 1, 0, 0);  //우측팔호출
 	DrawR_Hand(-(R_Arm_y_6_10 - 15), 1, 0, 0); //우측팔뚝
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
-	glPushMatrix();// 처음 저장 좌표 다시 저장
+	glPopMatrix();
+	glPushMatrix();
 
-	//좌측전체팔 위치 설정
 	glTranslatef(0.0, -0.16, -0.04);//y축,z축으로 이동(좌측팔 시작점)
 	glRotatef(40, 0, 0, 1);     //z축 기준으로 회전
 
 	DrawL_Arm((L_Arm_y_6_10 + 30), 1, 0, 0);   //좌측팔호출	
 	DrawL_Hand(-(L_Arm_y_6_10 - 15), 1, 0, 0);  //좌측팔뚝
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
-	glPushMatrix();// 처음 저장 좌표 다시 저장
+	glPopMatrix();
+	glPushMatrix();
 
-	//좌측전체 다리 위치 설정
 	glTranslatef(0.0, -0.45, -0.25);//y축,z축으로 이동(좌측다리 시작점)
 	glRotatef(-90, 1, 0, 0);  //x축 기준으로 회전
 
 	DrawL_Legs(-30, 1, 0, 0);  //좌측다리
 	DrawL_foot(10, 1, 0, 0);  //좌측종아리		 
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
-	glPushMatrix();// 처음 저장 좌표 다시 저장
+	glPopMatrix();
+	glPushMatrix();
 
-	//우측전체 다리 위치 설정
 	glTranslatef(0.0, -0.5, -0.5);//y축,z축으로 이동(우측다리 시작점)
 	glRotatef(-90, 1, 0, 0); //x축 기준으로 회전
 
-	DrawR_Legs(160, 1, 0, 0);  //우측다리
-	DrawR_foot(R_Leg_y_6_10, 1, 0, 0);  //우측종아리		
+	DrawR_Legs(160, 1, 0, 0);
+	DrawR_foot(R_Leg_y_6_10, 1, 0, 0);
 
-	glPopMatrix(); // 처음 저장 좌표로 돌아 간다.
+	glPopMatrix();
 
 	glfwSwapBuffers(OUTPUT_WINDOW->GetGLFWWindow());
 	glFlush();
 }
-/*
-로봇이 로켓을 날리는 모습을 표현한 함수
-*/
-void Rocket()
+
+void UTOutputWindow::Rocket()
 {
-	glLoadIdentity(); //CTM 초기화
+	glLoadIdentity();
 
 	/*90도 각도로 팔을 앞으로 내민다*/
 	L_Arm_x_6_10 = -90;
@@ -1177,16 +1097,15 @@ void Rocket()
 	L_Leg_x_6_10 = -R_Leg_x_6_10;              //좌측다리는 우측다리반대로 60도 각도까지 움직이되 sin()함수를 사용하여 주기적인 움직임 설정
 
 	////////////////display////////////////
-
 	cyl_6_10 = gluNewQuadric(); //실린더 객체 생성
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //초기화
 	glMatrixMode(GL_MODELVIEW); //모드 설정
 
-	DrawGround(); //지면 호출
+	DrawGround();
 
-	glLoadIdentity(); //CTM 초기화
-	glPushMatrix();// 처음 저장 좌표 다시 저장
-	glRotatef(-230.0, 0, 1, 0); //y축 기준으로 회전
+	glLoadIdentity();
+	glPushMatrix();
+	glRotatef(-230.0, 0, 1, 0);
 
 	/*
 	로봇이 로켓을 쏠 때 상,하,좌,우로 몸을 트는 모습을 설정
@@ -1212,39 +1131,39 @@ void UTOutputWindow::Code_6_10()
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // 화면 지우기
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	GLfloat CurrentTime = glfwGetTime();
 	GLfloat DeltaTime = CurrentTime - LastTime_6_10;
 
-	time_6_10 = time_6_10 + 2.5f * DeltaTime;//달릴때 쓰인 타이머 변수
-	time2_6_10 = time2_6_10 + 12.5f * DeltaTime;//잽을 날릴때 쓰인 타이머 변수
-	time3_6_10 = time3_6_10 + 0.25f * DeltaTime;//로켓을 날릴때 쓰인 타이머 번수, 종료시 로봇이 뱅글뱅글 돌아가게 하기 위해 쓰인 타이머 변수
-	time4_6_10 = time4_6_10 + 25.f * DeltaTime;//김연아 선수 모션을 취할때 쓰인 타이머 변수
+	time_6_10 = time_6_10 + 2.5f * DeltaTime;
+	time2_6_10 = time2_6_10 + 12.5f * DeltaTime;
+	time3_6_10 = time3_6_10 + 0.25f * DeltaTime;
+	time4_6_10 = time4_6_10 + 25.f * DeltaTime;
 
 	LastTime_6_10 = CurrentTime;
 
-	if (key == RUN)
+	if (key_6_10 == RUN)
 	{
 		Run();
 		glPopMatrix();
 	}
-	else if (key == JAP)
+	else if (key_6_10 == JAP)
 	{
 		Jap();
 		glPopMatrix();
 	}
-	else if (key == ROCKET)
+	else if (key_6_10 == ROCKET)
 	{
 		Rocket();
 		glPopMatrix();
 	}
-	else if (key == YUNA)
+	else if (key_6_10 == YUNA)
 	{
 		Show();
 		glPopMatrix();
 	}
-	else if (key == EXIT)
+	else if (key_6_10 == EXIT)
 	{
 		ex();
 		glPopMatrix();
@@ -1258,10 +1177,10 @@ void UTOutputWindow::Code_6_10_End()
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	mciSendStringW(L"close bgm", NULL, 0, NULL);
 
-	glDisable(GL_DEPTH_TEST); // 깊이 테스팅 사용
-	glDisable(GL_NORMALIZE);  // 정규화
-	glDisable(GL_SMOOTH);     // 각 정점의 색상을 부드럽게 연결하여 칠해지도록  하므로, 각정점에 적용된 색상이 혼합되어 적용된다. 
-	glDisable(GL_LIGHTING);   // 지엘 조명. 빛을 받는 각도에 따라 로봇 색상이 변화
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_NORMALIZE);
+	glDisable(GL_SMOOTH);
+	glDisable(GL_LIGHTING);
 
 	glDisable(GL_LIGHT0);
 	glDisable(GL_COLOR_MATERIAL);
@@ -1270,22 +1189,18 @@ void UTOutputWindow::Code_6_10_End()
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, White);
 	glMateriali(GL_FRONT, GL_SHININESS, 0);
 
-	glClearColor(1.0, 1.0, 1.0, 1.0); // 배경 검은색
-	glMatrixMode(GL_PROJECTION);   // 모드 설정
-	glLoadIdentity();              // CTM 값 초기화 
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 
 	Time_6_10 = glfwGetTime();
 	LastTime_6_10 = Time_6_10;
 
 
 	MAIN_WINDOW->DebugContext = L"";
-	glFlush();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
-/*
-키보드 콜백 설정 함수
-w를 누르면 wire 모드로, s를 누르면 solid 모드로
-*/
 void UTOutputWindow::Code_6_10_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
 	if (Action == GLFW_PRESS)
@@ -1293,28 +1208,28 @@ void UTOutputWindow::Code_6_10_Key(GLFWwindow* Window, int Key, int Scancode, in
 		switch (Key)
 		{
 		case GLFW_KEY_1:
-			key = 1;
+			OUTPUT_WINDOW->key_6_10 = 1;
 			break;
 		case GLFW_KEY_2:
-			key = 2;
+			OUTPUT_WINDOW->key_6_10 = 2;
 			break;
 		case GLFW_KEY_3:
-			key = 3;
+			OUTPUT_WINDOW->key_6_10 = 3;
 			break;
 		case GLFW_KEY_4:
-			key = 4;
+			OUTPUT_WINDOW->key_6_10 = 4;
 			break;
 		case GLFW_KEY_5:
-			key = 5;
+			OUTPUT_WINDOW->key_6_10 = 5;
 			break;
 		case GLFW_KEY_W:
-			flag_6_10 = 1;
+			OUTPUT_WINDOW->flag_6_10 = 1;
 			break;
 		case GLFW_KEY_S:
-			flag_6_10 = 0;
+			OUTPUT_WINDOW->flag_6_10 = 0;
 			break;
 		case GLFW_KEY_P:
-			key = 6;
+			OUTPUT_WINDOW->key_6_10 = 6;
 			break;
 		}
 	}
