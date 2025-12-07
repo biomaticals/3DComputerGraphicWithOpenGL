@@ -6,13 +6,8 @@
 
 void UTOutputWindow::Code_9_10_Start()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	MAIN_WINDOW->ExplanationContext = L"지엘에서 점, 선을 그리고 선분과 다각형을 보간에 의해 채우는 것을 보여줍니다.\n";
 }
 
 void UTOutputWindow::Code_9_10()
@@ -85,15 +80,18 @@ void UTOutputWindow::Code_9_10()
 void UTOutputWindow::Code_9_10_End()
 {
 	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_9_15_Start()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_9_15_Key);
 
 	Time_9_15 = (GLfloat)glfwGetTime();
+
+	MAIN_WINDOW->ExplanationContext = L"Smooth, Blend 기능을 활용하여 점과 선분을 안티에일리어싱하는 예제입니다.\n";
 }
 
 void UTOutputWindow::Code_9_15()
@@ -126,6 +124,8 @@ void UTOutputWindow::Code_9_15()
 	
 	if (bSmooth_9_15)
 	{
+		glEnable(GL_POINT_SMOOTH);
+		glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 		glEnable(GL_LINE_SMOOTH);
 		glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	}
@@ -135,6 +135,14 @@ void UTOutputWindow::Code_9_15()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
+
+	glPointSize(12);
+	glBegin(GL_POINTS);
+	glVertex3f(-0.9f, 0.15f, 0.f);
+	glVertex3f(-0.9f, 0.25f, 0.f);
+	glVertex3f(-0.9f, 0.35f, 0.f);
+	glVertex3f(-0.9f, 0.45f, 0.f);
+	glEnd();
 
 	for (GLfloat i = 0.f ; i < 1.f ; i += 0.1f)
 	{
@@ -146,15 +154,17 @@ void UTOutputWindow::Code_9_15()
 		glEnd();
 	}
 
-
-	if(bSmooth_9_15)
+	if (bSmooth_9_15)
+	{
+		glDisable(GL_POINT_SMOOTH);
 		glDisable(GL_LINE_SMOOTH);
+	}
 
 	if(bBlend_9_15)
 		glDisable(GL_BLEND);
 
 	std::wstringstream wss{};
-	wss << L"1 : Smooth " << (bSmooth_9_15 ? L'Y' : L'N') << L", 2 : Blend " << (bBlend_9_15 ? L'Y' : L'N') << L", 3 : ChangeColor " << (bChangePalette ? L'Y' : L'N');
+	wss << L"1 : Smooth 켜기/끄기 (" << (bSmooth_9_15 ? L"켜짐" : L"꺼짐") << L")\n2 : Blend 켜기/끄기 (" << (bBlend_9_15 ? L"켜짐" : L"꺼짐") << L")\n3 : 색깔 바꾸기 (" << (bChangePalette ? L"켜짐" : L"꺼짐") << ")";
 	MAIN_WINDOW->DebugContext = wss.str();
 
 	glfwSwapBuffers(GetGLFWWindow());
@@ -165,6 +175,7 @@ void UTOutputWindow::Code_9_15_End()
 {
 	ResetAll();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext =  L"";
 }
 

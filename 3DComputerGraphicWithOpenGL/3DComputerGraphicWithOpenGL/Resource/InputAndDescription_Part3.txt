@@ -1624,13 +1624,8 @@ Code 9-10
 Input:
 void UTOutputWindow::Code_9_10_Start()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	MAIN_WINDOW->ExplanationContext = L"지엘에서 점, 선을 그리고 선분과 다각형을 보간에 의해 채우는 것을 보여줍니다.\n";
 }
 
 void UTOutputWindow::Code_9_10()
@@ -1703,8 +1698,8 @@ void UTOutputWindow::Code_9_10()
 void UTOutputWindow::Code_9_10_End()
 {
 	ResetAll();
+	MAIN_WINDOW->ExplanationContext = L"";
 }
-
 Description:
 좌측 상단은 점을 그리는 예제입니다.
 우측 상단은 점표 패턴으로 선분을 그리는 예제입니다.
@@ -1718,6 +1713,17 @@ GLShadeModel(GL_SMOOTH) 함수는 정점 색상을 보간하도록 설정합니�
 
 Code 9-15
 Input:
+void UTOutputWindow::Code_9_15_Start()
+{
+	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), Code_9_15_Key);
+
+	Time_9_15 = (GLfloat)glfwGetTime();
+
+	MAIN_WINDOW->ExplanationContext = L"Smooth, Blend 기능을 활용하여 점과 선분을 안티에일리어싱하는 예제입니다.\n";
+}
+
 void UTOutputWindow::Code_9_15()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
@@ -1726,8 +1732,20 @@ void UTOutputWindow::Code_9_15()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 
-	GLfloat Delta = glfwGetTime() - Time_9_15;
-	ElapsedTime_9_15 += Delta;
+	if(bChangePalette)
+	{
+		GLfloat Delta = glfwGetTime() - Time_9_15;
+		ElapsedTime_9_15 += Delta;
+
+		if (ElapsedTime_9_15 > 2.f)
+		{
+			if (++Index_9_15 > 15)
+				Index_9_15 = 0;
+
+			Time_9_15 = glfwGetTime();
+			ElapsedTime_9_15 = 0.f;
+		}
+	}
 
 	GLint Red = PALETTE[Index_9_15][0];
 	GLint Green = PALETTE[Index_9_15][2];
@@ -1736,6 +1754,8 @@ void UTOutputWindow::Code_9_15()
 	
 	if (bSmooth_9_15)
 	{
+		glEnable(GL_POINT_SMOOTH);
+		glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 		glEnable(GL_LINE_SMOOTH);
 		glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	}
@@ -1745,6 +1765,14 @@ void UTOutputWindow::Code_9_15()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
+
+	glPointSize(12);
+	glBegin(GL_POINTS);
+	glVertex3f(-0.9f, 0.15f, 0.f);
+	glVertex3f(-0.9f, 0.25f, 0.f);
+	glVertex3f(-0.9f, 0.35f, 0.f);
+	glVertex3f(-0.9f, 0.45f, 0.f);
+	glEnd();
 
 	for (GLfloat i = 0.f ; i < 1.f ; i += 0.1f)
 	{
@@ -1756,12 +1784,18 @@ void UTOutputWindow::Code_9_15()
 		glEnd();
 	}
 
-
-	if(bSmooth_9_15)
+	if (bSmooth_9_15)
+	{
+		glDisable(GL_POINT_SMOOTH);
 		glDisable(GL_LINE_SMOOTH);
+	}
 
 	if(bBlend_9_15)
 		glDisable(GL_BLEND);
+
+	std::wstringstream wss{};
+	wss << L"1 : Smooth 켜기/끄기 (" << (bSmooth_9_15 ? L"켜짐" : L"꺼짐") << L")\n2 : Blend 켜기/끄기 (" << (bBlend_9_15 ? L"켜짐" : L"꺼짐") << L")\n3 : 색깔 바꾸기 (" << (bChangePalette ? L"켜짐" : L"꺼짐") << ")";
+	MAIN_WINDOW->DebugContext = wss.str();
 
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
@@ -1771,6 +1805,8 @@ void UTOutputWindow::Code_9_15_End()
 {
 	ResetAll();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext =  L"";
 }
 
 void UTOutputWindow::Code_9_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -1781,24 +1817,28 @@ void UTOutputWindow::Code_9_15_Key(GLFWwindow* Window, int Key, int Scancode, in
 	{
 		switch (Key)
 		{
-		case GLFW_KEY_0:
+		case GLFW_KEY_1:
 		{
 			OUTPUT_WINDOW->bSmooth_9_15 = !OUTPUT_WINDOW->bSmooth_9_15;
 			break;
 		}
-		case GLFW_KEY_1:
+		case GLFW_KEY_2:
 		{
 			OUTPUT_WINDOW->bBlend_9_15 = !OUTPUT_WINDOW->bBlend_9_15;
+			break;
+		}
+		case GLFW_KEY_3:
+		{
+			OUTPUT_WINDOW->bChangePalette = !OUTPUT_WINDOW->bChangePalette;
 			break;
 		}
 		}
 	}
 }
-
 Description:
-glEnable(GL_LINE_SMOOTH) 를 통해 선에 안티 에일리어싱을 활성화합니다.
+glEnable(GL_POINT_SMOOTH), glEnable(GL_LINE_SMOOTH) 를 통해 점, 선에 안티 에일리어싱을 활성화합니다.
 
-glHint(GL_LINE_SMOOTH_HINT, GL_NICEST) 를 통해 가장 좋은 품질을 요청합니다. (GL_FASTEST, GL_DONT_CARE)
+glHint(GL_POINT_SMOOTH_HINT, GL_NICEST), glHint(GL_LINE_SMOOTH_HINT, GL_NICEST) 를 통해 가장 좋은 품질을 요청합니다. (GL_FASTEST, GL_DONT_CARE)
 
 glEnable(GL_BLEND) 를 통해 알파 블렌딩 기능을 활성화합니다.
 
