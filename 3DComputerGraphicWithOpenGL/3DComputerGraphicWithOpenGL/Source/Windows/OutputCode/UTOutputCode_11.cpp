@@ -63,10 +63,13 @@ void UTOutputWindow::Code_11_7_End()
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glDisable(GL_TEXTURE_2D);
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_11_9_Start()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	GLfloat mat_diffuse[] = { 0.25, 0.25, 1., 0. };
@@ -107,6 +110,8 @@ void UTOutputWindow::Code_11_9_Start()
 	
 	QuardricObj_11_7 = gluNewQuadric();
 	gluQuadricDrawStyle(QuardricObj_11_7, GLU_FILL);
+
+	MAIN_WINDOW->ExplanationContext = L"1D 스트라이프 텍스처를 생성하고, Object Linear 방식의 텍스처 좌표 자동 생성을 사용해 구 표면에 반복되는 줄무늬 패턴을 입히는 예제입니다.\n";
 }
 
 void UTOutputWindow::Code_11_9()
@@ -134,8 +139,8 @@ void UTOutputWindow::Code_11_9()
 
 void UTOutputWindow::Code_11_9_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	
 	glBindTexture(GL_TEXTURE_1D, 0);
 	gluDeleteQuadric(QuardricObj_11_7);
@@ -143,15 +148,19 @@ void UTOutputWindow::Code_11_9_End()
 	glDisable(GL_LIGHT0);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_1D);
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_11_11_Start()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
 
 	Time_11_11 = (GLfloat)glfwGetTime();
 
+	MAIN_WINDOW->ExplanationContext = L"스카이 박스와 지형을 렌더링하고, 키보드 입력에 따라 카메라를 이동 및 회전시키는 예제입니다.\n";
 	MAIN_WINDOW->DebugContext = L"W : 앞 / A : 왼쪽 / D : 오른쪽 / S : 뒤\nQ : -롤 회전  E : +롤 회전 /J : -요 회전 / L : +요 회전 / I : +피치 회전 / K : -피치 회전\nR : 위 / F : 아래";
 }
 
@@ -247,6 +256,8 @@ void UTOutputWindow::Code_11_11_End()
 	ResetAll();
 
 	dispose();
+
+	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
 

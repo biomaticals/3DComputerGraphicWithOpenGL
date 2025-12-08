@@ -7,6 +7,7 @@
 
 void UTOutputWindow::Code_15_2_Start()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	glEnable(GL_DEPTH_TEST);
@@ -94,6 +95,8 @@ void UTOutputWindow::Code_15_2_Start()
 	}
 
 	glUseProgramObjectARB(h_program_15_2);
+
+	MAIN_WINDOW->ExplanationContext = L"GLSL을 사용해 간단한 정점 및 프래그먼트 셰이더를 작성하고 적용하는 예제입니다.\n";
 }
 
 void UTOutputWindow::Code_15_2()
@@ -124,6 +127,7 @@ void UTOutputWindow::Code_15_2()
 
 void UTOutputWindow::Code_15_2_End()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	if (h_program_15_2)
 	{
@@ -142,6 +146,8 @@ void UTOutputWindow::Code_15_2_End()
 		glDeleteObjectARB(h_frag_15_2);
 		h_frag_15_2 = 0;
 	}
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 char* UTOutputWindow::ReadShaderSource(char* fileName)

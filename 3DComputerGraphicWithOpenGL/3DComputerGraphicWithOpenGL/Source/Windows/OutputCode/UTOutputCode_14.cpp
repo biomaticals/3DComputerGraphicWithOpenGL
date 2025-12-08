@@ -22,7 +22,8 @@ void UTOutputWindow::Code_14_1_Start()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	MAIN_WINDOW->DebugContext = L"1: 구, 2:원판, 3:부분원판, 4:원기둥\n5:그리기 스타일 변경(점->선->채우기)";
+	MAIN_WINDOW->ExplanationContext = L"GLU 쿼드릭 객체를 사용해 구, 원판, 부분원판, 원기둥등의 2차 곡면을 그리는 예제입니다.\n";
+	MAIN_WINDOW->DebugContext = L"1: 구, 2: 원판, 3: 부분원판, 4: 원기둥\n5: 그리기 스타일 변경(점->선->채우기)";
 }
 
 void UTOutputWindow::Code_14_1()
@@ -81,13 +82,13 @@ void UTOutputWindow::Code_14_1()
 
 void UTOutputWindow::Code_14_1_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
-
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 
 	gluDeleteQuadric(QuardricObj_14_1);
 
+	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
 
@@ -133,6 +134,7 @@ void UTOutputWindow::Code_14_1_Key(GLFWwindow* Window, int Key, int Scancode, in
 
 void UTOutputWindow::Code_14_2_Start()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	GLfloat light0_position[] = { 3.f, 1.f, 1.f, 1.f };
@@ -146,9 +148,10 @@ void UTOutputWindow::Code_14_2_Start()
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1.f, 1.f, 1.f, 1.f);
 	glEnable(GL_AUTO_NORMAL);
-	
-	
+		
 	Time_14_2 = glfwGetTime();
+
+	MAIN_WINDOW->ExplanationContext = L"GLU NURBS 렌더러를 사용해 3차원 NURBS 곡면을 그리는 예제입니다.\n제어점의 일부를 시간에 따라 이동시켜 곡면이 변형되는 모습을 보여줍니다.";
 }
 
 void UTOutputWindow::Code_14_2()
@@ -259,6 +262,7 @@ void UTOutputWindow::Code_14_2()
 
 void UTOutputWindow::Code_14_2_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
+
+	MAIN_WINDOW->ExplanationContext = L"";
 }

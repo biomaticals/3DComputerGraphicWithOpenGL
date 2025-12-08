@@ -4,7 +4,6 @@
 #include "CoreMinimal.h"
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
-//#include "glad/glad.h"
 
 void UTOutputWindow::Code_12_8_Start()
 {
@@ -25,6 +24,7 @@ void UTOutputWindow::Code_12_8_Start()
 	StartX_12_8 = display_w / 8, StartY_12_8 = display_h / 8;
 	EndX_12_8 = display_w / 4 + display_w / 8, EndY_12_8 = display_h / 4 + display_h / 8;
 
+	MAIN_WINDOW->ExplanationContext = L"시저 테스트(Scissor Test) 예제입니다. 하단에 씬 전부와 시저 박스를 그리고, 테스트 결과를 상단 뷰포트에 그립니다.\n";
 	MAIN_WINDOW->DebugContext = L"화살표 키로 시저 박스 이동";
 }
 
@@ -80,6 +80,7 @@ void UTOutputWindow::Code_12_8_End()
 	ResetAll();
 	glBindVertexArray(0);
 
+	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
 

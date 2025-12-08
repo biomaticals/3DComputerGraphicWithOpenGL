@@ -2207,7 +2207,7 @@ void UTOutputWindow::Code_11_9_Start()
 
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 25.0);
+	glMaterialf(GL_FRONT, GL_SHININESS, 25.f);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -2238,6 +2238,8 @@ void UTOutputWindow::Code_11_9_Start()
 	
 	QuardricObj_11_7 = gluNewQuadric();
 	gluQuadricDrawStyle(QuardricObj_11_7, GLU_FILL);
+
+	MAIN_WINDOW->ExplanationContext = L"1D 스트라이프 텍스처를 생성하고, Object Linear 방식의 텍스처 좌표 자동 생성을 사용해 구 표면에 반복되는 줄무늬 패턴을 입히는 예제입니다.\n";
 }
 
 void UTOutputWindow::Code_11_9()
@@ -2265,8 +2267,8 @@ void UTOutputWindow::Code_11_9()
 
 void UTOutputWindow::Code_11_9_End()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	
 	glBindTexture(GL_TEXTURE_1D, 0);
 	gluDeleteQuadric(QuardricObj_11_7);
@@ -2275,45 +2277,17 @@ void UTOutputWindow::Code_11_9_End()
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_1D);
 }
-
-Description:
-원구에 조명을 가한 결과에 텍스처 매핑을 가하는 예제입니다.
-
-텍스처 기능 사용을 순서대로 정리하면 아래와 같습니다.
-1. 텍스처 이미지 생성
-	텍스처로 사용할 이미지를 생성합니다. 위 코드에서는 1D 텍스처를 사용하며, 빨강과 파랑 색상이 번갈아 나타나는 스트라이프 이미지를 생성합니다.
-
-2. 텍스처 객체 생성
-	glGenTextures 함수를 사용하여 텍스처 객체를 생성합니다. 이 객체는 텍스처 데이터를 저장하는 데 사용됩니다.
-
-3. 텍스처 바인딩
-	glBindTexture 함수를 사용하여 생성한 텍스처 객체를 현재 활성화된 텍스처로 바인딩합니다. 이후의 텍스처 관련 함수 호출은 이 바인딩된 텍스처에 적용됩니다.
-
-4. 텍스처 이미지 지정
-	glTexImage1D 함수를 사용하여 텍스처 이미지를 텍스처 객체에 업로드합니다. 이 함수는 텍스처의 형식, 크기, 데이터 유형 등을 지정합니다.
-
-5. 텍스처 좌표 생성 설정: glTexGeni 및 glTexGenfv 함수를 사용하여 텍스처 좌표 생성 방식을 설정합니다. 위 코드에서는 객체 공간에서 선형적으로 텍스처 좌표를 생성하도록 설정합니다.
-
-6. 텍스처 매개변수 설정: glTexParameterf 함수를 사용하여 텍스처의 래핑 모드와 필터링 방식을 설정합니다. 래핑 모드는 텍스처 좌표가 0과 1을 벗어날 때의 동작을 정의하며, 필터링 방식은 텍스처가 확대되거나 축소될 때의 픽셀 색상 결정 방식을 정의합니다.
-
-7. 텍스처 환경 설정: glTexEnvf 함수를 사용하여 텍스처 환경 모드를 설정합니다. 위 코드에서는 GL_MODULATE 모드를 사용하여 텍스처 색상이 물체의 재질 색상과 곱해지도록 설정합니다.
-
-8. 텍스처 기능 활성화: glEnable 함수를 사용하여 텍스처 좌표 생성과 텍스처 매핑 기능을 활성화합니다. 이렇게 하면 이후의 렌더링에서 텍스처가 적용됩니다.
-
-정리하자면,
-이미지 생성 -> 텍스츠 객체 생성 -> 바인딩 -> 이미지 지정 -> 좌표 생성 설정 -> 매개 변수 설정 -> 환경 설정 -> 기능 활성화
-
-또한 텍스처 바인딩 하기 전에 객체가 먼저 생성되어 있어야하고, 이미지 지정 이후 단계들은 바인딩 이후에 수행되어야 합니다.
-
 Code 11-11
 Input:
 void UTOutputWindow::Code_11_11_Start()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
 
-	Time_11_11 = glfwGetTime();
+	Time_11_11 = (GLfloat)glfwGetTime();
 
+	MAIN_WINDOW->ExplanationContext = L"스카이 박스와 지형을 렌더링하고, 키보드 입력에 따라 카메라를 이동 및 회전시키는 예제입니다.\n";
 	MAIN_WINDOW->DebugContext = L"W : 앞 / A : 왼쪽 / D : 오른쪽 / S : 뒤\nQ : -롤 회전  E : +롤 회전 /J : -요 회전 / L : +요 회전 / I : +피치 회전 / K : -피치 회전\nR : 위 / F : 아래";
 }
 
@@ -2323,78 +2297,78 @@ void UTOutputWindow::Code_11_11()
 	int display_w{}, display_h{};
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-
-	if (terrain_11_11 == nullptr && skybox_11_11 == nullptr && camera_11_11 == nullptr)
+	
+	if (Terrain_11_11 == nullptr && Skybox_11_11 == nullptr && Camera_11_11 == nullptr)
 	{
-		terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
-		skybox_11_11 = new Skybox();
-		camera_11_11 = new Camera();
-
-		camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
-		camera_11_11->setShape(60.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
-
-		camera_11_11->slide(0.f, 30.f, 0.f);
-		camera_11_11->roll(0.f);
-		camera_11_11->yaw(0.f);
-		camera_11_11->pitch(0.f);
+		Terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
+		Skybox_11_11 = new Skybox();
+		Camera_11_11 = new Camera();
+	
+		Camera_11_11->set(0.f, 1.f, 0.f, 0.f, 1.f, -1.f, 0.f, 1.f, 0.f);
+		Camera_11_11->setShape(60.f, (float)display_h / (float)display_w, 0.5f, 1000.f);
+	
+		Camera_11_11->slide(0.f, 30.f, 0.f);
+		Camera_11_11->roll(0.f);
+		Camera_11_11->yaw(0.f);
+		Camera_11_11->pitch(0.f);
 	}
-
-	ElapsedTime_11_11 = glfwGetTime() - Time_11_11;
-	Time_11_11 = glfwGetTime();
+	
+	ElapsedTime_11_11 = (GLfloat)glfwGetTime() - Time_11_11;
+	Time_11_11 = (GLfloat)glfwGetTime();
 	
 	if (Actions[LEFT])
-		camera_11_11->slide(-10.f * ElapsedTime_11_11, 0.f, 0.f);
+		Camera_11_11->slide(-10.f * ElapsedTime_11_11, 0.f, 0.f);
 	
 	if (Actions[RIGHT])
-		camera_11_11->slide(10.f * ElapsedTime_11_11, 0.f, 0.f);
-
+		Camera_11_11->slide(10.f * ElapsedTime_11_11, 0.f, 0.f);
+	
 	if(Actions[FORWARD])
-		camera_11_11->slide(0.f, 0.f, 10.f * ElapsedTime_11_11);
-
+		Camera_11_11->slide(0.f, 0.f, 10.f * ElapsedTime_11_11);
+	
 	if (Actions[BACKWARD])
-		camera_11_11->slide(0.f, 0.f, -10.f * ElapsedTime_11_11);
-
+		Camera_11_11->slide(0.f, 0.f, -10.f * ElapsedTime_11_11);
+	
 	if(Actions[UP])
-		camera_11_11->slide(0.f, 10.f * ElapsedTime_11_11, 0.f);
+		Camera_11_11->slide(0.f, 10.f * ElapsedTime_11_11, 0.f);
 	
 	if (Actions[DOWN])
-		camera_11_11->slide(0.f, -10.f * ElapsedTime_11_11, 0.f);
-
+		Camera_11_11->slide(0.f, -10.f * ElapsedTime_11_11, 0.f);
+	
 	if(Actions[PITCH_UP])
-		camera_11_11->pitch(25.f * ElapsedTime_11_11);
-
+		Camera_11_11->pitch(25.f * ElapsedTime_11_11);
+	
 	if (Actions[PITCH_DOWN])
-		camera_11_11->pitch(-25.f * ElapsedTime_11_11);
-
+		Camera_11_11->pitch(-25.f * ElapsedTime_11_11);
+	
 	if (Actions[YAW_LEFT])
-		camera_11_11->yaw(-25.f * ElapsedTime_11_11);
-
+		Camera_11_11->yaw(-25.f * ElapsedTime_11_11);
+	
 	if (Actions[YAW_RIGHT])
-		camera_11_11->yaw(25.f * ElapsedTime_11_11);
-
+		Camera_11_11->yaw(25.f * ElapsedTime_11_11);
+	
 	if(Actions[ROLL_LEFT])
-		camera_11_11->roll(25.f * ElapsedTime_11_11);
-
+		Camera_11_11->roll(25.f * ElapsedTime_11_11);
+	
 	if (Actions[ROLL_RIGHT])
-		camera_11_11->roll(-25.f * ElapsedTime_11_11);
-
+		Camera_11_11->roll(-25.f * ElapsedTime_11_11);
+	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
-
+	
 	glPushMatrix();
-	glTranslatef(camera_11_11->eye.x, camera_11_11->eye.y, camera_11_11->eye.z);
-	skybox_11_11->draw();
+	glTranslatef(Camera_11_11->eye.x, Camera_11_11->eye.y, Camera_11_11->eye.z);
+	Skybox_11_11->draw();
 	glPopMatrix();
-
+	
 	glPushMatrix();
-	glScalef(1.0f, 0.2f, 1.0f);
-	terrain_11_11->RenderTerrain(camera_11_11->eye.x, camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
-	terrain_11_11->RenderWater();
+	glScalef(1.f, 0.2f, 1.f);
+	Terrain_11_11->RenderTerrain(Camera_11_11->eye.x, Camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
+	Terrain_11_11->RenderWater();
 	glPopMatrix();
 	fog(); // 수면아래 안개효과
-
+	
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
@@ -2404,21 +2378,25 @@ void UTOutputWindow::Code_11_11_End()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glDisable(GL_FOG);
 	glDisable(GL_BLEND);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
 	ResetAll();
 
 	dispose();
+
+	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::dispose()
 {
-	delete terrain_11_11;
-	delete skybox_11_11;
-	delete camera_11_11;
+	delete Terrain_11_11;
+	delete Skybox_11_11;
+	delete Camera_11_11;
 
-	terrain_11_11 = nullptr;
-	skybox_11_11 = nullptr;
-	camera_11_11 = nullptr;
+	Terrain_11_11 = nullptr;
+	Skybox_11_11 = nullptr;
+	Camera_11_11 = nullptr;
 }
 
 void UTOutputWindow::fog()
@@ -2426,18 +2404,18 @@ void UTOutputWindow::fog()
 	glEnable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP2);
 
-	GLfloat waterFogColor[4] = { 0.0,0.6,0.6,5.0 };
-	GLfloat fogColor[4] = { 0.75,0.75,0.75,0.0 };
+	GLfloat waterFogColor[4] = { 0.f,0.6f,0.6f,5.f };
+	GLfloat fogColor[4] = { 0.75f,0.75f,0.75f,0.f };
 
-	if (camera_11_11->eye.y < (terrain_11_11->waterLevel * 0.2f))
+	if (Camera_11_11->eye.y < (Terrain_11_11->waterLevel * 0.2f))
 	{
 		glFogfv(GL_FOG_COLOR, waterFogColor);
-		glFogf(GL_FOG_DENSITY, 0.075);
+		glFogf(GL_FOG_DENSITY, 0.75f);
 	}
 	else
 	{
 		glFogfv(GL_FOG_COLOR, fogColor);
-		glFogf(GL_FOG_DENSITY, 0.001);
+		glFogf(GL_FOG_DENSITY, 0.01f);
 	}
 }
 
@@ -2569,30 +2547,6 @@ void UTOutputWindow::Code_11_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 	}
 	}
 }
-
-Description:
-이 예제는 간단한 지형 렌더링과 카메라 이동을 구현한 것입니다. 사용자는 키보드 입력을 통해 카메라를 이동하고 회전시킬 수 있습니다. 지형은 높이 맵과 텍스처를 사용하여 렌더링되며, 스카이박스도 함께 그려집니다. 또한, 카메라가 수면 아래에 있을 때 안개 효과가 적용됩니다.
-키보드 입력을 처리하는 부분에서는 각 키에 대한 동작을 정의하고, 키가 눌리거나 떼어질 때 해당 동작을 활성화하거나 비활성화합니다. 예를 들어, 'W' 키를 누르면 카메라가 앞으로 이동하고, 'S' 키를 누르면 뒤로 이동합니다. 'A'와 'D' 키는 좌우 이동을 담당하며, 스페이스바와 왼쪽 쉬프트 키는 각각 위아래 이동을 제어합니다. 또한, 'I', 'K', 'J', 'L', 'Q', 'E' 키는 카메라의 피치, 요, 롤 회전을 제어합니다.
-
-스카이박스
-스카이박스(Skybox)는 3D 그래픽스에서 사용되는 기법으로, 사용자가 보는 장면의 배경을 구성하는 데 사용됩니다. 스카이박스는 일반적으로 큐브 형태로 만들어지며, 각 면에 하늘, 구름, 산, 우주 등과 같은 배경 이미지를 텍스처로 매핑하여 사용자가 어느 방향을 바라보더라도 자연스러운 배경을 제공할 수 있도록 합니다.
-일반적인 3D 객체와는 다르게 후면 제거(culling)를 처리해야 합니다. 일반적으로 3D 객체는 카메라에서 멀어지는 면(후면)을 제거하기 위해 시계방향(CW) 또는 반시계방향(CCW)으로 정의된 면을 사용합니다. 그러나 스카이박스의 경우, 카메라가 내부에 위치하기 때문에 표면의 방향이 반대가 되어야 합니다. 따라서 스카이박스를 그릴 때는 후면 제거를 시계방향(CW)으로 설정하여 카메라 내부에서 볼 때 올바른 면이 렌더링되도록 해야 합니다.
-
-지형
-지형을 그리기 위해서는 높이 맵(Height Map)과 텍스처(Texture)를 활용합니다.
-높이 맵은 그레이스케일 이미지로, 각 픽셀의 밝기 값이 해당 지형의 높이를 나타냅니다. 밝은 픽셀은 높은 지형을, 어두운 픽셀은 낮은 지형을 의미합니다.
-텍스처는 지형의 표면에 적용되는 이미지로, 지형의 시각적 디테일을 향상시킵니다. 
-
-LOD
-지형을 렌더링할 때는 높이 맵 데이터를 기반으로 버텍스(Vertex)를 생성하고, 각 버텍스에 텍스처 좌표를 할당합니다. 그런 다음, OpenGL을 사용하여 지형을 그립니다.
-LOD 기법을 사용하여, 카메라가 위치한 타일은 더 높은 해상도로 렌더링하고, 멀리 있는 타일은 낮은 해상도로 렌더링하여 성능을 최적화합니다.
-
-수면
-수면은 직접 수동 매핑을 통해 버텍스의 위치에 텍스처 위치 좌표를 입력하여 구현했습니다.
-
-안개
-카메라가 수면 아래에 있을 때 안개 효과를 적용하여 시각적 깊이감을 향상시킵니다.
-
 Code 12-8
 Input:
 void UTOutputWindow::Code_12_8_Start()
@@ -2613,6 +2567,9 @@ void UTOutputWindow::Code_12_8_Start()
 
 	StartX_12_8 = display_w / 8, StartY_12_8 = display_h / 8;
 	EndX_12_8 = display_w / 4 + display_w / 8, EndY_12_8 = display_h / 4 + display_h / 8;
+
+	MAIN_WINDOW->ExplanationContext = L"시저 테스트(Scissor Test) 예제입니다. 하단에 씬 전부와 시저 박스를 그리고, 테스트 결과를 상단 뷰포트에 그립니다.\n";
+	MAIN_WINDOW->DebugContext = L"화살표 키로 시저 박스 이동";
 }
 
 void UTOutputWindow::Code_12_8()
@@ -2666,6 +2623,9 @@ void UTOutputWindow::Code_12_8_End()
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	ResetAll();
 	glBindVertexArray(0);
+
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_12_8_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -2761,7 +2721,6 @@ void UTOutputWindow::DrawScene_12_8()
 	glEnd();
 	glPopMatrix();
 }
-
 Description:
 glEnable(GL_SCISSOR_TEST) 함수는 시저 테스트(Scissor Test)를 활성화하는 데 사용됩니다. 
 시저 테스트는 렌더링할 때 특정 영역(사각형) 내에서만 픽셀을 그리도록 제한하는 기능입니다. 
