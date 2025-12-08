@@ -9,9 +9,10 @@
 void UTOutputWindow::Code_10_11_Start()
 {
     ResetAll();
-    glfwMakeContextCurrent(GetGLFWWindow());
-    
+    glfwMakeContextCurrent(GetGLFWWindow()); 
     glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_10_11_Key);
+
+    MAIN_WINDOW->ExplanationContext = L"두 개의 광원을 사용한 조명 효과 예제입니다";
 }
 
 void UTOutputWindow::Code_10_11()
@@ -35,7 +36,7 @@ void UTOutputWindow::Code_10_11()
     GLfloat light0_specular[] = {1.f, 1.f, 1.f, 1.f};
 
     GLfloat light1_ambient[] = {0.f, 0.f, 0.f, 1.f};
-    GLfloat light1_diffuse[] = {0.5, 0.2, 0.3, 1.f};
+    GLfloat light1_diffuse[] = {0.5f, 0.2f, 0.3f, 1.f};
     GLfloat light1_specular[] = {0.f, 0.f, 0.f, 1.f};
 
     GLfloat material_ambient[] = {0.3f, 0.3f, 0.3f, 1.f};
@@ -87,11 +88,11 @@ void UTOutputWindow::Code_10_11()
     
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+    glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(0.5, 0.5, 0.5, 0.0, 0.0, -1.0, 0.0, 1.0, 0.0);
-    glTranslatef(0.3, 0.3, 0.0);
+    gluLookAt(0.5f, 0.5f, 0.5f, 0.f, 0.f, -1.f, 0.f, 1.f, 0.f);
+    glTranslatef(0.3f, 0.3f, 0.f);
     
     glLightfv(GL_LIGHT0, GL_POSITION, LightPosition0);
     glLightfv(GL_LIGHT1, GL_POSITION, LightPosition1);
@@ -105,8 +106,8 @@ void UTOutputWindow::Code_10_11()
     int rings = 800;
 
     for (int i = 0; i < rings; i++) {
-        float phi = (float)i * 2.0f * M_PI / rings;
-        float nextPhi = (float)(i + 1) * 2.0f * M_PI / rings;
+        float phi = (float)i * 2.f * M_PI / (float)rings;
+        float nextPhi = (float)(i + 1) * 2.0f * M_PI / (float)rings;
 
         glBegin(GL_QUAD_STRIP);
         for (int j = 0; j <= nsides; j++) {
@@ -129,7 +130,7 @@ void UTOutputWindow::Code_10_11()
     }
     
     std::wstringstream wss{};
-    wss << L"Key 1 : Toggle Light 0 (now " << (bEnableLight0_10_11 ? L"On)" : L"Off)\n")  << L"Key 2 : Toggle Light 1 (now " << (bEnableLight1_10_11 ? L"On)" : L"Off)");
+    wss << L"1 : 0번 조명 켜기/끄기 (" << (bEnableLight0_10_11 ? L"켜짐)" : L"꺼짐)\n")  << L"2 : 1번 조명 켜기/끄기 (" << (bEnableLight1_10_11 ? L"켜짐)" : L"꺼짐)");
     MAIN_WINDOW->DebugContext = wss.str(); 
     
     glfwSwapBuffers(GetGLFWWindow());
@@ -138,12 +139,11 @@ void UTOutputWindow::Code_10_11()
 
 void UTOutputWindow::Code_10_11_End()
 {
-    glfwMakeContextCurrent(GetGLFWWindow());
-    glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-    
-    ResetAll();
-    
-    MAIN_WINDOW->DebugContext = L"";
+	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+
+	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
@@ -171,12 +171,13 @@ void UTOutputWindow::Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 
 void UTOutputWindow::Code_10_12_Start()
 {
-    glfwMakeContextCurrent(GetGLFWWindow());
     ResetAll();
     
-    Time_10_12 = glfwGetTime();
+    Time_10_12 = (GLfloat)glfwGetTime();
     ElapsedTime_10_12 = 0.f;
     LightSpinAngle_10_12 = 0.f;
+
+	MAIN_WINDOW->ExplanationContext = L"광원의 위치를 회전시켜가며 구의 조명 효과를 구현하는 예제입니다";
 }
 
 void UTOutputWindow::Code_10_12()
@@ -186,8 +187,8 @@ void UTOutputWindow::Code_10_12()
     glViewport(0, 0, display_w, display_h);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-    ElapsedTime_10_12 = glfwGetTime() - Time_10_12;
-    Time_10_12 = glfwGetTime();
+    ElapsedTime_10_12 = (GLfloat)glfwGetTime() - (GLfloat)Time_10_12;
+    Time_10_12 = (GLfloat)glfwGetTime();
     
     LightSpinAngle_10_12 += ElapsedTime_10_12 * 20.f;
 

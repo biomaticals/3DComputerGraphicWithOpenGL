@@ -343,8 +343,8 @@ private:
 	void Code_11_7();
 	void Code_11_7_End();
 
-#define Width_11_7 10
-#define Height_11_7 10
+#define Width_11_7 4
+#define Height_11_7 4
 	GLubyte Texture_11_7[Width_11_7][Height_11_7][3];
 	GLuint TextureObject_11_7;
 	GLUquadricObj* QuardricObj_11_7;

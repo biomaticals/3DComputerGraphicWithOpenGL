@@ -7,7 +7,7 @@
 
 void UTOutputWindow::Code_11_7_Start()
 {
-	glfwMakeContextCurrent(GetGLFWWindow());
+	ResetAll();
 
 	for (int i = 0; i < Width_11_7; i++)
 	{
@@ -19,6 +19,9 @@ void UTOutputWindow::Code_11_7_Start()
 			Texture_11_7[i][j][2] = BlackWhite;
 		}
 	}
+
+	MAIN_WINDOW->ExplanationContext = L"텍스처 좌표를 수동으로 매핑한 뒤 래핑 방법을 정의하는 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext = L"여기에서는(0~1) 범위를 벗어난 텍스처에 대해 S 방향은 CLAMP, T 방향은 REPEAT 방법으로 래핑합니다.";
 }
 
 void UTOutputWindow::Code_11_7()
@@ -28,7 +31,7 @@ void UTOutputWindow::Code_11_7()
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -38,17 +41,17 @@ void UTOutputWindow::Code_11_7()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width_11_7, Height_11_7, 0, GL_RGB, GL_UNSIGNED_BYTE, &Texture_11_7);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glEnable(GL_TEXTURE_2D);
 
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0, 0.0); glVertex3f(-1.0, -1.0, 0.0);
-	glTexCoord2f(0.0, 10.0); glVertex3f(-1.0, 1.0, 0.0);
-	glTexCoord2f(10.0, 10.0); glVertex3f(1.0, 1.0, 0.0);
-	glTexCoord2f(10.0, 0.0); glVertex3f(1.0, -1.0, 0.0);
+	glTexCoord2f(0.f, 0.f); glVertex3f(-1.f, -1.f, 0.f);
+	glTexCoord2f(0.f, 3.f); glVertex3f(-1.f, 1.f, 0.f);
+	glTexCoord2f(3.f, 3.f); glVertex3f(1.f, 1.f, 0.f);
+	glTexCoord2f(3.f, 0.f); glVertex3f(1.f, -1.f, 0.f);
 	glEnd();
 
 	glfwSwapBuffers(GetGLFWWindow());
@@ -57,9 +60,9 @@ void UTOutputWindow::Code_11_7()
 
 void UTOutputWindow::Code_11_7_End()
 {
+	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glDisable(GL_TEXTURE_2D);
-	ResetAll();
 }
 
 void UTOutputWindow::Code_11_9_Start()
@@ -73,7 +76,7 @@ void UTOutputWindow::Code_11_9_Start()
 
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-	glMaterialf(GL_FRONT, GL_SHININESS, 25.0);
+	glMaterialf(GL_FRONT, GL_SHININESS, 25.f);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -147,7 +150,7 @@ void UTOutputWindow::Code_11_11_Start()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
 
-	Time_11_11 = glfwGetTime();
+	Time_11_11 = (GLfloat)glfwGetTime();
 
 	MAIN_WINDOW->DebugContext = L"W : 앞 / A : 왼쪽 / D : 오른쪽 / S : 뒤\nQ : -롤 회전  E : +롤 회전 /J : -요 회전 / L : +요 회전 / I : +피치 회전 / K : -피치 회전\nR : 위 / F : 아래";
 }
@@ -174,8 +177,8 @@ void UTOutputWindow::Code_11_11()
 		Camera_11_11->pitch(0.f);
 	}
 	
-	ElapsedTime_11_11 = glfwGetTime() - Time_11_11;
-	Time_11_11 = glfwGetTime();
+	ElapsedTime_11_11 = (GLfloat)glfwGetTime() - Time_11_11;
+	Time_11_11 = (GLfloat)glfwGetTime();
 	
 	if (Actions[LEFT])
 		Camera_11_11->slide(-10.f * ElapsedTime_11_11, 0.f, 0.f);
@@ -224,7 +227,7 @@ void UTOutputWindow::Code_11_11()
 	glPopMatrix();
 	
 	glPushMatrix();
-	glScalef(1.0f, 0.2f, 1.0f);
+	glScalef(1.f, 0.2f, 1.f);
 	Terrain_11_11->RenderTerrain(Camera_11_11->eye.x, Camera_11_11->eye.z);//지형을 그린다.좌표를 보내주는 이유는 카메라가 위치한 타일블럭의 좌표를 계산하기 위해 ppt참조
 	Terrain_11_11->RenderWater();
 	glPopMatrix();
@@ -263,18 +266,18 @@ void UTOutputWindow::fog()
 	glEnable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_EXP2);
 
-	GLfloat waterFogColor[4] = { 0.0,0.6,0.6,5.0 };
-	GLfloat fogColor[4] = { 0.75,0.75,0.75,0.0 };
+	GLfloat waterFogColor[4] = { 0.f,0.6f,0.6f,5.f };
+	GLfloat fogColor[4] = { 0.75f,0.75f,0.75f,0.f };
 
 	if (Camera_11_11->eye.y < (Terrain_11_11->waterLevel * 0.2f))
 	{
 		glFogfv(GL_FOG_COLOR, waterFogColor);
-		glFogf(GL_FOG_DENSITY, 0.075);
+		glFogf(GL_FOG_DENSITY, 0.75f);
 	}
 	else
 	{
 		glFogfv(GL_FOG_COLOR, fogColor);
-		glFogf(GL_FOG_DENSITY, 0.001);
+		glFogf(GL_FOG_DENSITY, 0.01f);
 	}
 }
 
