@@ -5,6 +5,9 @@
 #include "3DComputerGraphicWithOpenGL.h"
 #include "Manager/ResourceManager.h"
 #include "Manager/WindowManager.h"
+#include "InsideStaticMath.h"
+
+using namespace InsideStaticMath;
 
 UTMainWindow::UTMainWindow(const std::string& Title, int Width, int Height)
 	: UTWindow(Title, Width, Height)
@@ -99,19 +102,14 @@ void UTMainWindow::RenderUI()
 		ImGui::EndMainMenuBar();
 	}
 
-	// remain this for R&D
+	//remain this for R&D
 	//if (show_demo_window)
-	//	ImGui::ShowDemoWindow(&show_demo_window);
+	// 	ImGui::ShowDemoWindow(&show_demo_window);
 }
 
 void UTMainWindow::RenderDrawData()
 {
 	ImGui::Render();
-	int display_w, display_h;
-	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
-	glViewport(0, 0, display_w, display_h);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glFlush();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	glfwSwapBuffers(GetGLFWWindow());
 }

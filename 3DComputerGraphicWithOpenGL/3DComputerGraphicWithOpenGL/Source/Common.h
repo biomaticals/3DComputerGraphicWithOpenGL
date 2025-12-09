@@ -7,6 +7,8 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 struct FExampleCode;
 
@@ -60,6 +62,24 @@ struct FBook
 	std::vector<FPart> Parts;
 };
 
-extern std::wstring ReadFileToString(const std::filesystem::path& FilePath);
-extern std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
-extern std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);
+struct Vertex
+{
+	glm::vec3 pos;
+	glm::vec3 normal;
+	glm::vec2 texcoord;
+};
+
+struct MaterialInfo
+{
+	std::string name;
+	glm::vec3 diffuse;		//Kd
+	glm::vec3 ambient;		//Ka
+	glm::vec3 specular;		//Ks
+	float shininess;		//Ns
+	std::string diffuseTex; //map_Kd
+	unsigned int textureId = 0;
+};
+
+// extern std::wstring ReadFileToString(const std::filesystem::path& FilePath);
+// extern std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
+// extern std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);

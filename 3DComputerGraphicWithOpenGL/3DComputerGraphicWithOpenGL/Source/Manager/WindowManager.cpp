@@ -52,18 +52,18 @@ void WindowManager::CreateMainWindow()
 {
 	GLFWmonitor* Monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* Mode = glfwGetVideoMode(Monitor);
-	int MonitorWidth = Mode->width;
-	int MonitorHeight = Mode->height;
+	const int MonitorWidth = Mode->width;
+	const int MonitorHeight = Mode->height;
 	
-	int MainWindowWidth = MonitorWidth * 5 / 10;
-	int MainWindowHeight = MonitorHeight * 8 / 10;
+	const int MainWindowWidth = MonitorWidth * 5 / 10;
+	const int MainWindowHeight = MonitorHeight * 8 / 10;
 	
 	MainWindow = new UTMainWindow("3D CG With OpenGL by biomatic", MainWindowWidth, MainWindowHeight);
 	if(MainWindow == nullptr)
 		return;
 	
-	int MainWindowPositionX = MonitorWidth * 1 / 10;
-	int MainWindowPositionY = MonitorHeight * 1 / 10;
+	const int MainWindowPositionX = MonitorWidth * 1 / 10;
+	const int MainWindowPositionY = MonitorHeight * 1 / 10;
 	glfwSetWindowPos(MainWindow->GetGLFWWindow(), MainWindowPositionX, MainWindowPositionY);
 }
 
@@ -71,16 +71,16 @@ void WindowManager::CreateOutputWindow()
 {
 	GLFWmonitor* Monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* Mode = glfwGetVideoMode(Monitor);
-	int MonitorWidth = Mode->width;
-	int MonitorHeight = Mode->height;
+	const int MonitorWidth = Mode->width;
+	const int MonitorHeight = Mode->height;
 	int OutputWindowWidth = MonitorWidth * 3 / 10;
 	int OutputWindowHeight = MonitorHeight * 8 / 10;
 	OutputWindow = new UTOutputWindow("OutputWindow", OutputWindowWidth, OutputWindowHeight);
 	if (OutputWindow == nullptr)
 		return;
 
-	int OutputWindowPositionX = MonitorWidth * 6 / 10;
-	int OutputWindowPositionY = MonitorHeight * 1 / 10;
+	const int OutputWindowPositionX = MonitorWidth * 6 / 10;
+	const int OutputWindowPositionY = MonitorHeight * 1 / 10;
 	glfwSetWindowPos(OutputWindow->GetGLFWWindow(), OutputWindowPositionX, OutputWindowPositionY);
 	glfwHideWindow(OutputWindow->GetGLFWWindow());
 }

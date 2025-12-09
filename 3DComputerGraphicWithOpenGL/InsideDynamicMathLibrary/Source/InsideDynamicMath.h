@@ -9,6 +9,11 @@
 #define INSIDEDYNAMICMATHLIBRARY_API __declspec(dllimport)
 #endif
 
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <string>
+
 namespace InsideDynamicMath
 {
 	extern "C" INSIDEDYNAMICMATHLIBRARY_API double Add(double a, double b);
@@ -18,4 +23,8 @@ namespace InsideDynamicMath
 	extern "C" INSIDEDYNAMICMATHLIBRARY_API double Multiply(double a, double b);
 
 	extern "C" INSIDEDYNAMICMATHLIBRARY_API double Divide(double a, double b);
+
+	extern std::wstring ReadFileToString(const std::filesystem::path& FilePath);
+	extern std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
+	extern std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);
 }

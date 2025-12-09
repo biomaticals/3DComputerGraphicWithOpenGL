@@ -3,6 +3,7 @@
 
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
+#include "InsideStaticMath.h"
 
 void UTOutputWindow::Code_5_2_Start()
 {
@@ -251,19 +252,32 @@ void UTOutputWindow::Code_5_7_MouseButton(GLFWwindow* Window, int button, int ac
 		double xpos, ypos;
 		glfwGetCursorPos(Window, &xpos, &ypos);
 
-		std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+		GLfloat _Matrix[16];
+		glGetFloatv(GL_PROJECTION_MATRIX, _Matrix);
+		const InsideStaticMath::OrthoBounds OutOrthoBound = InsideStaticMath::GetOrthoBoundsFromProjectionMatrix(_Matrix);
 
-		OUTPUT_WINDOW->TopLeftX_5_7 = OrthoCoords[0];
-		OUTPUT_WINDOW->TopLeftY_5_7 = OrthoCoords[1];
+		int display_w, display_h;
+		glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
+		std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+		
+		OUTPUT_WINDOW->TopLeftX_5_7 = CursorCoords[0];
+		OUTPUT_WINDOW->TopLeftY_5_7 = CursorCoords[1];
 	}
 }
 
 void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
+	GLfloat _Matrix[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, _Matrix);
+	const InsideStaticMath::OrthoBounds OutOrthoBound = InsideStaticMath::GetOrthoBoundsFromProjectionMatrix(_Matrix);
 
-	OUTPUT_WINDOW->BottomRightX_5_7 = OrthoCoords[0];
-	OUTPUT_WINDOW->BottomRightY_5_7 = OrthoCoords[1];
+	int display_w, display_h;
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
+	std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+
+	OUTPUT_WINDOW->BottomRightX_5_7 = CursorCoords[0];
+	OUTPUT_WINDOW->BottomRightY_5_7 = CursorCoords[1];
 }
 
 void UTOutputWindow::Code_5_13_Start()
@@ -504,9 +518,9 @@ void UTOutputWindow::Code_5_15()
 	glFlush();
 
 	MAIN_WINDOW->DebugContext = L"Q : 종료\n";
-	MAIN_WINDOW->DebugContext  = L"1 : 쉐이드 모드 전환(현재 : ";
+	MAIN_WINDOW->DebugContext  = L"1 : 쉐이드 모드 전환 (현재: ";
 	MAIN_WINDOW->DebugContext += (FlatShadeMode_5_15 ? L"플랫 쉐이딩)" : L"스무스 쉐이딩)\n");
-	MAIN_WINDOW->DebugContext += L"2 : 폴리곤 모드 전환(현재:";
+	MAIN_WINDOW->DebugContext += L"2 : 폴리곤 모드 전환 (현재: ";
 	MAIN_WINDOW->DebugContext += (WireframeMode_5_15 ? L"와이어프레임)" : L"채워진 폴리곤)\n");
 }
 
@@ -596,7 +610,15 @@ void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, in
 
 void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	CursorPosToOrthoCoords(OUTPUT_WINDOW->GetGLFWWindow(), std::array<double,2>{xpos, ypos});
+	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
+	GLfloat _Matrix[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, _Matrix);
+	const InsideStaticMath::OrthoBounds OutOrthoBound = InsideStaticMath::GetOrthoBoundsFromProjectionMatrix(_Matrix);
+
+	int display_w, display_h;
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
+	std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+
 	OUTPUT_WINDOW->cursor_xpos_5_15 = xpos;
 	OUTPUT_WINDOW->cursor_ypos_5_15 = ypos;
 }
