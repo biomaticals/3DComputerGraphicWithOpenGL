@@ -4,7 +4,6 @@
 #pragma once
 
 #include "Common.h"
-#include "CoreMinimal.h"
 #include <fstream>
 #include <list>
 #include <filesystem>
@@ -33,6 +32,15 @@ public:
 public:
 	bool LoadResources();
 	void UnloadResources();	
+
+	bool FileExists(const std::string& path);
+
+	bool LoadObjWithMaterial(const std::string& path,
+		std::vector<Vertex>& out_vertices,
+		std::vector<unsigned int>& out_indices,
+		std::vector<MaterialInfo>& out_materials);
+
+	GLuint LoadTexture2D(const std::string& filename, bool flipY = false);
 #pragma endregion
 
 #pragma region Title

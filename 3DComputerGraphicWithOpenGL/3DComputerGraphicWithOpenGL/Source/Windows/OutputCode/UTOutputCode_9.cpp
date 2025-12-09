@@ -99,6 +99,7 @@ void UTOutputWindow::Code_9_15()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 

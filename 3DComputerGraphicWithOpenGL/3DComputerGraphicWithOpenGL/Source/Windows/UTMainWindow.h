@@ -4,8 +4,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UTWindow.h"
 #include "Common.h"
+#include "UTWindow.h"
 
 class UTMainWindow : public UTWindow
 {

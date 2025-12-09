@@ -1,11 +1,10 @@
 ﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
-//#include "glad/glad.h"
 #include "UTOutputWindow.h"
+#include "Common.h"
 #include "Manager/ResourceManager.h"
 #include "Manager/WindowManager.h"
-#include "Common.h"
 
 FExampleCode::FExampleCode()
 	: Title(L"")

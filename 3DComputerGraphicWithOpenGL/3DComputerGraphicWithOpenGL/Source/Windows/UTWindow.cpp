@@ -4,7 +4,6 @@
 #pragma once
 
 #include "UTWindow.h"
-#include <iostream>
 
 UTWindow::UTWindow(const std::string& Title, int Width, int Height)
 	: Title(Title), Width(Width), Height(Height)

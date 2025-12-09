@@ -209,7 +209,7 @@ void UTOutputWindow::Code_6_8_Start()
 	const std::string basepath = "Resource/Object/Chaynik/";
 	const std::string texbasepath = "Resource/Object/Chaynik/textures";
 	const std::string objpath = basepath + "Chaynik.obj";
-	LoadObjWithMaterial(objpath, vertices_6_8, indices_6_8, materials_6_8);
+	RESOURCE_MANAGER->LoadObjWithMaterial(objpath, vertices_6_8, indices_6_8, materials_6_8);
 
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	GLfloat mat_diffuse[] = { 0.f, 0.4f, 0.3f, 1.f };
@@ -310,7 +310,7 @@ void UTOutputWindow::Code_6_9_Start()
 	const std::string basepath = "Resource/Object/Soccer_ball/";
 	const std::string texbasepath = "Resource/Object/Soccer_ball/textures";
 	const std::string objpath = basepath + "10536_soccerball_V1_iterations-2.obj";
-	LoadObjWithMaterial(objpath, vertices_6_9, indices_6_9, materials_6_9);
+	RESOURCE_MANAGER->LoadObjWithMaterial(objpath, vertices_6_9, indices_6_9, materials_6_9);
 
 	GLfloat light_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.f };

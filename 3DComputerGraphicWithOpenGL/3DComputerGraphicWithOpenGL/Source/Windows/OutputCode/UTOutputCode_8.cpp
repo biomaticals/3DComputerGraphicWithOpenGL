@@ -12,7 +12,7 @@ void UTOutputWindow::Code_8_3_Start()
 	const std::string basepath = "Resource/Object/Chaynik/";
 	const std::string texbasepath = "Resource/Object/Chaynik/textures";
 	const std::string objpath = basepath + "Chaynik.obj";
-	LoadObjWithMaterial(objpath, vertices_8_3, indices_8_3, materials_8_3);
+	RESOURCE_MANAGER->LoadObjWithMaterial(objpath, vertices_8_3, indices_8_3, materials_8_3);
 
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glMatrixMode(GL_PROJECTION);

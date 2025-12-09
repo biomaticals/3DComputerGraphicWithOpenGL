@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Common.h"
 #include "Windows/UTMainWindow.h"
 #include "Windows/UTOutputWindow.h"

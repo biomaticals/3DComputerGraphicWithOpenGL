@@ -394,7 +394,7 @@ void UTOutputWindow::Code_5_15_Start()
 	const std::string basepath = "Resource/Object/Wood_Table/";
 	const std::string texbasepath = "Resource/Object/Wood_Table/textures";
 	const std::string objpath = basepath + "Wood_Table.obj";
-	LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
+	RESOURCE_MANAGER->LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
 
 	glClearColor(0.4f, 0.4f, 0.4f, 1.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };

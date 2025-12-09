@@ -3,16 +3,18 @@
 
 #pragma once
 
-#include <Windows.h>
+
 #include "3DComputerGraphicWithOpenGL.h"
 #include "imgui_internal.h"
 #include "imgui_impl_glfw.h"
-#include <GLFW/glfw3.h>
 #include "Manager/ResourceManager.h"
 #include "Manager/WindowManager.h"
+#include <GLFW/glfw3.h>
+#include <Windows.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <GL/freeglut_std.h>
 
+// should be last include
 #include "stb_image.h"
 
 void UpdateManager()

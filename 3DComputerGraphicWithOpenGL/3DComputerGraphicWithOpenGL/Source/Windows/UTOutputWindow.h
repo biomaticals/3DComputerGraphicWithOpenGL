@@ -3,16 +3,15 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "3DComputerGraphicWithOpenGL.h"
+#include "io.h"
 #include "UTWindow.h"
 #include "Windows/OutputCode/camera.h"
 #include "Windows/OutputCode/skybox.h"
 #include "Windows/OutputCode/terrain.h"
+#include "Manager/ResourceManager.h"
 #include <array>
 #include <vector>
-
-#include "io.h"
 
 #define M_PI 3.14159265358979323846
 
