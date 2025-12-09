@@ -9,6 +9,7 @@
 #include "Windows/OutputCode/camera.h"
 #include "Windows/OutputCode/skybox.h"
 #include "Windows/OutputCode/terrain.h"
+#include <array>
 #include <vector>
 
 #include "io.h"

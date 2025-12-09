@@ -80,6 +80,11 @@ struct MaterialInfo
 	unsigned int textureId = 0;
 };
 
-// extern std::wstring ReadFileToString(const std::filesystem::path& FilePath);
-// extern std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
-// extern std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);
+bool FileExists(const std::string& path);
+
+bool LoadObjWithMaterial(const std::string& path,
+	std::vector<Vertex>& out_vertices,
+	std::vector<unsigned int>& out_indices,
+	std::vector<MaterialInfo>& out_materials);
+
+GLuint LoadTexture2D(const std::string& filename, bool flipY = false);

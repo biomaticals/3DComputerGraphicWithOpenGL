@@ -9,7 +9,7 @@
 #pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
-#pragma comment(lib, "freeglut.lib") // freeglut 사용 시
+#pragma comment(lib, "freeglut.lib")
 
 #include <iostream>
 #include <stdio.h>

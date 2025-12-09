@@ -7,9 +7,6 @@
 
 #include "CoreMinimal.h"
 #include "Common.h"
-#include <vector>
-#include <GL/glu.h>
-#include <array>
 
 inline ImFont* DefaultFont = nullptr;
 inline ImFont* MediumFont = nullptr;
@@ -19,17 +16,3 @@ inline ImFont* MonospaceFont = nullptr;
 void UpdateManager();
 
 int main(int, char**);
-
-inline static std::string make_key(int vi, int ni) 
-{
-	return std::to_string(vi) + "_" + std::to_string(ni);
-}
-
-bool LoadObjWithMaterial(const std::string& path,
-	std::vector<Vertex>& out_vertices,
-	std::vector<unsigned int>& out_indices,
-	std::vector<MaterialInfo>& out_materials);
-
-GLuint LoadTexture2D(const std::string& filename, bool flipY = false);
-
-
