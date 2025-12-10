@@ -145,6 +145,8 @@ void UTOutputWindow::Code_10_11_End()
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
+    glDisable(GL_LIGHT0);
+    glDisable(GL_LIGHT1);
 
 	MAIN_WINDOW->DebugContext = L"";
 }
@@ -225,26 +227,26 @@ void UTOutputWindow::Code_10_12()
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     
-	//glGetLightfv(GL_LIGHT0, GL_POSITION, LightPosition2);
-	//glGetLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient2);
-	//glGetLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse2);
-	//glGetLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular2);
-    //glGetLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, &ConstantAttenuation2);
-	//glGetLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, &LinearAttenuation2);
-	//glGetLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, &QuadraticAttenuation2);
-    //
+	glGetLightfv(GL_LIGHT0, GL_POSITION, LightPosition2);
+	glGetLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient2);
+	glGetLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse2);
+	glGetLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular2);
+    glGetLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, &ConstantAttenuation2);
+	glGetLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, &LinearAttenuation2);
+	glGetLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, &QuadraticAttenuation2);
+    
     glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
     glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
     glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION,   0.f);
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION,0.1f);
-    //
-	//glGetMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient2);
-	//glGetMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse2);
-	//glGetMaterialfv(GL_FRONT, GL_SPECULAR, material_specular2);
-	//glGetMaterialfv(GL_FRONT, GL_SHININESS, material_shininess2);
-    //
+    
+	glGetMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient2);
+	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse2);
+	glGetMaterialfv(GL_FRONT, GL_SPECULAR, material_specular2);
+	glGetMaterialfv(GL_FRONT, GL_SHININESS, material_shininess2);
+    
     glMaterialfv(GL_FRONT, GL_AMBIENT,  material_ambient);
     glMaterialfv(GL_FRONT, GL_DIFFUSE,  material_diffuse);
     glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
@@ -269,7 +271,7 @@ void UTOutputWindow::Code_10_12()
         {
             float phi0 = M_PI * float(i) / Stacks_10_12;
             float phi1 = M_PI * float(i + 1) / Stacks_10_12;
-    
+        
             glBegin(GL_TRIANGLE_STRIP);
             for (int j = 0; j <= Slices_10_12; ++j)
             {
@@ -300,6 +302,8 @@ void UTOutputWindow::Code_10_12()
 void UTOutputWindow::Code_10_12_End()
 {
     ResetAll();
+    glfwMakeContextCurrent(GetGLFWWindow());
+    glNormal3f(0.f, 0.f, 1.f);
 
 	MAIN_WINDOW->DebugContext = L"";
 }
