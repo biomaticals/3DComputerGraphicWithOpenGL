@@ -5,7 +5,7 @@
 #include "Skybox.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <GL/glut.h>
+//#include <GL/glut.h>
 #include "stb_image.h"
 #include "Manager/WindowManager.h"
 

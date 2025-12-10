@@ -26,6 +26,7 @@ private:
     std::string Title;
     int Width;
     int Height;
+	static bool gladInitialized;
 };
 
 static void FocusCallback(GLFWwindow* Window, int Focused);

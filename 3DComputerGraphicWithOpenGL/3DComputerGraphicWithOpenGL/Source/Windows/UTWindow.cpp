@@ -5,6 +5,8 @@
 
 #include "UTWindow.h"
 
+bool UTWindow::gladInitialized = false;
+
 UTWindow::UTWindow(const std::string& Title, int Width, int Height)
 	: Title(Title), Width(Width), Height(Height)
 {
@@ -40,6 +42,19 @@ void UTWindow::Initialize()
 		exit(1);
 	}
 	glfwMakeContextCurrent(GLFWWindow);
+
+	if (gladInitialized == false)
+	{
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+		{
+			printf("Failed to initialize GLAD\n");
+		}
+		else
+		{
+			gladInitialized = true;
+		}
+	}
+
 	glViewport(0, 0, Width, Height);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	glfwSwapInterval(1);

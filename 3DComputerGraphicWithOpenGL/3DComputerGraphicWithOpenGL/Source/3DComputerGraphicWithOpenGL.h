@@ -5,7 +5,6 @@
 
 #include <windows.h>
 
-#include "CoreMinimal.h"
 #include "Common.h"
 
 inline ImFont* DefaultFont = nullptr;

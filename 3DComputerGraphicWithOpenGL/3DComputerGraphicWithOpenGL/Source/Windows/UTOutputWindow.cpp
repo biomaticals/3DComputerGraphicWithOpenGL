@@ -85,12 +85,6 @@ void UTOutputWindow::Initialize()
 {
 	UTWindow::Initialize();
 
-	GLenum err = glewInit();
-	if (err != GLEW_OK)
-	{
-		fprintf(stderr, "GLEW init error: %s\n", glewGetErrorString(err));
-	}
-
 #pragma region Chapter5
 	StartDrawFunctions[5][2] = &UTOutputWindow::Code_5_2_Start;
 	DrawFunctions[5][2] = &UTOutputWindow::Code_5_2;

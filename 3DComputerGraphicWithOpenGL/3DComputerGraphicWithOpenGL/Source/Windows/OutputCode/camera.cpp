@@ -3,7 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "camera.h"
-#include <GL/freeglut_std.h>
+//#include <GL/freeglut_std.h>
 #include "Manager/WindowManager.h"
 
 Camera::Camera(void)

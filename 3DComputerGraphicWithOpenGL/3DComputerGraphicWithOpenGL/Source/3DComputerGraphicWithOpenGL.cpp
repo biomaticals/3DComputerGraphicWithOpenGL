@@ -12,7 +12,7 @@
 #include <GLFW/glfw3.h>
 #include <Windows.h>
 #define STB_IMAGE_IMPLEMENTATION
-#include <GL/freeglut_std.h>
+//#include <GL/freeglut_std.h>
 
 // should be last include
 #include "stb_image.h"
@@ -36,7 +36,6 @@ int main(int argc, char** argv)
 	WINDOW_MANAGER->CreateOutputWindow();
 
 	glfwMakeContextCurrent(MAIN_WINDOW->GetGLFWWindow());
-	
 	ImGui::SetCurrentContext(MAIN_WINDOW->GetGuiContext());
 	ImGui_ImplOpenGL3_Init(glsl_version);
 	ImGui_ImplGlfw_InitForOpenGL(MAIN_WINDOW->GetGLFWWindow(), true);

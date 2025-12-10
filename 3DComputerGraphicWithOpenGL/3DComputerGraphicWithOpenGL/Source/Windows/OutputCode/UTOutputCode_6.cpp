@@ -1,12 +1,15 @@
 ﻿// Copyright 2025. Team Unique Turtle ; https://github.com/biomaticals. All rights reserved.
 // All contents cannot be copied, distributed, revised.
 
+#include "CoreMinimal.h"
+#include "Common.h"
+#include "stdio.h"
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
 #include "Manager/ResourceManager.h"
 #include<windows.h>
 #include<MMSystem.h>
-#include<GL/glut.h>
+//#include<GL/glut.h>
 #include<GL/glu.h>
 #include<math.h>
 #include<cmath>
@@ -428,42 +431,50 @@ void UTOutputWindow::Code_6_9_Key(GLFWwindow* Window, int Key, int Scancode, int
 	{
 	case GLFW_KEY_1:
 	{
-		OUTPUT_WINDOW->Gravity_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->Gravity_6_9 += 1.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_2:
 	{
-		OUTPUT_WINDOW->Gravity_6_9 = std::max(0.f, OUTPUT_WINDOW->Gravity_6_9 - 1.f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->Gravity_6_9 = OUTPUT_WINDOW->Gravity_6_9 - 1.f > 0.f ? OUTPUT_WINDOW->Gravity_6_9 -1.f : 0.f; 
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_3:
 	{
-		OUTPUT_WINDOW->Elastic_6_9 = std::min(1.f, OUTPUT_WINDOW->Elastic_6_9 + 0.05f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->Elastic_6_9 = OUTPUT_WINDOW->Elastic_6_9 + 0.05f > 1.f ? 1.f : OUTPUT_WINDOW->Elastic_6_9 + 0.05f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_4:
 	{
-		OUTPUT_WINDOW->Elastic_6_9 = std::max(0.f, OUTPUT_WINDOW->Elastic_6_9 - 0.05f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->Elastic_6_9 = OUTPUT_WINDOW->Elastic_6_9 - 0.05f > 0.f ? OUTPUT_WINDOW->Elastic_6_9 - 0.05f : 0.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_5:
 	{
-		OUTPUT_WINDOW->InitialHeight_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->InitialHeight_6_9 += 1.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_6:
 	{
-		OUTPUT_WINDOW->InitialHeight_6_9 = std::max(0.f, OUTPUT_WINDOW->InitialHeight_6_9 - 1.f); OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->InitialHeight_6_9 = OUTPUT_WINDOW->InitialHeight_6_9 - 1.f > 0.f ? OUTPUT_WINDOW->InitialHeight_6_9 - 1.f : 0.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_7:
 	{
-		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 += 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 += 1.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_8:
 	{
-		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 -= 1.f; OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
+		OUTPUT_WINDOW->InitialVerticalVelocity_6_9 -= 1.f;
+		OUTPUT_WINDOW->Time_6_9 = glfwGetTime();
 		break;
 	}
 	case GLFW_KEY_R:
@@ -503,14 +514,14 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 	const GLfloat Y0 = Physics.IniitlaiHeight;
 	const GLfloat V0 = Physics.InitialVerticalVelocity;
 
-	GLfloat U0 = sqrt(std::max(0.f, V0 * V0 + 2.f * G * Y0));
+	GLfloat U0 = sqrt(V0 * V0 + 2.f * G * Y0 > 0.f ? V0 * V0 + 2.f * G * Y0 : 0.f);
 	if (U0 < eps)
 		return 0.f;
 
 	GLfloat t_first_bounce = (V0 + U0) / G;
 	if (time < t_first_bounce)
 	{
-		return std::max(0.f, Y0 + V0 * time - 0.5f * G * time * time);
+		return Y0 + V0 * time - 0.5f * G * time * time > 0.f ? Y0 + V0 * time - 0.5f * G * time * time : 0.f;
 	}
 
 	GLfloat T = t_first_bounce;
@@ -521,7 +532,7 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 		if (time < T + dt_after)
 		{
 			GLfloat t_in_bounce = time - T;
-			return std::max(0.f, t_in_bounce * (U_n * t_in_bounce - 0.5f * G * t_in_bounce));
+			return 0.f, t_in_bounce * (U_n * t_in_bounce - 0.5f * G * t_in_bounce) > 0.f ? t_in_bounce * (U_n * t_in_bounce - 0.5f * G * t_in_bounce) : 0.f;
 		}
 		else
 		{
@@ -536,7 +547,7 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 		if (time < T + dt_n || U_n <= eps)
 		{
 			GLfloat t_in_bounce = time - T;
-			return std::max(0.f, t_in_bounce * (U_n - 0.5f * G * t_in_bounce));
+			return t_in_bounce * (U_n - 0.5f * G * t_in_bounce) > 0.f ? t_in_bounce * (U_n - 0.5f * G * t_in_bounce) : 0.f;
 		}
 
 		T += dt_n;

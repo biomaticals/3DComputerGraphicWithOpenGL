@@ -3,13 +3,15 @@
 
 #pragma once
 
-#define GLEW_STATIC
-#include <glew/glew.h>
+//#define GLEW_STATIC
+//#include <glew/glew.h>
 
-#pragma comment(lib, "glew32s.lib")
+#include "glad/glad.h"
+
+//#pragma comment(lib, "glew32s.lib")
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
-#pragma comment(lib, "freeglut.lib")
+//#pragma comment(lib, "freeglut.lib")
 
 #include <iostream>
 #include <stdio.h>
