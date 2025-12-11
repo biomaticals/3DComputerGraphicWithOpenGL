@@ -7,13 +7,14 @@
 
 void UTOutputWindow::Code_5_2_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화한 뒤, 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링 하는 기초 예제입니다.";
 }
 
 void UTOutputWindow::Code_5_2()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -36,19 +37,22 @@ void UTOutputWindow::Code_5_2()
 
 void UTOutputWindow::Code_5_2_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_4_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 투영 행렬을 직교 투영 행렬로 설정합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다.";
 }
 
 void UTOutputWindow::Code_5_4()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -75,16 +79,19 @@ void UTOutputWindow::Code_5_4()
 
 void UTOutputWindow::Code_5_4_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_5_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &Width_5_6, &Height_5_6);
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 창의 크기가 변경될 때마다 호출되는 콜백 함수를 등록합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다.";
 }
@@ -116,9 +123,9 @@ void UTOutputWindow::Code_5_5()
 
 void UTOutputWindow::Code_5_5_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
+	glPopAttrib();
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }
@@ -137,7 +144,8 @@ void UTOutputWindow::Code_5_5_Reshape(GLFWwindow* Window, int NewWidth, int NewH
 
 void UTOutputWindow::Code_5_6_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_6_Key);
 
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 키보드 입력을 처리하는 콜백 함수를 등록합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다. 'Q' 키를 누르면 프로그램이 종료됩니다.";
@@ -170,10 +178,10 @@ void UTOutputWindow::Code_5_6()
 
 void UTOutputWindow::Code_5_6_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), NULL);
-
+	
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
@@ -195,8 +203,8 @@ void UTOutputWindow::Code_5_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 
 void UTOutputWindow::Code_5_7_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_7_MouseButton);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_7_CursorPosition);
 
@@ -232,11 +240,11 @@ void UTOutputWindow::Code_5_7()
 
 void UTOutputWindow::Code_5_7_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetMouseButtonCallback(GetGLFWWindow(), NULL);
 	glfwSetCursorPosCallback(GetGLFWWindow(), NULL);
-
+	
 	TopLeftX_5_7 = -0.85;
 	TopLeftY_5_7 = -0.85;
 	BottomRightX_5_7 = 0.85;
@@ -283,7 +291,9 @@ void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, do
 
 void UTOutputWindow::Code_5_13_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"정점 배열과 색상 배열, 인덱스 배열을 사용하여 3D 큐브를 렌더링하는 예제입니다.\n";
 	MAIN_WINDOW->ExplanationContext += L"폴리곤의 와인딩 순서를 반시계(CCW)로 설정하여 앞면을 정의하고,\n";
 	MAIN_WINDOW->ExplanationContext += L"백페이스 컬링을 활성화하여 카메라에서 보이지 않는 뒷면을 제거합니다.";
@@ -326,13 +336,16 @@ void UTOutputWindow::Code_5_13()
 
 void UTOutputWindow::Code_5_13_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_14_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -379,17 +392,17 @@ void UTOutputWindow::Code_5_14()
 
 void UTOutputWindow::Code_5_14_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glDeleteLists(MyListID_5_14, 1);
-
+	
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_5_15_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
 	const std::string basepath = "Resource/Object/Wood_Table/";
@@ -527,9 +540,8 @@ void UTOutputWindow::Code_5_15()
 
 void UTOutputWindow::Code_5_15_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-
+	glPopAttrib();
 	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
 	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);

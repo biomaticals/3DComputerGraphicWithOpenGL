@@ -10,14 +10,16 @@ void UTOutputWindow::Code_15_2_Start()
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.f, 1.f, 1.f, 1.f);
+	glClearColor(0.f, 0.f, 0.f, 0.f);
 
 	glEnable(GL_AUTO_NORMAL);
 
-	GLfloat light0_diffuse[] = { 0.8, 0.8, 0.2, 1.0 };
-	GLfloat light0_ambient[] = { 0.8, 0.0, 0.0, 1.0 };
-	GLfloat light0_position[] = { 0.8, -0.5, 2.3, 1.0 };
+	GLfloat light0_diffuse[] = { 0.f, 0.2f, 0.2f, 1.f };
+	GLfloat light0_ambient[] = { 0.8f, 0.f, 0.f, 1.f };
+	GLfloat light0_position[] = { 0.8f, -0.5f, 2.3f, 1.f };
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
 	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
@@ -115,6 +117,8 @@ void UTOutputWindow::Code_15_2()
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.f, 1.f, 1.f);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -129,6 +133,8 @@ void UTOutputWindow::Code_15_2()
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
+
+	glPopAttrib();
 
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
@@ -162,6 +168,8 @@ void UTOutputWindow::Code_15_2_End()
 	glDisable(GL_LIGHT0);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_AUTO_NORMAL);
+
+	glPopAttrib();
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }

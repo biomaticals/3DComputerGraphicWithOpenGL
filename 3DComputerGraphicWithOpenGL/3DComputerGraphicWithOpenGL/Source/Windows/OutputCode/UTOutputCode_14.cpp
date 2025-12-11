@@ -34,6 +34,8 @@ void UTOutputWindow::Code_14_1()
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -44,17 +46,17 @@ void UTOutputWindow::Code_14_1()
 	glLoadIdentity();
 	gluLookAt(0.f, 0.f, 5.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
 	glTranslatef(0.f, 0.f, -1.f);
-
+	
 	glShadeModel(GL_SMOOTH);
 	gluQuadricNormals(QuardricObj_14_1, GLU_SMOOTH);
-
+	
 	if (bDrawStyle_14_1 == 1 << 0)
 		gluQuadricDrawStyle(QuardricObj_14_1, GLU_POINT);
 	else if (bDrawStyle_14_1 == 1 << 1)
 		gluQuadricDrawStyle(QuardricObj_14_1, GLU_LINE);
 	else if (bDrawStyle_14_1 == 1 << 2)
 		gluQuadricDrawStyle(QuardricObj_14_1, GLU_FILL);
-
+	
 	if (bDrawingShape_14_1 == 1 << 0)
 	{
 		gluSphere(QuardricObj_14_1, 1.f, 20, 20);
@@ -65,7 +67,6 @@ void UTOutputWindow::Code_14_1()
 		gluDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4);
 		gluQuadricOrientation(QuardricObj_14_1, GLU_INSIDE);
 	}
-
 	else if (bDrawingShape_14_1 == 1 << 2)
 	{
 		gluPartialDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4, 0.f, 270.f);
@@ -76,6 +77,8 @@ void UTOutputWindow::Code_14_1()
 		gluCylinder(QuardricObj_14_1, 0.5f, 0.2f, 2.f, 20, 4);
 		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
 	}
+
+	glPopAttrib();
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
