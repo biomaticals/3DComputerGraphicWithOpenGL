@@ -133,9 +133,9 @@ void UTOutputWindow::Initialize()
 	DrawFunctions[6][3] = &UTOutputWindow::Code_6_3;
 	EndDrawFunctions[6][3] = &UTOutputWindow::Code_6_3_End;
 
-	StartDrawFunctions[6][5] = &UTOutputWindow::Code_6_6_Start;
-	DrawFunctions[6][5] = &UTOutputWindow::Code_6_6;
-	EndDrawFunctions[6][5] = &UTOutputWindow::Code_6_6_End;
+	StartDrawFunctions[6][6] = &UTOutputWindow::Code_6_6_Start;
+	DrawFunctions[6][6] = &UTOutputWindow::Code_6_6;
+	EndDrawFunctions[6][6] = &UTOutputWindow::Code_6_6_End;
 	EarthOrbitAngle_6_6 = 0.f;
 	EarthRotationAngle_6_6 = 0.f;
 	MoonOrbitAngle_6_6 = 0.f;

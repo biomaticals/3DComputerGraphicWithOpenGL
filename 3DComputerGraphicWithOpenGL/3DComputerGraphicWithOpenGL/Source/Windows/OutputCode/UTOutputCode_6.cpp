@@ -15,7 +15,9 @@
 
 void UTOutputWindow::Code_6_3_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"행렬 변환의 순서에 따른 결과 차이를 확인하는 예제입니다.\n"
 		"원점을 기준으로 45도 회전한 후, x축으로 0.6만큼 이동한 사각형과\n"
 		"x축으로 0.6만큼 이동한 후, 45도 회전한 사각형을 비교합니다.\n\n"
@@ -84,13 +86,17 @@ void UTOutputWindow::Code_6_3()
 
 void UTOutputWindow::Code_6_3_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_6_6_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_6_Key);
 
 	MAIN_WINDOW->ExplanationContext = L"행렬 스택을 활용하여 태양,지구,달의 계층적 변환을 구현합니다. glPushMatrix / glPopMatrix를 사용해 각 천체의 공전과 자전을 독립적으로 구성하면서도 부모 변환을 자연스럽게 계승합니다.\n";
@@ -107,6 +113,7 @@ void UTOutputWindow::Code_6_6()
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
+	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_PROJECTION);
@@ -163,7 +170,9 @@ void UTOutputWindow::Code_6_6()
 
 void UTOutputWindow::Code_6_6_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
@@ -205,7 +214,8 @@ void UTOutputWindow::Code_6_6_Key(GLFWwindow* Window, int Key, int Scancode, int
 
 void UTOutputWindow::Code_6_8_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	const std::string basepath = "Resource/Object/Chaynik/";
@@ -283,15 +293,17 @@ void UTOutputWindow::Code_6_8()
 
 void UTOutputWindow::Code_6_8_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_6_9_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_6_9_Key);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	Gravity_6_9 = 9.8f;
@@ -406,7 +418,8 @@ void UTOutputWindow::Code_6_9()
 
 void UTOutputWindow::Code_6_9_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	glMatrixMode(GL_MODELVIEW);
@@ -560,8 +573,8 @@ GLfloat UTOutputWindow::GetBallHeight(const BoundcingBall_physics Physics, const
 
 void UTOutputWindow::Code_6_10_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_10_Key);
 	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"\\funny-comedy-cartoon-background-music.mp3";
 	bool Result = 0;
@@ -1183,7 +1196,8 @@ void UTOutputWindow::Code_6_10()
 
 void UTOutputWindow::Code_6_10_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	mciSendStringW(L"close bgm", NULL, 0, NULL);
 
