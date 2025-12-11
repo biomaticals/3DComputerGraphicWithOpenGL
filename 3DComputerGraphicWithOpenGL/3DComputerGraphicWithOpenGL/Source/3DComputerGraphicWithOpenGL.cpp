@@ -29,6 +29,8 @@ int main(int argc, char** argv)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 	IMGUI_CHECKVERSION();
 
+	WINDOW_MANAGER;
+	RESOURCE_MANAGER;
 	WINDOW_MANAGER->CreateMainWindow();
 	WINDOW_MANAGER->CreateOutputWindow();
 

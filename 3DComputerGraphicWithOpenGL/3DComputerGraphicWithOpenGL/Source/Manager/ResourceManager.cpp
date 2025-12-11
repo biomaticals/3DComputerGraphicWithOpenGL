@@ -10,7 +10,7 @@
 #include "tiny_obj_loader.h"
 
 #if defined(_WIN64)
-#define PLATFORM L"Win64"
+#define PLATFORM L"x64"
 #elif defined(_WIN32)
 #define PLATFORM L"Win32"
 #else
@@ -76,11 +76,12 @@ void ResourceManager::UnloadResources()
 
 bool ResourceManager::LoadDynamicLibraries()
 {
-	std::wstring dllPath = L"../../../InsideDynamicMathLibrary/Binaries/" + std::wstring(PLATFORM) + L"/" + std::wstring(CONFIGURATION) + L"/InsideDynamicMathLibrary.dll";
+	std::wstring dllPath = L"../InsideDynamicMathLibrary/Binaries/" + std::wstring(PLATFORM) + L"/" + std::wstring(CONFIGURATION) + L"/InsideDynamicMathLibrary.dll";
 	 hDll = LoadLibrary(dllPath.c_str());
 	if (!hDll)
 	{
-		std::cerr << "Failed to load InsideDynaicMath.dll";
+		std::cerr << "Failed to load InsideDynamicMathLibrary.dll";
+		return false;
 	}
 
 	Execute_OpenFileToWStream = (OpenFileToWStream)GetProcAddress(hDll, "OpenFileToWStream");
@@ -276,14 +277,7 @@ bool ResourceManager::LoadTitleContext()
 {
 	Book.Parts.clear();
 
-	std::wifstream ContextStream(TableOfContentsPath, std::ios::in);
-	if(ContextStream.fail())
-	{
-		TableOfContentsPath = L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\TableOfContents.txt";
-		ContextStream.open(TableOfContentsPath, std::ios::in);
-	}
-
-	ContextStream.imbue(std::locale("en_US.UTF-8"));
+	std::wifstream ContextStream = Execute_OpenFileToWStream(TableOfContentsPath, L"../../../", std::ios::in);
 
 	unsigned int PartIndex = 0;
 	unsigned int ChapterIndex = 0;
@@ -414,21 +408,14 @@ FBook ResourceManager::GetBook() const
 
 const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsigned int InChapter,unsigned int InSection, unsigned int InCodeIndex)
 {
-	std::wifstream _ContextStream(TableOfContentsPath, std::ios::in);
-	if (_ContextStream.fail())
-	{
-		TableOfContentsPath = L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\TableOfContents.txt";
-		_ContextStream.open(TableOfContentsPath, std::ios::in);
-	}
-
-	_ContextStream.imbue(std::locale("en_US.UTF-8"));
+	std::wifstream ContextStream = Execute_OpenFileToWStream(TableOfContentsPath, L"../../../", std::ios::in);
 
 	std::wstring Line{};
 	std::wstring Found{};
 	std::wstring Keyword = std::format(L"Part {:02}", InPart);
 	if (InPart != 0)
 	{
-		while (std::getline(_ContextStream, Line))
+		while (std::getline(ContextStream, Line))
 		{
 			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
@@ -441,7 +428,7 @@ const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsign
 	if (InChapter != 0)
 	{
 		Keyword = std::format(L"Chapter {:02}", InChapter);
-		while (std::getline(_ContextStream, Line))
+		while (std::getline(ContextStream, Line))
 		{
 			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
@@ -454,7 +441,7 @@ const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsign
 	if (InSection != 0)
 	{
 		Keyword = std::format(L"Section {:02}", InSection);
-		while (std::getline(_ContextStream, Line))
+		while (std::getline(ContextStream, Line))
 		{
 			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
@@ -467,7 +454,7 @@ const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsign
 	if (InCodeIndex != 0)
 	{
 		Keyword = std::format(L"Code {}-{}", InChapter, InCodeIndex);
-		while (std::getline(_ContextStream, Line))
+		while (std::getline(ContextStream, Line))
 		{
 			if (auto Position = Line.find(Keyword); Position != std::wstring::npos)
 			{
