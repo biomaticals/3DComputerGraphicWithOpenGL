@@ -7,6 +7,9 @@
 #include <fstream>
 #include <list>
 #include <filesystem>
+#include "Windows/UTOutputWindow.h"
+#include "format"
+#include <regex>
 
 #define RESOURCE_MANAGER ResourceManager::GetResourceManager()
 
@@ -33,6 +36,9 @@ public:
 	bool LoadResources();
 	void UnloadResources();	
 
+	bool LoadDynamicLibraries();
+	void UnloadDynamicLibraries();
+
 	bool FileExists(const std::string& path);
 
 	bool LoadObjWithMaterial(const std::string& path,
@@ -41,6 +47,12 @@ public:
 		std::vector<MaterialInfo>& out_materials);
 
 	GLuint LoadTexture2D(const std::string& filename, bool flipY = false);
+
+private:
+	HMODULE hDll;
+	typedef std::wifstream(*OpenFileToWStream)(std::wstring Path, const std::wstring SafePrefix, std::ios_base::openmode Mode);
+	OpenFileToWStream Execute_OpenFileToWStream;
+
 #pragma endregion
 
 #pragma region Title

@@ -12,9 +12,6 @@
 #include <GLFW/glfw3.h>
 #include <Windows.h>
 #define STB_IMAGE_IMPLEMENTATION
-//#include <GL/freeglut_std.h>
-
-// should be last include
 #include "stb_image.h"
 
 void UpdateManager()

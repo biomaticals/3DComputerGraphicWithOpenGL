@@ -1,0 +1,10 @@
+LIBRARY InsideDynamicMathLibrary
+EXPORTS
+    Add
+    Subtract
+    Multiply
+    Divide
+    OpenFileToWStream
+    ReadFileToString
+    LeftTrim
+    RightTrim

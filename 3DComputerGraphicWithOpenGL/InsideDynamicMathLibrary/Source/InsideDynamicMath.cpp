@@ -5,27 +5,27 @@
 
 namespace InsideDynamicMath
 {
-    double Add(double a, double b)
+	extern "C" double Add(double a, double b)
     {
         return a + b;
     }
 
-    double Subtract(double a, double b)
+	extern "C" double Subtract(double a, double b)
     {
         return a - b;
     }
 
-    double Multiply(double a, double b)
+	extern "C" double Multiply(double a, double b)
     {
         return a * b;
     }
 
-    double Divide(double a, double b)
+	extern "C" double Divide(double a, double b)
     {
         return a / b;
     }
 
-	std::wstring ReadFileToString(const std::filesystem::path& FilePath)
+	__declspec(dllexport) std::wstring ReadFileToString(const std::filesystem::path& FilePath)
 	{
 		std::ifstream Stream(FilePath, std::ios::in | std::ios::binary);
 		if (!Stream)
@@ -38,14 +38,34 @@ namespace InsideDynamicMath
 		return Contents;
 	}
 
-	std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset)
+	__declspec(dllexport) std::wifstream OpenFileToWStream(std::wstring Path, const std::wstring SafePrefix, std::ios_base::openmode Mode)
+	{
+		std::wifstream Stream(Path, Mode);
+		if(Stream.fail())
+		{
+			Path = SafePrefix + Path;
+			Stream.open(Path, Mode);
+
+			if(Stream.fail())
+			{
+				std::wcerr << std::format(L"failed to open {}\n", Path);
+				return std::wifstream{};
+			}
+		}
+
+		Stream.imbue(std::locale("en_US.UTF-8"));
+
+		return Stream;
+	}
+
+	__declspec(dllexport) std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset)
 	{
 		size_t FirstNonSpace = Str.find_first_not_of(L" \t\n\r");
 		OutOffset = FirstNonSpace;
 		return (FirstNonSpace == std::wstring::npos) ? std::wstring() : Str.substr(FirstNonSpace);
 	}
 
-	std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset)
+	__declspec(dllexport) std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset)
 	{
 		size_t LastNonSpace = Str.find_last_not_of(L" \t\n\r");
 		OutOffset = LastNonSpace;

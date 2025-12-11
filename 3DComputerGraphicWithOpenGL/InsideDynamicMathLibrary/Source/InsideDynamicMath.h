@@ -24,7 +24,8 @@ namespace InsideDynamicMath
 
 	extern "C" INSIDEDYNAMICMATHLIBRARY_API double Divide(double a, double b);
 
-	extern std::wstring ReadFileToString(const std::filesystem::path& FilePath);
-	extern std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
-	extern std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);
+	INSIDEDYNAMICMATHLIBRARY_API std::wstring ReadFileToString(const std::filesystem::path& FilePath);
+	INSIDEDYNAMICMATHLIBRARY_API std::wifstream OpenFileToWStream(std::wstring Path, const std::wstring SafePrefix, std::ios_base::openmode Mode);
+	INSIDEDYNAMICMATHLIBRARY_API std::wstring LeftTrim(const std::wstring& Str, size_t& OutOffset);
+	INSIDEDYNAMICMATHLIBRARY_API std::wstring RightTrim(const std::wstring& Str, size_t& OutOffset);
 }

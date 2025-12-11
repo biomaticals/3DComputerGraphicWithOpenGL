@@ -9,15 +9,34 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
 
+#if defined(_WIN64)
+#define PLATFORM L"Win64"
+#elif defined(_WIN32)
+#define PLATFORM L"Win32"
+#else
+#define PLATFORM L"UnknownPlatform"
+#endif
+
+#if defined(_DEBUG)
+#define CONFIGURATION L"Debug"
+#else
+#define CONFIGURATION L"Release"
+#endif
+
 ResourceManager* ResourceManager::Instance = nullptr;
 
 ResourceManager::ResourceManager()
 {
-
+	hDll = nullptr;
+	if (LoadDynamicLibraries())
+	{
+		std::cerr << "Dynamic Libraries Loaded Successfully.\n";
+	}
 }
 
 ResourceManager::~ResourceManager()
 {
+
 	Destroy();
 }
 
@@ -53,6 +72,29 @@ bool ResourceManager::LoadResources()
 void ResourceManager::UnloadResources()
 {
 
+}
+
+bool ResourceManager::LoadDynamicLibraries()
+{
+	std::wstring dllPath = L"../../../InsideDynamicMathLibrary/Binaries/" + std::wstring(PLATFORM) + L"/" + std::wstring(CONFIGURATION) + L"/InsideDynamicMathLibrary.dll";
+	 hDll = LoadLibrary(dllPath.c_str());
+	if (!hDll)
+	{
+		std::cerr << "Failed to load InsideDynaicMath.dll";
+	}
+
+	Execute_OpenFileToWStream = (OpenFileToWStream)GetProcAddress(hDll, "OpenFileToWStream");
+
+	if (!Execute_OpenFileToWStream)
+		return false;
+
+	return true;
+}
+
+void ResourceManager::UnloadDynamicLibraries()
+{
+	if(hDll)
+		FreeLibrary(hDll);
 }
 
 bool ResourceManager::FileExists(const std::string& path) {
