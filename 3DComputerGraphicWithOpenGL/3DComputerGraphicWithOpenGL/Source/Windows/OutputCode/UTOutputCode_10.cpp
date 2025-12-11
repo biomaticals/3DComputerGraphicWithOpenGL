@@ -207,51 +207,20 @@ void UTOutputWindow::Code_10_12()
     GLfloat material_diffuse[] = {0.9f, 0.9f, 0.9f, 1.f};
     GLfloat material_specular[] = {1.f, 1.f, 1.f, 1.f};
     GLfloat material_shininess[] = {25.f};
-    
-	GLfloat LightPosition2[] = { 0.f, 0.f, 1.5f, 1.f };
-    
-	GLfloat light0_ambient2[] = { 0.5f, 0.4f, 0.3f, 1.f };
-	GLfloat light0_diffuse2[] = { 0.8f, 0.7f, 0.6f, 1.f };
-	GLfloat light0_specular2[] = { 1.f, 1.f, 1.f, 1.f };
-	GLfloat ConstantAttenuation2;
-	GLfloat LinearAttenuation2;
-	GLfloat QuadraticAttenuation2;
-    
-	GLfloat material_ambient2[] = { 0.4f, 0.4f, 0.4f, 1.f };
-	GLfloat material_diffuse2[] = { 0.9f, 0.9f, 0.9f, 1.f };
-	GLfloat material_specular2[] = { 1.f, 1.f, 1.f, 1.f };
-	GLfloat material_shininess2[] = { 25.f };
+   
     
     glShadeModel(GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    
-	glGetLightfv(GL_LIGHT0, GL_POSITION, LightPosition2);
-	glGetLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient2);
-	glGetLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse2);
-	glGetLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular2);
-    glGetLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, &ConstantAttenuation2);
-	glGetLightfv(GL_LIGHT0, GL_LINEAR_ATTENUATION, &LinearAttenuation2);
-	glGetLightfv(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, &QuadraticAttenuation2);
-    
+
     glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
     glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
     glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION,   0.f);
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION,0.1f);
-    
-	glGetMaterialfv(GL_FRONT, GL_AMBIENT, material_ambient2);
-	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, material_diffuse2);
-	glGetMaterialfv(GL_FRONT, GL_SPECULAR, material_specular2);
-	glGetMaterialfv(GL_FRONT, GL_SHININESS, material_shininess2);
-    
-    glMaterialfv(GL_FRONT, GL_AMBIENT,  material_ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE,  material_diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, material_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, material_shininess);
-    
+
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(40.f, (GLfloat)display_w / (GLfloat)display_h, 0.1f, 100.f);

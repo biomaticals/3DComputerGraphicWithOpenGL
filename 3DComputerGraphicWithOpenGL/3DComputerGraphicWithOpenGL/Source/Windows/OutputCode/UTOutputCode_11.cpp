@@ -30,14 +30,14 @@ void UTOutputWindow::Code_11_7()
 	int display_w, display_h;
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
-
+	
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
-
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width_11_7, Height_11_7, 0, GL_RGB, GL_UNSIGNED_BYTE, &Texture_11_7);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -46,7 +46,7 @@ void UTOutputWindow::Code_11_7()
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glEnable(GL_TEXTURE_2D);
-
+	
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.f, 0.f); glVertex3f(-1.f, -1.f, 0.f);
 	glTexCoord2f(0.f, 3.f); glVertex3f(-1.f, 1.f, 0.f);
@@ -148,6 +148,8 @@ void UTOutputWindow::Code_11_9_End()
 	glDisable(GL_LIGHT0);
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_1D);
+
+	glNormal3f(0.f, 0.f, 1.f);
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }

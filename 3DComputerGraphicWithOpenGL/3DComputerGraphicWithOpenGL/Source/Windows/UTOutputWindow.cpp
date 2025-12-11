@@ -389,6 +389,16 @@ void UTOutputWindow::ResetAll()
 	glDisable(GL_NORMALIZE);
 	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_TEXTURE_2D);
+
+	GLfloat Light0_Ambient[] = { 0.f, 0.f, 0.f, 1.f };
+	GLfloat Light0_Specular[] = { 1.f, 1.f, 1.f, 1.f };
+	GLfloat Light0_Diffuse[] = { 1.f, 1.f, 1.f, 1.f };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, Light0_Ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, Light0_Diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, Light0_Specular);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.f);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.f);
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

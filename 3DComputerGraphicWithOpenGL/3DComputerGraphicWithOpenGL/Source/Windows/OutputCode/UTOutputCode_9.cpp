@@ -80,10 +80,13 @@ void UTOutputWindow::Code_9_10()
 void UTOutputWindow::Code_9_10_End()
 {
 	ResetAll();
-	MAIN_WINDOW->ExplanationContext = L"";
+	glfwMakeContextCurrent(GetGLFWWindow());
 
 	glPointSize(1.f);
 	glLineWidth(1.f);
+
+	MAIN_WINDOW->ExplanationContext = L"";
+	glNormal3f(0.f, 0.f, 1.f);
 }
 
 void UTOutputWindow::Code_9_15_Start()
