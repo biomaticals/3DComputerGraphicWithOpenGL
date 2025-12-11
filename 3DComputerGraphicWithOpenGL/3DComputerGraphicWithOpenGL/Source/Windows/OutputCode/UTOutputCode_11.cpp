@@ -7,7 +7,8 @@
 
 void UTOutputWindow::Code_11_7_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	for (int i = 0; i < Width_11_7; i++)
 	{
@@ -60,17 +61,16 @@ void UTOutputWindow::Code_11_7()
 
 void UTOutputWindow::Code_11_7_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-	glDisable(GL_TEXTURE_2D);
+	glPopAttrib();
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
 void UTOutputWindow::Code_11_9_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	GLfloat mat_diffuse[] = { 0.25, 0.25, 1., 0. };
 	GLfloat mat_specular[] = { 1., 1., 1., 0. };
@@ -139,17 +139,10 @@ void UTOutputWindow::Code_11_9()
 
 void UTOutputWindow::Code_11_9_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-	
+	glPopAttrib();
 	glBindTexture(GL_TEXTURE_1D, 0);
 	gluDeleteQuadric(QuardricObj_11_7);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_LIGHT0);
-	glDisable(GL_TEXTURE_GEN_S);
-	glDisable(GL_TEXTURE_1D);
-
-	glNormal3f(0.f, 0.f, 1.f);
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }
@@ -174,8 +167,8 @@ void UTOutputWindow::Code_11_11_Start()
 		}
 	}
 
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
 
 	Time_11_11 = (GLfloat)glfwGetTime();
@@ -271,12 +264,7 @@ void UTOutputWindow::Code_11_11_End()
 	mciSendStringW(L"close bgm", NULL, 0, NULL);
 
 	glfwMakeContextCurrent(GetGLFWWindow());
-	glDisable(GL_FOG);
-	glDisable(GL_BLEND);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_CULL_FACE);
-	ResetAll();
-
+	glPopAttrib();
 	dispose();
 
 	MAIN_WINDOW->ExplanationContext = L"";

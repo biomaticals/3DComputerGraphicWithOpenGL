@@ -8,6 +8,7 @@
 void UTOutputWindow::Code_12_8_Start()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_12_8_Key);
 
 	glShadeModel(GL_SMOOTH);
@@ -76,8 +77,8 @@ void UTOutputWindow::Code_12_8()
 void UTOutputWindow::Code_12_8_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-	ResetAll();
 	glBindVertexArray(0);
 
 	MAIN_WINDOW->ExplanationContext = L"";

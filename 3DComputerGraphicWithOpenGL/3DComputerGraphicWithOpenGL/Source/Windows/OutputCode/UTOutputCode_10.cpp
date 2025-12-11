@@ -145,8 +145,6 @@ void UTOutputWindow::Code_10_11_End()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-    glDisable(GL_LIGHT0);
-    glDisable(GL_LIGHT1);
 
 	MAIN_WINDOW->DebugContext = L"";
 }
@@ -272,7 +270,6 @@ void UTOutputWindow::Code_10_12_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPopAttrib();
-    glNormal3f(0.f, 0.f, 1.f);
 
 	MAIN_WINDOW->DebugContext = L"";
 }

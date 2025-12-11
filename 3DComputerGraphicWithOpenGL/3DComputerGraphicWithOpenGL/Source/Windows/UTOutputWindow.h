@@ -58,9 +58,6 @@ public:
 
 public:
 	void SetSelectedExampleCodeData(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex);
-	void ResetAll();
-
-	void DumpGLState(const char* tag = "");
 #pragma region Chapter5
 private:
 	void Code_5_2_Start();

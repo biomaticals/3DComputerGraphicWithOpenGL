@@ -186,8 +186,8 @@ void UTOutputWindow::Code_9_15_End()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-	glPointSize(1.f);
-	glLineWidth(1.f);
+	//glPointSize(1.f);
+	//glLineWidth(1.f);
 
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext =  L"";

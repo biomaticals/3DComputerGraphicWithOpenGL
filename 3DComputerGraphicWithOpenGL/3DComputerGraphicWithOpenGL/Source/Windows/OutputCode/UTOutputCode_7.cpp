@@ -103,6 +103,7 @@ void UTOutputWindow::Code_7_1_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }

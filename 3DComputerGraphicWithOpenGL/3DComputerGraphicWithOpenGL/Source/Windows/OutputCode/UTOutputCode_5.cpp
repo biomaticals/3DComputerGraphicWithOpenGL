@@ -124,8 +124,8 @@ void UTOutputWindow::Code_5_5()
 void UTOutputWindow::Code_5_5_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
-	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
 	glPopAttrib();
+	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }
@@ -547,18 +547,8 @@ void UTOutputWindow::Code_5_15_End()
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 
 	OUTPUT_WINDOW->WireframeMode_5_15 = true;
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
-	glShadeModel(GL_SMOOTH);
 
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_LIGHT0);
-	glDisable(GL_NORMALIZE);
-	glDisable(GL_COLOR_MATERIAL);
-	glDisable(GL_TEXTURE_2D);
 	for (auto& material : materials_5_15)
 	{
 		if (material.textureId != 0)
@@ -568,9 +558,7 @@ void UTOutputWindow::Code_5_15_End()
 		}
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glFlush();
-	glGetError();
-
+	
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }

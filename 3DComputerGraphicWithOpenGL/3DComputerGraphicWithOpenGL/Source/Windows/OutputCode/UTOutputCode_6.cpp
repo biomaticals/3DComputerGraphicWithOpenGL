@@ -96,7 +96,6 @@ void UTOutputWindow::Code_6_6_Start()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_6_Key);
 
 	MAIN_WINDOW->ExplanationContext = L"행렬 스택을 활용하여 태양,지구,달의 계층적 변환을 구현합니다. glPushMatrix / glPopMatrix를 사용해 각 천체의 공전과 자전을 독립적으로 구성하면서도 부모 변환을 자연스럽게 계승합니다.\n";
@@ -422,11 +421,6 @@ void UTOutputWindow::Code_6_9_End()
 	glPopAttrib();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glColor3f(1.f, 1.f, 1.f);
-	GLfloat defaultAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, defaultAmbient);
 	
 	Time_6_9 = 0.f;
 
@@ -1200,22 +1194,6 @@ void UTOutputWindow::Code_6_10_End()
 	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	mciSendStringW(L"close bgm", NULL, 0, NULL);
-
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_NORMALIZE);
-	glDisable(GL_SMOOTH);
-	glDisable(GL_LIGHTING);
-
-	glDisable(GL_LIGHT0);
-	glDisable(GL_COLOR_MATERIAL);
-	GLfloat White[3] = {1.f, 1.f, 1.f};
-	glMaterialfv(GL_FRONT, GL_AMBIENT, White);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, White);
-	glMateriali(GL_FRONT, GL_SHININESS, 0);
-
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
 
 	Time_6_10 = glfwGetTime();
 	LastTime_6_10 = Time_6_10;

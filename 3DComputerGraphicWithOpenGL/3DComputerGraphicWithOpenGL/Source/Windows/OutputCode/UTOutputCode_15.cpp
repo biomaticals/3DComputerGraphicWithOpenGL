@@ -7,8 +7,8 @@
 
 void UTOutputWindow::Code_15_2_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
@@ -142,8 +142,8 @@ void UTOutputWindow::Code_15_2()
 
 void UTOutputWindow::Code_15_2_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glUseProgram(0);
 
 	if (h_program_15_2)

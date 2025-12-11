@@ -7,6 +7,7 @@
 void UTOutputWindow::Code_14_1_Start()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_14_1_Key);
 
 	QuardricObj_14_1 = gluNewQuadric();
@@ -85,8 +86,8 @@ void UTOutputWindow::Code_14_1()
 
 void UTOutputWindow::Code_14_1_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 
 	gluDeleteQuadric(QuardricObj_14_1);
@@ -137,8 +138,8 @@ void UTOutputWindow::Code_14_1_Key(GLFWwindow* Window, int Key, int Scancode, in
 
 void UTOutputWindow::Code_14_2_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	GLfloat light0_position[] = { 3.f, 1.f, 1.f, 1.f };
 	GLfloat light1_position[] = { -3.f, 1.f, 1.f, 1.f };
@@ -264,7 +265,8 @@ void UTOutputWindow::Code_14_2()
 
 void UTOutputWindow::Code_14_2_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }
