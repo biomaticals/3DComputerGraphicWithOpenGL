@@ -8,8 +8,8 @@
 
 void UTOutputWindow::Code_10_11_Start()
 {
-    ResetAll();
-    glfwMakeContextCurrent(GetGLFWWindow()); 
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
     glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_10_11_Key);
 
     MAIN_WINDOW->ExplanationContext = L"두 개의 광원을 사용한 조명 효과 예제입니다";
@@ -142,8 +142,8 @@ void UTOutputWindow::Code_10_11()
 
 void UTOutputWindow::Code_10_11_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
     glDisable(GL_LIGHT0);
     glDisable(GL_LIGHT1);
@@ -153,7 +153,6 @@ void UTOutputWindow::Code_10_11_End()
 
 void UTOutputWindow::Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
-    
     glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
 
     if (Action == GLFW_PRESS)
@@ -176,7 +175,8 @@ void UTOutputWindow::Code_10_11_Key(GLFWwindow* Window, int Key, int Scancode, i
 
 void UTOutputWindow::Code_10_12_Start()
 {
-    ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
     
     Time_10_12 = (GLfloat)glfwGetTime();
     ElapsedTime_10_12 = 0.f;
@@ -270,8 +270,8 @@ void UTOutputWindow::Code_10_12()
 
 void UTOutputWindow::Code_10_12_End()
 {
-    ResetAll();
-    glfwMakeContextCurrent(GetGLFWWindow());
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
     glNormal3f(0.f, 0.f, 1.f);
 
 	MAIN_WINDOW->DebugContext = L"";

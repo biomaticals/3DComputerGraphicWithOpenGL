@@ -6,7 +6,9 @@
 
 void UTOutputWindow::Code_9_10_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"지엘에서 점, 선을 그리고 선분과 다각형을 보간에 의해 채우는 것을 보여줍니다.\n";
 }
 
@@ -79,8 +81,8 @@ void UTOutputWindow::Code_9_10()
 
 void UTOutputWindow::Code_9_10_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 
 	glPointSize(1.f);
 	glLineWidth(1.f);
@@ -91,7 +93,8 @@ void UTOutputWindow::Code_9_10_End()
 
 void UTOutputWindow::Code_9_15_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_9_15_Key);
 
@@ -180,14 +183,14 @@ void UTOutputWindow::Code_9_15()
 
 void UTOutputWindow::Code_9_15_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-	MAIN_WINDOW->ExplanationContext = L"";
-	MAIN_WINDOW->DebugContext =  L"";
-
 	glPointSize(1.f);
 	glLineWidth(1.f);
+
+	MAIN_WINDOW->ExplanationContext = L"";
+	MAIN_WINDOW->DebugContext =  L"";
 }
 
 void UTOutputWindow::Code_9_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)

@@ -6,8 +6,8 @@
 
 void UTOutputWindow::Code_8_3_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	const std::string basepath = "Resource/Object/Chaynik/";
 	const std::string texbasepath = "Resource/Object/Chaynik/textures";
@@ -147,15 +147,17 @@ void UTOutputWindow::Code_8_3()
 
 void UTOutputWindow::Code_8_3_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
 
 void UTOutputWindow::Code_8_6_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
 
 	MAIN_WINDOW->ExplanationContext = L"배경과 물체를 그려내기 위해 깊이 버퍼와 색깔 버퍼를 분리해서 처리하는 방법을 보여줍니다.\n";
@@ -204,6 +206,8 @@ void UTOutputWindow::Code_8_6()
 
 void UTOutputWindow::Code_8_6_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }

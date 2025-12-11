@@ -6,7 +6,8 @@
 
 void UTOutputWindow::Code_7_1_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	const std::string basepath = "Resource/Object/Chaynik/";
@@ -100,7 +101,8 @@ void UTOutputWindow::Code_7_1()
 
 void UTOutputWindow::Code_7_1_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
