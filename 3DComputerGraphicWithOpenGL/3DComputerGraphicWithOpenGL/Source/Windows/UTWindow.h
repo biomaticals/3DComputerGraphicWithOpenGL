@@ -10,10 +10,10 @@ class UTWindow
 public:
     UTWindow(const std::string& Title, int Width, int Height);
     virtual ~UTWindow();
+    virtual void Initialize();
     virtual void NewFrame();
     virtual void RenderDrawData();
-    virtual void Initialize();
-
+    
     bool ShouldClose() const;
     bool IsVisible() const;
     bool IsFocused() const;
@@ -28,5 +28,3 @@ private:
     int Height;
 	static bool gladInitialized;
 };
-
-static void FocusCallback(GLFWwindow* Window, int Focused);

@@ -632,7 +632,7 @@ void UTOutputWindow::Code_6_10_Start()
 	LastTime_6_10 = Time_6_10;
 
 	MAIN_WINDOW->DebugContext = L"1: 달리기 / 2: 잽 / 3: 로켓 펀치 / 4: 피겨 / 5: 퇴장\n";
-	MAIN_WINDOW->DebugContext += L"W: 와이어프레임 드로잉 / S : 솔리드 렌더링 / R : 초기화 / P : 중지\n";
+	MAIN_WINDOW->DebugContext += L"W: 와이어프레임 드로잉 / S : 솔리드 렌더링 / P : 중지\n";
 	MAIN_WINDOW->ExplanationContext = L"고정 파이프라인과 GLU 쿼드릭을 이용해 관절 기반 로봇 캐릭터를 계층적 트랜스폼으로 구성하고,\n";
 	MAIN_WINDOW->ExplanationContext += L"키 입력에 따라 서로 다른 애니메이션 동작을 재생하는 시스템입니다.\n";
 	MAIN_WINDOW->ExplanationContext += L"각 신체 부위는 실린더·구(Sphere)로 구성되며, glPushMatrix / glPopMatrix를 사용해 부모 - 자식 관계를 유지한 채 회전·이동 변환을 누적하여 자연스러운 관절 움직임을 구현합니다.\n";

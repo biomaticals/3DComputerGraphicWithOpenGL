@@ -12,11 +12,11 @@ class UTMainWindow : public UTWindow
 public:
 	UTMainWindow(const std::string& Title, int Width, int Height);
 	virtual ~UTMainWindow();
-
+	
+	virtual void Initialize() override;
 	virtual void NewFrame() override; 
 	virtual void RenderUI();
 	virtual void RenderDrawData() override;
-	virtual void Initialize() override;
 
 	ImGuiContext* GetGuiContext() const;
 

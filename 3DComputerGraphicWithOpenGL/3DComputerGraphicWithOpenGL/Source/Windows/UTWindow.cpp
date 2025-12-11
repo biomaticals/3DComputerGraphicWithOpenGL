@@ -19,20 +19,6 @@ UTWindow::~UTWindow()
 	glfwDestroyWindow(GLFWWindow);
 }
 
-void UTWindow::NewFrame()
-{
-	glfwMakeContextCurrent(GLFWWindow);
-}
-
-void UTWindow::RenderDrawData()
-{
-	int display_w, display_h;
-	glfwGetFramebufferSize(GLFWWindow, &display_w, &display_h);
-	glViewport(0, 0, display_w, display_h);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glfwSwapBuffers(GLFWWindow);
-}
-
 void UTWindow::Initialize()
 {
 	GLFWWindow = glfwCreateWindow(Width, Height, Title.c_str(), nullptr, nullptr);
@@ -58,7 +44,20 @@ void UTWindow::Initialize()
 	glViewport(0, 0, Width, Height);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	glfwSwapInterval(1);
-	glfwSetWindowFocusCallback(GLFWWindow, FocusCallback);
+}
+
+void UTWindow::NewFrame()
+{
+	glfwMakeContextCurrent(GLFWWindow);
+}
+
+void UTWindow::RenderDrawData()
+{
+	int display_w, display_h;
+	glfwGetFramebufferSize(GLFWWindow, &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glfwSwapBuffers(GLFWWindow);
 }
 
 bool UTWindow::ShouldClose() const
@@ -84,12 +83,4 @@ bool UTWindow::IsMinimized() const
 GLFWwindow* UTWindow::GetGLFWWindow() const
 {
 	return GLFWWindow;
-}
-
-void FocusCallback(GLFWwindow* Window, int Focused)
-{
-	if (Focused)
-		printf("Window got focus\n");
-	else
-		printf("Window lost focus\n");
 }

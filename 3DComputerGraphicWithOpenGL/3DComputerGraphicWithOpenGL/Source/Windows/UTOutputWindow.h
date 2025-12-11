@@ -53,7 +53,7 @@ class UTOutputWindow : public UTWindow
 public:
 	UTOutputWindow(const std::string& Title, int Width, int Height);
 	virtual ~UTOutputWindow() override;
-	void Initialize() override;
+	virtual void Initialize() override;
 	virtual void RenderDrawData() override;
 
 public:

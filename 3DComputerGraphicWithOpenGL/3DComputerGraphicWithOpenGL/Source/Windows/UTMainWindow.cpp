@@ -25,6 +25,14 @@ UTMainWindow::~UTMainWindow()
 
 }
 
+void UTMainWindow::Initialize()
+{
+	UTWindow::Initialize();
+	GuiContext = ImGui::CreateContext();
+	ImGui::SetCurrentContext(GuiContext);
+	ImGui::StyleColorsDark();
+}
+
 void UTMainWindow::NewFrame()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
@@ -112,14 +120,6 @@ void UTMainWindow::RenderDrawData()
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	glfwSwapBuffers(GetGLFWWindow());
-}
-
-void UTMainWindow::Initialize()
-{
-	UTWindow::Initialize();
-	GuiContext = ImGui::CreateContext();
-	ImGui::SetCurrentContext(GuiContext);
-	ImGui::StyleColorsDark();
 }
 
 ImGuiContext* UTMainWindow::GetGuiContext() const

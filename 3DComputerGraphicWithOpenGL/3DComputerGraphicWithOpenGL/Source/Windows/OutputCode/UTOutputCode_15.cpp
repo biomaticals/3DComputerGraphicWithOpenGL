@@ -11,7 +11,7 @@ void UTOutputWindow::Code_15_2_Start()
 	glfwMakeContextCurrent(GetGLFWWindow());
 
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(0.f, 1.f, 1.f, 1.f);
 
 	glEnable(GL_AUTO_NORMAL);
 
@@ -138,9 +138,11 @@ void UTOutputWindow::Code_15_2_End()
 {
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glUseProgram(0);
+
 	if (h_program_15_2)
 	{
-		glDeleteShader(h_program_15_2);
+		glDeleteProgram(h_program_15_2);
 		h_program_15_2 = 0;
 	}
 
@@ -155,6 +157,11 @@ void UTOutputWindow::Code_15_2_End()
 		glDeleteShader(h_frag_15_2);
 		h_frag_15_2 = 0;
 	}
+
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_AUTO_NORMAL);
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }

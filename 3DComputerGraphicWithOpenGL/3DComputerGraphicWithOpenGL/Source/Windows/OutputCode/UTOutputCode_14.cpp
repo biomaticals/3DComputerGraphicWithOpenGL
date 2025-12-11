@@ -146,7 +146,6 @@ void UTOutputWindow::Code_14_2_Start()
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1.f, 1.f, 1.f, 1.f);
 	glEnable(GL_AUTO_NORMAL);
 		
 	Time_14_2 = glfwGetTime();

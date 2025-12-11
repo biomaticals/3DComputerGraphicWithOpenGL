@@ -22,6 +22,7 @@ void UTOutputWindow::Code_5_2()
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
+	glColor3f(1.f, 1.f, 1.f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
