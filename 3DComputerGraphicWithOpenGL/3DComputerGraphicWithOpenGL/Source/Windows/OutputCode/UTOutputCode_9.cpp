@@ -81,6 +81,9 @@ void UTOutputWindow::Code_9_10_End()
 {
 	ResetAll();
 	MAIN_WINDOW->ExplanationContext = L"";
+
+	glPointSize(1.f);
+	glLineWidth(1.f);
 }
 
 void UTOutputWindow::Code_9_15_Start()
@@ -137,7 +140,7 @@ void UTOutputWindow::Code_9_15()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	glPointSize(12);
+	glPointSize(12.f);
 	glBegin(GL_POINTS);
 	glVertex3f(-0.9f, 0.15f, 0.f);
 	glVertex3f(-0.9f, 0.25f, 0.f);
@@ -175,9 +178,13 @@ void UTOutputWindow::Code_9_15()
 void UTOutputWindow::Code_9_15_End()
 {
 	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext =  L"";
+
+	glPointSize(1.f);
+	glLineWidth(1.f);
 }
 
 void UTOutputWindow::Code_9_15_Key(GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
