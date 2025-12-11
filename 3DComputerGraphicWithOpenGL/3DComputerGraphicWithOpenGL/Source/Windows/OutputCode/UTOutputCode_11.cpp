@@ -154,6 +154,24 @@ void UTOutputWindow::Code_11_9_End()
 
 void UTOutputWindow::Code_11_11_Start()
 {
+	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"/weightless-flight-short-instrumental.mp3";
+	bool Result = 0;
+	if (std::filesystem::exists(MusicPath))
+	{
+		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);
+		if (err != 0)
+		{
+			wchar_t errorText[256];
+			mciGetErrorStringW(err, errorText, 256);
+			std::wstring errorMessage = L"MCI Error: " + std::wstring(errorText);
+			MAIN_WINDOW->DebugContext = errorMessage;
+		}
+		else
+		{
+			mciSendStringW(L"play bgm repeat", NULL, 0, NULL);
+		}
+	}
+
 	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwSetKeyCallback(GetGLFWWindow(), Code_11_11_Key);
@@ -248,6 +266,8 @@ void UTOutputWindow::Code_11_11()
 
 void UTOutputWindow::Code_11_11_End()
 {
+	mciSendStringW(L"close bgm", NULL, 0, NULL);
+
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glDisable(GL_FOG);
 	glDisable(GL_BLEND);

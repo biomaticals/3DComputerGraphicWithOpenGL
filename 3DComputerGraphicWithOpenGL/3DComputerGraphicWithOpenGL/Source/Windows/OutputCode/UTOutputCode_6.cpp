@@ -9,7 +9,6 @@
 #include "Manager/ResourceManager.h"
 #include<windows.h>
 #include<MMSystem.h>
-//#include<GL/glut.h>
 #include<GL/glu.h>
 #include<math.h>
 #include<cmath>

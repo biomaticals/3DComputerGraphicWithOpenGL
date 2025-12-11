@@ -472,21 +472,7 @@ const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsign
 bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::wstring& OutInputContext, std::wstring& OutDescriptionContext)
 {
 	std::wstring InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
-
-	std::wifstream ContextStream(std::filesystem::path(InputAndDescriptionPath), std::ios::in);
-	if (ContextStream.fail())
-	{
-		InputAndDescriptionPathBase =  L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\InputAndDescription";
-		InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
-		ContextStream.open(InputAndDescriptionPath, std::ios::in);
-	}
-
-	ContextStream.imbue(std::locale("en_US.UTF-8"));
-	if (!ContextStream)
-	{
-		std::wcerr << std::format(L"failed to open {}\n", InputAndDescriptionPath);
-		return {};
-	}
+	std::wifstream ContextStream = Execute_OpenFileToWStream(InputAndDescriptionPath, L"../../../", std::ios::in);
 
 	std::wstring Line{};
 	std::wstring TargetCode = std::format(L"Code {}-{}", InChapter, InCodeIndex);
