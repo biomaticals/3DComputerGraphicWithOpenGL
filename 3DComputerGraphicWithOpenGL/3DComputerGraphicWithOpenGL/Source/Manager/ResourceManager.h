@@ -81,6 +81,6 @@ public:
 	std::wstring GetSoundPath();
 
 private:
-	std::wstring SoundPath = L"ResourceSound";
+	std::wstring SoundPath = L"Resource/Sound";
 #pragma 
 };
