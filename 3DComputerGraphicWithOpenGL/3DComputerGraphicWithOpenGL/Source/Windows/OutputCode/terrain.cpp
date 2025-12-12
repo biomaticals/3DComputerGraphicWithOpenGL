@@ -33,7 +33,9 @@ Terrain::Terrain(pcStr heightFile, pcStr surfaceTexFile, GLuint width, GLint hei
 	stbi_image_free(imgData);
 
 	const char* waterTexFile = "Resource/Object/space/water.bmp";
-	imgData = stbi_load(waterTexFile, &imgWidth, &imgHeight, &imgChannels, 0);
+	const std::string waterTexFile_Safe_Str = RESOURCE_MANAGER->GetSafeFilePath(waterTexFile);
+	const char* waterTexFile_Safe = waterTexFile_Safe_Str.c_str();
+	imgData = stbi_load(waterTexFile_Safe, &imgWidth, &imgHeight, &imgChannels, 0);
 	if (!imgData)
 	{
 		printf("Failed to load texture: %s\n", waterTexFile);

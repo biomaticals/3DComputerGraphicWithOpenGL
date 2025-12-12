@@ -28,10 +28,7 @@ ResourceManager* ResourceManager::Instance = nullptr;
 ResourceManager::ResourceManager()
 {
 	hDll = nullptr;
-	if (LoadDynamicLibraries())
-	{
-		std::cerr << "Dynamic Libraries Loaded Successfully.\n";
-	}
+	LoadDynamicLibraries();
 }
 
 ResourceManager::~ResourceManager()
@@ -80,8 +77,13 @@ bool ResourceManager::LoadDynamicLibraries()
 	 hDll = LoadLibrary(dllPath.c_str());
 	if (!hDll)
 	{
-		std::cerr << "Failed to load InsideDynamicMathLibrary.dll";
-		return false;
+		dllPath = L"../../" + dllPath;
+		hDll = LoadLibrary(dllPath.c_str());
+		if (!hDll)
+		{
+			std::cerr << "Failed to load InsideDynamicMathLibrary.dll";
+			return false;
+		}
 	}
 
 	Execute_OpenFileToWStream = (OpenFileToWStream)GetProcAddress(hDll, "OpenFileToWStream");
@@ -98,9 +100,26 @@ void ResourceManager::UnloadDynamicLibraries()
 		FreeLibrary(hDll);
 }
 
-bool ResourceManager::FileExists(const std::string& path) {
+bool ResourceManager::FileExists(const std::string& path) 
+{
 	std::ifstream f(path.c_str());
 	return f.good();
+}
+
+std::string ResourceManager::GetSafeFilePath(const std::string& path)
+{
+	if (FileExists(path))
+	{
+		return path;
+	}
+	
+	std::string altPath = "../../../3DComputerGraphicWithOpenGL/" + path;
+	if (FileExists(altPath))
+	{
+		return altPath;
+	}
+
+	return "";
 }
 
 bool ResourceManager::LoadObjWithMaterial(const std::string& path,
@@ -277,7 +296,7 @@ bool ResourceManager::LoadTitleContext()
 {
 	Book.Parts.clear();
 
-	std::wifstream ContextStream = Execute_OpenFileToWStream(TableOfContentsPath, L"../../../", std::ios::in);
+	std::wifstream ContextStream = Execute_OpenFileToWStream(TableOfContentsPath, L"../../../3DComputerGraphicWithOpenGL/", std::ios::in);
 
 	unsigned int PartIndex = 0;
 	unsigned int ChapterIndex = 0;
@@ -408,7 +427,7 @@ FBook ResourceManager::GetBook() const
 
 const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsigned int InChapter,unsigned int InSection, unsigned int InCodeIndex)
 {
-	std::wifstream ContextStream = Execute_OpenFileToWStream(TableOfContentsPath, L"../../../", std::ios::in);
+	std::wifstream ContextStream = Execute_OpenFileToWStream(TableOfContentsPath, L"../../../3DComputerGraphicWithOpenGL/", std::ios::in);
 
 	std::wstring Line{};
 	std::wstring Found{};
@@ -472,7 +491,7 @@ const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsign
 bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::wstring& OutInputContext, std::wstring& OutDescriptionContext)
 {
 	std::wstring InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
-	std::wifstream ContextStream = Execute_OpenFileToWStream(InputAndDescriptionPath, L"../../../", std::ios::in);
+	std::wifstream ContextStream = Execute_OpenFileToWStream(InputAndDescriptionPath, L"../../../3DComputerGraphicWithOpenGL", std::ios::in);
 
 	std::wstring Line{};
 	std::wstring TargetCode = std::format(L"Code {}-{}", InChapter, InCodeIndex);
@@ -543,7 +562,7 @@ std::wstring ResourceManager::GetSoundPath()
 	}
 	else 
 	{
-		SoundPath = L"..\\..\\..\\3DComputerGraphicWithOpenGL\\Resource\\Sound";
+		SoundPath = L"../../../3DComputerGraphicWithOpenGL/Resource/Sound";
 	}
 
 	return SoundPath;

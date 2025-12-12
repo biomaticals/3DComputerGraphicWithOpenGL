@@ -40,6 +40,7 @@ public:
 	void UnloadDynamicLibraries();
 
 	bool FileExists(const std::string& path);
+	std::string GetSafeFilePath(const std::string& path);
 
 	bool LoadObjWithMaterial(const std::string& path,
 		std::vector<Vertex>& out_vertices,

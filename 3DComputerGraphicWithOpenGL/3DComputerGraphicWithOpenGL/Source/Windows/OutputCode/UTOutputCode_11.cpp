@@ -185,7 +185,8 @@ void UTOutputWindow::Code_11_11()
 	
 	if (Terrain_11_11 == nullptr && Skybox_11_11 == nullptr && Camera_11_11 == nullptr)
 	{
-		Terrain_11_11 = new Terrain("Resource/Object/space/terrain1.raw", "Resource/Object/space/snow512.bmp", 257, 257);
+		Terrain_11_11 = new Terrain(RESOURCE_MANAGER->GetSafeFilePath("Resource/Object/space/terrain1.raw").c_str(), RESOURCE_MANAGER->GetSafeFilePath("Resource/Object/space/snow512.bmp").c_str(), 257, 257);
+
 		Skybox_11_11 = new Skybox();
 		Camera_11_11 = new Camera();
 	

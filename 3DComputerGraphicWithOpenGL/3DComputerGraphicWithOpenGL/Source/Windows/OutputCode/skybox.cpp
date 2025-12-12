@@ -5,7 +5,6 @@
 #include "Skybox.h"
 #include <stdio.h>
 #include <stdlib.h>
-//#include <GL/glut.h>
 #include "stb_image.h"
 #include "Manager/WindowManager.h"
 
@@ -25,7 +24,9 @@ const char* texFiles[6] =
 Skybox::Skybox(void)
 {
 	for (int i = 0; i < 6; i++)
-		textures[i] = _loadTexture(texFiles[i]);
+	{
+		textures[i] = _loadTexture(RESOURCE_MANAGER->GetSafeFilePath(texFiles[i]).c_str());	
+	}
 }
 
 Skybox::~Skybox(void) 
@@ -109,7 +110,7 @@ Skybox::uint Skybox::_loadTexture(pcStr filename)
 	unsigned char* data = stbi_load(filename, &w, &h, &channels, 0);
 	if (!data) 
 	{
-		printf("Failed to load texture: %s\n", filename);
+		return 0;
 	}
 
 	GLuint texId;
