@@ -3,7 +3,6 @@
 
 #pragma once
 
-
 #include "3DComputerGraphicWithOpenGL.h"
 #include "imgui_internal.h"
 #include "imgui_impl_glfw.h"

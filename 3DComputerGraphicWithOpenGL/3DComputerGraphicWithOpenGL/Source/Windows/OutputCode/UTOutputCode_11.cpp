@@ -3,7 +3,6 @@
 
 #include "Windows/UTOutputWindow.h"
 #include "Manager/WindowManager.h"
-#include "glaux/glaux.h"
 
 void UTOutputWindow::Code_11_7_Start()
 {
