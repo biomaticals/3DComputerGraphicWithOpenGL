@@ -131,13 +131,13 @@ bool ResourceManager::LoadObjWithMaterial(const std::string& path,
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
 	std::string warn, err;
-	std::string base_dir = path.substr(0, path.find_last_of("/\\"));
+	std::string base_dir = path.substr(0, path.find_last_of("//"));
 
 	bool Result = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, path.c_str(), base_dir.c_str());
 	if (Result == false)
 	{
 		std::string exepath = "../../../3DComputerGraphicWithOpenGL/" + path;
-		base_dir = exepath.substr(0, exepath.find_last_of("/\\"));
+		base_dir = exepath.substr(0, exepath.find_last_of("//"));
 		Result = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, exepath.c_str(), base_dir.c_str());
 
 		if(Result == false)
@@ -160,7 +160,7 @@ bool ResourceManager::LoadObjWithMaterial(const std::string& path,
 		mat.shininess = m.shininess;
 
 		auto fixPath = [](std::string path) {
-			std::replace(path.begin(), path.end(), '\\', '/');
+			std::replace(path.begin(), path.end(), '/', '/');
 			return path;
 			};
 
@@ -491,7 +491,7 @@ const std::wstring ResourceManager::FindTitleContext(unsigned int InPart, unsign
 bool ResourceManager::FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::wstring& OutInputContext, std::wstring& OutDescriptionContext)
 {
 	std::wstring InputAndDescriptionPath = InputAndDescriptionPathBase + std::format(L"_Part{}.txt", InPart);
-	std::wifstream ContextStream = Execute_OpenFileToWStream(InputAndDescriptionPath, L"../../../3DComputerGraphicWithOpenGL", std::ios::in);
+	std::wifstream ContextStream = Execute_OpenFileToWStream(InputAndDescriptionPath, L"../../../3DComputerGraphicWithOpenGL/", std::ios::in);
 
 	std::wstring Line{};
 	std::wstring TargetCode = std::format(L"Code {}-{}", InChapter, InCodeIndex);

@@ -65,7 +65,7 @@ public:
 	
 private:
 	FBook Book;
-	std::wstring TableOfContentsPath = L"Resource\\TableOfContents.txt";
+	std::wstring TableOfContentsPath = L"Resource/TableOfContents.txt";
 #pragma endregion
 
 #pragma region Input & Description
@@ -73,7 +73,7 @@ public:
 	bool FindInputAndDescriptionContext(unsigned int InPart, unsigned int InChapter, unsigned int InSection, unsigned int InCodeIndex, std::wstring& OutInputContext, std::wstring& OutDescriptionContext);
 
 private:
-	std::wstring InputAndDescriptionPathBase = L"Resource\\InputAndDescription";
+	std::wstring InputAndDescriptionPathBase = L"Resource/InputAndDescription";
 #pragma endregion
 
 #pragma region Sound
@@ -81,6 +81,6 @@ public:
 	std::wstring GetSoundPath();
 
 private:
-	std::wstring SoundPath = L"Resource\\Sound";
+	std::wstring SoundPath = L"ResourceSound";
 #pragma 
 };

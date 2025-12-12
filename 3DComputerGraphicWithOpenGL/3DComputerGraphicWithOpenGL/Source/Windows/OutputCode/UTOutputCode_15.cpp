@@ -32,10 +32,12 @@ void UTOutputWindow::Code_15_2_Start()
 	h_frag_15_2 = glCreateShader(GL_FRAGMENT_SHADER);
 
 	const char* VertexSourcePath = "Source/Windows/OutputCode/glsl_example.vert";
-	char* VertexSourcePath_Safe = const_cast<char*>(RESOURCE_MANAGER->GetSafeFilePath(VertexSourcePath).c_str());
+	std::string VertexSourcePath_Str = RESOURCE_MANAGER->GetSafeFilePath(VertexSourcePath);
+	char* VertexSourcePath_Safe = const_cast<char*>(VertexSourcePath_Str.c_str());
 
 	const char* FragmentSourcePath = "Source/Windows/OutputCode/glsl_example.frag";
-	char* FragmentSourcePath_Safe = const_cast<char*>(RESOURCE_MANAGER->GetSafeFilePath(FragmentSourcePath).c_str());
+	std::string FragmentSourcePath_Str = RESOURCE_MANAGER->GetSafeFilePath(FragmentSourcePath);
+	char* FragmentSourcePath_Safe = const_cast<char*>(FragmentSourcePath_Str.c_str());
 	
 	vertex_source = ReadShaderSource(VertexSourcePath_Safe);
 	frag_source = ReadShaderSource(FragmentSourcePath_Safe);

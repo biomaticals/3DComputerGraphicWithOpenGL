@@ -570,7 +570,7 @@ void UTOutputWindow::Code_6_10_Start()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_10_Key);
-	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"\\funny-comedy-cartoon-background-music.mp3";
+	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"/funny-comedy-cartoon-background-music.mp3";
 	if (std::filesystem::exists(MusicPath))
 	{
 		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);
