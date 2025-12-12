@@ -122,7 +122,7 @@ void UTOutputWindow::Code_7_1_DrawScene()
 
 	glPushMatrix();
 		glBegin(GL_TRIANGLES);
-		for(GLint i = 0; i < indices_7_1.size(); i++)
+		for(size_t i = 0; i < indices_7_1.size(); i++)
 		{
 			const Vertex& v = vertices_7_1[indices_7_1[i]];
 			glTexCoord2f(v.texcoord.x, v.texcoord.y);

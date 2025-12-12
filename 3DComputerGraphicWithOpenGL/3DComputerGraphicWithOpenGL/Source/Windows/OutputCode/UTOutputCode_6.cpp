@@ -571,7 +571,6 @@ void UTOutputWindow::Code_6_10_Start()
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_10_Key);
 	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"\\funny-comedy-cartoon-background-music.mp3";
-	bool Result = 0;
 	if (std::filesystem::exists(MusicPath))
 	{
 		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);
@@ -613,10 +612,6 @@ void UTOutputWindow::Code_6_10_Start()
 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0f);
 	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0f);
-
-	GLfloat LightConstantAttenuation_6_9;
-	GLfloat LightLinearAttenuation_6_9;
-	GLfloat LightQuadraticAttenuation_6_9;
 
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);

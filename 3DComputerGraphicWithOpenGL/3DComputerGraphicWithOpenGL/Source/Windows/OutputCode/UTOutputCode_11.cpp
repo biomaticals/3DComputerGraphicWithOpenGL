@@ -150,7 +150,6 @@ void UTOutputWindow::Code_11_9_End()
 void UTOutputWindow::Code_11_11_Start()
 {
 	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"/weightless-flight-short-instrumental.mp3";
-	bool Result = 0;
 	if (std::filesystem::exists(MusicPath))
 	{
 		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);

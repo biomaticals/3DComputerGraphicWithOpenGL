@@ -66,8 +66,8 @@ Terrain::Terrain(pcStr heightFile, pcStr surfaceTexFile, GLuint width, GLint hei
 	}
 
 	waterLevel = (GLfloat)minHeight + 15.f;
-	for (int i = 0; i < _map_width * _map_height + 1; i++)
-		_height[i] -= minHeight;
+	for (int k = 0; k < _map_width * _map_height + 1; k++)
+		_height[k] -= minHeight;
 
 	baseTerrain = glGenLists(5);
 	glNewList(baseTerrain, GL_COMPILE);

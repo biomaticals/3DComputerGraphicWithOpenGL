@@ -38,16 +38,16 @@ void UTOutputWindow::Code_9_10()
 	glViewport(display_w / 2, display_h / 2, display_w / 2, display_h / 2);
 	GLint ScaleFactor = 1;
 	GLushort Pattern = 0x00ff;
-	GLfloat Height;
+	GLfloat _Height;
 	glColor3f(0.f, 1.f, 0.f);
 	glLineWidth(3.f);
 	glEnable(GL_LINE_STIPPLE);
-	for (Height = -0.9f; Height <= 0.9f; Height += 0.4)
+	for (_Height = -0.9f; _Height <= 0.9f; _Height += 0.4)
 	{
 		glLineStipple(ScaleFactor, Pattern);
 		glBegin(GL_LINES);
-		glVertex3f(-1.f, Height, 0.f);
-		glVertex3f(1.f, Height, 0.f);
+		glVertex3f(-1.f, _Height, 0.f);
+		glVertex3f(1.f, _Height, 0.f);
 		glEnd();
 		ScaleFactor *= 2;
 	}

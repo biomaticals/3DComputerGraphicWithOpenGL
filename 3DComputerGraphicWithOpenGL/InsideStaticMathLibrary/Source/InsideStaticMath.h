@@ -39,7 +39,6 @@ namespace InsideStaticMath
 
 	inline OrthoBounds GetOrthoBoundsFromProjectionMatrix(float Matrix[16])
 	{
-		// OpenGLÀº column-major ¹æ½Ä
 		float a = Matrix[0];  // 2 / (r - l)
 		float b = Matrix[12]; // -(r + l) / (r - l)
 

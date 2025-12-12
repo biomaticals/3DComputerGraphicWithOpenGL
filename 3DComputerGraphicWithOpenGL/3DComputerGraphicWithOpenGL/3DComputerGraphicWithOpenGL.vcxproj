@@ -107,6 +107,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <StructMemberAlignment>8Bytes</StructMemberAlignment>
+      <DisableSpecificWarnings>4100; 4244; 4305; 4005; 4121;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +139,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>
       </AdditionalOptions>
+      <DisableSpecificWarnings>4100; 4244; 4305; 4005; 4121;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,6 +166,7 @@
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>4100; 4244; 4305; 4005; 4121;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -198,6 +201,7 @@
       <PrecompiledHeaderFile />
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <DisableSpecificWarnings>4100; 4244; 4305; 4005; 4121;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

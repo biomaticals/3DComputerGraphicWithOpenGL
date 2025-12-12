@@ -202,7 +202,6 @@ void UTOutputWindow::Code_10_12()
     GLfloat material_ambient[] = {0.4f, 0.4f, 0.4f, 1.f};
     GLfloat material_diffuse[] = {0.9f, 0.9f, 0.9f, 1.f};
     GLfloat material_specular[] = {1.f, 1.f, 1.f, 1.f};
-    GLfloat material_shininess[] = {25.f};
    
     
     glShadeModel(GL_SMOOTH);

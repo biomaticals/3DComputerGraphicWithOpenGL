@@ -471,27 +471,36 @@ void UTOutputWindow::Code_15_2_End()
 
 char* UTOutputWindow::ReadShaderSource(char* fileName)
 {
-	FILE* p_Sourcefile = NULL;
-	char* contents = NULL;
+	FILE* p_Sourcefile = nullptr;
+	char* contents = nullptr;
 	int length = 0;
-	if (fileName != NULL)
-	{
-		int tempfile = _open(fileName, _A_RDONLY);
-		length = _lseek(tempfile, 0, SEEK_END);
-		_close(tempfile);
 
-		p_Sourcefile = fopen(fileName, "rt");
-		if (p_Sourcefile != NULL) 
+	if (fileName != nullptr)
+	{
+		// --- 파일 길이 구하기 (_sopen_s 사용) ---
+		int tempfile = -1;
+		if (_sopen_s(&tempfile, fileName, _O_RDONLY, _SH_DENYNO, 0) == 0)
 		{
-			if (0 < length) 
+			length = _lseek(tempfile, 0, SEEK_END);
+			_close(tempfile);
+		}
+
+		// --- 파일 열기 (fopen_s 사용) ---
+		if (length > 0)
+		{
+			if (fopen_s(&p_Sourcefile, fileName, "rt") == 0 && p_Sourcefile != nullptr)
 			{
 				contents = (char*)malloc(sizeof(char) * (length + 1));
-				length = fread(contents, sizeof(char), length, p_Sourcefile);
-				contents[length] = '\0';
+				if (contents != nullptr)
+				{
+					int readLen = (int)fread(contents, sizeof(char), length, p_Sourcefile);
+					contents[readLen] = '\0';
+				}
+				fclose(p_Sourcefile);
 			}
-			fclose(p_Sourcefile);
 		}
 	}
+
 	return contents;
 }
 Description:

@@ -68,7 +68,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -89,7 +89,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -109,7 +109,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -129,7 +129,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);

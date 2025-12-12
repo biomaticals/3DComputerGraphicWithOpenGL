@@ -615,7 +615,6 @@ void UTOutputWindow::Code_6_10_Start()
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_6_10_Key);
 	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"\\funny-comedy-cartoon-background-music.mp3";
-	bool Result = 0;
 	if (std::filesystem::exists(MusicPath))
 	{
 		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);
@@ -657,10 +656,6 @@ void UTOutputWindow::Code_6_10_Start()
 	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 1.0f);
 	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.0f);
 	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.0f);
-
-	GLfloat LightConstantAttenuation_6_9;
-	GLfloat LightLinearAttenuation_6_9;
-	GLfloat LightQuadraticAttenuation_6_9;
 
 	glColorMaterial(GL_FRONT, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
@@ -1491,7 +1486,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -1512,7 +1507,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -1532,7 +1527,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -1552,7 +1547,7 @@ void UTOutputWindow::Code_8_3()
 	glPushMatrix();
 	gluLookAt(1.0, 0.5, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glBegin(GL_TRIANGLES);
-	for (GLint i = 0; i < indices_8_3.size(); i++)
+	for (size_t i = 0; i < indices_8_3.size(); i++)
 	{
 		const Vertex& v = vertices_8_3[indices_8_3[i]];
 		glTexCoord2f(v.texcoord.x, v.texcoord.y);
@@ -1576,7 +1571,6 @@ void UTOutputWindow::Code_8_3_End()
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
-
 Description:
 glFrontFace 함수는 OpenGL에서 폴리곤의 앞면과 뒷면을 정의하는 데 사용됩니다. 이 함수는 폴리곤의 정점이 시계방향(CW)인지 반시계방향(CCW)인지에 따라 앞면을 결정합니다. 기본값은 반시계방향(CCW)입니다. 즉, 정점이 반시계방향으로 정의된 폴리곤이 앞면으로 간주됩니다.
 glCullFace 함수는 OpenGL에서 폴리곤의 어느 면을 제거할지 지정하는 데 사용됩니다. 이 함수는 glFrontFace 함수와 함께 사용되어, 앞면과 뒷면 중 어느 면을 렌더링하지 않을지 결정합니다.
@@ -1694,16 +1688,16 @@ void UTOutputWindow::Code_9_10()
 	glViewport(display_w / 2, display_h / 2, display_w / 2, display_h / 2);
 	GLint ScaleFactor = 1;
 	GLushort Pattern = 0x00ff;
-	GLfloat Height;
+	GLfloat _Height;
 	glColor3f(0.f, 1.f, 0.f);
 	glLineWidth(3.f);
 	glEnable(GL_LINE_STIPPLE);
-	for (Height = -0.9f; Height <= 0.9f; Height += 0.4)
+	for (_Height = -0.9f; _Height <= 0.9f; _Height += 0.4)
 	{
 		glLineStipple(ScaleFactor, Pattern);
 		glBegin(GL_LINES);
-		glVertex3f(-1.f, Height, 0.f);
-		glVertex3f(1.f, Height, 0.f);
+		glVertex3f(-1.f, _Height, 0.f);
+		glVertex3f(1.f, _Height, 0.f);
 		glEnd();
 		ScaleFactor *= 2;
 	}
@@ -1932,7 +1926,6 @@ void UTOutputWindow::Code_10_11()
     GLfloat material_ambient[] = {0.3f, 0.3f, 0.3f, 1.f};
     GLfloat material_diffuse[] = {0.8f, 0.8f, 0.8f, 1.f};
     GLfloat material_specular[] = {0.f, 0.f, 1.f, 1.f};
-    GLfloat material_shininess[] = {25.f};
 
     glShadeModel(GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
@@ -2376,7 +2369,6 @@ Input:
 void UTOutputWindow::Code_11_11_Start()
 {
 	std::wstring MusicPath = RESOURCE_MANAGER->GetSoundPath() + L"/weightless-flight-short-instrumental.mp3";
-	bool Result = 0;
 	if (std::filesystem::exists(MusicPath))
 	{
 		MCIERROR err = mciSendStringW((L"open \"" + MusicPath + L"\" type mpegvideo alias bgm").c_str(), NULL, 0, NULL);
