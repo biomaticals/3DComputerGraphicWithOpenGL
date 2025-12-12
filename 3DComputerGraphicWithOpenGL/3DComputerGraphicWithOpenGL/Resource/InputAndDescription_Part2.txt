@@ -6,13 +6,14 @@ Code 5-2
 Input:
 void UTOutputWindow::Code_5_2_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화한 뒤, 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링 하는 기초 예제입니다.";
 }
 
 void UTOutputWindow::Code_5_2()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -21,6 +22,7 @@ void UTOutputWindow::Code_5_2()
 	glClearColor(0.f, 0.f, 0.f, 1.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
+	glColor3f(1.f, 1.f, 1.f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
 	glVertex3f(0.5f, -0.5, 0.f);
@@ -34,21 +36,23 @@ void UTOutputWindow::Code_5_2()
 
 void UTOutputWindow::Code_5_2_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }
-Description:
-glClear(GL_COLOR_BUFFER_BIT) 함수는 컬러 버퍼를 지워서(초기화해서) 배경색을 설정합니다.
-
-glBegin(GL_POLYGON)과 glEnd() 함수는 다각형(여기서는 사각형)을 정의하며, glVertex3f() 함수를 사용해 각 꼭짓점 좌표를 지정합니다.
-
-glFlush() 함수는 OpenGL 명령들이 유한한 시간 안에 실행되도록 강제로 처리합니다.
-
 Code 5-4
 Input:
+void UTOutputWindow::Code_5_4_Start()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
+	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 투영 행렬을 직교 투영 행렬로 설정합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다.";
+}
+
 void UTOutputWindow::Code_5_4()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
 	int display_w, display_h;
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
@@ -75,7 +79,9 @@ void UTOutputWindow::Code_5_4()
 
 void UTOutputWindow::Code_5_4_End()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 Description:
@@ -99,10 +105,11 @@ Code 5-5
 Input:
 void UTOutputWindow::Code_5_5_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &Width_5_6, &Height_5_6);
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), Code_5_5_Reshape);
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 창의 크기가 변경될 때마다 호출되는 콜백 함수를 등록합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다.";
 }
@@ -134,8 +141,8 @@ void UTOutputWindow::Code_5_5()
 
 void UTOutputWindow::Code_5_5_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetFramebufferSizeCallback(GetGLFWWindow(), NULL);
 
 	MAIN_WINDOW->ExplanationContext = L"";
@@ -163,7 +170,8 @@ Code 5-6
 Input:
 void UTOutputWindow::Code_5_6_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_6_Key);
 
 	MAIN_WINDOW->ExplanationContext = L"색 버퍼를 초기화 한 뒤, 키보드 입력을 처리하는 콜백 함수를 등록합니다. 그리고 직접 정의한 정점들을 이용해 화면 중앙에 2D 폴리곤을 렌더링합니다. 'Q' 키를 누르면 프로그램이 종료됩니다.";
@@ -196,10 +204,10 @@ void UTOutputWindow::Code_5_6()
 
 void UTOutputWindow::Code_5_6_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetKeyCallback(GetGLFWWindow(), NULL);
-
+	
 	MAIN_WINDOW->ExplanationContext = L"";
 }
 
@@ -225,8 +233,8 @@ Code 5-7
 Input:
 void UTOutputWindow::Code_5_7_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetMouseButtonCallback(GetGLFWWindow(), Code_5_7_MouseButton);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_7_CursorPosition);
 
@@ -262,11 +270,11 @@ void UTOutputWindow::Code_5_7()
 
 void UTOutputWindow::Code_5_7_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
 	glfwSetMouseButtonCallback(GetGLFWWindow(), NULL);
 	glfwSetCursorPosCallback(GetGLFWWindow(), NULL);
-
+	
 	TopLeftX_5_7 = -0.85;
 	TopLeftY_5_7 = -0.85;
 	BottomRightX_5_7 = 0.85;
@@ -283,19 +291,32 @@ void UTOutputWindow::Code_5_7_MouseButton(GLFWwindow* Window, int button, int ac
 		double xpos, ypos;
 		glfwGetCursorPos(Window, &xpos, &ypos);
 
-		std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+		GLfloat _Matrix[16];
+		glGetFloatv(GL_PROJECTION_MATRIX, _Matrix);
+		const InsideStaticMath::OrthoBounds OutOrthoBound = InsideStaticMath::GetOrthoBoundsFromProjectionMatrix(_Matrix);
 
-		OUTPUT_WINDOW->TopLeftX_5_7 = OrthoCoords[0];
-		OUTPUT_WINDOW->TopLeftY_5_7 = OrthoCoords[1];
+		int display_w, display_h;
+		glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
+		std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+		
+		OUTPUT_WINDOW->TopLeftX_5_7 = CursorCoords[0];
+		OUTPUT_WINDOW->TopLeftY_5_7 = CursorCoords[1];
 	}
 }
 
 void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	std::array<double, 2> OrthoCoords = CursorPosToOrthoCoords(Window, std::array<double, 2>{xpos, ypos});
+	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
+	GLfloat _Matrix[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, _Matrix);
+	const InsideStaticMath::OrthoBounds OutOrthoBound = InsideStaticMath::GetOrthoBoundsFromProjectionMatrix(_Matrix);
 
-	OUTPUT_WINDOW->BottomRightX_5_7 = OrthoCoords[0];
-	OUTPUT_WINDOW->BottomRightY_5_7 = OrthoCoords[1];
+	int display_w, display_h;
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
+	std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+
+	OUTPUT_WINDOW->BottomRightX_5_7 = CursorCoords[0];
+	OUTPUT_WINDOW->BottomRightY_5_7 = CursorCoords[1];
 }
 Description:
 GLFWmousebuttonfun glfwSetMouseButtonCallback(GLFWwindow* window, GLFWmousebuttonfun cbfun) 함수는 마우스 버튼 이벤트를 처리하기 위한 콜백 함수를 설정합니다. 여기서 cbfun은 마우스 버튼 이벤트가 발생할 때 호출될 함수의 포인터입니다.
@@ -309,42 +330,11 @@ glVertexfloat3f에 들어가는 점의 좌표계는 객체 좌표계이며, 이�
 
 Code 5-13
 Input:
-inline static GLfloat Vertices_5_13[8][3]
-{
-	{ -0.25f, -0.25f, 0.25f },
-	{ -0.25f,  0.25f, 0.25f },
-	{  0.25f,  0.25f, 0.25f },
-	{  0.25f, -0.25f, 0.25f },
-	{ -0.25f, -0.25f, -0.25f },
-	{ -0.25f,  0.25f, -0.25f },
-	{  0.25f,  0.25f, -0.25f },
-	{  0.25f, -0.25f, -0.25f }
-};
-
-inline static GLfloat Colors_5_13[8][3]
-{
-	{ 0.2f, 0.2f, 0.2f },
-	{ 1.0f, 0.0f, 0.0f },
-	{ 1.0f, 1.0f, 0.0f },
-	{ 0.0f, 1.0f, 0.0f },
-	{ 0.0f, 0.0f, 1.0f },
-	{ 1.0f, 0.0f, 1.0f },
-	{ 1.0f, 1.0f, 1.0f },
-	{ 0.0f, 1.0f, 1.0f }
-};
-inline static GLubyte VertexList_5_13[24]
-{
-	0, 3, 2, 1,
-	2, 3, 7, 6,
-	0, 4, 7, 3,
-	1, 2, 6, 5,
-	4, 5, 6, 7,
-	0, 1, 5, 4
-};
-
 void UTOutputWindow::Code_5_13_Start()
 {
-	ResetAll();
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+
 	MAIN_WINDOW->ExplanationContext = L"정점 배열과 색상 배열, 인덱스 배열을 사용하여 3D 큐브를 렌더링하는 예제입니다.\n";
 	MAIN_WINDOW->ExplanationContext += L"폴리곤의 와인딩 순서를 반시계(CCW)로 설정하여 앞면을 정의하고,\n";
 	MAIN_WINDOW->ExplanationContext += L"백페이스 컬링을 활성화하여 카메라에서 보이지 않는 뒷면을 제거합니다.";
@@ -387,42 +377,68 @@ void UTOutputWindow::Code_5_13()
 
 void UTOutputWindow::Code_5_13_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-}
-Description:
-glFrontFace(GL_CCW) 함수는 면의 앞면을 정의합니다. 일반적으로 반시계 방향(GL_CCW)으로 정의된 면이 앞면으로 간주됩니다. 시계 방향(GL_CW)으로 정의된 면은 뒷면으로 간주됩니다.
-glEnableClientState(GL_COLOR_ARRAY) 함수는 색상 배열을 사용하도록 설정합니다. 이를 통해 정점마다 다른 색상을 지정할 수 있습니다.
-glEnableClientState(GL_VERTEX_ARRAY) 함수는 정점 배열을 사용하도록 설정합니다. 이를 통해 정점 데이터를 배열로부터 가져올 수 있습니다.
-glColorPointer(3, GL_FLOAT, 0, Colors_5_13) 함수는 색상 배열을 지정합니다. 여기서 3은 각 색상이 RGB로 구성되어 있음을 나타내고, GL_FLOAT는 색상 데이터의 형식을 나타내며, 0은 각 색상 사이의 간격(스트라이드)을 나타냅니다. 마지막 매개변수는 실제 색상 데이터 배열의 포인터입니다.
-glVertexPointer(3, GL_FLOAT, 0, Vertices_5_13) 함수는 정점 배열을 지정합니다. 여기서 3은 각 정점이 3D 좌표(x, y, z)로 구성되어 있음을 나타내고, GL_FLOAT는 정점 데이터의 형식을 나타내며, 0은 각 정점 사이의 간격(스트라이드)을 나타냅니다. 마지막 매개변수는 실제 정점 데이터 배열의 포인터입니다.
+	glPopAttrib();
 
+	MAIN_WINDOW->ExplanationContext = L"";
+}
 Code 5-14
 Input:
 void UTOutputWindow::Code_5_14_Start()
 {
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	MyListID_5_14 = glGenLists(1);
 	glNewList(MyListID_5_14, GL_COMPILE);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	
 	glBegin(GL_POLYGON);
 	glColor3f(0.5f, 0.5f, 0.5f);
 	glVertex3f(-0.5f, -0.5f, 0.0f);
 	glVertex3f(0.5f, -0.5f, 0.0f);
 	glVertex3f(0.5f, 0.5f, 0.0f);
-	glVertex3f(-0.5f, 0.5f, 0.0f);
+	glVertex3f(-0.5f, 0.5f, 0.0f); 
 	glEnd();
+
 	glEndList();
+
+	MAIN_WINDOW->ExplanationContext = L"디스플레이 리스트를 사용하여 정적 지오메트리를 사전에 컴파일하고, \n";
+	MAIN_WINDOW->ExplanationContext += L"렌더링 단계에서는 glCallList를 통해 미리 기록된 명령을 즉시 실행하는 예제입니다.\n";
+	MAIN_WINDOW->ExplanationContext += L"정사각형을 하나의 리스트로 생성한 뒤, 매 프레임마다 해당 리스트를 호출하여 효율적으로 동일한 도형을 렌더링합니다.";
 }
 
 void UTOutputWindow::Code_5_14()
 {
-	glClearColor(0.f, 0.f, 0.f, 1.f);
+	glfwMakeContextCurrent(GetGLFWWindow());
+	int display_w, display_h;
+	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
+	glViewport(0, 0, display_w, display_h);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	
 	glCallList(MyListID_5_14);
+
 	glFlush();
 	glfwSwapBuffers(GetGLFWWindow());
+}
+
+void UTOutputWindow::Code_5_14_End()
+{
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+	glDeleteLists(MyListID_5_14, 1);
+	
+	MAIN_WINDOW->ExplanationContext = L"";
 }
 Description:
 GLuint glGenLists(GLsizei range) 함수는 새로운 디스플레이 리스트 식별자를 생성합니다. 여기서 range는 생성할 디스플레이 리스트의 개수를 나타냅니다. 이 함수는 생성된 디스플레이 리스트의 첫 번째 식별자를 반환합니다.
@@ -434,14 +450,14 @@ Code 5-15
 Input:
 void UTOutputWindow::Code_5_15_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetCursorPosCallback(GetGLFWWindow(), Code_5_15_CursorPosition);
 	glfwSetKeyCallback(GetGLFWWindow(), Code_5_15_Key);
 	const std::string basepath = "Resource/Object/Wood_Table/";
 	const std::string texbasepath = "Resource/Object/Wood_Table/textures";
 	const std::string objpath = basepath + "Wood_Table.obj";
-	LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
+	RESOURCE_MANAGER->LoadObjWithMaterial(objpath, vertices_5_15, indices_5_15, materials_5_15);
 
 	glClearColor(0.4f, 0.4f, 0.4f, 1.f);
 	GLfloat mat_diffuse[] = { 0.5f, 0.4f, 0.3f, 1.f };
@@ -565,34 +581,23 @@ void UTOutputWindow::Code_5_15()
 	glFlush();
 
 	MAIN_WINDOW->DebugContext = L"Q : 종료\n";
-	MAIN_WINDOW->DebugContext  = L"1 : 쉐이드 모드 전환(현재 : ";
+	MAIN_WINDOW->DebugContext  = L"1 : 쉐이드 모드 전환 (현재: ";
 	MAIN_WINDOW->DebugContext += (FlatShadeMode_5_15 ? L"플랫 쉐이딩)" : L"스무스 쉐이딩)\n");
-	MAIN_WINDOW->DebugContext += L"2 : 폴리곤 모드 전환(현재:";
+	MAIN_WINDOW->DebugContext += L"2 : 폴리곤 모드 전환 (현재: ";
 	MAIN_WINDOW->DebugContext += (WireframeMode_5_15 ? L"와이어프레임)" : L"채워진 폴리곤)\n");
 }
 
 void UTOutputWindow::Code_5_15_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-
+	glPopAttrib();
 	glfwSetMouseButtonCallback(GetGLFWWindow(), nullptr);
 	glfwSetCursorPosCallback(GetGLFWWindow(), nullptr);
 	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
 
 	OUTPUT_WINDOW->WireframeMode_5_15 = true;
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 	OUTPUT_WINDOW->FlatShadeMode_5_15 = true;
-	glShadeModel(GL_SMOOTH);
 
-	glClearColor(0.f, 0.f, 0.f, 1.f);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_LIGHT0);
-	glDisable(GL_NORMALIZE);
-	glDisable(GL_COLOR_MATERIAL);
-	glDisable(GL_TEXTURE_2D);
 	for (auto& material : materials_5_15)
 	{
 		if (material.textureId != 0)
@@ -602,9 +607,7 @@ void UTOutputWindow::Code_5_15_End()
 		}
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glFlush();
-	glGetError();
-
+	
 	MAIN_WINDOW->ExplanationContext = L"";
 	MAIN_WINDOW->DebugContext = L"";
 }
@@ -657,7 +660,15 @@ void UTOutputWindow::Code_5_15_Key(GLFWwindow* Window, int Key, int Scancode, in
 
 void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, double ypos)
 {
-	CursorPosToOrthoCoords(OUTPUT_WINDOW->GetGLFWWindow(), std::array<double,2>{xpos, ypos});
+	glfwMakeContextCurrent(OUTPUT_WINDOW->GetGLFWWindow());
+	GLfloat _Matrix[16];
+	glGetFloatv(GL_PROJECTION_MATRIX, _Matrix);
+	const InsideStaticMath::OrthoBounds OutOrthoBound = InsideStaticMath::GetOrthoBoundsFromProjectionMatrix(_Matrix);
+
+	int display_w, display_h;
+	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
+	std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+
 	OUTPUT_WINDOW->cursor_xpos_5_15 = xpos;
 	OUTPUT_WINDOW->cursor_ypos_5_15 = ypos;
 }

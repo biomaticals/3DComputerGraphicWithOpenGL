@@ -9,13 +9,13 @@ void UTOutputWindow::Code_14_1_Start()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_14_1_Key);
-
+	
 	QuardricObj_14_1 = gluNewQuadric();
-
+	
 	GLfloat mat_diffuse[] = { 1.f, 1.f, 0.9f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_position[] = { 2.5f, 2.5f, -15.f, 1.f };
-
+	
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialf(GL_FRONT, GL_SHININESS, 25.f);
@@ -35,17 +35,14 @@ void UTOutputWindow::Code_14_1()
 	glfwGetWindowSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(40.f, (GLfloat)display_w / (GLfloat)display_h, 1.f, 10.f);
+	glOrtho(-2.f, 2.f, -2.f, 2.f, 1.f, 10.f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.f, 0.f, 5.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
 	glTranslatef(0.f, 0.f, -1.f);
 	
 	glShadeModel(GL_SMOOTH);
@@ -79,7 +76,6 @@ void UTOutputWindow::Code_14_1()
 		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
 	}
 
-	glPopAttrib();
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
@@ -88,8 +84,7 @@ void UTOutputWindow::Code_14_1_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPopAttrib();
-	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);	
 	gluDeleteQuadric(QuardricObj_14_1);
 
 	MAIN_WINDOW->ExplanationContext = L"";
@@ -151,7 +146,8 @@ void UTOutputWindow::Code_14_2_Start()
 	glEnable(GL_LIGHT1);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_AUTO_NORMAL);
-		
+	Nurbs_14_2 = gluNewNurbsRenderer();
+	
 	Time_14_2 = glfwGetTime();
 
 	MAIN_WINDOW->ExplanationContext = L"GLU NURBS 렌더러를 사용해 3차원 NURBS 곡면을 그리는 예제입니다.\n제어점의 일부를 시간에 따라 이동시켜 곡면이 변형되는 모습을 보여줍니다.";
@@ -168,7 +164,6 @@ void UTOutputWindow::Code_14_2()
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	Nurbs_14_2 = gluNewNurbsRenderer();
 	int s, t;
 	for (s = 0; s < 4; s++) {           //x, y, z 방향으로 -3에서 +3까지
 		for (t = 0; t < 4; t++) {
@@ -191,6 +186,7 @@ void UTOutputWindow::Code_14_2()
 	ctlpointsCoordi_14_2[1][1][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
 	ctlpointsCoordi_14_2[1][2][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
 
+	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-5.f, 5.f, -10.f, 10.f, -20.f, 20.f);
@@ -199,66 +195,66 @@ void UTOutputWindow::Code_14_2()
 
 	glTranslatef(0.f, 0.f, -15.f);
 	glPushMatrix();
-	glRotatef(45.f, 1.f, 0.f, 0.f);
-	for (int i = 0; i < 4; i++) 
-	{               
-		for (int j = 0; j < 4; j++) 
-		{
-			glPushMatrix();
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, point_mat_diffuse);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, point_mat_specular);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, point_mat_emission);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, point_mat_shininess);
-			glPointSize(5.f);
-			glBegin(GL_POINTS);
-			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
-				ctlpointsCoordi_14_2[i][j][1],
-				ctlpointsCoordi_14_2[i][j][2]);
-			glEnd();
-			glPopMatrix();
+		glRotatef(45.f, 1.f, 0.f, 0.f);
+		for (int i = 0; i < 4; i++) 
+		{               
+			for (int j = 0; j < 4; j++) 
+			{
+				glPushMatrix();
+					glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, point_mat_diffuse);
+					glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, point_mat_specular);
+					glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, point_mat_emission);
+					glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, point_mat_shininess);
+					glPointSize(5.f);
+					glBegin(GL_POINTS);
+					glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+						ctlpointsCoordi_14_2[i][j][1],
+						ctlpointsCoordi_14_2[i][j][2]);
+					glEnd();
+				glPopMatrix();
+			}
 		}
-	}
-	glPushMatrix();
-	for (int i = 0; i < 4; i++) 
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			glBegin(GL_LINES);
-			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
-				ctlpointsCoordi_14_2[i][j][1],
-				ctlpointsCoordi_14_2[i][j][2]);
-			glVertex3f(ctlpointsCoordi_14_2[i][j + 1][0],
-				ctlpointsCoordi_14_2[i][j + 1][1],
-				ctlpointsCoordi_14_2[i][j + 1][2]);
-			glEnd();
-		}
-	}
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 4; j++) {
-			glBegin(GL_LINES);
-			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
-				ctlpointsCoordi_14_2[i][j][1],
-				ctlpointsCoordi_14_2[i][j][2]);
-			glVertex3f(ctlpointsCoordi_14_2[i + 1][j][0],
-				ctlpointsCoordi_14_2[i + 1][j][1],
-				ctlpointsCoordi_14_2[i + 1][j][2]);
-			glEnd();
-		}
-	}
-
+		glPushMatrix();
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					glBegin(GL_LINES);
+					glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+						ctlpointsCoordi_14_2[i][j][1],
+						ctlpointsCoordi_14_2[i][j][2]);
+					glVertex3f(ctlpointsCoordi_14_2[i][j + 1][0],
+						ctlpointsCoordi_14_2[i][j + 1][1],
+						ctlpointsCoordi_14_2[i][j + 1][2]);
+					glEnd();
+				}
+			}
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 4; j++) {
+					glBegin(GL_LINES);
+					glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+						ctlpointsCoordi_14_2[i][j][1],
+						ctlpointsCoordi_14_2[i][j][2]);
+					glVertex3f(ctlpointsCoordi_14_2[i + 1][j][0],
+						ctlpointsCoordi_14_2[i + 1][j][1],
+						ctlpointsCoordi_14_2[i + 1][j][2]);
+					glEnd();
+				}
+			}
+		glPopMatrix();
+		glPushMatrix();
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, surface_mat_diffuse);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, surface_mat_specular);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, surface_mat_emission);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, surface_mat_shininess);
+			gluBeginSurface(Nurbs_14_2);
+			gluNurbsSurface(Nurbs_14_2, 8, knots, 8, knots, 4 * 4, 4,
+				&ctlpoints_14_2[0][0][0], 4, 4, GL_MAP2_VERTEX_4);
+			gluEndSurface(Nurbs_14_2);
+		glPopMatrix();
 	glPopMatrix();
-	glPushMatrix();
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, surface_mat_diffuse);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, surface_mat_specular);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, surface_mat_emission);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, surface_mat_shininess);
-	gluBeginSurface(Nurbs_14_2);
-	gluNurbsSurface(Nurbs_14_2, 8, knots, 8, knots, 4 * 4, 4,
-		&ctlpoints_14_2[0][0][0], 4, 4, GL_MAP2_VERTEX_4);
-	gluEndSurface(Nurbs_14_2);
 	glPopMatrix();
-	glPopMatrix();
-	gluDeleteNurbsRenderer(Nurbs_14_2);
+	
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
@@ -267,6 +263,6 @@ void UTOutputWindow::Code_14_2_End()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPopAttrib();
-
+	gluDeleteNurbsRenderer(Nurbs_14_2);
 	MAIN_WINDOW->ExplanationContext = L"";
 }

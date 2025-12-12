@@ -6,14 +6,15 @@ Input:
 void UTOutputWindow::Code_14_1_Start()
 {
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glfwSetKeyCallback(GetGLFWWindow(), UTOutputWindow::Code_14_1_Key);
-
+	
 	QuardricObj_14_1 = gluNewQuadric();
-
+	
 	GLfloat mat_diffuse[] = { 1.f, 1.f, 0.9f, 1.f };
 	GLfloat mat_specular[] = { 1.f, 1.f, 1.f, 1.f };
 	GLfloat light_position[] = { 2.5f, 2.5f, -15.f, 1.f };
-
+	
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
 	glMaterialf(GL_FRONT, GL_SHININESS, 25.f);
@@ -35,25 +36,24 @@ void UTOutputWindow::Code_14_1()
 
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(40.f, (GLfloat)display_w / (GLfloat)display_h, 1.f, 10.f);
+	glOrtho(-2.f, 2.f, -2.f, 2.f, 1.f, 10.f);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0.f, 0.f, 5.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
 	glTranslatef(0.f, 0.f, -1.f);
-
+	
 	glShadeModel(GL_SMOOTH);
 	gluQuadricNormals(QuardricObj_14_1, GLU_SMOOTH);
-
+	
 	if (bDrawStyle_14_1 == 1 << 0)
 		gluQuadricDrawStyle(QuardricObj_14_1, GLU_POINT);
 	else if (bDrawStyle_14_1 == 1 << 1)
 		gluQuadricDrawStyle(QuardricObj_14_1, GLU_LINE);
 	else if (bDrawStyle_14_1 == 1 << 2)
 		gluQuadricDrawStyle(QuardricObj_14_1, GLU_FILL);
-
+	
 	if (bDrawingShape_14_1 == 1 << 0)
 	{
 		gluSphere(QuardricObj_14_1, 1.f, 20, 20);
@@ -64,7 +64,6 @@ void UTOutputWindow::Code_14_1()
 		gluDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4);
 		gluQuadricOrientation(QuardricObj_14_1, GLU_INSIDE);
 	}
-
 	else if (bDrawingShape_14_1 == 1 << 2)
 	{
 		gluPartialDisk(QuardricObj_14_1, 0.5f, 1.f, 20, 4, 0.f, 270.f);
@@ -75,16 +74,16 @@ void UTOutputWindow::Code_14_1()
 		gluCylinder(QuardricObj_14_1, 0.5f, 0.2f, 2.f, 20, 4);
 		gluQuadricOrientation(QuardricObj_14_1, GLU_OUTSIDE);
 	}
+
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
 
 void UTOutputWindow::Code_14_1_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
-	glfwSetKeyCallback(GetGLFWWindow(), nullptr);
-
+	glPopAttrib();
+	glfwSetKeyCallback(GetGLFWWindow(), nullptr);	
 	gluDeleteQuadric(QuardricObj_14_1);
 
 	MAIN_WINDOW->ExplanationContext = L"";
@@ -151,8 +150,8 @@ Code 14-2
 Input:
 void UTOutputWindow::Code_14_2_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	GLfloat light0_position[] = { 3.f, 1.f, 1.f, 1.f };
 	GLfloat light1_position[] = { -3.f, 1.f, 1.f, 1.f };
@@ -163,9 +162,9 @@ void UTOutputWindow::Code_14_2_Start()
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1.f, 1.f, 1.f, 1.f);
 	glEnable(GL_AUTO_NORMAL);
-		
+	Nurbs_14_2 = gluNewNurbsRenderer();
+	
 	Time_14_2 = glfwGetTime();
 
 	MAIN_WINDOW->ExplanationContext = L"GLU NURBS 렌더러를 사용해 3차원 NURBS 곡면을 그리는 예제입니다.\n제어점의 일부를 시간에 따라 이동시켜 곡면이 변형되는 모습을 보여줍니다.";
@@ -182,7 +181,6 @@ void UTOutputWindow::Code_14_2()
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	Nurbs_14_2 = gluNewNurbsRenderer();
 	int s, t;
 	for (s = 0; s < 4; s++) {           //x, y, z 방향으로 -3에서 +3까지
 		for (t = 0; t < 4; t++) {
@@ -205,6 +203,7 @@ void UTOutputWindow::Code_14_2()
 	ctlpointsCoordi_14_2[1][1][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
 	ctlpointsCoordi_14_2[1][2][1] = 1.f + std::clamp(ElapsedTime_14_2, 0.f, 11.f);
 
+	glPushMatrix();
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-5.f, 5.f, -10.f, 10.f, -20.f, 20.f);
@@ -213,76 +212,78 @@ void UTOutputWindow::Code_14_2()
 
 	glTranslatef(0.f, 0.f, -15.f);
 	glPushMatrix();
-	glRotatef(45.f, 1.f, 0.f, 0.f);
-	for (int i = 0; i < 4; i++) 
-	{               
-		for (int j = 0; j < 4; j++) 
-		{
-			glPushMatrix();
-			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, point_mat_diffuse);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, point_mat_specular);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, point_mat_emission);
-			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, point_mat_shininess);
-			glPointSize(5.f);
-			glBegin(GL_POINTS);
-			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
-				ctlpointsCoordi_14_2[i][j][1],
-				ctlpointsCoordi_14_2[i][j][2]);
-			glEnd();
-			glPopMatrix();
+		glRotatef(45.f, 1.f, 0.f, 0.f);
+		for (int i = 0; i < 4; i++) 
+		{               
+			for (int j = 0; j < 4; j++) 
+			{
+				glPushMatrix();
+					glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, point_mat_diffuse);
+					glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, point_mat_specular);
+					glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, point_mat_emission);
+					glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, point_mat_shininess);
+					glPointSize(5.f);
+					glBegin(GL_POINTS);
+					glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+						ctlpointsCoordi_14_2[i][j][1],
+						ctlpointsCoordi_14_2[i][j][2]);
+					glEnd();
+				glPopMatrix();
+			}
 		}
-	}
-	glPushMatrix();
-	for (int i = 0; i < 4; i++) 
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			glBegin(GL_LINES);
-			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
-				ctlpointsCoordi_14_2[i][j][1],
-				ctlpointsCoordi_14_2[i][j][2]);
-			glVertex3f(ctlpointsCoordi_14_2[i][j + 1][0],
-				ctlpointsCoordi_14_2[i][j + 1][1],
-				ctlpointsCoordi_14_2[i][j + 1][2]);
-			glEnd();
-		}
-	}
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 4; j++) {
-			glBegin(GL_LINES);
-			glVertex3f(ctlpointsCoordi_14_2[i][j][0],
-				ctlpointsCoordi_14_2[i][j][1],
-				ctlpointsCoordi_14_2[i][j][2]);
-			glVertex3f(ctlpointsCoordi_14_2[i + 1][j][0],
-				ctlpointsCoordi_14_2[i + 1][j][1],
-				ctlpointsCoordi_14_2[i + 1][j][2]);
-			glEnd();
-		}
-	}
-
+		glPushMatrix();
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					glBegin(GL_LINES);
+					glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+						ctlpointsCoordi_14_2[i][j][1],
+						ctlpointsCoordi_14_2[i][j][2]);
+					glVertex3f(ctlpointsCoordi_14_2[i][j + 1][0],
+						ctlpointsCoordi_14_2[i][j + 1][1],
+						ctlpointsCoordi_14_2[i][j + 1][2]);
+					glEnd();
+				}
+			}
+			for (int i = 0; i < 3; i++) {
+				for (int j = 0; j < 4; j++) {
+					glBegin(GL_LINES);
+					glVertex3f(ctlpointsCoordi_14_2[i][j][0],
+						ctlpointsCoordi_14_2[i][j][1],
+						ctlpointsCoordi_14_2[i][j][2]);
+					glVertex3f(ctlpointsCoordi_14_2[i + 1][j][0],
+						ctlpointsCoordi_14_2[i + 1][j][1],
+						ctlpointsCoordi_14_2[i + 1][j][2]);
+					glEnd();
+				}
+			}
+		glPopMatrix();
+		glPushMatrix();
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, surface_mat_diffuse);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, surface_mat_specular);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, surface_mat_emission);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, surface_mat_shininess);
+			gluBeginSurface(Nurbs_14_2);
+			gluNurbsSurface(Nurbs_14_2, 8, knots, 8, knots, 4 * 4, 4,
+				&ctlpoints_14_2[0][0][0], 4, 4, GL_MAP2_VERTEX_4);
+			gluEndSurface(Nurbs_14_2);
+		glPopMatrix();
 	glPopMatrix();
-	glPushMatrix();
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, surface_mat_diffuse);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, surface_mat_specular);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, surface_mat_emission);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, surface_mat_shininess);
-	gluBeginSurface(Nurbs_14_2);
-	gluNurbsSurface(Nurbs_14_2, 8, knots, 8, knots, 4 * 4, 4,
-		&ctlpoints_14_2[0][0][0], 4, 4, GL_MAP2_VERTEX_4);
-	gluEndSurface(Nurbs_14_2);
 	glPopMatrix();
-	glPopMatrix();
-	gluDeleteNurbsRenderer(Nurbs_14_2);
+	
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
 }
 
 void UTOutputWindow::Code_14_2_End()
 {
-	ResetAll();
-
+	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+	gluDeleteNurbsRenderer(Nurbs_14_2);
 	MAIN_WINDOW->ExplanationContext = L"";
 }
+
 Description:
 OpenGL에서 NURBS(Non-Uniform Rational B-Splines)는 복잡한 곡면과 곡선을 표현하는 데 사용되는 수학적 모델입니다.
 NURBS는 제어점, 가중치, 매듭 벡터 등을 사용하여 유연하고 정밀한 형상을 생성할 수 있습니다.
@@ -305,94 +306,103 @@ Code 15-2
 Input:
 void UTOutputWindow::Code_15_2_Start()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(0.f, 0.f, 0.f, 0.f);
+
 	glEnable(GL_AUTO_NORMAL);
-	GLfloat light0_diffuse[] = { 0.8, 0.8, 0.2, 1.0 };
-	GLfloat light0_ambient[] = { 0.8, 0.0, 0.0, 1.0 };
-	GLfloat light0_position[] = { 0.8, -0.5, 2.3, 1.0 };
+
+	GLfloat light0_diffuse[] = { 0.f, 0.2f, 0.2f, 1.f };
+	GLfloat light0_ambient[] = { 0.8f, 0.f, 0.f, 1.f };
+	GLfloat light0_position[] = { 0.8f, -0.5f, 2.3f, 1.f };
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
 	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	char* vertex_source, * frag_source;
-	h_vertex_15_2 = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
-	h_frag_15_2 = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+	char* vertex_source = nullptr;
+	char* frag_source = nullptr;
+
+	h_vertex_15_2 = glCreateShader(GL_VERTEX_SHADER);
+	h_frag_15_2 = glCreateShader(GL_FRAGMENT_SHADER);
 
 	char VertexSourcePath[] = "Source/Windows/OutputCode/glsl_example.vert";
 	char FragmentSourcePath[] = "Source/Windows/OutputCode/glsl_example.frag";
+	
 	vertex_source = ReadShaderSource(VertexSourcePath);
 	frag_source = ReadShaderSource(FragmentSourcePath);
+	
 	const char* p_vertex_source = vertex_source;
 	const char* p_frag_source = frag_source;
-	glShaderSourceARB(h_vertex_15_2, 1, &p_vertex_source, NULL);
-	glShaderSourceARB(h_frag_15_2, 1, &p_frag_source, NULL);
+	
+	glShaderSource(h_vertex_15_2, 1, &p_vertex_source, NULL);
+	glShaderSource(h_frag_15_2, 1, &p_frag_source, NULL);
+	
 	free(vertex_source);
 	free(frag_source);
 
-	glCompileShaderARB(h_vertex_15_2);
-	GLint compiled;
-	glGetObjectParameterivARB(h_vertex_15_2, GL_OBJECT_COMPILE_STATUS_ARB, &compiled);
+	glCompileShader(h_vertex_15_2);
+
+	GLint compiled = GL_FALSE;
+	glGetShaderiv(h_vertex_15_2, GL_COMPILE_STATUS, &compiled);
 
 	if (!compiled)
 	{
 		GLint length;
-		glGetObjectParameterivARB(h_vertex_15_2, GL_OBJECT_INFO_LOG_LENGTH_ARB, &length);
+		glGetShaderiv(h_vertex_15_2, GL_INFO_LOG_LENGTH, &length);
 
 		if (length > 1)
 		{
 			char* log = (char*)malloc(length);
-			glGetInfoLogARB(h_vertex_15_2, length, NULL, log);
+			glGetShaderInfoLog(h_vertex_15_2, length, NULL, log);
 			printf("Shader compile error:\n%s\n", log);
 			free(log);
 		}
 	}
 
-	glCompileShaderARB(h_frag_15_2);
-	glGetObjectParameterivARB(h_frag_15_2, GL_OBJECT_COMPILE_STATUS_ARB, &compiled);
+	glCompileShader(h_frag_15_2);
+	glGetShaderiv(h_frag_15_2, GL_COMPILE_STATUS, &compiled);
 
 	if (!compiled)
 	{
 		GLint length;
-		glGetObjectParameterivARB(h_frag_15_2, GL_OBJECT_INFO_LOG_LENGTH_ARB, &length);
+		glGetShaderiv(h_frag_15_2, GL_INFO_LOG_LENGTH, &length);
 
 		if (length > 1)
 		{
 			char* log = (char*)malloc(length);
-			glGetInfoLogARB(h_frag_15_2, length, NULL, log);
+			glGetProgramInfoLog(h_frag_15_2, length, NULL, log);
 			printf("Shader compile error:\n%s\n", log);
 			free(log);
 		}
 	}
 		
-	h_program_15_2 = glCreateProgramObjectARB();
-	glAttachObjectARB(h_program_15_2, h_vertex_15_2);
-	glAttachObjectARB(h_program_15_2, h_frag_15_2);
-	glLinkProgramARB(h_program_15_2);
+	h_program_15_2 = glCreateProgram();
+	glAttachShader(h_program_15_2, h_vertex_15_2);
+	glAttachShader(h_program_15_2, h_frag_15_2);
+	glLinkProgram(h_program_15_2);
 
 	GLint linked;
-	glGetObjectParameterivARB(h_program_15_2, GL_OBJECT_LINK_STATUS_ARB, &linked);
+	glGetProgramiv(h_program_15_2, GL_LINK_STATUS, &linked);
 
 	if (!linked) 
 	{
 		GLint length;
-		glGetObjectParameterivARB(h_program_15_2, GL_OBJECT_INFO_LOG_LENGTH_ARB, &length);
+		glGetProgramiv(h_program_15_2, GL_INFO_LOG_LENGTH, &length);
 
 		if (length > 1)
 		{
 			char* log = (char*)malloc(length);
-			glGetInfoLogARB(h_program_15_2, length, NULL, log);
+			glGetProgramInfoLog(h_program_15_2, length, NULL, log);
 			printf("Program link error:\n%s\n", log);
 			free(log);
 		}
 	}
 
-	glUseProgramObjectARB(h_program_15_2);
+	glUseProgram(h_program_15_2);
 
 	MAIN_WINDOW->ExplanationContext = L"GLSL을 사용해 간단한 정점 및 프래그먼트 셰이더를 작성하고 적용하는 예제입니다.\n";
 }
@@ -411,6 +421,8 @@ void UTOutputWindow::Code_15_2()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
@@ -425,25 +437,34 @@ void UTOutputWindow::Code_15_2()
 
 void UTOutputWindow::Code_15_2_End()
 {
-	ResetAll();
 	glfwMakeContextCurrent(GetGLFWWindow());
+	glPopAttrib();
+	glUseProgram(0);
+
 	if (h_program_15_2)
 	{
-		glDeleteObjectARB(h_program_15_2);
+		glDeleteProgram(h_program_15_2);
 		h_program_15_2 = 0;
 	}
 
 	if (h_vertex_15_2)
 	{
-		glDeleteObjectARB(h_vertex_15_2);
+		glDeleteShader(h_vertex_15_2);
 		h_vertex_15_2 = 0;
 	}
 
 	if (h_frag_15_2)
 	{
-		glDeleteObjectARB(h_frag_15_2);
+		glDeleteShader(h_frag_15_2);
 		h_frag_15_2 = 0;
 	}
+
+	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_AUTO_NORMAL);
+
+	glPopAttrib();
 
 	MAIN_WINDOW->ExplanationContext = L"";
 }

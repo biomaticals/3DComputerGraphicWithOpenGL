@@ -10,8 +10,6 @@ void UTOutputWindow::Code_15_2_Start()
 	glfwMakeContextCurrent(GetGLFWWindow());
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 
@@ -117,8 +115,6 @@ void UTOutputWindow::Code_15_2()
 	glfwGetFramebufferSize(GetGLFWWindow(), &display_w, &display_h);
 	glViewport(0, 0, display_w, display_h);
 
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glColor3f(1.f, 1.f, 1.f);
 	glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -126,6 +122,8 @@ void UTOutputWindow::Code_15_2()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-1.f, 1.f, -1.f, 1.f, -1.f, 1.f);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
 	glBegin(GL_POLYGON);
 	glVertex3f(-0.5f, -0.5f, 0.f);
@@ -133,8 +131,6 @@ void UTOutputWindow::Code_15_2()
 	glVertex3f(0.5f, 0.5f, 0.f);
 	glVertex3f(-0.5f, 0.5f, 0.f);
 	glEnd();
-
-	glPopAttrib();
 
 	glfwSwapBuffers(GetGLFWWindow());
 	glFlush();
