@@ -75,7 +75,7 @@ void WindowManager::CreateOutputWindow()
 	const int MonitorHeight = Mode->height;
 	int OutputWindowWidth = MonitorWidth * 3 / 10;
 	int OutputWindowHeight = MonitorHeight * 9 / 10;
-	OutputWindow = new UTOutputWindow("OutputWindow", OutputWindowWidth, OutputWindowHeight);
+	OutputWindow = new UTOutputWindow("Output", OutputWindowWidth, OutputWindowHeight);
 	if (OutputWindow == nullptr)
 		return;
 

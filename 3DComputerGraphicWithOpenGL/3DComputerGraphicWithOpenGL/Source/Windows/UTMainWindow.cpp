@@ -18,6 +18,9 @@ UTMainWindow::UTMainWindow(const std::string& Title, int Width, int Height)
 	SelectedChapter = 0;
 	SelectedSection = 0;
 	SelectedCode = 0;
+
+	InputContext = L"\"선택 창\"에서 파트, 챕터, 코드를 선택해주세요.";
+	DescriptionContext = L"\"선택 창\"에서 파트, 챕터, 코드를 선택해주세요.";
 }
 
 UTMainWindow::~UTMainWindow()
@@ -265,13 +268,15 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::PushFont(BigFont);
 		ImGui::SeparatorText(WStringToUtf8(L"3D CG With OpenGL").c_str());
 		ImGui::PopFont();
-		ImGui::Text(WStringToUtf8(L"이 프로젝트는 OpenGL API를 학습하고 실습하기 위해 시작되었습니다.").c_str());
-		ImGui::Text(WStringToUtf8(L"내용은 \"3D Computer Graphics with OpenGL\"이라는 책을 기반으로 구성되어 있습니다.").c_str());
-		ImGui::Text(WStringToUtf8(L"이 프로그램을 통해 각 파트와 챕터의 코드 예제를 직접 확인하고 실행할 수 있습니다.").c_str());
-		ImGui::Text(WStringToUtf8(L"먼저 \"선택 창\"에서 파트, 챕터, 제목을 선택하세요.").c_str());
-		ImGui::Text(WStringToUtf8(L"그 후 \"메인 창\"'에 코드가 표시되고, \"서브 창\"에서 실행 결과가 출력됩니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"이 프로젝트는 OpenGL API를 체계적으로 학습하고 실습하기 위해 제작한 학습용 프로젝트입니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"주우석 저자의 [오픈지엘로 배우는 3차원 컴퓨터 그래픽스]를 기반으로 하되, 각 예제를 최신 라이브러리를 활용하여 재구성했습니다.\n\n").c_str());
+		
+		ImGui::Text(WStringToUtf8(L"이 학습 도구를 통해 이론, 코드, 실행 결과까지 확인할 수 있습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"\"선택 창\"에서 파트, 챕터, 코드를 선택하면, \"입력 창\"에 입력 코드를 표시합니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"\"설명 창\"에서는 주요 함수들과 이론을 설명하고 디버그 정보를 보여주고, \"결과 창\"에서 결과를 확인합니다.").c_str());
+
 		ImGui::NewLine();
-		ImGui::Text(WStringToUtf8(L"책에 대해 더 알고 싶다면 아래 링크를 참고하세요.").c_str());
+		ImGui::Text(WStringToUtf8(L"책에 대해 더 알고 싶다면 아래 링크를 참고합니다.").c_str());
 		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://www.hanbit.co.kr/store/books/look.php?p_code=B1779572378").c_str());
 		ImGui::NewLine();
 		ImGui::Text(WStringToUtf8(L"이 프로그램의 오픈소스는 아래 링크에서 확인할 수 있습니다.").c_str());
@@ -282,16 +287,15 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::PushFont(BigFont);
 		ImGui::SeparatorText(WStringToUtf8(L"biomaticals 소개").c_str());
 		ImGui::PopFont();
-		ImGui::Text(WStringToUtf8(L"4년 경력의 게임 클라이언트 프로그래머입니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"책임지고 완성하는 게임 클라이언트 프로그래머 방정현입니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"EVRSTUDIO에서 [무당 : 두개의 심장] 개발 및 XBox Showcase 2025 참가했습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"주로 카메라 및 전투.비전투 연출을 담당했고, 관련 에픽을 이끌었습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"연출, 수학, 렌더링, 물리, 엔진, 음악, 요리등에 흥미를 갖고 있습니다.").c_str());
 		ImGui::NewLine();
-		ImGui::Text(WStringToUtf8(L"기술 블로그를 운영하고 있으며 아래 링크에서 확인하실 수 있습니다.").c_str());
+		ImGui::Text(WStringToUtf8(L"또한 기술 블로그를 운영하고 있으며 아래 링크에서 확인하실 수 있습니다.").c_str());
 		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://biomaticals.notion.site/biomaticals").c_str());
 		ImGui::NewLine();
-		ImGui::Text(WStringToUtf8(L"아쉽게도 블로그는 현재 영어를 지원하지 않습니다.").c_str());
-		ImGui::Text(WStringToUtf8(L"하지만 아래 전화번호나 이메일로 연락 주시면 영어로도 도움을 드릴 수 있습니다.").c_str());
-		ImGui::NewLine();
-		ImGui::NewLine();
-		ImGui::Text(WStringToUtf8(L"문의는 아래 연락처를 이용해주세요.").c_str());
+		ImGui::Text(WStringToUtf8(L"모든 관심과 문의는 언제든지 환영합니다.").c_str());
 		ImGui::Text(WStringToUtf8(L"전화번호 : +82 10 3902 8624 (대한민국)").c_str());
 		ImGui::Text(WStringToUtf8(L"이메일 : biomaticals@naver.com").c_str());
 		ImGui::NewLine();
