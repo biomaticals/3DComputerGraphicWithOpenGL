@@ -282,6 +282,8 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::Text(WStringToUtf8(L"이 프로그램의 오픈소스는 아래 링크에서 확인할 수 있습니다.").c_str());
 		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://github.com/biomaticals/3DComputerGraphicWithOpenGL").c_str());
 		ImGui::NewLine();
+		ImGui::Text(WStringToUtf8(L"이 프로그램의 제작 과정은 아래 링크에서 확인할 수 있습니다.").c_str());
+		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://biomaticals.notion.site/cgwithopengl").c_str());
 
 		// biomatic
 		ImGui::PushFont(BigFont);
