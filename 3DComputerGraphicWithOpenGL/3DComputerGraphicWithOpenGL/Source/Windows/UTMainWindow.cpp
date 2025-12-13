@@ -295,7 +295,7 @@ void UTMainWindow::ShowIntroductionWindow(bool* bOpen)
 		ImGui::Text(WStringToUtf8(L"연출, 수학, 렌더링, 물리, 엔진, 음악, 요리등에 흥미를 갖고 있습니다.").c_str());
 		ImGui::NewLine();
 		ImGui::Text(WStringToUtf8(L"또한 기술 블로그를 운영하고 있으며 아래 링크에서 확인하실 수 있습니다.").c_str());
-		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://biomaticals.notion.site/biomaticals").c_str());
+		ImGui::TextLinkOpenURL(WStringToUtf8(L"https://www.notion.so/biomaticals/867f577b494e4ce98b6591f9057edad6").c_str());
 		ImGui::NewLine();
 		ImGui::Text(WStringToUtf8(L"모든 관심과 문의는 언제든지 환영합니다.").c_str());
 		ImGui::Text(WStringToUtf8(L"전화번호 : +82 10 3902 8624 (대한민국)").c_str());

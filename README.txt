@@ -45,7 +45,7 @@ EVRSTUDIO에서 [무당 : 두개의 심장] 개발 및 XBox Showcase 2025 참가
 연출, 수학, 렌더링, 물리, 엔진, 음악, 요리등에 흥미를 갖고 있습니다.
 
 또한 기술 블로그를 운영하고 있으며 아래 링크에서 확인하실 수 있습니다.
-https://biomaticals.notion.site/biomaticals
+https://www.notion.so/biomaticals/867f577b494e4ce98b6591f9057edad6
 
 모든 관심과 문의는 언제든지 환영합니다.
 전화번호 : +82 10 3902 8624
