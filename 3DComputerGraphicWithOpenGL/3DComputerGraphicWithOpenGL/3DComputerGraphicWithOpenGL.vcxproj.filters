@@ -17,9 +17,6 @@
     <Filter Include="Source\Manager">
       <UniqueIdentifier>{5f1afe33-19d3-4258-b5cf-955854798686}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\CodeSamples">
-      <UniqueIdentifier>{8715dac9-7037-43d2-ae1c-d63a9362439d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resource">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>

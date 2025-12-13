@@ -533,9 +533,9 @@ void UTOutputWindow::Code_5_15()
 
 	MAIN_WINDOW->DebugContext = L"Q : 종료\n";
 	MAIN_WINDOW->DebugContext  = L"1 : 쉐이드 모드 전환 (현재: ";
-	MAIN_WINDOW->DebugContext += (FlatShadeMode_5_15 ? L"플랫 쉐이딩)" : L"스무스 쉐이딩)\n");
+	MAIN_WINDOW->DebugContext += (FlatShadeMode_5_15 ? L"플랫 쉐이딩)\n" : L"스무스 쉐이딩)\n");
 	MAIN_WINDOW->DebugContext += L"2 : 폴리곤 모드 전환 (현재: ";
-	MAIN_WINDOW->DebugContext += (WireframeMode_5_15 ? L"와이어프레임)" : L"채워진 폴리곤)\n");
+	MAIN_WINDOW->DebugContext += (WireframeMode_5_15 ? L"와이어프레임)\n" : L"채워진 폴리곤)\n");
 }
 
 void UTOutputWindow::Code_5_15_End()
