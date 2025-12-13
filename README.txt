@@ -9,6 +9,7 @@
 이 학습 도구를 통해 이론, 코드, 실행 결과까지 확인할 수 있습니다.
 "선택 창"에서 파트, 챕터, 코드를 선택하면, "입력 창"에 입력 코드를 표시합니다.
 "설명 창"에서는 주요 함수들과 이론을 설명하고 디버그 정보를 보여주고, "결과 창"에서 결과를 확인합니다.
+시연 영상은 아래의 개발 일기 링크에서 확인할 수 있습니다.
 
 책에 대해 더 알고 싶다면 아래 링크를 참고합니다.
 https://www.hanbit.co.kr/store/books/look.php?p_code=B1779572378
@@ -67,6 +68,7 @@ By selecting a part, chapter, or example in the "Selection Panel",
 the corresponding source code is displayed in the "Code Panel".  
 The "Description Panel" provides explanations of key functions, theoretical notes,  
 and debugging information, while the "Result Panel" shows the rendered output.
+The demonstration video is available at the development log link below.
 
 For more information about the book, please refer to the link below:  
 https://www.hanbit.co.kr/store/books/look.php?p_code=B1779572378
