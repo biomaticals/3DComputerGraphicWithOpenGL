@@ -147,7 +147,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>OutsideStaticMathLibrary.lib;OutsideDynamicMathLibrary.lib;opengl32.lib;glfw3.lib;gdi32.lib;user32.lib;shell32.lib;advapi32.lib;winmm.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutsideStaticMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);$(OutsideDynamicMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);..\Library\$(Platform)\GLFW;%(AdditionalLibraryDirectories);..\Library\$(Platform)\glew</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutsideStaticMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);$(OutsideDynamicMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);..\Library\$(Platform)\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>;LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>
@@ -209,7 +209,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>OutsideStaticMathLibrary.lib;OutsideDynamicMathLibrary.lib;opengl32.lib;glfw3.lib;gdi32.lib;user32.lib;shell32.lib;advapi32.lib;winmm.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OutsideStaticMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);$(OutsideDynamicMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);..\Library\$(Platform)\GLFW;..\Library\x64\GLFW;%(AdditionalLibraryDirectories);..\Library\$(Platform)\glew</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(OutsideStaticMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);$(OutsideDynamicMathLibrarySolutionDir)Binaries\$(Platform)\$(Configuration);..\Library\$(Platform)\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>;LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
     <PostBuildEvent>

@@ -62,7 +62,7 @@ namespace InsideStaticMath
 		return bounds;
 	}
 
-	inline std::array<double, 2> CursorPosFromOrthoCoords(int Width, int Height, OrthoBounds OrthoBound, const std::array<double, 2>&CursorCoords)
+	inline std::array<double, 2> OrthoCoordsFromCursorPosition(int Width, int Height, OrthoBounds OrthoBound, const std::array<double, 2>&CursorCoords)
 	{
 		double orthoX = CursorCoords[0] / (double)Width * (OrthoBound._right - OrthoBound._left) + OrthoBound._left;
 		double orthoY = -CursorCoords[1] / (double)Height * (OrthoBound._top - OrthoBound._bottom) + OrthoBound._top;

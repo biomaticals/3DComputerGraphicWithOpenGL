@@ -267,7 +267,7 @@ void UTOutputWindow::Code_5_7_MouseButton(GLFWwindow* Window, int button, int ac
 
 		int display_w, display_h;
 		glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
-		std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+		std::array<double, 2> CursorCoords = InsideStaticMath::OrthoCoordsFromCursorPosition(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
 		
 		OUTPUT_WINDOW->TopLeftX_5_7 = CursorCoords[0];
 		OUTPUT_WINDOW->TopLeftY_5_7 = CursorCoords[1];
@@ -283,7 +283,7 @@ void UTOutputWindow::Code_5_7_CursorPosition(GLFWwindow* Window, double xpos, do
 
 	int display_w, display_h;
 	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
-	std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+	std::array<double, 2> CursorCoords = InsideStaticMath::OrthoCoordsFromCursorPosition(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
 
 	OUTPUT_WINDOW->BottomRightX_5_7 = CursorCoords[0];
 	OUTPUT_WINDOW->BottomRightY_5_7 = CursorCoords[1];
@@ -618,7 +618,7 @@ void UTOutputWindow::Code_5_15_CursorPosition(GLFWwindow* Window, double xpos, d
 
 	int display_w, display_h;
 	glfwGetFramebufferSize(OUTPUT_WINDOW->GetGLFWWindow(), &display_w, &display_h);
-	std::array<double, 2> CursorCoords = InsideStaticMath::CursorPosFromOrthoCoords(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
+	std::array<double, 2> CursorCoords = InsideStaticMath::OrthoCoordsFromCursorPosition(display_w, display_h, OutOrthoBound, std::array<double, 2>{xpos, ypos});
 
 	OUTPUT_WINDOW->cursor_xpos_5_15 = xpos;
 	OUTPUT_WINDOW->cursor_ypos_5_15 = ypos;
